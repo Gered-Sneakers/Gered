@@ -1,0 +1,13 @@
+[
+    { "name":"Adidas","img":"adidas.png"},
+    { "name":"Asics","img":"asics.png"},
+    { "name":"Champion","img":"champion.png"},
+    { "name":"Diadora","img":"diadora.png"},
+    { "name":"Fila","img":"fila.png"},
+    { "name":"Jordan","img":"jordan.png"},
+    { "name":"New Balance","img":"new_balance.png"},
+    { "name":"Nike","img":"nike.png"},
+    { "name":"Puma","img":"puma.png"},
+    { "name":"Reebok","img":"reebok.png"},
+    { "name":"Vans","img":"vans.png"}
+]
