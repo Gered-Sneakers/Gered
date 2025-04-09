@@ -45,7 +45,7 @@ export default {
   margin: 0;
   padding: 0;
   /*background-image: url("https://www.gered.be/svg/GERED_background.svg");*/
-  background-color: #D1D5D8;
+  background-color: var(--gWhite);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "Roboto", monospace;
@@ -80,6 +80,7 @@ export default {
     /* MAIN COLORS */
     --gBlack: #1F2937;
     --gWhite: #FFFFFF;
+    --gGrey: #F4F6F7;
 
     /* SUCCES OK */
     --gGreen: #10B981;
@@ -89,6 +90,10 @@ export default {
     --gYellow: #F59E0B;
     /* INFO */
     --gBlue: #38BDF8;
+
+    --gText: #2A3439;
+    --gTextLight: #4B575C;
+  
     
     
   }
@@ -171,8 +176,13 @@ export default {
 }
 
 .border-red{
-  border-color: var()
+  border-color: var(--gRed);
 }
+
+.border-green{
+  border-color: var(--gGreen);
+}
+
 
 .text-blue{
   color: var(--gblue);
@@ -262,10 +272,6 @@ export default {
 
 .grow{
   transform:scale(0.95);
-}
-
-.grow:hover img{
-  filter:brightness(0.75) !important;
 }
 
 @keyframes rotater{

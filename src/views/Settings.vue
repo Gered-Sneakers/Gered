@@ -1,5 +1,5 @@
 <template>
-    <div class="settings row m-0 p-0 text-center bg-Gered">
+    <div class="settings row m-0 p-0 text-center">
       <div class="row text-white">
         
         <div class="col-4 px-2 mt-3 mx-auto">

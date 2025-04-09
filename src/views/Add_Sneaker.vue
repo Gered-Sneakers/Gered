@@ -39,7 +39,7 @@
             <div class="row mw-800 mx-auto valign">
                 <div class="row">
                 <select id="leveranciers" name="leveranciers"
-                    class="col-3 m-1 valign mx-auto rounded borderz border-blue"
+                    class="col-3 m-1 valign mx-auto roundedz borderz border-blue"
                     v-model="leverancier" value="Leverancier" @change="go()"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
@@ -273,6 +273,7 @@
     var statusz = "cleaning";
     
     var datum = createDate();
+    var creator = ref();
 
     const mainTargets = document.getElementsByClassName("mainTargets");
     const targets = document.getElementsByClassName("targets");
@@ -710,6 +711,10 @@
     background-color: rgba(0,159,253,0.5);
     border: 5px solid rgb(0,159,253);
     border-radius: 0.375rem !important;
+  }
+
+  #leveranciers{
+    height: auto !important;
   }
 
   .centered{

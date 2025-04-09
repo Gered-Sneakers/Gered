@@ -26,12 +26,17 @@
             </div>
             <div class="h-75" v-if="sneaker">
                 <div class="w-50 mx-auto row">
-                    <div class="col-6 grow">
+                    <div class="col-4 grow">
+                        <img class="medium p-3" src="../img/broken.png" title="Repair">
+                        <br>
+                        <span class="repair">Repair</span>
+                    </div>
+                    <div class="col-4 grow">
                         <img class="medium p-3" src="../img/pencil.png" title="Wijzigen">
                         <br>
                         <span class="wijzig">Wijzigen</span>
                     </div>
-                    <div class="col-6 grow" @click="verwijder">
+                    <div class="col-4 grow" @click="verwijder">
                         <img class="medium p-3" src="../img/delete.png" title="Verwijderen">
                         <br>
                         <span class="verwijder">Verwijderen</span>
@@ -65,7 +70,7 @@
         <div id="confirm" class="full d-none">
             <div id="confirmBox" class="col-6 bg-dark text-light rounded p-5">
                 <p>Ben je zeker dat je {{ searchId }} wil verwijderen?</p>
-                <button class="bg-green" @click="remove">YES</button> <button class="bg-red" @click="refuse">NO</button>
+                <button class="bg-green border-green rounded confirmbutton grow" @click="remove">YES</button> <button class="bg-red border-red rounded confirmbutton grow" @click="refuse">NO</button>
             </div>
         </div>
     </div>
@@ -164,6 +169,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    .confirmbutton{
+        width: 45px;
     }
 
     hr{

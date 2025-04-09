@@ -60,5 +60,9 @@ img{
   /*max-height: 75px !important;*/
 }
 
+.grow:hover img{
+  filter:brightness(0.75) !important;
+}
+
 
 </style>
