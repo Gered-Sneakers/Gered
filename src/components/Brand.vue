@@ -1,17 +1,16 @@
 <template>
-  <!--<option :value="name">{{name}}</option>-->
-  <div class="col-3 m-1 valign mx-auto rounded">
-    <label>
+  <div id="brander" 
+    :class="{highlight: modelValue === name}" 
+    class="brand invisBorder col-3 p-2 valign mx-auto rounded">
+    <label class="mx-auto w-100">
       <input 
         type="radio" 
         :value="name" 
         name="brand"
         :checked="modelValue === name"
-        @change="$emit('update:modelValue')"
-        @click="console.log(name)"
-        v-model="brand"
+        @change="$emit('update:modelValue',name)"
         >
-      <img width="80px" height="80px" :src="resolvedImgPath" :alt="name">
+      <img width="80px" height="80px" class="blackIcons" :src="resolvedImgPath" :title="name">
     </label>
   </div>
 </template>
@@ -47,6 +46,10 @@ export default {
 </script>
 
 <style scoped>
+
+    .blackIcons{
+        filter: brightness(0) !important;
+    }
   
     [type=radio] { 
       position: absolute;
@@ -60,11 +63,25 @@ export default {
       cursor: pointer;
     }
 
+    .invisBorder{
+      border: 5px solid transparent;
+    }
+
     
-    [type=radio]:checked + img {
+    .highlight {
       background-color: rgba(0,159,253,0.5);
       border: 5px solid rgb(0,159,253);
-      border-radius: 25%;
+      border-radius: 0.375rem !important;
     }
-  
+
+    #brand{
+        position: relative;
+    }
+
+    #brand:after{
+        content: "";
+        display: block;
+        padding-bottom: 25%;
+    }
+
 </style>

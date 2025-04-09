@@ -14,34 +14,19 @@ const routes = [
     component: () => import('../views/Settings.vue')
   },
   {
-    path: '/in',
-    name: 'in',
-    component: () => import('../views/Login.vue')
+    path: '/addsneaker',
+    name: 'addsneaker',
+    component: () => import('../views/Add_Sneaker.vue')
   },
   {
-    path: '/out',
-    name: 'out',
-    component: () => import('../views/Logout.vue')
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/Search.vue')
   },
   {
-    path: '/help',
-    name: 'help',
-    component: () => import('../views/Help.vue')
-  },
-  {
-    path: '/add',
-    name: 'Add',
-    component: () => import('../views/Add.vue')
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: () => import('../views/Settings.vue')
-  },
-  {
-    path: '/f11',
-    name: 'f11',
-    component: () => import('../views/fullScreenForm.vue')
+    path: '/guide',
+    name: 'guide',
+    component: () => import('../views/Guide.vue')
   },
   {
     path: '/test',

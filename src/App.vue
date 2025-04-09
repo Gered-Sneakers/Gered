@@ -1,50 +1,20 @@
 <template>
-  <div class="nav-main row m-0 p-0 pt-2">
-    <div class="col-0 col-xl-1"></div>
-    <div class="col-12 col-xl-10 p-0 m-0 text-start">
-      <div class="d-inline-block w-283 ps-2 me-4">
-        <svg id="gered-logo" data-name="Gered logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 286.04">
-            <!--
-            <defs>
-              <style>
-                .cls-1 {
-                  fill: #fff;
-                }
-
-                .cls-1,
-                .cls-2 {
-                  stroke-width: 0px;
-                }
-
-                .cls-2 {
-                  fill: #009ffd;
-                }
-              </style>
-            </defs>
-            -->
-            <path class="cls-2" d="M926.31,1.17h-71.03c-9.38,0-18.09,2.93-25.26,7.92-7.17-4.99-15.88-7.92-25.26-7.92h-125.97c-20.23,0-37.33,13.61-42.64,32.15-2.8-2.41-5.72-4.72-8.82-6.91-24.55-17.28-57.35-26.41-94.86-26.41h-66.35c-9.4,0-18.11,3.05-25.19,8.19-6.91-4.44-15.11-7.03-23.92-7.03h-125.97c-24.46,0-44.37,19.9-44.37,44.37v.99C220.28,18.22,182.84,1.17,142.44,1.17c-2.26,0-4.54.05-6.8.16-34.69,1.63-67.6,16.01-92.67,40.51C17.88,66.35,2.74,98.93.35,133.58c-2.76,39.96,10.72,78.03,37.95,107.2,26.85,28.77,64.81,45.26,104.14,45.26,19.05,0,37.7-3.83,54.91-11.03,7.79,6.86,18,11.03,29.17,11.03h14.19c9.33,0,17.99-2.92,25.13-7.88,7.16,4.96,15.84,7.88,25.19,7.88h125.97c9.78,0,18.82-3.19,26.16-8.56,6.64,4.22,14.51,6.67,22.94,6.67h48.2c14.1,0,26.63-6.83,34.47-17.36,19.72,12.36,42.6,18.81,67.87,18.81,5.53,0,11.44-.38,18.06-1.17,6.75-.8,12.98-3.14,18.35-6.64,7.26,5.19,16.14,8.25,25.72,8.25h125.97c9.38,0,18.09-2.93,25.26-7.92,7.18,4.99,15.88,7.92,25.26,7.92h71.03c90.49,0,153.69-58.63,153.69-142.58S1016.8,1.17,926.31,1.17Z"></path>
-            <g>
-              <path class="cls-1" d="M291.03,39.38h125.97c3.4,0,6.16,2.76,6.16,6.16v26.28c0,3.4-2.76,6.16-6.16,6.16h-68.09c-3.4,0-6.16,2.76-6.16,6.16v30.37c0,3.4,2.76,6.16,6.16,6.16h65.16c3.4,0,6.16,2.76,6.16,6.16v26.28c0,3.4-2.76,6.16-6.16,6.16h-65.16c-3.4,0-6.16,2.76-6.16,6.16v37.39c0,3.4,2.76,6.16,6.16,6.16h68.09c3.4,0,6.16,2.76,6.16,6.16v26.57c0,3.4-2.76,6.16-6.16,6.16h-125.97c-3.4,0-6.16-2.76-6.16-6.16V45.53c0-3.4,2.76-6.16,6.16-6.16Z"></path>
-              <path class="cls-1" d="M514.31,245.93h-48.2c-2.62,0-4.74-2.12-4.74-4.74V42.95c0-2.62,2.12-4.74,4.74-4.74h66.35c60.31,0,100.51,28.26,100.51,70.8,0,32.73-23.87,56.93-62.5,66.28-3.84.93-4.86,6.01-1.7,8.38,10.95,8.19,24.09,12.74,39.14,12.74,6.45,0,13.45-.91,20.7-2.59,2.97-.69,5.81,1.55,5.81,4.6v43.35c0,2.42-1.82,4.43-4.22,4.72-4.69.56-9.29.9-13.55.9-40.71,0-70.85-23.37-88.51-64.12-.75-1.74-2.45-2.89-4.35-2.89h0c-2.62,0-4.74,2.12-4.74,4.74v56.07c0,2.62-2.12,4.74-4.74,4.74ZM532.45,141.63c23.02,0,42.82-11.07,42.82-32.63,0-19.52-17.19-32.34-42.82-32.34h-8.66c-2.62,0-4.74,2.12-4.74,4.74v54.09c0,3.39,2.75,6.13,6.13,6.13h7.27Z"></path>
-              <path class="cls-1" d="M804.76,39.38h-125.97c-3.4,0-6.16,2.76-6.16,6.16v26.28c0,3.4,2.76,6.16,6.16,6.16h68.09c3.4,0,6.16,2.76,6.16,6.16v30.37c0,3.4-2.76,6.16-6.16,6.16h-65.16c-3.4,0-6.16,2.76-6.16,6.16v26.28c0,3.4,2.76,6.16,6.16,6.16h65.16c3.4,0,6.16,2.76,6.16,6.16v37.39c0,3.4-2.76,6.16-6.16,6.16h-68.09c-3.4,0-6.16,2.76-6.16,6.16v26.57c0,3.4,2.76,6.16,6.16,6.16h125.97c3.4,0,6.16-2.76,6.16-6.16V45.53c0-3.4-2.76-6.16-6.16-6.16Z"></path>
-              <path class="cls-1" d="M849.12,45.53c0-3.4,2.76-6.16,6.16-6.16h71.03c69.29,0,115.48,41.81,115.48,104.08s-46.49,104.37-115.48,104.37h-71.03c-3.4,0-6.16-2.76-6.16-6.16V45.53ZM907.01,84.12v118.66c0,3.4,2.76,6.16,6.16,6.16h13.14c34.21,0,57.59-26.31,57.59-65.49s-23.39-65.49-57.59-65.49h-13.14c-3.4,0-6.16,2.76-6.16,6.16Z"></path>
-              <path class="cls-1" d="M148.39,143.56c-3.29,0-5.96,2.67-5.96,5.96v14.14c0,3.29,2.67,5.96,5.96,5.96h44.19c-10.41,20-32.37,33.03-57.07,30.12-25.74-3.04-46.46-23.91-49.33-49.67-3.81-34.16,22.83-63.08,56.22-63.08,20.7,0,38.78,11.14,48.64,27.73,1.05,1.76,2.99,2.79,5.04,2.79h39.28c4.05,0,6.99-3.98,5.67-7.81-14.58-42.41-55.75-72.45-103.6-70.2-52.35,2.45-95.35,44.43-98.96,96.71-4.2,60.91,43.96,111.62,103.97,111.62,31.12,0,59.03-13.65,78.13-35.28v29.32c0,3.29,2.67,5.96,5.96,5.96h14.19c3.29,0,5.96-2.67,5.96-5.96v-92.36c0-3.29-2.67-5.96-5.96-5.96h-92.31Z"></path>
-            </g>
-        </svg>
-      </div> 
-      <div class="d-inline-block w-60 valign">
-        <Nav></Nav>
-      </div>
+  <div class="nav-main row m-0 p-0 bg-Gered">
+    <div class="col-1 col-xl-2"></div>
+    <div class="col-10 col-xl-8 row p-0 m-0 text-start">
+        <div class="m-0 p-0">
+          <Nav></Nav>
+        </div>
     </div>  
-    <div class="col-0 col-xl-1"></div>  
+    <div class="col-1 col-xl-2"></div>  
   </div>
 
-  <div class="main row m-0 p-0">
+  <div class="main row m-0 p-0 bg-Gered">
     <div class="col-12 p-0 m-0 text-start">
       <router-view/><!--  @scroll.prevent @wheel.prevent -->
     </div>
   </div>
-
+<!--
   <div class="footer-main row m-0 p-0 text-start bg-purple borderz-top border-purple">
     <div class="col-0 col-xl-1"></div>
     <div class="col-12 col-xl-10 p-0 m-0 ">
@@ -52,17 +22,18 @@
     </div>
     <div class="col-0 col-xl-1"></div>
   </div>
+  -->
 </template>
 
 <script>
 import Nav from './views/Nav.vue'
-import Footer from './views/Footer.vue'
+//import Footer from './views/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Nav,
-    Footer
+    //Footer
   }
 }
 </script>
@@ -73,14 +44,15 @@ export default {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("https://www.gered.be/svg/GERED_background.svg");
+  /*background-image: url("https://www.gered.be/svg/GERED_background.svg");*/
+  background-color: #D1D5D8;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Rubik Mono One", monospace;
+  font-family: "Roboto", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--gText);
 }
 
 :root{
@@ -102,80 +74,112 @@ export default {
     --lightgreen: #90EE90;
     --lightblue: #ADD8E6;
     --beige: #DBC39A;
+
     --multi:  linear-gradient(140deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
+
+    /* MAIN COLORS */
+    --gBlack: #1F2937;
+    --gWhite: #FFFFFF;
+
+    /* SUCCES OK */
+    --gGreen: #10B981;
+    /* DANGER NO */
+    --gRed: #EF4444;
+    /* WARNING UPDATE */
+    --gYellow: #F59E0B;
+    /* INFO */
+    --gBlue: #38BDF8;
+    
+    
   }
+
+.bg-Gered{
+  background-color: var(--gBg);
+}
+
+.text-Gered{
+  color: var(--gText);
+}
 
 .nav-main{
   height: 10vh !important;
 }
 
 .main{
-  height: 80vh !important;
+  height: 90vh !important;
+  overflow: hidden !important;
 }
 
-.footer-main{
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 10vh;
-  color: white !important;
+.title{
+  font-size: 4em;
+  font-weight: bold;
+  z-index: 10 !important;
+}
+
+.subTitle{
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.h-65{
+  height: 65% !important;
+}
+
+.h-35{
+  height: 35% !important;
+}
+
+.h-10{
+  height: 10% !important;
+}
+
+.h-90{
+  height: 90% !important;
+}
+
+.vh-15{
+  height: 15vh;
+}
+
+.w-90{
+  width: 90%;
+}
+
+.w-85{
+  width: 85%;
 }
 
 .valign{
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .border-blue{
-  border-color: #009ffd !important;
-}
-
-.border-green{
-  border-color: #4ecdc4 !important;
-}
-
-.border-purple{
-  border-color: #d9bbf9 !important;
-}
-
-.border-black{
-  border-color: #292f36 !important;
-}
-
-.bg-blue-t{
-  background-color: rgba(0,159,253,0.5) !important;
+  border-color: var(--gBlack) !important;
 }
 
 .bg-blue{
-  background-color: #009ffd;
+  background-color: var(--gBlack);
+}
+
+.bg-red{
+  background-color: var(--gRed);
 }
 
 .bg-green{
-  background-color: #4ecdc4;
+  background-color: var(--gGreen);
 }
 
-.bg-purple{
-  background-color: #d9bbf9;
-}
-
-.bg-black{
-  background-color: #292f36;
+.border-red{
+  border-color: var()
 }
 
 .text-blue{
-  color: #009ffd;
+  color: var(--gblue);
 }
 
-.text-green{
-  color: #4ecdc4;
-}
-
-.text-purple{
-  color: #d9bbf9;
-}
-
-.text-black{
-  color: #292f36;
+.textShadow-blue{
+  text-shadow: var(--gblueShadow);
 }
 
 .roundedz{
@@ -205,23 +209,23 @@ export default {
 }
 
 .borderzz{
-  border: 3px solid;
+  border: 4px solid;
 }
 
 .border-right{
-  border-right: 10px solid #009ffd;
+  border-right: 10px solid var(--gblue);
 }
 
 .borderz-top{
-  border-top: 10px solid #009ffd;
+  border-top: 10px solid var(--gblue);
 }
 
 .borderz-bottom{
-  border-bottom: 10px solid #009ffd;
+  border-bottom: 10px solid var(--gblue);
 }
 
 .border-left{
-  border-left: 10px solid #009ffd;
+  border-left: 10px solid var(--gblue);
 }
 
 .border-right-rounded{
@@ -252,12 +256,16 @@ export default {
     animation: rotator 0.75s infinite !important;
 }
 
-.grow:hover{
-  transform:scale(1.1);
+.grow:hover{ 
+  transform:scale(1.05);
 }
 
-.growText:hover{
-  transform:scale(1.05);
+.grow{
+  transform:scale(0.95);
+}
+
+.grow:hover img{
+  filter:brightness(0.75) !important;
 }
 
 @keyframes rotater{
@@ -269,7 +277,7 @@ export default {
 }
 
 a{
-  color: #009ffd !important;
+  color: var(--gblue) !important;
   text-decoration: none !important;
 }
 
@@ -298,18 +306,155 @@ a{
   height: 70vh !important;
 }
 
+.vh-80{
+  height:  80vh !important;
+}
+
 .title{
+  min-height: 100px !important;
   font-size: 4em;
+  z-index: 12 !important;
 }
 
 .goButton{
-  width: 10vh !important;
-  height: 10vh !important;        
+  width: 100px !important;
+  height: 100px !important;        
 }
 
 .invert{
   filter: invert(1);
 }
+
+.whiteIcons{
+    filter: brightness(0) invert(1);
+}
+
+.blackIcons{
+    filter: brightness(0) !important;
+}
+
+
+/* LABEL COLORS */
+
+.labelBlue{
+  background-color: rgb(100, 125, 250);
+}
+
+.labelPink{
+  background-color: rgb(250, 168, 241);
+}
+
+.labelGreen{
+  background-color: rgb(146, 250, 146);
+}
+
+.labelGrey{
+  background-color: rgb(163, 163, 163);
+}
+
+.labelYellow{
+  background-color: rgb(249, 249, 125);
+}
+
+/* SNEAKER COLORS */
+
+  .rood, .red, .red::before{
+    accent-color: var(--red);
+    background-color: var(--red);
+    border: 3px solid var(--red);
+  }
+
+  .groen, .green, .green::before{
+    accent-color: var(--green);
+    background-color: var(--green);
+    border: 3px solid var(--green);
+  }
+
+  .blauw, .blue, .blue::before{
+    accent-color: var(--blue);
+    background-color: var(--blue);
+    border: 3px solid var(--blue);
+  }
+
+  .geel, .yellow, .yellow::before{
+    accent-color: var(--yellow);
+    background-color: var(--yellow);
+    border: 3px solid var(--yellow);
+    color: black;
+  }
+
+  .grijs,.grey, .grey::before{
+    accent-color: var(--grey);
+    background-color: var(--grey);
+    border: 3px solid var(--grey);
+  }
+  
+  .zwart, .black, .black::before{
+    accent-color: var(--black);
+    background-color: var(--black);
+    border: 3px solid var(--black);
+  }
+  
+  .wit, .white, .white::before{
+    accent-color: var(--white);
+    background-color: var(--white);
+    border: 3px solid var(--white);
+  }
+  
+  .paars, .purple, .purple::before{
+    accent-color: var(--purple);
+    background-color: var(--purple);
+    border: 3px solid var(--purple);
+  }
+  
+  .darkgreen, .darkgreen::before{
+    accent-color: var(--darkgreen);
+    background-color: var(--darkgreen);
+    border: 3px solid var(--darkgreen);
+  }
+  
+  .navy, .navy::before{
+    accent-color: var(--navy);
+    background-color: var(--navy);
+    border: 3px solid var(--navy);
+  }
+  
+  .oranje,.orange, .orange::before{
+    accent-color: var(--orange);
+    background-color: var(--orange);
+    border: 3px solid var(--orange);
+  }
+  
+  .roos, .pink, .pink::before{
+    accent-color: var(--pink);
+    background-color: var(--pink);
+    border: 3px solid var(--pink);
+  }
+  
+  .lichtgroen, .lightgreen, .lightgreen::before{
+    accent-color: var(--lightgreen);
+    background-color: var(--lightgreen);
+    border: 3px solid var(--lightgreen);
+  }
+  
+  .lichtblauw, .lightblue, .lightblue::before{
+    accent-color: var(--lightblue);
+    background-color: var(--lightblue);
+    border: 3px solid var(--lightblue);
+  }
+  
+  .beige, .beige::before{
+    accent-color: var(--beige);
+    background-color: var(--beige);
+    border: 3px solid var(--beige);
+  }
+
+  .multi, .multi::before{
+    accent-color: var(--yellow);
+    background-color: var(--multi);
+    background-image: var(--multi);
+    border: 3px solid transparent;
+  }
 
 /* LOGO GERED */
 #gered-logo{
@@ -326,8 +471,11 @@ a{
 }
 
 .cls-2 {
-  fill: #009ffd;
+  fill: var(--gblue);
 }
 
-
+[type=text],[type=password]{
+  max-width: 800px !important;
+  min-width: 400px !important;
+}
 </style>

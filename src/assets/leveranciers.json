@@ -1,5 +1,5 @@
 [
-    { "name":"Opnieuw & Co","img":"../img/oco.png"},
-    { "name":"De Kringwinkel","img":"../img/kringwinkel.png" },
-    { "name":"Gered","img":"../img/gered.png"}
+    { "name":"Opnieuw & Co","img":"oco.png"},
+    { "name":"De Kringwinkel","img":"kringwinkel.png" },
+    { "name":"Gered","img":"gered.png"}
 ]

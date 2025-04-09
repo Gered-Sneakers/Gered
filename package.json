@@ -2,13 +2,22 @@
   "name": "gered",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueform/vueform": "^1.12.4",
+    "axios": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.13.0",
+    "sequelize": "^6.37.6",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
@@ -17,5 +26,10 @@
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "vite": "^6.1.0",
     "vite-plugin-vue-devtools": "^7.7.2"
-  }
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "vite.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

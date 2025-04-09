@@ -1,241 +1,236 @@
 <template>
-    <div class="settings">
-        <div class="row text-center fw-valignd text-white">
-          
-          <div class="col mt-4">
-            <div class="mx-1 rounded-top bg-blue">+ Sneaker</div>
-            <div class="mx-1 pt-3 rounded-bottom borderzz border-blue bg-purple">
-              <!--<input type="file" size="14" class="border border-blue rounded text-center" accept="image/png, image/jpeg"><br>-->
-              <input type="text" size="14" class="border border-blue rounded text-center" placeholder="id" v-model="id"><br>
-              <select name="brand" v-model="brand" id="brand" class="border border-blue rounded text-center">
-                <option>BRAND</option>
-                
-                <Brand v-for="brand in Brands"
-                  :key="brand.name"
-                  :name="brand.name"
-                  :img="brand.img"
-                  
-                >
-                </Brand>
-              </select><br>
-              <input type="text" size="14" class="border border-blue rounded text-center" placeholder="model"><br>
-              <select name="leverancier" id="leverancier" class="border border-blue rounded text-center">
-                <option>LEVERANCIER</option>
-                <Leverancier v-for="leverancier in Leveranciers"
-                  :key="leverancier.name"
-                  :name="leverancier.name"
-                  :img="leverancier.img"
-                >
-                </Leverancier>
-              </select><br>
-              <input type="text" size="14" class="border border-blue rounded text-center" placeholder="size"><br>
-              <!--<input type="text" size="14" class="border border-blue rounded text-center" placeholder="COLORS"><br>-->
-              <div class="row mx-3 mx-auto mw-200">
-              <div class="col-3 m-1 valign mx-auto rounded red"><input type="checkbox" class="red" value="rood" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded green"><input type="checkbox" class="green" value="groen" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded blue"><input type="checkbox" class="blue" value="blauw" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded yellow"><input type="checkbox" class="yellow" value="geel" v-model="colors"></div>
-              
-              <div class="col-3 m-1 valign mx-auto rounded purple"><input type="checkbox" class="purple" value="paars" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded lightgreen"><input type="checkbox" class="lightgreen" value="lichtgroen" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded lightblue"><input type="checkbox" class="lightblue" value="lichtblauw" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded orange"><input type="checkbox" class="orange" value="oranje" v-model="colors"></div>
-
-              <div class="col-3 m-1 valign mx-auto rounded pink"><input type="checkbox" class="pink" id="xx"value="roos" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded grey"><input type="checkbox" class="grey" value="grijs" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded black"><input type="checkbox" class="black" value="zwart" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded beige"><input type="checkbox" class="beige" value="beige" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded white"><input type="checkbox" class="white" value="wit" v-model="colors"></div>
-              <div class="col-3 m-1 valign mx-auto rounded multi"><input type="checkbox" class="multi" value="multi" v-model="colors"></div>
-              <!--
-              <div class="col-3 m-1 valign mx-auto rounded darkgreen"><input type="checkbox" class="darkgreen" value="donkergroen"></div>
-              <div class="col-3 m-1 valign mx-auto rounded navy"><input type="checkbox" class="navy" value="donkerblauw"></div>
-              -->
-              <button class="col-12 multi" @click="show"> TEST </button>
-              </div>
-              <input type="text" size="14" class="border border-blue rounded text-center" placeholder="laces"><br>
-              <input type="text" size="14" class="border border-blue rounded text-center" placeholder="soles"><br>
-
-              <p>{{ id }}</p>
-              <p>{{ colors }}</p>
-              <p>{{ brand  }}</p>
-
-              <img @click="uittikken" class="rotate mx-auto" src="../img/gered_logo.png" style="width: 40px;height: 40px;">
+    <div class="settings row m-0 p-0 text-center bg-Gered">
+      <div class="row text-white">
+        
+        <div class="col-4 px-2 mt-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">ADD LEVERANCIER</div>
+          </div>
+          <div class="w-100 text-center vh-15 valign borderz border-blue rounded-bottom bg-blue">
+            <div class="mx-auto">
+              <input type="text" class="text-center mb-2 w-90" placeholder="Leverancier"><br>
+              <!--<input type="button" id="loadFileXml" value="ADD IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
+              <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
+              <button class="mb-2 rounded">OK</button>
             </div>
           </div>
-          
+        </div>
+
+        <div class="col-4 px-2 mt-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">ADD BRAND</div>
+          </div>
+          <div class="w-100 text-center vh-15 valign borderz border-blue rounded-bottom bg-blue">
+            <div class="mx-auto">
+              <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="BRAND"><br>
+              <input type="button" id="brandButton" value="ADD IMG" @click="document.getElementById('imgBrand').click();" class="mx-auto mb-2 rounded" />
+              <input type="file" id="imgBrand" class="mx-auto d-none"><br>
+              <button class="mb-2 rounded">OK</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4 px-2 mt-3 mx-auto d-none">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">ADD LABELCOLOR</div>
+          </div>
+          <div class="w-100 text-center vh-15 valign borderz border-blue rounded-bottom bg-blue">
+            <div class="mx-auto">
+              <input type="text" class="text-center mb-2 w-90" placeholder="COLORNAME"><br>
+              <input type="text" class="text-center mb-2 w-90"placeholder="#ffffff"><br>
+              <button class="mb-2 rounded">OK</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4 px-2 mt-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">ADD WERKNEMER</div>
+          </div>
+          <div class="w-100 text-center vh-15 valign borderz border-blue rounded-bottom bg-blue">
+            <div class="mx-auto">
+              <input 
+                type="text" 
+                class="text-center mb-2 w-90" 
+                v-model="user" 
+                placeholder="werknemer">
+              <br>
+              <input 
+                type="password" 
+                class="text-center mb-2 w-90" 
+                v-model="pass" 
+                placeholder="password">
+              <br>
+              <div class="error" v-html="error"></div>
+              <button class="mb-2 rounded" @click="addUser">OK</button>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4 px-2 mt-3 mx-auto d-none">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">SEE HISTORY</div>
+          </div>
+          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
+            <textarea class="w-90 h-90 rounded"></textarea>
+          </div>
+        </div>
+
+        <div class="col-4 px-2 mt-3 mx-auto d-none">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">EXPORT CSV</div>
+          </div>
+          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
+            <div>xxx</div>
+          </div>
+        </div>
+
+        <div class="col-6 col-xxl-4 px-2 mt-3 mx-auto">
+          <div class="mb-3">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">WERKNEMERS</div>
+            </div>
+            <div class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
+              <Werknemer v-for="l in WerknemersList"
+                :name="l.name"
+              ></Werknemer>
+
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">LEVERANCIERS</div>
+            </div>
+            <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+              <Leverancier v-for="l in LeveranciersList"
+                :name="l.name"
+              ></Leverancier>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-xxl-4 mb-3 px-2 mt-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">BRANDS</div>
+          </div>
+          <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+            <Brand v-for="l in BrandsList"
+              :name="l.name"
+              :img="l.img"
+            ></Brand>
+          </div>
+        </div>
+
       </div>
     </div>
   </template>
   
-  <script setup>
-    import Brands from '@/assets/brands.json';
-    import Brand from '@/components/BrandList.vue';
+  <script>
+  import Leverancier from '@/components/LeverancierSettings.vue';
+  import LeverancierService from '@/services/LeverancierService';
 
-    import Leveranciers from '@/assets/leveranciers.json';
-    import Leverancier from '@/components/Leverancier.vue';
-    
-    import { ref } from 'vue'
-    
-    const id = ref();
-    const brand = ref("");
-    const model = ref("");
-    const leverancier = ref("");
-    const size = ref();
-    const colors = ref([]);
-    const laces = ref("");
-    const soles = ref("");
+  import Brand from '@/components/BrandSettings.vue';
+  import Brands from '@/assets/brands.json';
+  import BrandService from '@/services/BrandService';
 
+  import Werknemer from '@/components/Werknemer.vue';
+  import WerknemerService from '@/services/WerknemerService';
 
-    function show(){   
-      console.log(id);
-      console.log(colors);
+    export default{
+      data() {
+        return {
+          user: "",
+          pass: "",
+          error: null,
 
-    }
-      
-/*
-  export default {
-    name: 'Settings_View',
-    props: {
+          LeveranciersList: [],
+          WerknemersList: []
 
-    },
-    methods:{
-      yesno(){
-        if(this.repair == "no") this.repair = "yes"
-        else this.repair = "no"
+        }
       },
-      removeUndefined(){
-        if(this.colors.includes("undefined")) this.colors = this.colors.replace("undefined","");
-        console.log(this.colors);
+      methods: {
+        getLeveranciers(){
+            LeverancierService.getAll()
+                .then(response => {
+                  this.LeveranciersList = response.data;
+                  console.log(this.LeveranciersList);
+                })
+                .catch(error => {
+                    error = "Leveranciers niet gevonden";
+                    console.error(error);
+                    alert(error);
+               })
+        },
+        getWerknemers(){
+          WerknemerService.getAll()
+            .then(response => {
+              this.WerknemersList = response.data;
+              console.log(this.WerknemersList);
+            })
+            .catch(error => {
+              error = "Werknemers niet gevonden";
+              console.error(error);
+              alert(error);
+            })
+        }
       },
-      red(){
-        this.removeUndefined();
-        if(this.colors.includes("rood")) this.colors = this.colors.replace("rood ", "");
-        else                            this.colors = this.colors + "rood ";
-        console.log(this.colors);
+      watch: {
       },
-      show(){
-        console.log(this.colors);
+      mounted () {
+        this.getLeveranciers();
+        this.getWerknemers();
+      },
+      computed: {/*
+        LeveranciersList(){
+          return Leveranciers
+        },*/
+        BrandsList(){
+          return Brands;
+        },/*
+        WerknemersList(){
+          return Werknemers
+        }        */
+      },
+      components: {
+        Leverancier,
+        Brand,
+        Werknemer
       }
     }
-  }
-    */
   </script>
-  
-  
+
   <style scoped>
+    .settings{
+      position: absolute;
+      top: 10vh;
+      left: 0;
+      /*overflow-y: scroll !important;*/
+    }
 
+    [type=file]{
+      color: transparent;
+      width: 168px;
+    }
 
-  input[type=text],select{
-    width: 200px;
-    height: 30px;
-  }
+    .vh-10{
+      min-height: 120px !important;
+    }
 
-  input[type=checkbox]{
-    width: 30px !important;
-    height: 30px !important;
-  }
+    input{
+      border-radius: 25rem;
+      max-width: 800px !important;
+      min-width: 200px !important;
+    }
 
-  .mw-200{
-    max-width: 200px;
-  }
+    .error{
+      color:var(--gpurple);
+    }
 
-  .red, .red::before{
-    accent-color: var(--red);
-    background-color: var(--red);
-    border: 3px solid var(--red);
-  }
+    img{
+      border: 0px solid transparent;
+      border-radius: 25rem !important;
+    }
 
-  .green, .green::before{
-    accent-color: var(--green);
-    background-color: var(--green);
-    border: 3px solid var(--green);
-  }
-
-  .blue, .blue::before{
-    accent-color: var(--blue);
-    background-color: var(--blue);
-    border: 3px solid var(--blue);
-  }
-
-  .yellow, .yellow::before{
-    accent-color: var(--yellow);
-    background-color: var(--yellow);
-    border: 3px solid var(--yellow);
-  }
-
-  .grey, .grey::before{
-    accent-color: var(--grey);
-    background-color: var(--grey);
-    border: 3px solid var(--grey);
-  }
-  
-  .black, .black::before{
-    accent-color: var(--black);
-    background-color: var(--black);
-    border: 3px solid var(--black);
-  }
-  
-  .white, .white::before{
-    accent-color: var(--white);
-    background-color: var(--white);
-    border: 3px solid var(--white);
-  }
-  
-  .purple, .purple::before{
-    accent-color: var(--purple);
-    background-color: var(--purple);
-    border: 3px solid var(--purple);
-  }
-  
-  .darkgreen, .darkgreen::before{
-    accent-color: var(--darkgreen);
-    background-color: var(--darkgreen);
-    border: 3px solid var(--darkgreen);
-  }
-  
-  .navy, .navy::before{
-    accent-color: var(--navy);
-    background-color: var(--navy);
-    border: 3px solid var(--navy);
-  }
-  
-  .orange, .orange::before{
-    accent-color: var(--orange);
-    background-color: var(--orange);
-    border: 3px solid var(--orange);
-  }
-  
-  .pink, .pink::before{
-    accent-color: var(--pink);
-    background-color: var(--pink);
-    border: 3px solid var(--pink);
-  }
-  
-  .lightgreen, .lightgreen::before{
-    accent-color: var(--lightgreen);
-    background-color: var(--lightgreen);
-    border: 3px solid var(--lightgreen);
-  }
-  
-  .lightblue, .lightblue::before{
-    accent-color: var(--lightblue);
-    background-color: var(--lightblue);
-    border: 3px solid var(--lightblue);
-  }
-  
-  .beige, .beige::before{
-    accent-color: var(--beige);
-    background-color: var(--beige);
-    border: 3px solid var(--beige);
-  }
-
-  .multi, .multi::before{
-    accent-color: var(--yellow);
-    background-color: var(--multi);
-    background-image: var(--multi);
-    border: 3px solid transparent;
-  }
-  
   </style>
   
