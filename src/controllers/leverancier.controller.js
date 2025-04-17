@@ -30,8 +30,7 @@ exports.findAll = (req, res) => {
     Leveranciers.findAll()
         .then(data =>{
             res.send(data);
-            //console.log(data);
-            //alert(data);
+            console.log(data);
         })
         .catch(err => {
             res.status(500).send({

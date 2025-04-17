@@ -27,7 +27,7 @@
             <div class="h-75" v-if="sneaker">
                 <div class="w-50 mx-auto row">
                     <div class="col-4 grow">
-                        <img class="medium p-3" src="../img/broken.png" title="Repair">
+                        <img class="medium p-3" src="../img/hammer.png" title="Repair">
                         <br>
                         <span class="repair">Repair</span>
                     </div>
@@ -44,6 +44,7 @@
                 </div>
                 <Sneaker 
                     :id="sneaker.id"
+                    :labelid="sneaker.labelid"
                     :colorlabel="sneaker.colorlabel"
                     :date="sneaker.date"
                     :brand="sneaker.brand"
@@ -55,6 +56,7 @@
                     :soles="sneaker.soles"
                     :status="sneaker.status"
                     :teRepareren="sneaker.teRepareren"
+                    :creator="sneaker.creator"
                     :verkoop="sneaker.verkoop"
 
                 ></Sneaker>
@@ -120,7 +122,7 @@
                     alert(error);
                })
         },
-        verwijder(){
+        confirm(){
             document.getElementById("confirm").classList.remove("d-none");
         },
         refuse(){
@@ -134,6 +136,7 @@
 
             SneakerService.delete(this.searchId)
                 .then(response => {
+                    this.confirm();
                     console.log(`✅ Sneaker ${this.searchId} deleted.`, response.data);
                 })
                 .catch(error => {

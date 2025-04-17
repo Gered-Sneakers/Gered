@@ -1,9 +1,13 @@
 module.exports = (sequelize, Sequelize) => { 
     const Sneakers = sequelize.define("Sneaker", { 
-      id: { 
-        type: Sequelize.UUID,        
+      /*dbid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-      }, 
+      },*/
+      id: { 
+        type: Sequelize.UUID,
+        primaryKey: true,
+      },
       colorlabel: { 
         type: Sequelize.STRING 
       }, 
@@ -36,10 +40,7 @@ module.exports = (sequelize, Sequelize) => {
       }, 
       teRepareren: { 
         type: Sequelize.STRING 
-      }, 
-      verkoop: { 
-        type: Sequelize.STRING 
-      }, 
+      },
       creator: { 
         type: Sequelize.STRING 
       }

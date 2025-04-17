@@ -1,5 +1,5 @@
 <template>
-    <!-- LEVERANCIER -->
+    <!-- LOGIN -->
     <div class="row m-0 h-100 mainTargets d-flex">
         <div class="col-12 vh-10 rounded-top bg-blue text-white">
             <div class="title h-100 valign">
@@ -15,7 +15,7 @@
                     <input 
                         type="text" size="14" id="loginNaam" placeholder="naam"
                         class="text-center mx-auto borderz border-blue roundedz mb-3"  
-                        v-model="user">
+                        v-model="creator">
                 </div>
                 <div class="row m-0 p-0 mx-auto">
                     <input 
@@ -25,7 +25,7 @@
                 </div>
                 <div class="row m-0 p-0 mx-auto">
                   <div class="w-100 mx-auto text-center">
-                    <img @click="go()" class="goButton rotate mx-auto" src="../img/gered_logo.png">
+                    <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.png">
                   </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    
+    <!-- LEVERANCIER -->
     <div class="row h-100 mainTargets d-flex">
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
@@ -116,7 +116,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/clock.png"></div>
-                        <div class="col-9 text-end">{{datum}}</div>
+                        <div class="col-9 text-end">{{ creator }}{{datum}}</div>
                     </div>
                     <div class="row m-0 p-0 mb-4"></div>
                     <!--
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div class="FORM col-8 col-xxl-10">
+        <div @keyup.enter="testUser()" class="FORM col-8 col-xxl-10">
             <div class="row h-100 valign">
                 <div class="col-2 p-2">
                     <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none">
@@ -227,13 +227,35 @@
                     <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center">
                         <img class="w-50 mx-auto selectDisable" src="../img/next.png">
                     </div>
-                    <div @click="saveSneaker" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none">
+                    <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none">
                         <img class="w-50 mx-auto selectDisable" src="../img/add.png">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="full m-0 p-0 d-none"  id="confirm">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+            <div class="col-6 bg-dark text-light mx-auto roundedz p-5">
+                <p>Ben je zeker dat je {{ id }} wil toevoegen?</p>
+                <button class="bg-green" @click="saveSneaker">YES</button> 
+                <button class="bg-red ms-2" @click="refuse">NO</button>
+            </div>
+        </div>
+    </div>
+<!--
+    <ConfirmBox
+        id="confirm"
+        ref="confirmBoxRef"
+        class="d-none"
+        :id="id"
+        :parentConfirm="saveSneaker"
+        :parentRefuse="refuse"
+    >
+    </ConfirmBox>
+-->
+
 </template>
   
 <script setup>
@@ -249,7 +271,7 @@
     import KleurPreview from '@/components/KleurPreview.vue';
     import LabelPreview from '@/components/LabelPreview.vue';
 
-    /*import Sneakers from '@/assets/sneakers.json';*/
+    import ConfirmBox from '@/components/ConfirmBox.vue';
 
     import SneakerService from '@/services/SneakerService';
     import authenticateService from '@/services/authenticateService';
@@ -303,9 +325,9 @@
     }
 
     function next(){
-        console.log("NEXT");
-        console.log("COUNTER START: " + counter);
-        console.log(targets[counter]);
+        //console.log("NEXT");
+        //console.log("COUNTER START: " + counter);
+        //console.log(targets[counter]);
 
         //CURRENT
         targets[counter].classList.remove("d-inline");
@@ -331,14 +353,14 @@
             document.getElementsByClassName("addButton")[0].classList.add("d-flex");
         }
         
-        console.log("COUNTER NEXT: ")
-        console.log(counter);
+        //console.log("COUNTER NEXT: ")
+        //console.log(counter);
     }
 
     function back(){
-        console.log("BACK");
-        console.log("COUNTER START: " + counter);
-        console.log(targets[counter]);
+        //console.log("BACK");
+        //console.log("COUNTER START: " + counter);
+        //console.log(targets[counter]);
 
         //CURRENT
         targets[counter].classList.remove("d-inline");
@@ -419,7 +441,7 @@
 
     function checkboxLimit() {
 	    var checkboxgroup = document.getElementById('checkboxgroup').getElementsByClassName("colorz");
-        console.log(checkboxgroup);
+        //console.log(checkboxgroup);
         
         //Note #2 Change max limit here as necessary
         var limit = 3;
@@ -459,7 +481,8 @@
     }
 
     function saveSneaker(){
-        if(id.value.length == 4) 
+        //if(id.value.length == 4) 
+        /*
             console.log("ID is good");
             console.log("LABEL: " + labelColor.value.length);
             console.log("BRAND: " + brand.value.length);
@@ -470,7 +493,8 @@
             console.log("LACES: " + lacesz.length);
             console.log("SOLES: " + solesz.length);
             console.log("STATUS: " + statusz.length + " " + teRepareren.value.lenght);
-
+            */
+        console.log(creator.value);
         var data = {
             id: id.value,
             colorlabel: labelColor.value,
@@ -485,13 +509,14 @@
             status: statusz,
             teRepareren: teRepareren.value,
             //verkoop: verkoop,
-            //creator: creator
+            creator: creator.value
         };
+
+        console.log(data);
+
         SneakerService.create(data)
         .then(response => {
             id = response.data.id;
-            //console.log(response.data);
-            //submitted = true;
         })
         .catch( error => {
             console.log(error);
@@ -499,6 +524,7 @@
 
         resetSneaker();
         resetTargets();
+        refuse();
 
     }
 
@@ -531,7 +557,8 @@
 
         firstLetter = firstLetter.toUpperCase();
 
-        console.log(firstLetter+rest);
+        //console.log(firstLetter+rest);
+        return firstLetter+rest;
     }
 
     async function login(){
@@ -546,16 +573,31 @@
         }
     }
 
-    /*
-    function resolvedImgPath(img){
-      return new URL(`/src/img/leveranciers/${img}`, import.meta.url).href;
+    function showConfirmBox(){
+        document.getElementById("confirm").classList.remove("d-none");
     }
-    */
-    
+
+    function refuse(){
+        document.getElementById("confirm").classList.add("d-none");
+    } 
+
+    function testUser(){
+        console.log("TEST");
+        console.log(creator.value);
+    }
 
 </script>
   
 <style scoped>
+    .full{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(247,247,247,0.5);
+    }
+
     #loginNaam{
         width: 50vw;
         height: 10vh;

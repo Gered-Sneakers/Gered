@@ -1,4 +1,4 @@
-import api from '@/http-common'
+import api from '@/services/api'
 
 export default {
     addUser  (credentials) {

@@ -1,7 +1,6 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
 <script>
     import KleurPreview from './KleurPreview.vue';
-    import Leveranciers from '@/assets/leveranciers.json';
 
     export default {
         name: 'Sneaker',
@@ -10,10 +9,14 @@
           }
         },
         props:{
-         	id:{
+            dbid:{
          		type: Number,
          		required: true
          	},
+            id:{
+                type: Number,
+                required: true
+            },
             colorlabel:{
                 type: String
             },
@@ -47,7 +50,7 @@
             teRepareren:{
                 type: String
             },
-            verkoop:{
+            creator:{
                 type: String
             }
         },
@@ -77,7 +80,7 @@
                 <div class="col-4 text-center">
                 </div>
                 <div class="col-4 text-center text-dark">
-                    <span class="px-3 py-2 h3 fw-bold" :class="colorlabel">{{ id }}{{ labelcolor }}</span>
+                    <span class="px-3 py-2 h3 fw-bold" :class="colorlabel">{{ id }}</span>
                 </div>
                 <div class="col-4">
 
@@ -130,6 +133,11 @@
             </div>
             <hr class="w-90 mx-auto my-2 opacity-25">
             <div class="row m-0 p-0">
+                <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/login.png"></div>
+                <div class="col-9 text-end pe-5">{{creator}}</div>
+            </div>
+            <hr class="w-90 mx-auto my-2 opacity-25">
+            <div class="row m-0 p-0">
                 <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/clock.png"></div>
                 <div class="col-9 text-end pe-5">{{date}}</div>
             </div>
@@ -139,28 +147,6 @@
 </template>
 
 <style scoped>
-    /* LABEL COLORS */
-/*
-    .labelBlue{
-      background-color: rgb(100, 125, 250);
-    }
-
-    .labelPink{
-      background-color: rgb(250, 168, 241);
-    }
-
-    .labelGreen{
-      background-color: rgb(146, 250, 146);
-    }
-
-    .labelGrey{
-      background-color: rgb(163, 163, 163);
-    }
-
-    .labelYellow{
-      background-color: rgb(249, 249, 125);
-    }
-*/
    .smallz{
       width: 22px;
       height: 22px;

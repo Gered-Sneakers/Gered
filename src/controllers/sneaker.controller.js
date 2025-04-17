@@ -19,7 +19,6 @@ exports.create = (req, res) => {
       soles: req.body.soles,
       status: req.body.status,
       teRepareren: req.body.teRepareren,
-      //verkoop: req.body.verkoop,
       creator: req.body.creator
       
       //published: req.body.published ?? false
@@ -45,6 +44,7 @@ exports.findAll = (req, res) => {
  
 // Find a single Sneakers with an id 
 exports.findOne = (req, res) => {
+  console.log(req.params);
   const id = req.params.id;
 
   Sneakers.findByPk(id)
