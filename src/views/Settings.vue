@@ -1,7 +1,7 @@
 <template>
     <div class="settings row m-0 p-0 text-center">
       <div class="row text-white">
-        
+        <!-- INPUT LEVERANCIER -->
         <div class="col-4 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">ADD LEVERANCIER</div>
@@ -11,11 +11,11 @@
               <input type="text" class="text-center mb-2 w-90" placeholder="Leverancier"><br>
               <!--<input type="button" id="loadFileXml" value="ADD IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
               <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
-              <button class="mb-2 rounded">OK</button>
+              <button class="mb-2 rounded grow" @click="addLeverancier">OK</button>
             </div>
           </div>
         </div>
-
+        <!-- INPUT BRAND -->
         <div class="col-4 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">ADD BRAND</div>
@@ -23,9 +23,10 @@
           <div class="w-100 text-center vh-15 valign borderz border-blue rounded-bottom bg-blue">
             <div class="mx-auto">
               <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="BRAND"><br>
-              <input type="button" id="brandButton" value="ADD IMG" @click="document.getElementById('imgBrand').click();" class="mx-auto mb-2 rounded" />
+              <input type="button" id="brandButton" class="mx-auto mb-2 roundedz" value="ADD IMG" 
+                    @click="addBrandImg"  />
               <input type="file" id="imgBrand" class="mx-auto d-none"><br>
-              <button class="mb-2 rounded">OK</button>
+              <button class="mb-2 rounded grow" @click="addBrand">OK</button>
             </div>
           </div>
         </div>
@@ -38,7 +39,7 @@
             <div class="mx-auto">
               <input type="text" class="text-center mb-2 w-90" placeholder="COLORNAME"><br>
               <input type="text" class="text-center mb-2 w-90"placeholder="#ffffff"><br>
-              <button class="mb-2 rounded">OK</button>
+              <button class="mb-2 rounded grow">OK</button>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@
                 placeholder="password">
               <br>
               <div class="error" v-html="error"></div>
-              <button class="mb-2 rounded" @click="addUser">OK</button>
+              <button class="mb-2 rounded grow" @click="addUser">OK</button>
               
             </div>
           </div>
@@ -85,7 +86,7 @@
             <div>xxx</div>
           </div>
         </div>
-
+        <!-- WERKNEMERS & LEVERANCIERS -->
         <div class="col-6 col-xxl-4 px-2 mt-3 mx-auto">
           <div class="mb-3">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
@@ -93,9 +94,12 @@
             </div>
             <div class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
               <Werknemer v-for="l in WerknemersList"
+                :id="l.id"
                 :name="l.name"
+                :pass="l.pass"
+                :isActive="l.isActive"
+                @deactivate="deleteWerknemer"
               ></Werknemer>
-
             </div>
           </div>
           <div class="mb-3">
@@ -109,7 +113,7 @@
             </div>
           </div>
         </div>
-
+        <!-- BRANDS -->
         <div class="col-6 col-xxl-4 mb-3 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">BRANDS</div>
@@ -137,6 +141,8 @@
   import Werknemer from '@/components/Werknemer.vue';
   import WerknemerService from '@/services/WerknemerService';
 
+  import { ref } from "vue"
+
     export default{
       data() {
         return {
@@ -154,7 +160,6 @@
             LeverancierService.getAll()
                 .then(response => {
                   this.LeveranciersList = response.data;
-                  console.log(this.LeveranciersList);
                 })
                 .catch(error => {
                     error = "Leveranciers niet gevonden";
@@ -173,6 +178,42 @@
               console.error(error);
               alert(error);
             })
+        },
+        deleteWerknemer(){
+          const updateData = { isActive: 0 };
+          WerknemerService.update(id,data)
+            .then(()=> {
+              this.getWerknemers();
+            })
+            .catch(error=>{
+              console.error("Update failed" , error);
+            })
+        },
+        addBrand(){
+          const imageInput = document.getElementById('imgBrand');
+          const file = imageInput.files[0];
+          console.log(file);
+        },
+        async addBrandImg(){
+          document.getElementById("imgBrand").click();
+
+          const form = new FormData();
+                form.append("image",form.value.media);
+
+          try{
+            const response = await axios.post("http:localhost:8080/api/upload-image", form , {
+              headers:{
+                "Content-Type": "multipart/form-data",
+              },
+            });
+            console.log("✅ Upload successful:", response.data);
+            alert("Image uploaded!");
+          } catch (error) {
+            console.error("❌ Upload failed:", error);
+            alert("Upload failed!");
+          }
+
+          const imgSrc= ref();
         }
       },
       watch: {

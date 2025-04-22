@@ -32,7 +32,6 @@
 <template>
     <div class="col-4 mx-auto"> 
         <img class="w-100 bg-light grow rounded" :src="resolvedImgPath" :title="name">
-        <!--<div class="text-center">{{ name }}</div>-->
     </div> 
 </template>
 

@@ -11,6 +11,11 @@ module.exports = (sequelize, Sequelize) => {
       pass: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 1,
+        allowNull: false
       }
     }); 
    

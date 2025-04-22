@@ -9,12 +9,13 @@ exports.create = (req, res) => {
     const werknemer = {
       id: req.body.id,
       name: req.body.name,
-      pass: req.body.pass
+      pass: req.body.pass,
+      isActive: req.body.isActive
     };
   
     Werknemers.create(werknemer)
       .then(data => {
-        console.log("✅ Werknemers saved:", data);
+        console.log("✅ Werknemer saved:", data);
         res.send(data);
       })
       .catch(err => {
@@ -63,7 +64,23 @@ exports.findOne = (req, res) => {
 }; 
  
 // Update a Werknemers by the id in the request 
-exports.update = (req, res) => {}; 
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Werknemer.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({ message: "Werknemer updated successfully." });
+      } else {
+        res.status(404).send({ message: `Werknemer with id=${id} not found.` });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({ message: "Error updating Werknemer with id=" + id });
+    });
+}; 
  
 // Delete a Werknemers with the specified id in the request 
 exports.delete = (req, res) => {}; 

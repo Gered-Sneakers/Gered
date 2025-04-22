@@ -1,12 +1,16 @@
 const express = require("express"); 
-const cors = require("cors"); 
+const cors = require("cors");
+
+const path = require('path');
+const uploadRoutes = require('./src/routes/image.routes');
  
 const app = express(); 
  
 var corsOptions = { 
   origin: "http://localhost:8081" 
 }; 
- 
+
+// cors
 app.use(cors(corsOptions)); 
  
 // parse requests of content-type - application/json 
@@ -14,6 +18,10 @@ app.use(express.json());
  
 // parse requests of content-type - application/x-www-form-urlencoded 
 app.use(express.urlencoded({ extended: true })); 
+
+// make folder accessible
+app.use('/brands', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/api', uploadRoutes);
 
 const db = require("./src/models"); 
 db.sequelize.sync();

@@ -50,6 +50,8 @@
     methods:{
       adminLogin(){
         if(this.adminName == this.testName && this.adminPass == this.testPass){
+          
+          router.push('/settings');
           router.push('/settings');
         }else{
           alert('Wrong Credentials!');
