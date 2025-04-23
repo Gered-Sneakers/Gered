@@ -17,11 +17,13 @@
                             @keyup.enter="search"
                             ><br>
                     </div>
+                    <!--
                     <div class="row m-0 p-0 mt-2">
                         <div class="grow">
                             <img @click="search" class="goButton rotate mx-auto" src="../img/gered_logo.png">
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
             <div class="h-75" v-if="sneaker">
@@ -102,6 +104,7 @@
          search(){
             this.error = null;
             console.log("Search method started");
+            
             if(!this.searchId){
                 this.error = "ID verwacht";
                 return;

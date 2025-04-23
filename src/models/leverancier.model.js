@@ -4,6 +4,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.UUID,        
         primaryKey: true,
       }, 
+      isActive: {
+        type: Sequelize.BOOLEAN,
+      },
       name: { 
         type: Sequelize.STRING 
       }

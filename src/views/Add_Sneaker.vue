@@ -115,21 +115,15 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/clock.png"></div>
-                        <div class="col-9 text-end">{{ creator }}{{datum}}</div>
+                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/login.png"></div>
+                        <div class="col-9 text-end">{{ creator }}</div>
                     </div>
-                    <div class="row m-0 p-0 mb-4"></div>
-                    <!--
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-12 leverancier text-center">
-                            <img class="medium previewImg bg-white rounded" :src="resolvedImgPath(leverancierImg)">
-                        </div>
-                        <div class="col-12 datum">
-                            <div class="text-center mb-2">{{ datum }}</div>
-                        </div>
+                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/clock.png"></div>
+                        <div class="col-9 text-end">{{datum}}</div>
                     </div>
-                    -->
+                    <div class="row m-0 p-0 mb-4"></div>
                 </div>
             </div>
         </div>

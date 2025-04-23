@@ -1,15 +1,15 @@
 <template>
   <div class="nav vh-10 row m-0 p-0 text-blue fw-bold">
     <router-link :to="{ name: 'search' }" class="grow boxShadow-blue col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/search.png" title="Zoek">
+        <img class="vh-10 p-4 mx-auto" src="../img/search.svg" title="Zoek">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
     <router-link :to="{ name: 'addsneaker' }" class="grow boxShadow-blue col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/add.png" title="Sneaker toevoegen">
+        <img class="vh-10 p-4 mx-auto" src="../img/add.svg" title="Sneaker toevoegen">
       <!--<p class="w-100 pt-3 align-middle text-center">Add</p>-->
     </router-link>
     <router-link :to="{ name: 'admin' }" class="grow boxShadow-blue col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/security.png" title="Administratie"> 
+        <img class="vh-10 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
         <!--<p class="w-100 pt-3 align-middle text-center">Admin</p>-->
     </router-link>
   </div>

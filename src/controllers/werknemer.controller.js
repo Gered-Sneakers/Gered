@@ -67,7 +67,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Werknemer.update(req.body, {
+  Werknemers.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -83,7 +83,9 @@ exports.update = (req, res) => {
 }; 
  
 // Delete a Werknemers with the specified id in the request 
-exports.delete = (req, res) => {}; 
+exports.delete = (req, res) => {
+  
+}; 
  
 // Delete all Werknemers from the database. 
 exports.deleteAll = (req, res) => {}; 

@@ -102,6 +102,10 @@ export default {
   background-color: var(--gBg);
 }
 
+.text-yellow{
+  color: var(--gYellow);
+}
+
 .text-Gered{
   color: var(--gText);
 }
@@ -212,6 +216,14 @@ export default {
 .rounded-right{
   border-bottom-right-radius: 50rem;
   border-top-right-radius: 50rem;
+}
+
+.rounded-bottom-left{
+  border-bottom-left-radius: .25rem;
+}
+
+.rounded-bottom-right{
+  border-bottom-right-radius: .25rem;
 }
 
 .borderz{
