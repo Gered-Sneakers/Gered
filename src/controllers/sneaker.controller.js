@@ -39,7 +39,15 @@ exports.create = (req, res) => {
  
 // Retrieve all Sneakers from the database. 
 exports.findAll = (req, res) => {
-
+  Sneakers.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving sneakers."
+      });
+    });
 }; 
  
 // Find a single Sneakers with an id 

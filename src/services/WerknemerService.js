@@ -25,8 +25,16 @@ class WerknemerService {
     return http.delete(`/Werknemers`);
   }
   
-  findByTitle(title) {
-    return http.get(`/Werknemers?title=${title}`);
+  findByName(name) {
+    return http.get(`/Werknemers/search?name=${name}`);
+  }
+
+  login(data){
+    return http.post("werknemers/login",data);
+  }
+
+  adminLogin(data){
+    return http.post("/werknemers/admin",data);
   }
 }
 

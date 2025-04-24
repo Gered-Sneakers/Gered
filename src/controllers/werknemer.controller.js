@@ -1,6 +1,7 @@
 const db = require("../models");
 const Werknemers = db.werknemers; 
-const Op = db.Sequelize.Op; 
+//const Op = db.Sequelize.Op; 
+const { Op } = require("sequelize");
  
 // Create and Save a new Werknemers
 exports.create = (req, res) => {
@@ -28,7 +29,6 @@ exports.create = (req, res) => {
  
 // Retrieve all Werknemers from the database. 
 exports.findAll = (req, res) => {
-    
     Werknemers.findAll()
         .then(data =>{
             res.send(data);
@@ -62,6 +62,67 @@ exports.findOne = (req, res) => {
 
 
 }; 
+
+exports.findByName = (req, res) => {
+  const name = req.query.name;
+  const query = name ? { name: name }: null;
+
+  Werknemers.findOne({
+    where:  query 
+  })
+    .then(data => res.send(data))
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occured."
+      })
+    })
+};
+
+exports.login = async (req,res) => {
+  const { name, password } = req.body;
+  
+  try{
+    const user = await Werknemers.findOne({where: {name}})
+    
+    if(!user) return res.status(404).send({ message: "User not found"});
+
+    if(user.pass !== password ) return res.status(401).send({ message: "Incorrect password"});
+
+    return res.status(200).send({
+      id: user.id,
+      name: user.name,
+      message: "Login Successfull"
+    })
+  }
+  catch(err){
+    res.status(500).send({
+      message: err.message || "Server Dead"
+    });
+  }
+  
+}
+
+exports.adminLogin = async (req, res) => {
+  const { name, password } = req.body;
+
+  try {
+    if (name !== "Matt") return res.status(403).send({ message: "Admins only" });
+
+    const user = await Werknemers.findOne({ where: { name } });
+
+    if (!user) return res.status(404).send({ message: "User not found" });
+    if (user.pass !== password) return res.status(401).send({ message: "Incorrect password" });
+
+    return res.status(200).send({
+      id: user.id,
+      name: user.name,
+      message: "Admin login successful"
+    });
+
+  } catch (err) {
+    return res.status(500).send({ message: err.message || "Server error" });
+  }
+};
  
 // Update a Werknemers by the id in the request 
 exports.update = (req, res) => {

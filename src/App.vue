@@ -98,6 +98,14 @@ export default {
     
   }
 
+  .col-12 > .title{
+    min-height: 100px !important;
+  }
+
+img[src$=".svg"]{
+  
+}
+
 .bg-Gered{
   background-color: var(--gBg);
 }
@@ -276,6 +284,10 @@ export default {
 
 .rotateSlow:hover{
     animation: rotator 0.75s infinite !important;
+}
+
+.grow:hover img{
+  filter:brightness(0.75) !important;
 }
 
 .grow:hover{ 

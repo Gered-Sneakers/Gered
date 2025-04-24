@@ -15,19 +15,25 @@
                     <input 
                         type="text" size="14" id="loginNaam" placeholder="naam"
                         class="text-center mx-auto borderz border-blue roundedz mb-3"  
-                        v-model="creator">
+                        v-model="creator"
+                        @keyup.enter="document.getElementById('loginPass').focus()"
+                        >
                 </div>
                 <div class="row m-0 p-0 mx-auto">
                     <input 
                         type="password" size="14" id="loginPass"  placeholder="pass"
                         class="text-center mx-auto borderz border-blue roundedz mb-3" 
-                        v-model="pass">
+                        v-model="pass"
+                        @keyup.enter="login()" 
+                        > <!-- GO() moet hier terugkome -->
                 </div>
+                <!--
                 <div class="row m-0 p-0 mx-auto">
                   <div class="w-100 mx-auto text-center">
                     <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.png">
                   </div>
                 </div>
+                -->
             </div>
             </div>
             </div>
@@ -131,7 +137,7 @@
             <div class="row h-100 valign">
                 <div class="col-2 p-2">
                     <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none">
-                        <img class="w-50 mx-auto rota180 selectDisable" src="../img/next.png">
+                        <img class="w-50 mx-auto rota180 selectDisable" src="../img/next.svg">
                     </div>
                 </div>
                 <div class="col-8">
@@ -219,10 +225,10 @@
                 </div>
                 <div class="col-2 p-2">
                     <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center">
-                        <img class="w-50 mx-auto selectDisable" src="../img/next.png">
+                        <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
                     </div>
                     <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none">
-                        <img class="w-50 mx-auto selectDisable" src="../img/add.png">
+                        <img class="w-50 mx-auto selectDisable" src="../img/add.svg">
                     </div>
                 </div>
             </div>
@@ -268,9 +274,9 @@
     import ConfirmBox from '@/components/ConfirmBox.vue';
 
     import SneakerService from '@/services/SneakerService';
-    import authenticateService from '@/services/authenticateService';
 
     import { ref } from 'vue'
+    import WerknemerService from '@/services/WerknemerService';
 
     var id = ref();
     var labelColor = ref();
@@ -290,6 +296,7 @@
     
     var datum = createDate();
     var creator = ref();
+    var pass = ref();
 
     const mainTargets = document.getElementsByClassName("mainTargets");
     const targets = document.getElementsByClassName("targets");
@@ -299,12 +306,25 @@
     var mainCounter = 0;
     var counter = 0;
 
-    var user = "";
-    var pass = "";
+    
     
     //----------------------
     //      FRONTEND
     //----------------------
+    function login(){
+        console.log(creator.value);
+        console.log(pass.value);
+
+        WerknemerService.login({name:creator.value,password:pass.value})
+        .then(res => {
+            go();
+        })
+        .catch(error=>{
+            //console.error(error);
+            alert("Je gegevens klopte niet.");
+        })
+    }
+
     function go(){
         mainTargets[mainCounter].classList.remove("d-flex");
         mainTargets[mainCounter].classList.add("d-none");
@@ -554,7 +574,7 @@
         //console.log(firstLetter+rest);
         return firstLetter+rest;
     }
-
+/*
     async function login(){
         try{
             await authenticateService.login({
@@ -566,7 +586,7 @@
             this.error = error.response.data
         }
     }
-
+*/
     function showConfirmBox(){
         document.getElementById("confirm").classList.remove("d-none");
     }

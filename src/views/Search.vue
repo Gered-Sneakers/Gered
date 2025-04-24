@@ -29,17 +29,17 @@
             <div class="h-75" v-if="sneaker">
                 <div class="w-50 mx-auto row">
                     <div class="col-4 grow">
-                        <img class="medium p-3" src="../img/hammer.png" title="Repair">
+                        <img class="medium p-3" src="../img/repair.svg" title="Repair">
                         <br>
                         <span class="repair">Repair</span>
                     </div>
                     <div class="col-4 grow">
-                        <img class="medium p-3" src="../img/pencil.png" title="Wijzigen">
+                        <img class="medium p-3" src="../img/edit.svg" title="Wijzigen">
                         <br>
                         <span class="wijzig">Wijzigen</span>
                     </div>
                     <div class="col-4 grow" @click="verwijder">
-                        <img class="medium p-3" src="../img/delete.png" title="Verwijderen">
+                        <img class="medium p-3" src="../img/delete.svg" title="Verwijderen">
                         <br>
                         <span class="verwijder">Verwijderen</span>
                     </div>
