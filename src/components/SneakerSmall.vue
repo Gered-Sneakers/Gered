@@ -6,6 +6,7 @@
         name: 'SneakerSmall',
         data(){
           return{
+            colorArray: this.colors.split(' ')
           }
         },
         props:{
@@ -75,25 +76,25 @@
 
 <template>
     <div class="row max-800 mx-auto text-center">
-        <div id="id" class="col-1 borders" :class="colorlabel">{{ id }}</div>
-        <div id="model" class="col borders">{{ brand }} <br> {{ model }}</div>
-        <div id="kleur" class="col-1 borders">
+        <div id="id" class="borders valign" :class="colorlabel">{{ id }}</div>
+        <div id="model" class="borders">{{ brand }} <br> {{ model }}</div>
+        <div id="kleur" class="borders valign">
             <KleurPreview 
-                v-for="c in colors"
+                v-for="c in colorArray"
                 :color="c"
             /> 
         </div>
-        <div id="maat" class="col-1 borders">{{ size }}</div>
-        <div id="status" class="col-1 borders">{{ status == "cleaning" ? "🧺" : "🔨" }}</div>
-        <div id="user" class="col-1 borders">{{ creator }}</div>
-        <div id="datum" class="col borders">{{ date }}</div>
-        <div id="leverancier" class="col-1 borders">{{ supplier.substring(0,4) }}</div>
+        <div id="maat" class="valign borders"><div class="text-center">{{ size }}</div></div>
+        <div id="status" class="valign borders">{{ status == "cleaning" ? "🧺" : "🔨" }}</div>
+        <div id="user" class="valign borders">{{ creator }}</div>
+        <div id="datum" class="valign borders">{{ date }}</div>
+        <div id="leverancier" class="valign borders">{{ supplier.substring(0,4) }}</div>
     </div>
 </template>
 
 <style scoped>
     .max-800{
-        -width: 800px;
+        width: 800px;
     }
 
     .borders{
@@ -205,5 +206,53 @@
     border: 3px solid transparent;
   }
 
+  .smallz{
+      width: 22px;
+      height: 22px;
+   }
+
+   .small{
+    width: 16px;
+    height: 16px;
+   }
+
+   #id{
+    width: 7.5% !important;
+  }
+  
+  #model{
+    width: 20% !important;
+  }
+
+  #kleur{
+    width: 11% !important;
+  }
+
+  #maat{
+    width: 7.5% !important;
+  }
+
+  #status{
+    width: 7.5% !important;
+  }
+
+  #user{
+    width: 15% !important;
+  }
+
+  #datum{
+    width: 15% !important;
+  }
+
+  #leverancier{
+    width: 10% !important;
+  }
+
+  .valign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     /* of bijv. 120px */
+  }
      
 </style>

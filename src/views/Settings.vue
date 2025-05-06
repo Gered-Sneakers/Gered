@@ -258,9 +258,6 @@
           leverancierId: null,
           leverancierName: '',
 
-          
-                
-          
 
         }
       },
@@ -446,7 +443,7 @@
       position: absolute;
       top: 10vh;
       left: 0;
-      /*overflow-y: scroll !important;*/
+      overflow-y: scroll !important;
     }
 
     [type=file]{

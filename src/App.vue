@@ -102,9 +102,9 @@ export default {
     min-height: 100px !important;
   }
 
-img[src$=".svg"]{
+  img[src$=".svg"]{
   
-}
+  }
 
 .bg-Gered{
   background-color: var(--gBg);
@@ -157,6 +157,15 @@ img[src$=".svg"]{
 .vh-15{
   height: 15vh;
 }
+
+.vh-80{
+  height: 80vh;
+}
+
+.scroll{
+  overflow-y: scroll !important;
+}
+
 
 .w-90{
   width: 90%;
