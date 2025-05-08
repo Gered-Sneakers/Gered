@@ -30,8 +30,10 @@
 </script>
 
 <template>
-    <div class="col-4 mx-auto"> 
-        <img class="w-100 bg-light grow rounded" :src="resolvedImgPath" :title="name">
+    <div class="col-4 rounded mx-auto"> 
+      <div class="bg-light m-2 rounded">
+        <img class="w-100 grow  blackIcons" :src="resolvedImgPath" :title="name">
+      </div>
     </div> 
 </template>
 

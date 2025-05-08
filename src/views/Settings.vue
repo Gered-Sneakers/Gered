@@ -443,7 +443,7 @@
       position: absolute;
       top: 10vh;
       left: 0;
-      overflow-y: scroll !important;
+      /*overflow-y: scroll !important;*/
     }
 
     [type=file]{
@@ -481,6 +481,10 @@
     .hover:hover{
       color: var(--gWhite);
       filter: brightness(125%);
+    }
+
+    .blackIcons{
+        filter: brightness(0) !important;
     }
 
   </style>

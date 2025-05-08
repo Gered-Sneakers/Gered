@@ -67,6 +67,10 @@ import SneakerService from '@/services/SneakerService';
 </script>
   
 <style scoped>
+  svg{
+    filter: brightness(1);
+  }
+
   .max-800{
     max-width: 800px;
     overflow-x: hidden;

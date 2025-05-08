@@ -68,30 +68,30 @@
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview w-100 m-0 p-0 d-flex borderzz border-blue roundedz">
+            <div class="sneakerPreview w-100 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
                 <div class="container h-100 position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold" :class="labelColor">{{ id }}</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 border-2 border-bottom border-dark">
+                    <div class="row m-0 p-0 border-2 border-bottom border-light">
                         <div class="col-12 m-0 p-0 pb-1 fw-bold text-center">
                             <span class="align-middle text-center">Overzicht</span>
                         </div>
                     </div>
                     <div class="row m-0 p-0 pt-2">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/tag.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.png"></div>
                         <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/ruler.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/ruler.png"></div>
                         <div class="col-9 text-end">{{ size }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/color.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/color.png"></div>
                         <div class="col-9 text-end">
                             <KleurPreview 
                                 v-for="c in colors"
@@ -101,32 +101,32 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/laces2.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces2.png"></div>
                         <div class="col-9 text-end">{{lacesz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/soles.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.png"></div>
                         <div class="col-9 text-end">{{solesz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/sneaker.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
                         <div class="col-9 text-end">{{statusz}}<br v-if="teRepareren">{{teRepareren}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/delivery.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.png"></div>
                         <div class="col-9 text-end">{{leverancier}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/login.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.png"></div>
                         <div class="col-9 text-end">{{ creator }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz blackIcons" src="@/img/clock.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.png"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
                     <div class="row m-0 p-0 mb-4"></div>
@@ -196,28 +196,23 @@
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets row text-start d-none">
                         <div class="row m-0 p-0 mw-800 mx-auto">
-                            <div class="col-4 my-3 d-inline-block text-center">
-                                <input type="checkbox" name="check1" v-model="laces"  class="text-center" @click="lacesCheckbox()"@keyup.enter="saveSneaker"><br>
-                                <img class="w-75 text-center blackIcons" src="../img/laces2.png" @click="lacesCheckbox()">
-                                <label for="check1"> Geen veters  </label>
-                            </div>
-                            <div class="col-4 my-3 d-inline-block text-center">
-                                <input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"><br>
-                                <img class="w-75 text-center blackIcons" src="../img/soles.png">
-                                <label for="check2"> Geen binnenzool</label>
-                            </div>
-                            <div class="col-4 my-3 d-inline-block text-center" >
-                                <input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"><br>
-                                <img class="w-75 text-center blackIcons" src="../img/broken.png">
-                                <label for="check3"> Beschadigd </label>
-                            </div>
-                            <div class="col-12 my-3 d-inline-block text-center">
+                        
+                            <div class="col-2"><input type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
+                            <label class="col-10" for="check1"> Veters  </label>
+                               
+                           
+                            <div class="col-2"><input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
+                            <label class="col-10" for="check2"> Binnenzool</label>
+                            
+                            
+                            <div class="col-2"><input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
+                            <label class="col-10" for="check3"> Beschadigd </label>
+                            
                                 <input type="text" placeholder="Beschrijf schade"
                                 class="w-100 roundedz borderz border-blue mx-auto text-center" 
                                 v-model="teRepareren"
                                 @keyup.enter="saveSneaker"
                                 >
-                            </div>
                         </div>
                         </div>
                         <!--<input type="text" size="14" class="roundedz borderz border-blue model text-center d-none" placeholder="laces">-->
@@ -235,13 +230,19 @@
         </div>
     </div>
 
-    <div class="full m-0 p-0 d-none"  id="confirm">
+    <div class="full m-0 p-0 d-none" id="confirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-            <div class="col-6 bg-dark text-light mx-auto roundedz p-5">
-                <p>Ben je zeker dat je {{ id }} wil toevoegen?</p>
-                <button class="bg-green" @click="saveSneaker">YES</button> 
-                <button class="bg-red ms-2" @click="refuse">NO</button>
-            </div>
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ id }}</span> wil toevoegen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuse">NEE</button>
+                </div>
+              </div>
+          </div>
         </div>
     </div>
 <!--
@@ -780,7 +781,7 @@
   }
 
   .labelBlue{
-    background-color: rgb(100, 125, 250);
+    background-color: rgb(100, 150, 250);
   }
 
   .labelPink{

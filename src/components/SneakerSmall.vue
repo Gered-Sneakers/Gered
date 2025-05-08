@@ -85,7 +85,8 @@
             /> 
         </div>
         <div id="maat" class="valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="status" class="valign borders">{{ status == "cleaning" ? "🧺" : "🔨" }}</div>
+        <div id="status" v-if="status =='cleaning'" class="valign borders"><img src="../img/cleaning.svg"></div>
+        <div id="status" v-else class="valign borders"><img src="../img/repair.svg"></div>
         <div id="user" class="valign borders">{{ creator }}</div>
         <div id="datum" class="valign borders">{{ date }}</div>
         <div id="leverancier" class="valign borders">{{ supplier.substring(0,4) }}</div>
@@ -93,6 +94,11 @@
 </template>
 
 <style scoped>
+    img{
+      filter: brightness(0.5);
+      
+    }
+
     .max-800{
         width: 800px;
     }

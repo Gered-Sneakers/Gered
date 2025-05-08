@@ -81,7 +81,7 @@
       }
 
       .labelBlue{
-        background-color: rgb(65, 96, 252);
+        background-color: rgb(100, 150, 250);
       }
 
       .labelPink{

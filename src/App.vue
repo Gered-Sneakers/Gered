@@ -175,6 +175,10 @@ export default {
   width: 85%;
 }
 
+.w-80{
+  width: 80%;
+}
+
 .valign{
   display: flex;
   align-items: center;
@@ -376,7 +380,7 @@ a{
 /* LABEL COLORS */
 
 .labelBlue{
-  background-color: rgb(100, 125, 250);
+  background-color: rgb(100, 150, 250);
 }
 
 .labelPink{

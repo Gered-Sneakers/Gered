@@ -106,7 +106,7 @@ exports.adminLogin = async (req, res) => {
   const { name, password } = req.body;
 
   try {
-    if (name !== "Matt") return res.status(403).send({ message: "Admins only" });
+    if (name !== "Matt" && name !== "Asem" && name !== "Admin") return res.status(403).send({ message: "Admins only" });
 
     const user = await Werknemers.findOne({ where: { name } });
 

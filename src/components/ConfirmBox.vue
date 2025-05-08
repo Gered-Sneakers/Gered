@@ -40,8 +40,8 @@
             <div class="col-6 bg-dark text-light mx-auto roundedz p-5" id="confirm">
                 <p v-if="id > 0">Ben je zeker dat je {{ id }} wil verwijderen?</p>
                 <p v-else> Ben je zeker? </p>
-                <button class="bg-green" @click="parentConfirm()">YES</button> 
-                <button class="bg-red ms-2" @click="parentRefuse()">NO</button>
+                <button class="bg-green" @click="parentConfirm()">JA</button> 
+                <button class="bg-red ms-2" @click="parentRefuse()">NEE</button>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-12 vh-80 pt-3">
-            <div class="h-25 valign centered">
+            <div id="changeHeight" class="valign centered h-75">
                 <div class="row mx-auto">
                     <div class="row m-0 p-0 mx-auto">
                         <input type="text" size="14" 
@@ -14,7 +14,7 @@
                             maxlength="4"
                             placeholder="labelnr" 
                             v-model="searchId"
-                            @keyup.enter="search"
+                            @keyup.enter="search();changeHeight();"
                             ><br>
                     </div>
                     <!--
@@ -27,23 +27,6 @@
                 </div>
             </div>
             <div class="h-75" v-if="sneaker">
-                <div class="w-50 mx-auto row">
-                    <div class="col-4 grow">
-                        <img class="medium p-3" src="../img/repair.svg" title="Repair">
-                        <br>
-                        <span class="repair">Repair</span>
-                    </div>
-                    <div class="col-4 grow">
-                        <img class="medium p-3" src="../img/edit.svg" title="Wijzigen">
-                        <br>
-                        <span class="wijzig">Wijzigen</span>
-                    </div>
-                    <div class="col-4 grow" @click="verwijder">
-                        <img class="medium p-3" src="../img/delete.svg" title="Verwijderen">
-                        <br>
-                        <span class="verwijder">Verwijderen</span>
-                    </div>
-                </div>
                 <Sneaker 
                     :id="sneaker.id"
                     :labelid="sneaker.labelid"
@@ -60,6 +43,8 @@
                     :teRepareren="sneaker.teRepareren"
                     :creator="sneaker.creator"
                     :verkoop="sneaker.verkoop"
+                    @repair="repair"
+                    @update="update"
 
                 ></Sneaker>
             </div>
@@ -83,7 +68,7 @@
   <script>
     import KleurPreview from '@/components/KleurPreview.vue';
     import SneakerService from '@/services/SneakerService';
-    import Sneaker from '@/components/Sneaker.vue'
+    import Sneaker from '@/components/Sneaker.vue';
     import ConfirmBox from '@/components/ConfirmBox.vue';
 
     //import { sneakers } from '@/models';
@@ -131,6 +116,25 @@
         refuse(){
             document.getElementById("confirm").classList.add("d-none");
         },
+        update(){
+            SneakerService.update(this.id,{sneaker})
+            .then(response => {
+
+            })
+            .catch(error => {
+
+            })
+        },
+        repair(){
+            SneakerService.update(this.id,{sneaker})
+            .then(response => {
+
+            })
+            .catch(error => {
+
+            })
+        },
+        /*,
         remove(){
             if(!this.searchId){
                 this.error = "ID verwacht";
@@ -147,6 +151,15 @@
                     console.error(error);
                     alert(error);
                 })
+        },*/
+        changeHeight(){
+            var salami = document.getElementById("changeHeight");
+                console.log(salami);
+                console.log("pre");
+                salami.classList.remove("h-75");
+                salami.classList.add("h-25");
+                console.log(salami);
+                console.log("after");
         }
     },
     computed: {
