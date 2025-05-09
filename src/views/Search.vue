@@ -1,6 +1,6 @@
 <template>
     <div class="loggen row m-0 p-0 text-center fw-bold">
-        <div class="col-12 vh-10 rounded-top bg-blue text-light">
+        <div class="col-12 vh-10 bg-blue text-light">
             <div class="title h-100 valign">
                 <p class="w-100 text-center">Zoeken</p>
             </div>
@@ -10,20 +10,13 @@
                 <div class="row mx-auto">
                     <div class="row m-0 p-0 mx-auto">
                         <input type="text" size="14" 
-                            class="text-center borderz border-blue roundedz mx-auto" 
+                            class="text-center border-blue rounded mx-auto" 
                             maxlength="4"
                             placeholder="labelnr" 
                             v-model="searchId"
                             @keyup.enter="search();changeHeight();"
                             ><br>
                     </div>
-                    <!--
-                    <div class="row m-0 p-0 mt-2">
-                        <div class="grow">
-                            <img @click="search" class="goButton rotate mx-auto" src="../img/gered_logo.png">
-                        </div>
-                    </div>
-                    -->
                 </div>
             </div>
             <div class="h-75" v-if="sneaker">
@@ -117,9 +110,15 @@
             document.getElementById("confirm").classList.add("d-none");
         },
         update(){
+            const updateData = sneaker;
             SneakerService.update(this.id,{sneaker})
             .then(response => {
-
+                //update all data
+                
+                this.getWerknemers();
+                this.updateId = null,
+                this.updateName = '',
+                this.updatePass = ''
             })
             .catch(error => {
 
@@ -128,7 +127,7 @@
         repair(){
             SneakerService.update(this.id,{sneaker})
             .then(response => {
-
+                //status repair
             })
             .catch(error => {
 

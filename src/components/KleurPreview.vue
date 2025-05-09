@@ -17,7 +17,7 @@
 </script>
 
 <template>
-    <div v-if="color" :class="color" class="small d-inline-block align-middle border border-light me-1"></div>
+    <div v-if="color" :class="color" class="small d-inline-block align-middle border border-dark me-1"></div>
 </template>
 
 <style scoped>

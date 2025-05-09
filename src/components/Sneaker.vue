@@ -121,7 +121,7 @@
                 </div>
                 <hr class="w-80 mx-auto my-2 opacity-25">
                 <div class="row m-0 p-0">
-                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/color.png"></div>
+                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/color.svg"></div>
                     <div class="col-9 text-end pe-5">
                         <KleurPreview 
                             v-for="c in colors"
@@ -131,12 +131,12 @@
                 </div>
                 <hr class="w-80 mx-auto my-2 opacity-25">
                 <div class="row m-0 p-0">
-                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/laces2.png"></div>
+                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
                     <div class="col-9 text-end pe-5">{{laces}}</div>
                 </div>
                 <hr class="w-80 mx-auto my-2 opacity-25">
                 <div class="row m-0 p-0">
-                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/soles.png"></div>
+                    <div class="col-3 valign ps-5"><img class="smallz whiteIcons" src="@/img/soles.svg"></div>
                     <div class="col-9 text-end pe-5">{{soles}}</div>
                 </div>
             </div>

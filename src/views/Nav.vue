@@ -12,8 +12,14 @@
         <img class="vh-10 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
         <!--<p class="w-100 pt-3 align-middle text-center">Admin</p>-->
     </router-link>
-    <router-link :to="{ name: 'showSneakers'}" class="grow col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/clock.svg" title="Clock">
+    <router-link :to="{ name: 'showSneakers'}" class="grow col h-100 valign rounded bg-danger">
+        <img class="vh-10 p-4 mx-auto" src="../img/clock.svg" title="Stock">
+    </router-link>
+    <router-link :to="{ name: 'csv'}" class="grow col h-100 valign rounded bg-danger">
+        <img class="vh-10 p-4 mx-auto" src="../img/sell.svg" title="Verkoop">
+    </router-link>
+    <router-link :to="{ name: 'verkoop'}" class="grow col h-100 valign rounded bg-danger">
+        <img class="vh-10 p-4 mx-auto" src="../img/csv.svg" title="Verkoop">
     </router-link>
   </div>
 </template>
@@ -59,7 +65,7 @@ a{
 }
 
 img{
-  width: auto;
+  /*width: auto;*/
   min-height: 90px;
   min-width: 90px;
   /*max-height: 75px !important;*/

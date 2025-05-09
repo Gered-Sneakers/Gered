@@ -2,7 +2,7 @@
     <div class="admin row m-0 h-100 text-white">
 
       <div class="row m-0 p-0">
-        <div class="col-12 vh-10 rounded-top bg-blue text-white">
+        <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valign">
                 <p class="w-100 text-center">Admin</p>
             </div>
@@ -14,13 +14,13 @@
             <div class="adminTile h-100 valign text-center mx-auto">
               <div class="row m-0 w-100 valign">
                 <div class="row m-0 p-0 mx-auto">
-                  <input type="text" size="14" class="borderz border-blue roundedz mb-3 mx-auto text-center" placeholder="naam" 
+                  <input type="text" size="14" class="rounded border-blue mb-3 mx-auto text-center" placeholder="naam" 
                          id="adminName"  
                          v-model="admin"
                          >
                 </div>
                 <div class="row m-0 p-0 mx-auto">
-                  <input  type="password" size="14" class="borderz border-blue roundedz mb-3 mx-auto text-center" placeholder="pass" 
+                  <input  type="password" size="14" class="rounded border-blue mb-3 mx-auto text-center" placeholder="pass" 
                           id="adminPass" 
                           @keyup.enter="login" 
                           v-model="pass"

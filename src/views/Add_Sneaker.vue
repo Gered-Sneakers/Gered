@@ -1,7 +1,7 @@
 <template>
     <!-- LOGIN -->
     <div class="row m-0 h-100 mainTargets d-flex">
-        <div class="col-12 vh-10 rounded-top bg-blue text-white">
+        <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valign">
                 <p class="w-100 text-center">Add Sneaker</p>
             </div>
@@ -14,7 +14,7 @@
                 <div class="row m-0 p-0 mx-auto">
                     <input 
                         type="text" size="14" id="loginNaam" placeholder="naam"
-                        class="text-center mx-auto borderz border-blue roundedz mb-3"  
+                        class="text-center mx-auto border-blue rounded mb-3"  
                         v-model="creator"
                         @keyup.enter="document.getElementById('loginPass').focus()"
                         >
@@ -22,7 +22,7 @@
                 <div class="row m-0 p-0 mx-auto">
                     <input 
                         type="password" size="14" id="loginPass"  placeholder="pass"
-                        class="text-center mx-auto borderz border-blue roundedz mb-3" 
+                        class="text-center mx-auto border-blue rounded mb-3" 
                         v-model="pass"
                         @keyup.enter="login()" 
                         > <!-- GO() moet hier terugkome -->
@@ -30,7 +30,7 @@
                 <!--
                 <div class="row m-0 p-0 mx-auto">
                   <div class="w-100 mx-auto text-center">
-                    <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.png">
+                    <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.svg">
                   </div>
                 </div>
                 -->
@@ -45,7 +45,7 @@
             <div class="row mw-800 mx-auto valign">
                 <div class="row">
                 <select id="leveranciers" name="leveranciers"
-                    class="col-3 m-1 valign mx-auto roundedz borderz border-blue"
+                    class="col-3 m-1 valign mx-auto rounded border-blue"
                     v-model="leverancier" value="Leverancier" @change="go()"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
@@ -66,9 +66,9 @@
             </div>
         </div>
     </div>
-    <div class="row h-100 mainTargets mx-auto text-Gered d-none">
+    <div class="row h-100 mainTargets mx-auto text-Gered d-none pe-3">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview w-100 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
+            <div class="sneakerPreview w-100 h-500 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
                 <div class="container h-100 position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
@@ -81,17 +81,17 @@
                         </div>
                     </div>
                     <div class="row m-0 p-0 pt-2">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.svg"></div>
                         <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/ruler.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/ruler.svg"></div>
                         <div class="col-9 text-end">{{ size }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/color.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/color.svg"></div>
                         <div class="col-9 text-end">
                             <KleurPreview 
                                 v-for="c in colors"
@@ -101,12 +101,12 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces2.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
                         <div class="col-9 text-end">{{lacesz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.svg"></div>
                         <div class="col-9 text-end">{{solesz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -116,17 +116,17 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.svg"></div>
                         <div class="col-9 text-end">{{leverancier}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.svg"></div>
                         <div class="col-9 text-end">{{ creator }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.png"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
                     <div class="row m-0 p-0 mb-4"></div>
@@ -135,17 +135,19 @@
         </div>
         <div @keyup.enter="testUser()" class="FORM col-8 col-xxl-10">
             <div class="row h-100 valign">
+                <div class="">
+                <div class="mx-auto row m-0 p-0 h-500 bg-blue rounded">
                 <div class="col-2 p-2">
-                    <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none">
+                    <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none h-100">
                         <img class="w-50 mx-auto rota180 selectDisable" src="../img/next.svg">
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-8 valign">
                     <div class="w-100 text-center"> <!--@keyup.enter="next"-->
                         <!-- ID + LABELCOLOR  -->
                         <div id="IDLABEL" class="row w-100 targets" @keyup.enter="next">
                             <div class="row m-0 p-0">
-                                <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="roundedz borderz border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
+                                <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
                             </div>
                             <div class="row mt-3 mx-auto mw-800">
                                 <Label v-for="labelcolor in LabelColors"
@@ -169,62 +171,83 @@
                         </div>
                         </div>
                         <!-- MODEL -->
-                        <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets roundedz borderz border-blue model text-center d-none" maxlength="30">
+                        <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets border-blue model text-center d-none" maxlength="30">
                         <!-- SIZE -->
-                        <input @keyup.enter="next" id="SIZE" v-model="size" type="text" placeholder="SIZE" class="targets roundedz borderz border-blue size text-center d-none" minlength="2" maxlength="2">
+                        <input @keyup.enter="next" id="SIZE" v-model="size" type="text" placeholder="SIZE" class="targets border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
                         <div @keyup.enter="next" id="COLORS" class="targets row w-100 mx-3 mx-auto d-none">
-                            <div class="row w-100 mw-800 mx-auto" id="checkboxgroup" @click="checkboxLimit">
+                            <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
+                                <div class="row m-0 p-0">
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz green" value="groen" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz blue" value="blauw" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz yellow" value="geel" v-model="colors"></div></div>
-              
+                                </div>
+                                <div class="row m-0 p-0">
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz purple" value="paars" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare lightgreen"><div class="mx-auto"><input type="checkbox" class="colorz lightgreen" value="lichtgroen" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare lightblue"><div class="mx-auto"><input type="checkbox" class="colorz lightblue" value="lichtblauw" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
-
+                                </div>
+                                <div class="row m-0 p-0">
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx"value="roos" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
+                                </div>
+                                <div class="row m-0 p-0">
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
+                                </div>
                             </div>
                         </div>
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets row text-start d-none">
-                        <div class="row m-0 p-0 mw-800 mx-auto">
-                        
-                            <div class="col-2"><input type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
-                            <label class="col-10" for="check1"> Veters  </label>
-                               
-                           
-                            <div class="col-2"><input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
-                            <label class="col-10" for="check2"> Binnenzool</label>
+                        <div class="row m-0 p-0 mx-auto text-light">
+                            <div class="col-4 m-0 p-0 text-center row">
+                                <img class="col-12 imgSquare mx-auto" src="../img/laces.svg">
+                                <div class="col-12 text-center"><input type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <label class="col-12" for="check1"> Geen veters  </label>
+                            </div>
+                            <div class="col-4 m-0 p-0 text-center row">
+                                <img class="col-12 imgSquare mx-auto" src="../img/soles.svg">
+                                <div class="col-12 text-center"><input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <label class="col-12" for="check2"> Geen binnenzool</label>
+                            </div>
+                            <div class="col-4 m-0 p-0 text-center row">
+                                <img class="col-12 imgSquare mx-auto" src="../img/broken.svg">
+                                <div class="col-12 text-center"><input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <label class="col-12" for="check3"> Beschadigd </label>
+                            </div>
+                            
+
+
                             
                             
-                            <div class="col-2"><input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
-                            <label class="col-10" for="check3"> Beschadigd </label>
                             
+                            
+
+                            <!--
                                 <input type="text" placeholder="Beschrijf schade"
                                 class="w-100 roundedz borderz border-blue mx-auto text-center" 
                                 v-model="teRepareren"
                                 @keyup.enter="saveSneaker"
                                 >
+                            -->
                         </div>
                         </div>
                         <!--<input type="text" size="14" class="roundedz borderz border-blue model text-center d-none" placeholder="laces">-->
                     </div>
                 </div>
                 <div class="col-2 p-2">
-                    <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center">
+                    <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
                         <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
                     </div>
-                    <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none">
+                    <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none h-100">
                         <img class="w-50 mx-auto selectDisable" src="../img/add.svg">
                     </div>
+                </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -613,6 +636,11 @@
         background-color: rgba(247,247,247,0.5);
     }
 
+    .imgSquare{
+        max-width: 200px;
+        max-height: 200px;
+    }
+
     #loginNaam{
         width: 50vw;
         height: 10vh;
@@ -898,4 +926,12 @@
     border: 3px solid transparent;
   }
   
+  .h-500{
+    height: 500px !important;
+  }
+
+  .colorSquare{
+    max-width: 100px;
+    max-height: 100px;
+  }
 </style>

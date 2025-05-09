@@ -120,6 +120,12 @@ export default {
 
 .nav-main{
   height: 10vh !important;
+  position: sticky;
+  top: 0;
+  left: 0;
+  
+  /*background-color: #FFFFFF;*/
+  z-index: 9999999999999999999999999;
 }
 
 .main{
@@ -185,6 +191,7 @@ export default {
 }
 
 .border-blue{
+  border-width: 4px;
   border-color: var(--gBlack) !important;
 }
 

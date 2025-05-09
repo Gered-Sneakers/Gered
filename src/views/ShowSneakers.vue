@@ -1,16 +1,19 @@
 <template>
-    <div class="row max-800 mx-auto bg-blue text-white text-center">
-        <div id="id" class="borders">ID</div>
-        <div id="merk" class="borders"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="borders"><img src="../img/ruler.svg"></div>
-        <div id="status" class="borders"><img src="../img/warning.svg"></div>
-        <div id="user" class="borders"><img src="../img/login.svg"></div>
-        <div id="datum" class="borders"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="borders"><img src="../img/delivery.svg"></div>
+    <div class="row max-1217 mx-auto bg-blue text-white text-center">
+        <div id="id" class="col-1 borders">ID</div>
+        <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
+        <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
+        <div id="maat" class="col-1 borders"><img src="../img/ruler.svg"></div>
+        <div id="status" class="col-1 borders"><img src="../img/warning.svg"></div>
+        <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
+        <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
+        <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
+        <div class="col-1 borders"><img src="../img/file.svg"></div>
+        
     </div>
-    <div class="max-800 mx-auto scroll vh-80">
+    <div class="max-1217 m-0 p-0 mx-auto vh-80 scroll">
       <SneakerSmall
+        
         v-if="sneakerList.length > 0"
         v-for="s in sneakerList"
         :id="s.id"
@@ -23,6 +26,8 @@
         :supplier="s.supplier"
         :status="s.status"
         :creator="s.creator"
+        @csv="csv"
+        @verkoop="verkoop"
       >
 
       </SneakerSmall>
@@ -33,6 +38,9 @@
 
 import SneakerSmall from '@/components/SneakerSmall.vue';
 import SneakerService from '@/services/SneakerService';
+
+var csvList = [];
+var verkoopList = [];
 
   export default {
     name: 'ShowSneakers_View',
@@ -55,6 +63,18 @@ import SneakerService from '@/services/SneakerService';
           })
 
           console.log(this.sneakerList);
+      },
+      csv(id){
+        console.log("CSV");
+        console.log(id);
+        csvList.push(id);
+        console.log(csvList);
+      },
+      verkoop(id){
+        console.log("VERKOOP");
+        console.log(id);
+        verkoopList.push(id);
+        console.log(verkoopList);
       }
     },
     mounted () {
@@ -71,9 +91,13 @@ import SneakerService from '@/services/SneakerService';
     filter: brightness(1);
   }
 
-  .max-800{
-    max-width: 800px;
+  .max-1200{
+    max-width: 1200px;
     overflow-x: hidden;
+  }
+
+  .max-1217{
+    max-width: 1215px;
   }
 
   .borders{
@@ -85,38 +109,6 @@ import SneakerService from '@/services/SneakerService';
 
   .row{
     overflow: visible !important;
-  }
-
-  #id{
-    width: 7.5% !important;
-  }
-  
-  #merk{
-    width: 20% !important;
-  }
-
-  #kleur{
-    width: 11% !important;
-  }
-
-  #maat{
-    width: 7.5% !important;
-  }
-
-  #status{
-    width: 7.5% !important;
-  }
-
-  #user{
-    width: 15% !important;
-  }
-
-  #datum{
-    width: 15% !important;
-  }
-
-  #leverancier{
-    width: 10% !important;
   }
 
   .smallz{

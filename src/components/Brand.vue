@@ -10,7 +10,7 @@
         :checked="modelValue === name"
         @change="$emit('update:modelValue',name)"
         >
-      <img width="80px" height="80px" class="blackIcons" :src="resolvedImgPath" :title="name">
+      <img width="80px" height="80px" class="whiteIcons" :src="resolvedImgPath" :title="name">
     </label>
   </div>
 </template>
