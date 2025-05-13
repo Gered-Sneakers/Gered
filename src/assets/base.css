@@ -36,6 +36,47 @@
   --section-gap: 160px;
 }
 
+:root{
+  --red: #FF0000;
+  --green: #008000;
+  --blue: #0000FF;
+  --yellow: #FFFF00;
+  
+  --grey: #808080;
+  --black: #000000;
+  --white: #FFFFFF;
+
+  --purple: #9D00FF;
+  --darkgreen: #06402B;
+  --navy: #000080;
+  --orange: #ffA500;
+  
+  --pink: #FFC0CB;
+  --lightgreen: #90EE90;
+  --lightblue: #ADD8E6;
+  --beige: #DBC39A;
+
+  --multi:  linear-gradient(140deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
+
+  /* MAIN COLORS */
+  --gBlack: #1F2937;
+  --gWhite: #FFFFFF;
+  --gGrey: #F4F6F7;
+
+  /* SUCCES OK */
+  --gGreen: #10B981;
+  /* DANGER NO */
+  --gRed: #EF4444;
+  /* WARNING UPDATE */
+  --gYellow: #F59E0B;
+  /* INFO */
+  --gBlue: #38BDF8;
+
+  --gText: #2A3439;
+  --gTextLight: #4B575C;
+  
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);

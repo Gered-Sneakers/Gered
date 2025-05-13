@@ -26,12 +26,16 @@
         :supplier="s.supplier"
         :status="s.status"
         :creator="s.creator"
+        :verkoop="s.verkoop"
         @csv="csv"
         @verkoop="verkoop"
       >
 
       </SneakerSmall>
+      
     </div>
+    <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
+    <div @click="verkoopAdd" class="border border-warning bg-warning hover grow">VERKAUFEN BEBI</div>
 </template>
   
 <script>
@@ -39,14 +43,16 @@
 import SneakerSmall from '@/components/SneakerSmall.vue';
 import SneakerService from '@/services/SneakerService';
 
-var csvList = [];
-var verkoopList = [];
+//var csvList = [];
+//var verkoopList = [];
 
   export default {
     name: 'ShowSneakers_View',
     data(){
         return{
           sneakerList: [],
+          verkoopList: [],
+          csvList: []
         }
     },
     props: {
@@ -67,14 +73,32 @@ var verkoopList = [];
       csv(id){
         console.log("CSV");
         console.log(id);
-        csvList.push(id);
-        console.log(csvList);
+        this.csvList.push(id);
+        console.log(this.csvList);
       },
       verkoop(id){
         console.log("VERKOOP");
-        console.log(id);
-        verkoopList.push(id);
-        console.log(verkoopList);
+        !this.verkoopList.includes(id) && this.verkoopList.push(id);
+        console.log(this.verkoopList);
+      },
+      verkoopRemove(id){
+        this.verkoopList = this.verkoopList.filter(v => v !== id);
+      },
+      verkoopAdd(){
+        console.log("VERFAUKEN BWOI");
+        this.verkoopList.forEach(v => {
+          console.log(v);
+          
+          SneakerService.update(v,{ verkoop:1 })
+          .then(res =>{
+            console.log(res);
+            console.log("We don giv a fu bwoi");
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          
+        });
       }
     },
     mounted () {

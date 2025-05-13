@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- LEVERANCIER -->
-    <div class="row h-100 mainTargets d-flex">
+    <div class="row h-100 mainTargets d-none">
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
                 <div class="row">
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div @keyup.enter="testUser()" class="FORM col-8 col-xxl-10">
+        <div class="FORM col-8 col-xxl-10">
             <div class="row h-100 valign">
                 <div class="">
                 <div class="mx-auto row m-0 p-0 h-500 bg-blue rounded">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <!-- BRAND -->                    
-                        <div id="brands" class="targets row mx-3 mx-auto d-none">
+                        <div id="brands" class="targets rounded row mx-3 mx-auto d-none">
                         <div class="row w-100">
                             <Brand id="brand"
                                 v-for="b in Brands"
@@ -171,11 +171,11 @@
                         </div>
                         </div>
                         <!-- MODEL -->
-                        <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets border-blue model text-center d-none" maxlength="30">
+                        <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
                         <!-- SIZE -->
-                        <input @keyup.enter="next" id="SIZE" v-model="size" type="text" placeholder="SIZE" class="targets border-blue size text-center d-none" minlength="2" maxlength="2">
+                        <input @keyup.enter="next" id="SIZE" v-model="size" type="text" placeholder="SIZE" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
-                        <div @keyup.enter="next" id="COLORS" class="targets row w-100 mx-3 mx-auto d-none">
+                        <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
                                 <div class="row m-0 p-0">
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
@@ -190,19 +190,20 @@
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx"value="roos" v-model="colors"></div></div>
+                                <div class="col-3 m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx" value="roos" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
+                                <div class="col-3 m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz brown" value="bruin" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
+                                <div class="col-3 m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
                                 <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
                                 </div>
                             </div>
                         </div>
                         <!-- LACES + SOLES -->
-                        <div id="REPAIR" class="targets row text-start d-none">
+                        <div id="REPAIR" class="targets rounded row text-start d-none">
                         <div class="row m-0 p-0 mx-auto text-light">
                             <div class="col-4 m-0 p-0 text-center row">
                                 <img class="col-12 imgSquare mx-auto" src="../img/laces.svg">
@@ -619,11 +620,6 @@
         document.getElementById("confirm").classList.add("d-none");
     } 
 
-    function testUser(){
-        console.log("TEST");
-        console.log(creator.value);
-    }
-
 </script>
   
 <style scoped>
@@ -859,6 +855,12 @@
     border: 3px solid var(--grey);
   }
   
+  .bruin,.brown .brown::before{
+    accent-color: var(--brown);
+    background-color: var(--brown);
+    border: 3px solid var(--brown);
+  }
+
   .zwart, .black, .black::before{
     accent-color: var(--black);
     background-color: var(--black);

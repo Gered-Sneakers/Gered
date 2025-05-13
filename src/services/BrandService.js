@@ -2,31 +2,31 @@ import http from "../http-common.js";
 
 class BrandService {
   getAll() {
-    return http.get("/Leveranciers");
+    return http.get("/Brands");
   }
 
   get(id) {
-    return http.get(`/Leveranciers/${id}`);
+    return http.get(`/brands/${id}`);
   }
 
   create(data) {
-    return http.post("/Leveranciers", data);
+    return http.post("/brands", data);
   }
 
   update(id, data) {
-    return http.put(`/Leveranciers/${id}`, data);
+    return http.put(`/brands/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/Leveranciers/${id}`);
+    return http.delete(`/brands/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/Leveranciers`);
+    return http.delete(`/brands`);
   }
   
   findByTitle(title) {
-    return http.get(`/Leveranciers?title=${title}`);
+    return http.get(`/brands?title=${title}`);
   }
 }
 

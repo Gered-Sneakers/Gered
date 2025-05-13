@@ -28,6 +28,7 @@ db.sequelize.sync();
 require("./src/routes/sneaker.routes.js")(app);
 require("./src/routes/leverancier.routes.js")(app);
 require("./src/routes/werknemer.routes.js")(app);
+require("./src/routes/brand.routes.js")(app); 
 
 // simple route 
 app.get("/", (req, res) => { 

@@ -43,6 +43,10 @@ module.exports = (sequelize, Sequelize) => {
       },
       creator: { 
         type: Sequelize.STRING 
+      },
+      verkoop: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
     }); 
    

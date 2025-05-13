@@ -19,7 +19,8 @@ exports.create = (req, res) => {
       soles: req.body.soles,
       status: req.body.status,
       teRepareren: req.body.teRepareren,
-      creator: req.body.creator
+      creator: req.body.creator,
+      verkoop: req.body.verkoop
       
       //published: req.body.published ?? false
     };
@@ -74,7 +75,27 @@ exports.findOne = (req, res) => {
 }; 
  
 // Update a Sneakers by the id in the request 
-exports.update = (req, res) => {}; 
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Sneakers.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({ message: "Sneaker was updated successfully." });
+      } else {
+        res.status(404).send({
+          message: `Cannot update Sneaker with id=${id}. Maybe Sneaker was not found or req.body is empty.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Sneaker with id=" + id
+      });
+    });
+}; 
  
 // Delete a Sneakers with the specified id in the request 
 exports.delete = (req, res) => {

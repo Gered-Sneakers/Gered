@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-main row m-0 p-0 bg-Gered">
+  <div class="nav-main row m-0 p-0">
     <div class="col-1 col-xl-2"></div>
     <div class="col-10 col-xl-8 row p-0 m-0 text-start">
         <div class="m-0 p-0">
@@ -64,6 +64,7 @@ export default {
     --grey: #808080;
     --black: #000000;
     --white: #FFFFFF;
+    --brown: #7B3F00;
 
     --purple: #9D00FF;
     --darkgreen: #06402B;
@@ -110,6 +111,10 @@ export default {
   background-color: var(--gBg);
 }
 
+.border-Gered{
+  border-color: var(--gBlack);
+}
+
 .text-yellow{
   color: var(--gYellow);
 }
@@ -124,7 +129,7 @@ export default {
   top: 0;
   left: 0;
   
-  /*background-color: #FFFFFF;*/
+  background-color: #FFFFFF;
   z-index: 9999999999999999999999999;
 }
 
@@ -437,6 +442,12 @@ a{
     accent-color: var(--grey);
     background-color: var(--grey);
     border: 3px solid var(--grey);
+  }
+
+  .bruin, .brown, .brown::before{
+    accent-color: var(--brown);
+    background-color: var(--brown);
+    border: 3px solid var(--brown);
   }
   
   .zwart, .black, .black::before{

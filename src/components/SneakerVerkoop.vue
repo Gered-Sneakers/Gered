@@ -59,6 +59,7 @@
             verkoop:{
                 type: Boolean
             }
+
         },
         methods:{
             capitalize(string){
@@ -71,7 +72,7 @@
             }
         },
         mounted () {
-            console.log(this.verkoop);
+            
         },
         components: {
             KleurPreview
@@ -95,10 +96,7 @@
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
         <div id="datum" class="col-2 valign borders">{{ date }}</div>
         <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,4) }}</div>
-        <div class="col-1 valign borders"> 
-            <img class="me-2 w-50 grow" src="../img/csv.svg" v-if="showCsv" @click="$emit('csv',id);showCsv = false"> 
-            <img class="me-2 w-50 grow" src="../img/sell.svg" v-if="verkoop==0" @click="$emit('verkoop',id);showVerkoop = false">
-        </div>
+        <div id="" class="col-1 valign borders" @click="$emit('verkoop',id)"><img src="../img/sell.svg"></div>
     </div>
 </template>
 
@@ -122,105 +120,6 @@
     .row{
        overflow: visible !important;
      }
-/*
-  .rood, .red, .red::before{
-    accent-color: var(--red);
-    background-color: var(--red);
-    border: 3px solid var(--red);
-  }
-
-  .groen, .green, .green::before{
-    accent-color: var(--green);
-    background-color: var(--green);
-    border: 3px solid var(--green);
-  }
-
-  .blauw, .blue, .blue::before{
-    accent-color: var(--blue);
-    background-color: var(--blue);
-    border: 3px solid var(--blue);
-  }
-
-  .geel, .yellow, .yellow::before{
-    accent-color: var(--yellow);
-    background-color: var(--yellow);
-    border: 3px solid var(--yellow);
-    color: black;
-  }
-
-  .grijs,.grey, .grey::before{
-    accent-color: var(--grey);
-    background-color: var(--grey);
-    border: 3px solid var(--grey);
-  }
-  
-  .zwart, .black, .black::before{
-    accent-color: var(--black);
-    background-color: var(--black);
-    border: 3px solid var(--black);
-  }
-  
-  .wit, .white, .white::before{
-    accent-color: var(--white);
-    background-color: var(--white);
-    border: 3px solid var(--white);
-  }
-  
-  .paars, .purple, .purple::before{
-    accent-color: var(--purple);
-    background-color: var(--purple);
-    border: 3px solid var(--purple);
-  }
-  
-  .darkgreen, .darkgreen::before{
-    accent-color: var(--darkgreen);
-    background-color: var(--darkgreen);
-    border: 3px solid var(--darkgreen);
-  }
-  
-  .navy, .navy::before{
-    accent-color: var(--navy);
-    background-color: var(--navy);
-    border: 3px solid var(--navy);
-  }
-  
-  .oranje,.orange, .orange::before{
-    accent-color: var(--orange);
-    background-color: var(--orange);
-    border: 3px solid var(--orange);
-  }
-  
-  .roos, .pink, .pink::before{
-    accent-color: var(--pink);
-    background-color: var(--pink);
-    border: 3px solid var(--pink);
-  }
-  
-  .lichtgroen, .lightgreen, .lightgreen::before{
-    accent-color: var(--lightgreen);
-    background-color: var(--lightgreen);
-    border: 3px solid var(--lightgreen);
-  }
-  
-  .lichtblauw, .lightblue, .lightblue::before{
-    accent-color: var(--lightblue);
-    background-color: var(--lightblue);
-    border: 3px solid var(--lightblue);
-  }
-  
-  .beige, .beige::before{
-    accent-color: var(--beige);
-    background-color: var(--beige);
-    border: 3px solid var(--beige);
-  }
-
-  .multi, .multi::before{
-    accent-color: var(--yellow);
-    background-color: var(--multi);
-    background-image: var(--multi);
-    border: 3px solid transparent;
-  }
-  */
 
   .smallz{
       width: 22px;

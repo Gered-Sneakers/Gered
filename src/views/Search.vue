@@ -9,12 +9,168 @@
             <div id="changeHeight" class="valign centered h-75">
                 <div class="row mx-auto">
                     <div class="row m-0 p-0 mx-auto">
+                        <div id="filterIcon" class="col-1 bg-blue m-0 valign mx-auto rounded mb-1" @click="hideFilters">
+                            <img src="../img/filter.svg" class="w-100 whiteIcons grow">
+                        </div>
+                        <div id="filters" class="col-11 row m-0 p-0 rounded-end d-none mb-1">
+                            <div class="col-1 bg-blue"></div>
+                            
+                            <div class="col-2 bg-blue valign">
+                                <img src="../img/ruler.svg" class="w-100 medium p-1 whiteIcons mx-auto">
+                            </div>
+                            <div class="col-1 bg-blue"></div>
+                            <div class="col-2 bg-blue valign">
+                                <img src="../img/color.svg" class="w-100 medium p-1 whiteIcons mx-auto">
+                            </div>
+                            <div class="col-1 bg-blue"></div>
+                            <div class="col-2 bg-blue valign">
+                                <img src="../img/delivery.svg" class="w-100 medium p-1 whiteIcons mx-auto">
+                            </div>
+                            <div class="col-1 bg-blue"></div>
+                            <div class="col-2 bg-blue valign">
+                                <img src="../img/login.svg" class="w-100 medium p-1 whiteIcons mx-auto">
+                            </div>
+                            
+                            <!-- IMAGINABLE ROW -->
+                            <div class="col-1 bg-blue"></div>
+                            <div class="col-2 m-0 p-0 my-1">
+                                <div class="custom-number-input w-100 h-100">
+                                <div class="number-input w-25 h-100 ps-1"><button class="text-light rounded-start" @click="sizeMin">-</button></div>
+                                <input type="number" id="sneakerSize" class="w-50 h-100 text-center" step="0.5" min="36" max="50" :v-model="selectedSize">
+                                <div class="number-input w-25 h-100 pe-1"><button class="text-light rounded-end" @click="sizePlus">+</button></div>
+                                </div>
+                            </div>
+                            <div class="col-1 "></div>
+                            <div class="col-2 my-1">
+                                <select class="w-100 h-100" v-model="colors" @change="console.log(colors)">
+                                    <div v-for="c in color" :key="c.name">
+                                        <option :class="c.name">{{ c.name }}</option>
+                                    </div>
+                                    <option class="zwart text-light">zwart</option>
+                                    <div class="multi"><option class="multi">multi</option></div>
+                                </select>
+                                <!--
+                                <div class="dropdown">
+                                  <button 
+                                    class="btn btn-outline-primary dropdown-toggle w-100" 
+                                    type="button" 
+                                    @click="showDropdown = !showDropdown"
+                                  >
+                                    Kleuren
+                                  </button>
+
+                                  <div v-if="showDropdown" class="dropdown-menu p-3 show w-100 border bg-white" style="min-width:250px; max-height: 400px; overflow-x: hidden; overflow-y:auto;">
+                                    <div class="row">
+                                      <div 
+                                        v-for="c in color" 
+                                        :key="c.name"
+                                        :class="c.name"
+                                        class="col-3 p-1 rounded"
+                                      >
+                                        <div 
+                                          class="valign colorSquare border rounded"
+                                          :class="c.name"
+                                        >
+                                          <input 
+                                            type="checkbox" 
+                                            class="colorz"
+                                            :class="c.name" 
+                                            :value="c.name" 
+                                            v-model="colors"
+                                          >
+                                        </div>
+                                      </div>
+                                      <div class="zwart col-3 p-1 rounded">
+                                        <div 
+                                          class="valign colorSquare border rounded zwart"
+                                         
+                                        >
+                                          <input 
+                                            type="checkbox" 
+                                            class="colorz zwart"
+                                            value="zwart" 
+                                            v-model="colors"
+                                          >
+                                        </div>
+                                      </div>
+                                      <div class="multi col-3 p-1 rounded">
+                                        <div 
+                                          class="valign colorSquare border rounded multi"
+                                        >
+                                          <input 
+                                            type="checkbox" 
+                                            class="colorz multi"
+                                            value="multi" 
+                                            v-model="colors"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>-->
+                            </div>
+
+                            <div class="col-1"></div>
+
+                            <div class="col-2 m-0 p-0 my-1">
+                                <select v-model="selectedLeverancier" class="w-100 h-100" @change="filterLeverancier">
+                                    <div v-for="l in leveranciers" :key="l.id">
+                                        <option v-if="l.isActive" :value="l.name">{{l.name}}</option>
+                                    </div>
+                                </select>
+                            </div>
+
+                            <div class="col-1"></div>
+
+                            <div class="col-2 m-0 p-0 my-1">
+                                <select v-model="selectedWerknemer" class="w-100 h-100">
+                                    <div v-for="w in werknemers" :key="w.id">
+                                        <option v-if="w.isActive" :value="w.id" @click="console.log('FILTER MAKEN');">{{w.name}}</option>
+                                    </div>
+                                </select>
+                            </div>
+                            <!-- IMAGINABLE ROW -->
+                            <div class="col-1 bg-blue valign">
+                                <img src="../img/tag.svg" class="w-100 medium p-1 whiteIcons mx-auto">
+                            </div>
+
+                            <div class="col-11 row m-0 p-0 my-1">
+                                <div class="col-1 mx-auto border border-dark rounded" v-for="brand in brands.data" :key="brand.id">
+                                    <img :src="'../src/img/brands/' + brand.img" class="w-100 grow blackIcons" @click="selectedBrand = brand.name;console.log(brand.name);filterBrand();">
+                                </div>
+                            </div>
+                            <!-- COLORS -->
+                             <!--
+                            <div class="col-1 bg-blue"></div>
+                            <div class="col-11 row m-0 p-0 my-1">
+                                <div class="col w-100 valign mx-auto rounded border border-dark colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz yellow" value="geel" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" value="roos" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz purple" value="paars" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare lightgreen"><div class="mx-auto"><input type="checkbox" class="colorz lightgreen" value="lichtgroen" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz green" value="groen" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare lightblue"><div class="mx-auto"><input type="checkbox" class="colorz lightblue" value="lichtblauw" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz blue" value="blauw" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz brown" value="bruin" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
+                                <div class="col w-100 valign mx-auto rounded border colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
+                            </div>
+                            -->
+                            <!-- IMAGINABLE ROW -->                           
+                            
+                        </div>
+                        
                         <input type="text" size="14" 
-                            class="text-center border-blue rounded mx-auto" 
+                            class="text-center border-blue rounded mx-auto mb-1" 
                             maxlength="4"
                             placeholder="labelnr" 
                             v-model="searchId"
                             @keyup.enter="search();changeHeight();"
+                            @click="showSelected"
                             ><br>
                     </div>
                 </div>
@@ -63,8 +219,12 @@
     import SneakerService from '@/services/SneakerService';
     import Sneaker from '@/components/Sneaker.vue';
     import ConfirmBox from '@/components/ConfirmBox.vue';
+    import BrandService from '@/services/BrandService';
+    import LeverancierService from '@/services/LeverancierService';
+    import WerknemerService from '@/services/WerknemerService';
 
-    //import { sneakers } from '@/models';
+    import SneakerColors from '@/assets/sneakerColors.json';
+    import {ref} from 'vue'
 
   export default {
     name: 'Search_View',
@@ -72,14 +232,29 @@
         return{
             searchId: "",
             sneaker: null,
-            error: null
+            error: null,
+
+            sneakers: "",
+            filteredSneakers: false,
+
+            brands: "",
+            leveranciers: "",
+            werknemers: "",
+            color: "",
+
+            selectedBrand: "",
+            selectedWerknemer: "",
+            selectedLeverancier: "",
+            selectedSize: "",
+            colors: ref([]),
+            showDropdown: ref(false)
         }
     },
     props: {
   
     },
     methods:{
-         search(){
+        search(){
             this.error = null;
             console.log("Search method started");
             
@@ -94,7 +269,6 @@
                     this.sneaker.colors = this.sneaker.colors.split(" ");
                     this.sneaker.colors.pop();
                     
-                    //console.log(this.sneaker.colors);
                     console.log(this.sneaker);
                 })
                 .catch(error => {
@@ -102,6 +276,47 @@
                     console.error(error);
                     alert(error);
                })
+        },
+        getAll(){
+            SneakerService.getAll()
+            .then(response => {
+                console.log("ALL SNEAKERS");
+                this.sneakers = response.data;
+                console.log(this.sneakers);
+            })
+        },
+        getBrands(){
+            BrandService.getAll()
+            .then(response => {
+                this.brands = response;
+            })
+            .catch(error => {
+
+            })
+        },
+        getLeveranciers(){
+            LeverancierService.getAll()
+            .then(response =>{
+                console.log("ALL LEVERANCIERS");
+                console.log(response);
+                this.leveranciers = response.data;
+                console.log(this.leveranciers);
+            })
+            .catch(error => {
+
+            })
+        },
+        getWerknemers(){
+            WerknemerService.getAll()
+            .then(response =>{
+                console.log("ALL WERKNEMERS");
+                console.log(response.data);
+                this.werknemers = response.data.sort((a, b) => a.name.localeCompare(b.name));
+                console.log(this.werknemers);
+            })
+            .catch(error => {
+
+            })
         },
         confirm(){
             document.getElementById("confirm").classList.remove("d-none");
@@ -133,6 +348,19 @@
 
             })
         },
+        filterBrand(){
+            if (!this.selectedBrand) return this.sneakers;
+            else if(!this.filteredSneakers) this.filteredSneakers = this.sneakers.filter(s => s.brand.toLowerCase().includes(this.selectedBrand.toLowerCase()));
+            else this.filteredSneakers = this.filteredSneakers.filter(s => s.brand.toLowerCase().includes(this.selectedBrand.toLowerCase()));
+            console.log(this.filteredSneakers);
+            
+        },
+        filterLeverancier() {
+            if (!this.selectedLeverancier) return this.sneakers;
+            else if(!this.filteredSneakers) this.filteredSneakers = this.sneakers.filter(s => s.supplier.toLowerCase().includes(this.selectedLeverancier.toLowerCase()));
+            else this.filteredSneakers = this.filteredSneakers.filter(s => s.leverancier.name.toLowerCase().includes(this.selectedLeverancier.toLowerCase()))
+            console.log(this.filteredSneakers);
+        },
         /*,
         remove(){
             if(!this.searchId){
@@ -156,12 +384,59 @@
                 console.log(salami);
                 console.log("pre");
                 salami.classList.remove("h-75");
-                salami.classList.add("h-25");
+                salami.classList.add("h-35");
                 console.log(salami);
                 console.log("after");
-        }
+        },
+        hideFilters(){
+            var filterIcon = document.getElementById("filterIcon");
+            var filters = document.getElementById("filters");
+
+            if(filterIcon.classList.contains("rounded-start")) {
+                filterIcon.classList.remove("rounded-start");
+                filterIcon.classList.add("rounded");
+            }
+            else{
+                filterIcon.classList.remove("rounded");
+                filterIcon.classList.add("rounded-start");
+            }
+
+            if(filters.classList.contains("d-none")) filters.classList.remove("d-none");
+            else  filters.classList.add("d-none");
+        },
+        sizePlus(){
+            const input = document.getElementById('sneakerSize');
+            if(!input.value || input.value == 50) input.value = 50;
+            else input.value = parseFloat(input.value) + 0.5;
+            this.selectedSize = input.value;
+            console.log(this.selectedSize);
+        },
+        sizeMin(){
+            const input = document.getElementById('sneakerSize');
+            if(!input.value || input.value == 36) input.value = 36;
+            else input.value = parseFloat(input.value) - 0.5;
+            this.selectedSize = input.value;
+            console.log(this.selectedSize);
+        },
+        showSelected(){
+            console.log("SELECTED");
+            console.log("-------------------------");
+            console.log("LEVERANCIER => " + this.selectedLeverancier);
+            console.log("SIZE =>" + this.selectedSize);
+            console.log("WERKNEMER => " + this.selectedWerknemer);
+            console.log("COLORS => " + this.colors);
+            console.log("-------------------------");
+        },
+
     },
     computed: {
+    },
+    mounted(){
+        this.getAll();
+        this.getBrands();
+        this.getLeveranciers();
+        this.getWerknemers();
+        this.color = SneakerColors;
     },
     components: {
         KleurPreview,
@@ -193,10 +468,74 @@
         width: 45px;
     }
 
+    input[type="checkbox"] {
+        transform: scale(2.5);
+    }
+
     hr{
         color: white;
     }
 
+    .border-blauw{
+        border-color: var(--gblue);
+    }
+
+    .custom-number-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .number-input {
+	    display: inline-flex;
+    }
+
+    .number-input button {
+    	-webkit-appearance: none;
+    	align-items: center;
+    	background: var(--gBlack);
+    	border: none;
+    	cursor: pointer;
+    	justify-content: center;
+    	margin: 0;
+    	outline: none;
+    	padding: 0;
+    	position: relative;
+        width: 100%;
+    }
+
+    .number-input button:hover {
+    	filter: brightness(140%);
+    }
+
+    /* Chrome, Safari, Edge */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+
+    #filterIcon{
+        min-height: 50px;
+        
+    }
+
+    #filters{
+        border-top: 2px solid var(--gBlack);
+        border-right: 2px solid var(--gBlack);
+        border-bottom: 2px solid var(--gBlack);
+    }
+/*
+    #filters div img{
+        max-width: 50px;
+        max-height: 50px;
+    }
+*/
     .whiteIcons{
         filter: brightness(0)invert(1);
     }
@@ -216,8 +555,33 @@
    }
 
    .medium{
-        width: 66px;
-        height: 66px;
+        width: 40px;
+        height: 40px;
+   }
+
+    .colorSquare{
+        width: 25% !important;
+        position: relative;
+    }
+
+    .colorSquare:after{
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+   .w-10{
+    width: 7%;
+    position: sticky !important;
+    top: 0 !important;
+   }
+
+   .h-35{
+    height: 35%;
+   }
+
+   .h-65{
+    height: 65%;
    }
 
    input[type=text]{
@@ -240,6 +604,30 @@
         transform: 1.05%;
    }
 
+   .multi, .multi::before{
+    accent-color: var(--yellow);
+    background-color: var(--multi);
+    background-image: var(--multi);
+    border: 3px solid transparent;
+    color: var(--multi) !important;
+  }
+/*
+   .wit{
+    border: 1px solid black;
+   }
+
+
+   .multi{
+    border: 0 !important;
+    padding-left: 5px;
+   }
+
+   .zwart, .black, .black::before{
+    accent-color: var(--black);
+    background-color: var(--black);
+    border: 3px solid var(--black);
+  }
+*/
 
   </style>
   

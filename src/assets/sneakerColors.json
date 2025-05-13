@@ -1,0 +1,15 @@
+[
+    { "name":"wit","code":"#FFF"},
+    { "name":"geel","code":"#FFFF00"},
+    { "name":"oranje","code":"#ffA500"},
+    { "name":"rood","code":"#FF0000"},
+    { "name":"roos","code":"#FFC0CB"},
+    { "name":"paars","code":"#9D00FF"},
+    { "name":"lichtgroen","code":"#90EE90"},
+    { "name":"groen","code":"#06402B"},
+    { "name":"lichtblauw","code":"#ADD8E6"},
+    { "name":"blauw","code":"#0000FF"},
+    { "name":"beige","code":"#DBC39A"},
+    { "name":"bruin","code":"#7B3F00"},
+    { "name":"grijs","code":"#808080"}
+]
