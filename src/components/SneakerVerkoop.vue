@@ -58,6 +58,9 @@
             },
             verkoop:{
                 type: Boolean
+            },
+            csv:{
+                type: Boolean
             }
 
         },

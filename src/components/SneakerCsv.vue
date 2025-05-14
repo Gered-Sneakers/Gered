@@ -19,7 +19,8 @@ import KleurPreview from './KleurPreview.vue';
             imgAlt: "",
 
             labelColor: "",
-            colors: ""
+            colors: "",
+            active: ""
           }
         },
         props:{
@@ -41,6 +42,9 @@ import KleurPreview from './KleurPreview.vue';
             },
             colors:{
                 type: String
+            },
+            publish:{
+                type: Boolean
             }
         },
         methods:{
@@ -57,6 +61,9 @@ import KleurPreview from './KleurPreview.vue';
                 handle = `${brand}-${model}-${id}`
                 imgPos = 1;
                 imgAlt = `${brand} ${model}`
+            },
+            toggle(){
+              this.active = this.active == "" ? "green" : "";
             }
         },
         mounted () {
@@ -72,7 +79,7 @@ import KleurPreview from './KleurPreview.vue';
     <div class="row max-1200 mx-auto text-center flex-nowrap">
         <div id="id" class="col-2 borders valign" :class="colorlabel">{{ id }}</div>
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
-        <div id="maat" class="col-2 valign borders"><div class="text-center">{{ size }}</div></div>
+        <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
         <div id="price" class="col-2 valign borders">
             <input type="number" class="w-75 text-center" v-model="retailprice" placeholder="original">
         </div>
@@ -81,6 +88,9 @@ import KleurPreview from './KleurPreview.vue';
         </div>
         <div id="img" class="col-2 valign borders">
             <input type="url" class="w-50 text-center" placeholder>
+        </div>
+        <div id="publish" class="col-1 valign borders">
+          <div @click="toggle" :class="active" class="w-100 h-100 m-0 p-0"></div>
         </div>
     </div>
 </template>

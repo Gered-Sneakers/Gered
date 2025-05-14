@@ -47,6 +47,11 @@ const routes = [
     path: '/verkoop',
     name: 'verkoop',
     component: () => import('../views/Verkoop.vue')
+  },
+  {
+    path: '/csvdownload',
+    name: 'csvdownload',
+    component: () => import('../views/Csv_Download.vue')
   }
 ]
 

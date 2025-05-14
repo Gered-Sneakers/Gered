@@ -47,7 +47,7 @@
                                         <option :class="c.name">{{ c.name }}</option>
                                     </div>
                                     <option class="zwart text-light">zwart</option>
-                                    <div class="multi"><option class="multi">multi</option></div>
+                                    <option class="">multi</option>
                                 </select>
                                 <!--
                                 <div class="dropdown">
@@ -192,6 +192,7 @@
                     :teRepareren="sneaker.teRepareren"
                     :creator="sneaker.creator"
                     :verkoop="sneaker.verkoop"
+                    :csv="sneaker.csv"
                     @repair="repair"
                     @update="update"
 
@@ -224,7 +225,7 @@
     import WerknemerService from '@/services/WerknemerService';
 
     import SneakerColors from '@/assets/sneakerColors.json';
-    import {ref} from 'vue'
+    //import {ref} from 'vue'
 
   export default {
     name: 'Search_View',
@@ -246,8 +247,8 @@
             selectedWerknemer: "",
             selectedLeverancier: "",
             selectedSize: "",
-            colors: ref([]),
-            showDropdown: ref(false)
+            //colors: ref([]),
+            //showDropdown: ref(false)
         }
     },
     props: {
@@ -262,7 +263,7 @@
                 this.error = "ID verwacht";
                 return;
             }
-
+            
             SneakerService.get(this.searchId)
                 .then(response => {
                     this.sneaker = response.data;
@@ -276,6 +277,7 @@
                     console.error(error);
                     alert(error);
                })
+            
         },
         getAll(){
             SneakerService.getAll()

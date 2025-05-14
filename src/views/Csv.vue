@@ -1,17 +1,18 @@
 <template>
     <div class="">
-    <div class="max-1200 row mx-auto bg-blue text-white text-center">
+    <div class="max-1200 row mx-auto bg-blue text-white text-center rounded-top">
         <div id="id" class="col-2 borders">ID</div>
         <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
-        <div id="maat" class="col-2 borders"><img src="../img/ruler.svg"></div>
+        <div id="maat" class="col-1 borders"><img src="../img/ruler.svg"></div>
         <div id="price" class="col-2 borders"><img src="../img/sell.svg"></div>
         <div id="price" class="col-2 borders"><img src="../img/sell.svg"></div>
         <div id="img" class="col-2 borders"><img src="../img/img.svg"></div>
+        <div id="publish" class="col-1 borders"><img src="../img/publish.svg"></div>
     </div>
-    <div class="max-1200 scroll vh-70 mx-auto ">
+    <div class="max-1200  vh-70 mx-auto ">
+      <div v-for="s in sneakerList">
       <SneakerCsv
-        v-if="sneakerList.length > 0"
-        v-for="s in sneakerList"
+        v-if="s.csv == 1"
         :id="s.id"
         :colorlabel="s.colorlabel"
         :brand="s.brand"
@@ -20,11 +21,17 @@
         :colors="s.colors"
       >
       </SneakerCsv>
+
+      </div>
     </div>
-    <div class="w-50 mx-auto mt-2 vh-10 rounded valign bg-green">
+    <div class="w-50 mx-auto mt-2 vh-10 rounded valign bg-green grow">
+
+      <router-link :to="{ name: 'csvdownload' }" class="grow col h-100 valign rounded">
         <div class="w-100 text-center fw-bold text-light">
-            DOWNLOAD CSV
+          DOWNLOAD CSV
         </div>
+      </router-link>
+        
     </div>
     </div>
 </template>
@@ -49,12 +56,13 @@ import SneakerService from '@/services/SneakerService';
         SneakerService.getAll()
           .then(response => {
             this.sneakerList = response.data;
+            console.log(this.sneakerList);
           })
           .catch(error =>{
             console.error(error);
           })
 
-          console.log(this.sneakerList);
+          
       }
     },
     mounted () {

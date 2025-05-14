@@ -49,7 +49,9 @@
                     v-model="leverancier" value="Leverancier" @change="go()"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
-                    <option v-for="l in Leveranciers"> {{ l.name }} </option>
+                    <div v-for="l in leveranciers">
+                        <option v-if="l.isActive"> {{ l.name }} </option>
+                    </div>
                     <!--
                     <label class="w-100">
                       <input 
@@ -68,7 +70,7 @@
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none pe-3">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview w-100 h-500 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
+            <div class="sneakerPreview w-100 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
                 <div class="container h-100 position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
@@ -111,8 +113,20 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/paint.svg"></div>
+                        <div class="col-9 text-end">{{paintz}}</div>
+                    </div>
+                    <!--
+                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <div class="row m-0 p-0">
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/repair.svg"></div>
+                        <div class="col-9 text-end">{{brokenz}}</div>
+                    </div>
+                    -->
+                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
-                        <div class="col-9 text-end">{{statusz}}<br v-if="teRepareren">{{teRepareren}}</div>
+                        <div class="col-9 text-end">{{statusz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -161,7 +175,7 @@
                         <div id="brands" class="targets rounded row mx-3 mx-auto d-none">
                         <div class="row w-100">
                             <Brand id="brand"
-                                v-for="b in Brands"
+                                v-for="b in brands"
                                 :key="b.name"
                                 :name="b.name"
                                 :img="b.img"
@@ -204,29 +218,27 @@
                         </div>
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets rounded row text-start d-none">
-                        <div class="row m-0 p-0 mx-auto text-light">
-                            <div class="col-4 m-0 p-0 text-center row">
-                                <img class="col-12 imgSquare mx-auto" src="../img/laces.svg">
+                        <div class="row m-0 p-0 pb-2 mx-auto text-light">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row">
+                                <img class="col-6 imgSquare mx-auto" src="../img/laces.svg">
                                 <div class="col-12 text-center"><input type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
-                            <div class="col-4 m-0 p-0 text-center row">
-                                <img class="col-12 imgSquare mx-auto" src="../img/soles.svg">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row">
+                                <img class="col-6 imgSquare mx-auto" src="../img/soles.svg">
                                 <div class="col-12 text-center"><input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
-                            <div class="col-4 m-0 p-0 text-center row">
-                                <img class="col-12 imgSquare mx-auto" src="../img/broken.svg">
+                            <div class="col-6 mx-auto m-0 p-0 text-center row">
+                                <img class="col-6 imgSquare mx-auto" src="../img/paint.svg">
+                                <div class="col-12 text-center"><input type="checkbox" name="check4" v-model="paint" @click="paintCheckbox"@keyup.enter="saveSneaker"></div>
+                                <label class="col-12" for="check4"> Verven </label>
+                            </div>
+                            <div class="col-6 m-0 p-0 text-center row">
+                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg">
                                 <div class="col-12 text-center"><input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check3"> Beschadigd </label>
                             </div>
-                            
-
-
-                            
-                            
-                            
-                            
 
                             <!--
                                 <input type="text" placeholder="Beschrijf schade"
@@ -301,7 +313,11 @@
     import SneakerService from '@/services/SneakerService';
 
     import { ref } from 'vue'
+    import { onMounted } from 'vue';
+
+    import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
+    import LeverancierService from '@/services/LeverancierService';
 
     var id = ref();
     var labelColor = ref();
@@ -311,17 +327,25 @@
     var colors = ref([]);
     var laces = ref(0);
     var soles = ref(0);
+    var paint = ref(0);
+    var broken = ref(0);
     var leverancier = ref();
     var status = ref(0);
     var teRepareren = ref();
 
     var lacesz = "aanwezig";
     var solesz = "aanwezig";
+    var paintz = "goed";
+    var brokenz = "goed";
+
     var statusz = "cleaning";
     
     var datum = createDate();
     var creator = ref();
     var pass = ref();
+
+    var leveranciers = [];
+    var brands = [];
 
     const mainTargets = document.getElementsByClassName("mainTargets");
     const targets = document.getElementsByClassName("targets");
@@ -331,6 +355,11 @@
     var mainCounter = 0;
     var counter = 0;
 
+    onMounted(()=>{
+        getBrands();
+        getLeveranciers();
+    })
+    
     
     
     //----------------------
@@ -519,6 +548,16 @@
         else solesz = "aanwezig";
     }
 
+    function paintCheckbox(){
+        if(paint.value == false) paintz = "Verven";
+        else paintz = "Goed" 
+    }
+
+    function brokenCheckbox(){
+        if(broken.value == false) brokenz = "Beschadigd";
+        else brokenz = "Goed"
+    }
+
     function saveSneaker(){
         //if(id.value.length == 4) 
         /*
@@ -591,7 +630,7 @@
     }
 
     function capitalize(string){
-        const firstLetter = string.charAt(0);
+        var firstLetter = string.charAt(0);
         const rest = string.substring(1);
 
         firstLetter = firstLetter.toUpperCase();
@@ -599,19 +638,19 @@
         //console.log(firstLetter+rest);
         return firstLetter+rest;
     }
-/*
-    async function login(){
-        try{
-            await authenticateService.login({
-                name: this.name,
-                pass: this.pass
-            })
-        }
-        catch(error){
-            this.error = error.response.data
-        }
+
+    function getBrands(){
+        BrandService.getAll()
+        .then( response => { brands = response.data; })
+        .catch( err => { console.log(err)})
     }
-*/
+
+    function getLeveranciers(){
+        LeverancierService.getAll()
+        .then( response =>{ leveranciers = response.data; } )
+        .catch( err => {console.log(err);})
+    }
+
     function showConfirmBox(){
         document.getElementById("confirm").classList.remove("d-none");
     }

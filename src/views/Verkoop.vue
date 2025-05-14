@@ -1,6 +1,7 @@
 <template>
-    <div class="row max-1217 mx-auto bg-blue text-white text-center">
-        <div id="id" class="col-1 borders">ID</div>
+  <div class="scroll">
+    <div class="row max-1217 mx-auto bg-blue text-white text-center rounded-top">
+        <div id="id" class="col-1 borders rounded-top">ID</div>
         <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
         <div id="maat" class="col-1 borders"><img src="../img/ruler.svg"></div>
@@ -8,7 +9,7 @@
         <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
         <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
-        <div id="" class="col-1 borders"><img src="../img/file.svg"></div>
+        <div id="" class="col-1 borders rounded-top"><img src="../img/file.svg"></div>
     </div>
     <div class="max-1217 m-0 p-0 mx-auto vh-80 scroll">
 
@@ -29,12 +30,14 @@
           @verkoop="verkoop"
         >
         </SneakerVerkoop>
+        
         </div>
       <!--
         @csv="csv"
         @verkoop="verkoop"
       -->
     </div>
+  </div>
     <div class="full m-0 p-0 d-none" id="confirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">

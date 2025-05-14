@@ -12,10 +12,6 @@
           }
         },
         props:{
-            dbid:{
-         		type: Number,
-         		required: true
-         	},
             id:{
                 type: Number,
                 required: true
@@ -57,7 +53,10 @@
                 type: String
             },
             verkoop:{
-                type: Boolean
+                type: Number
+            },
+            csv: {
+                type: Number
             }
         },
         methods:{
@@ -71,7 +70,8 @@
             }
         },
         mounted () {
-            console.log(this.verkoop);
+            console.log(this.id," CSV ",this.csv);
+            console.log(this.id, " VERKOOP ",this.verkoop);
         },
         components: {
             KleurPreview
@@ -96,7 +96,7 @@
         <div id="datum" class="col-2 valign borders">{{ date }}</div>
         <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,4) }}</div>
         <div class="col-1 valign borders"> 
-            <img class="me-2 w-50 grow" src="../img/csv.svg" v-if="showCsv" @click="$emit('csv',id);showCsv = false"> 
+            <img class="me-2 w-50 grow" src="../img/csv.svg" v-if="csv==0" @click="$emit('csv',id);showCsv = false"> 
             <img class="me-2 w-50 grow" src="../img/sell.svg" v-if="verkoop==0" @click="$emit('verkoop',id);showVerkoop = false">
         </div>
     </div>

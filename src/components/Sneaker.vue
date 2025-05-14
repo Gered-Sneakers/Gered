@@ -1,6 +1,6 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
 <script>
-    import KleurPreview from './KleurPreview.vue';
+import KleurPreview from './KleurPreview.vue';
 
     export default {
         name: 'Sneaker',
@@ -9,10 +9,6 @@
           }
         },
         props:{
-            dbid:{
-         		type: Number,
-         		required: true
-         	},
             id:{
                 type: Number,
                 required: true
@@ -49,6 +45,12 @@
             },
             teRepareren:{
                 type: String
+            },
+            verkoop:{
+                type: Number
+            },
+            csv:{
+                type: Number
             },
             creator:{
                 type: String

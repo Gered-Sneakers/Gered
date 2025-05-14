@@ -27,6 +27,7 @@
         :status="s.status"
         :creator="s.creator"
         :verkoop="s.verkoop"
+        :csv="s.csv"
         @csv="csv"
         @verkoop="verkoop"
       >
@@ -34,6 +35,8 @@
       </SneakerSmall>
       
     </div>
+    <div >CSV: <span v-for="v in csvList" @click="csvRemove(v)">{{ v+" " }} </span></div>
+    <div @click="csvAdd" class="border border-warning bg-warning hover grow">Cee eS Veejen BEjBIs</div>
     <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
     <div @click="verkoopAdd" class="border border-warning bg-warning hover grow">VERKAUFEN BEBI</div>
 </template>
@@ -63,18 +66,13 @@ import SneakerService from '@/services/SneakerService';
         SneakerService.getAll()
           .then(response => {
             this.sneakerList = response.data;
+            console.log(this.sneakerList);
           })
           .catch(error =>{
             console.error(error);
           })
 
-          console.log(this.sneakerList);
-      },
-      csv(id){
-        console.log("CSV");
-        console.log(id);
-        this.csvList.push(id);
-        console.log(this.csvList);
+          
       },
       verkoop(id){
         console.log("VERKOOP");
@@ -99,6 +97,30 @@ import SneakerService from '@/services/SneakerService';
           })
           
         });
+      },
+      csv(id){
+        console.log("CSV");
+        console.log(id);
+        !this.csvList.includes(id) && this.csvList.push(id);
+        console.log(this.csvList);
+      },
+      csvRemove(id){
+        this.csvList = this.csvList.filter(c => c !== id);
+      },
+      csvAdd(){
+        console.log("Cee eS Veejen GIYAL");
+        this.csvList.forEach(c => {
+          console.log(c);
+
+          SneakerService.update(c,{ csv:1 })
+          .then(res=>{
+            console.log(res);
+            console.log("We don giv a fu bwoi");
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        })
       }
     },
     mounted () {
@@ -118,6 +140,10 @@ import SneakerService from '@/services/SneakerService';
   .max-1200{
     max-width: 1200px;
     overflow-x: hidden;
+  }
+
+  .max-1200:hover{
+    background-color: var(--gYellow);
   }
 
   .max-1217{
