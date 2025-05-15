@@ -54,8 +54,18 @@
             })
         }
     },
+    created(){
+        const data = history.state.data;
+        this.sneakerList = data;
+        console.log("SNEAKERLIST");
+        console.log(this.sneakerList);
+    },
     mounted(){
-        this.getSneakers();
+        //this.getSneakers();
+        const data = history.state.data;
+        this.sneakerList = data;
+        console.log("SNEAKERLIST");
+        console.log(this.sneakerList);
     },
     components:{
         Csv

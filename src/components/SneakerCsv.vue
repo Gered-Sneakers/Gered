@@ -6,21 +6,28 @@ import KleurPreview from './KleurPreview.vue';
         name: 'SneakerCsv',
         data(){
           return{
-            id: "",
-            brand: "",
-            model: "",
-            title: "",
             handle: "",
-            size: "",
+            title: "",
+            vendor: "",
+            type: "Sneaker",
+            modelz: "",                        
+            sizez: "",
+            uitgave: "",
             price: "",
+            amount: 1,
             retailprice: "",
+            barcode: "",
+
             imgSrc: "",
             imgPos: "",
             imgAlt: "",
+            publi: false,
 
             labelColor: "",
-            colors: "",
-            active: ""
+            //colors: "",
+            active: "",
+            date: ""
+            
           }
         },
         props:{
@@ -45,6 +52,9 @@ import KleurPreview from './KleurPreview.vue';
             },
             publish:{
                 type: Boolean
+            },
+            createdAt:{
+                type: String
             }
         },
         methods:{
@@ -57,17 +67,84 @@ import KleurPreview from './KleurPreview.vue';
                 console.log(firstLetter+rest);
             },
             createProperties(){
-                title = `${brand} ${model}`
-                handle = `${brand}-${model}-${id}`
-                imgPos = 1;
-                imgAlt = `${brand} ${model}`
+                //this.date = this.createtedAt //`${createdAt}`
+                this.handle = this.brand+"-"+this.model+"-"+this.id//`${brand}-${model}-${id}`
+                this.title = this.brand+" "+this.model
+                this.vendor = this.brand
+                this.retailprice = this.retailprice
+                this.type = "Sneaker"
+                this.modelz =  this.model
+                this.sizez =  this.size
+                this.imgPos = 1
+                this.imgAlt = this.title
+                /*
+                console.log("CREATE PROPS----------------------");
+                console.log(this.handle);
+                console.log(this.title);
+                console.log(this.vendor);
+                console.log(this.retailprice);
+                console.log(this.price);
+                console.log(this.type);
+                console.log(this.modelz);
+                console.log(this.sizez);
+                console.log(this.imgSrc);
+                console.log(this.imgPos);
+                console.log(this.imgAlt);
+                */
+                
+                
             },
             toggle(){
-              this.active = this.active == "" ? "green" : "";
+                this.active = this.active == "" ? "green" : "";    
+                this.publi= this.publi == false ? true: false;
+                console.log(this.id + " " + this.publi + " " + this.date);
+            },
+            emitCsvData(){
+              this.createProperties();
+              this.$emit('update',{
+                handle: this.handle,
+                title: this.title,
+                vendor: this.vendor,
+                type: "Sneaker",
+                model: this.modelz,                        
+                size: this.sizez,
+                uitgave: this.uitgave,
+                price: this.price,
+                amount: 1,
+                retailprice: this.retailprice,
+                barcode: this.id,
+
+                imgSrc: this.imgSrc,
+                imgPos: 1,
+                imgAlt: this.title,
+                published: this.publi,
+              })
             }
         },
         mounted () {
-            
+            this.publi = this.publish;
+            this.date = this.createdAt;
+            this.emitCsvData();
+            console.log(this.date);
+        },
+        watch: {
+          handle: 'emitCsvData',
+          title: 'emitCsvData',
+          vendor: 'emitCsvData',
+          model: 'emitCsvData',
+          sizez: 'emitCsvData',
+          uitgave: 'emitCsvData',
+          price: 'emitCsvData',
+          amount: 'emitCsvData',
+          retailprice: 'emitCsvData',
+          barcode: 'emitCsvData',
+          imgSrc: 'emitCsvData',
+          imgPos: 'emitCsvData',
+          imgAlt: 'emitCsvData',
+          published: 'emitCsvData',
+          labelColor: 'emitCsvData',
+          active: 'emitCsvData',
+          date: 'emitCsvData'
         },
         components: {
             KleurPreview
@@ -77,20 +154,23 @@ import KleurPreview from './KleurPreview.vue';
 
 <template>
     <div class="row max-1200 mx-auto text-center flex-nowrap">
-        <div id="id" class="col-2 borders valign" :class="colorlabel">{{ id }}</div>
+        <div id="id" class="col-1 borders valign" :class="colorlabel">{{ id }}</div>
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="price" class="col-2 valign borders">
-            <input type="number" class="w-75 text-center" v-model="retailprice" placeholder="original">
+        <div id="price" class="col-2 m-0 p-0 valign borders">
+            <input type="number" class="w-100 h-100 text-center" v-model="retailprice" placeholder="original">
         </div>
-        <div id="price" class="col-2 valign borders">
-            <input type="number" class="w-75 text-center" v-model="price" placeholder="price">
+        <div id="price" class="col-2 m-0 p-0 valign borders">
+            <input type="number" class="w-100 h-100 text-center" v-model="price" placeholder="price">
         </div>
-        <div id="img" class="col-2 valign borders">
-            <input type="url" class="w-50 text-center" placeholder>
+        <div id="img" class="col-1 m-0 p-0 valign borders">
+            <input type="url" class="w-100 h-100 text-center" v-model="imgSrc" placeholder="url">
         </div>
-        <div id="publish" class="col-1 valign borders">
-          <div @click="toggle" :class="active" class="w-100 h-100 m-0 p-0"></div>
+        <div id="retailDate" class="col-2 m-0 p-0 valign borders">
+            <input type="number" class="w-100 h-100 text-center" min="1980" v-model="uitgave" placeholder="yyyy">
+        </div>
+        <div id="publish" class="col-1 m-0 p-0 valign borders">
+          <div @click="toggle();" :class="active" class="w-100 h-100 m-0 p-0"></div>
         </div>
     </div>
 </template>

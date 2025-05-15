@@ -47,6 +47,10 @@ module.exports = (sequelize, Sequelize) => {
       verkoop: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+      },
+      csv: {
+        type: Sequelize.BOOLEAN,
+        defaultvalue: false
       }
     }); 
    
