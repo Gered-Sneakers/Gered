@@ -68,11 +68,13 @@ import KleurPreview from './KleurPreview.vue';
             },
             createProperties(){
                 //this.date = this.createtedAt //`${createdAt}`
-                this.handle = this.brand+"-"+this.model+"-"+this.id//`${brand}-${model}-${id}`
+                this.handle = (this.brand+"-"+this.model+"-"+this.id).replace(" ","-")//`${brand}-${model}-${id}`
                 this.title = this.brand+" "+this.model
                 this.vendor = this.brand
-                this.retailprice = this.retailprice
                 this.type = "Sneaker"
+                
+                this.retailprice = this.retailprice
+                
                 this.modelz =  this.model
                 this.sizez =  this.size
                 this.imgPos = 1

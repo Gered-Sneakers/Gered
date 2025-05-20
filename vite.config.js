@@ -21,7 +21,7 @@ export default defineConfig({
     port: 8081, // ✅ Set dev server to run on port 8081
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://g-app.be',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }

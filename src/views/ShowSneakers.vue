@@ -1,17 +1,27 @@
 <template>
-    <div class="row max-1217 mx-auto bg-blue text-white text-center">
-        <div id="id" class="col-1 borders">ID</div>
-        <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders"><img src="../img/ruler.svg"></div>
-        <div id="status" class="col-1 borders"><img src="../img/warning.svg"></div>
-        <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
-        <div class="col-1 borders"><img src="../img/file.svg"></div>
-        
+  <div class="vh-80 scroll">
+    <div class="row max-1200 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
+        <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
+        <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
+        <div id="kleur" class="col-1 borders mb-1"><img src="../img/color.svg"></div>
+        <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
+        <div id="status" class="col-1 borders mb-1"><img src="../img/warning.svg"></div>
+        <div id="user" class="col-2 borders mb-1"><img src="../img/login.svg"></div>
+        <div id="datum" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
+        <div id="leverancier" class="col-1 borders mb-1"><img src="../img/delivery.svg"></div>
+        <div class="col-1 borders mb-1"><img src="../img/file.svg"></div>
+        <!-- IMAG ROW -->
+        <div id="id" class="col-1 borders mb-1">id</div>
+        <div id="merk" class="col-2 borders mb-1">merk</div>
+        <div id="kleur" class="col-1 borders mb-1">kleur</div>
+        <div id="maat" class="col-1 borders mb-1">maat</div>
+        <div id="status" class="col-1 borders mb-1">status</div>
+        <div id="user" class="col-2 borders mb-1">vriend</div>
+        <div id="datum" class="col-2 borders mb-1">datum</div>
+        <div id="leverancier" class="col-1 borders mb-1">lever</div>
+        <div class="col-1 borders mb-1">lijst</div>
     </div>
-    <div class="max-1217 m-0 p-0 mx-auto vh-80 scroll">
+    <div class="max-1217 m-0 p-0 mx-auto">
       <SneakerSmall
         
         v-if="sneakerList.length > 0"
@@ -35,10 +45,17 @@
       </SneakerSmall>
       
     </div>
-    <div >CSV: <span v-for="v in csvList" @click="csvRemove(v)">{{ v+" " }} </span></div>
-    <div @click="csvAdd" class="border border-warning bg-warning hover grow">Cee eS Veejen BEjBIs</div>
-    <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
+  </div>
+    <div class="row max-1217 mx-auto bg-blue text-white">
+      <div class="col-9" >CSV: <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
+      <div v-if="csvList.length == 0" @click="csvAdd" class="col-3 bg-warning hover grow">Cee eS Veejen BEjBIs</div>
+      <div v-else @click="csvAdd" class="col-3 border-green bg-green hover grow">Cee eS Veejen BEjBIs</div>
+      
+    </div>
+    <!--
+     <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
     <div @click="verkoopAdd" class="border border-warning bg-warning hover grow">VERKAUFEN BEBI</div>
+    -->
 </template>
   
 <script>
@@ -140,10 +157,6 @@ import SneakerService from '@/services/SneakerService';
   .max-1200{
     max-width: 1200px;
     overflow-x: hidden;
-  }
-
-  .max-1200:hover{
-    background-color: var(--gYellow);
   }
 
   .max-1217{

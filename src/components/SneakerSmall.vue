@@ -112,6 +112,10 @@
         width: 800px;
     }
 
+    .max-1200:hover div{
+      background-color: var(--gYellow);
+    }
+
     .borders{
         border-top: 0px solid var(--gBlack);
         border-bottom: 2px solid var(--gBlack);

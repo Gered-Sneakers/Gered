@@ -107,6 +107,14 @@ export default {
   
   }
 
+  .sticky{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    
+
+  }
+
 .bg-Gered{
   background-color: var(--gBg);
 }

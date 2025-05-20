@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="col-1 "></div>
-                            <div class="col-2 my-1">
+                            <div class="col-2 my-1 custom-input">
                                 <select class="w-100 h-100" v-model="colors" @change="console.log(colors)">
                                     <div v-for="c in color" :key="c.name">
                                         <option :class="c.name">{{ c.name }}</option>
@@ -112,7 +112,7 @@
 
                             <div class="col-1"></div>
 
-                            <div class="col-2 m-0 p-0 my-1">
+                            <div class="col-2 m-0 p-0 my-1 custom-input">
                                 <select v-model="selectedLeverancier" class="w-100 h-100" @change="filterLeverancier">
                                     <div v-for="l in leveranciers" :key="l.id">
                                         <option v-if="l.isActive" :value="l.name">{{l.name}}</option>
@@ -122,7 +122,7 @@
 
                             <div class="col-1"></div>
 
-                            <div class="col-2 m-0 p-0 my-1">
+                            <div class="col-2 m-0 p-0 my-1 custom-input">
                                 <select v-model="selectedWerknemer" class="w-100 h-100">
                                     <div v-for="w in werknemers" :key="w.id">
                                         <option v-if="w.isActive" :value="w.id" @click="console.log('FILTER MAKEN');">{{w.name}}</option>
@@ -135,7 +135,7 @@
                             </div>
 
                             <div class="col-11 row m-0 p-0 my-1">
-                                <div class="col-1 mx-auto border border-dark rounded" v-for="brand in brands.data" :key="brand.id">
+                                <div class="col-3 col-md-2 col-xl-1 mx-auto border border-dark rounded" v-for="brand in brands.data" :key="brand.id">
                                     <img :src="'../src/img/brands/' + brand.img" class="w-100 grow blackIcons" @click="selectedBrand = brand.name;console.log(brand.name);filterBrand();">
                                 </div>
                             </div>
@@ -163,8 +163,12 @@
                             <!-- IMAGINABLE ROW -->                           
                             
                         </div>
+                        <!--<div class="col-1 bg-blue m-0 mb-1 rounded">-->
+                            <div id="reader" class="w-100 h-50"></div>
+                        <!--</div>-->
                         
                         <input type="text" size="14" 
+                            id="search"
                             class="text-center border-blue rounded mx-auto mb-1" 
                             maxlength="4"
                             placeholder="labelnr" 
@@ -225,6 +229,8 @@
     import WerknemerService from '@/services/WerknemerService';
 
     import SneakerColors from '@/assets/sneakerColors.json';
+    import { Html5QrcodeScanner } from 'html5-qrcode';
+
     //import {ref} from 'vue'
 
   export default {
@@ -429,6 +435,22 @@
             console.log("COLORS => " + this.colors);
             console.log("-------------------------");
         },
+        createScanner(){
+            const scanner = new Html5QrcodeScanner("reader",{ fps:10, qrbox:250 }, false );
+            scanner.render(
+              qrCodeMessage => {
+                console.log("Scanned Qr", qrCodeMessage);
+                //document.getElementById("showMsg").innerHTML= qrCodeMessage;
+                this.searchId = qrCodeMessage;
+                document.getElementById("search").
+                scanner.clear();
+                scanner.stop();
+              },
+              errorMessage => {
+                console.warn("Scan error: ", errorMessage);
+              }
+            );
+        }
 
     },
     computed: {
@@ -438,7 +460,14 @@
         this.getBrands();
         this.getLeveranciers();
         this.getWerknemers();
+        this.createScanner();
         this.color = SneakerColors;
+
+        var el = document.getElementById("search");
+
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') this.search();
+        });
     },
     components: {
         KleurPreview,
@@ -482,9 +511,11 @@
         border-color: var(--gblue);
     }
 
-    .custom-number-input {
+    .custom-number-input, .custom-input {
         display: flex;
         align-items: center;
+        height: 66px !important;
+        font-size: 25px;
     }
 
     .number-input {
