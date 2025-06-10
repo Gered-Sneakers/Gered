@@ -69,11 +69,11 @@ export default {
     --purple: #9D00FF;
     --darkgreen: #06402B;
     --navy: #000080;
-    --orange: #ffA500;
+    --orange: #ff8c00;
     
-    --pink: #FFC0CB;
-    --lightgreen: #90EE90;
-    --lightblue: #ADD8E6;
+    --pink: #ff69b4;
+    --lightgreen: #00ff00;
+    --lightblue: #00ffff;
     --beige: #DBC39A;
 
     --multi:  linear-gradient(140deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
@@ -94,9 +94,7 @@ export default {
 
     --gText: #2A3439;
     --gTextLight: #4B575C;
-  
-    
-    
+
   }
 
   .col-12 > .title{
@@ -201,6 +199,8 @@ export default {
 .valign{
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .border-blue{
@@ -258,6 +258,8 @@ export default {
   border-bottom-right-radius: 50rem;
   border-top-right-radius: 50rem;
 }
+
+.rounded-
 
 .rounded-bottom-left{
   border-bottom-left-radius: .25rem;
@@ -331,6 +333,10 @@ export default {
   transform:scale(0.95);
 }
 
+.growz:hover{
+  transform:scale(1.05);
+}
+
 @keyframes rotater{
   0%  {transform:rotate(0)}
   25% {transform:rotate(-90deg)}
@@ -394,6 +400,10 @@ a{
 
 .blackIcons{
     filter: brightness(0) !important;
+}
+
+.rounded-top-left{
+
 }
 
 
@@ -543,7 +553,7 @@ a{
   fill: var(--gblue);
 }
 
-[type=text],[type=password]{
+[type=text],[type=password],button{
   max-width: 800px !important;
   min-width: 400px !important;
 }

@@ -5,14 +5,12 @@
                 <p class="w-100 text-center">Zoeken</p>
             </div>
         </div>
-        <div class="col-12 vh-80 pt-3">
-            <div id="changeHeight" class="valign centered h-75">
-                <div class="row mx-auto">
-                    <div class="row m-0 p-0 mx-auto">
-                        <div id="filterIcon" class="col-1 bg-blue m-0 valign mx-auto rounded mb-1" @click="hideFilters">
-                            <img src="../img/filter.svg" class="w-100 whiteIcons grow">
-                        </div>
-                        <div id="filters" class="col-11 row m-0 p-0 rounded-end d-none mb-1">
+        <div class="col-12 vh-80 m-0 p-0">
+            <div id="changeHeight" class="valign centered">
+                <div class="row m-0 p-0 mx-auto">
+                    <div class="row m-0 p-1 mx-auto justify-content-center">
+                       
+                        <div id="filters" class="col-12 row m-0 p-0 rounded-start rounded-end d-none mb-1">
                             <div class="col-1 bg-blue"></div>
                             
                             <div class="col-2 bg-blue valign">
@@ -163,19 +161,28 @@
                             <!-- IMAGINABLE ROW -->                           
                             
                         </div>
-                        <!--<div class="col-1 bg-blue m-0 mb-1 rounded">-->
-                            <div id="reader" class="w-100 h-50"></div>
-                        <!--</div>-->
+
+                        <div id="filterIcon" class="col-2 bg-blue m-0 valign rounded mb-1" @click="hideFilters">
+                            <img src="../img/filter.svg" class="w-100 whiteIcons grow">
+                        </div>
                         
-                        <input type="text" size="14" 
+                        <div class="col-8">
+                            <input type="text" size="14" 
                             id="search"
-                            class="text-center border-blue rounded mx-auto mb-1" 
+                            class="w-100 text-center border-blue rounded mx-auto mb-1" 
                             maxlength="4"
                             placeholder="labelnr" 
                             v-model="searchId"
                             @keyup.enter="search();changeHeight();"
                             @click="showSelected"
                             ><br>
+                        </div>
+
+                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign mb-1">
+                            <img class="w-100 grow" src="../img/qr.svg">
+                            <div id="reader" class="w-100 h-50 d-none"></div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -202,6 +209,9 @@
 
                 ></Sneaker>
             </div>
+            <div class="h-75" v-else>
+                <ShowSneakers/>
+            </div>
         </div>
         <!--
         <ConfirmBox
@@ -227,6 +237,7 @@
     import BrandService from '@/services/BrandService';
     import LeverancierService from '@/services/LeverancierService';
     import WerknemerService from '@/services/WerknemerService';
+    import ShowSneakers from './ShowSneakers.vue';
 
     import SneakerColors from '@/assets/sneakerColors.json';
     import { Html5QrcodeScanner } from 'html5-qrcode';
@@ -399,16 +410,16 @@
         hideFilters(){
             var filterIcon = document.getElementById("filterIcon");
             var filters = document.getElementById("filters");
-
+            
             if(filterIcon.classList.contains("rounded-start")) {
-                filterIcon.classList.remove("rounded-start");
-                filterIcon.classList.add("rounded");
+                filterIcon.classList.remove("rounded-start","col-1");
+                filterIcon.classList.add("rounded","col-2");
             }
             else{
-                filterIcon.classList.remove("rounded");
-                filterIcon.classList.add("rounded-start");
+                filterIcon.classList.remove("rounded","col-2");
+                filterIcon.classList.add("rounded-start","col-1");
             }
-
+            
             if(filters.classList.contains("d-none")) filters.classList.remove("d-none");
             else  filters.classList.add("d-none");
         },
@@ -472,7 +483,8 @@
     components: {
         KleurPreview,
         Sneaker,
-        ConfirmBox
+        ConfirmBox,
+        ShowSneakers
     }
   }
   </script>
@@ -553,9 +565,10 @@
     }
 
 
-    #filterIcon{
+    #filterIcon, #qrCode{
         min-height: 50px;
-        
+        width: 75px;
+        height: 75px;
     }
 
     #filters{
@@ -619,8 +632,8 @@
 
    input[type=text]{
        width: 50vw;
-       height: 10vh;
-       font-size: 4em;
+       height: 75px;
+       font-size: 65px;
    }
 
    .grow:hover span{

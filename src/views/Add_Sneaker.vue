@@ -3,7 +3,7 @@
     <div class="row m-0 h-100 mainTargets d-flex">
         <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valign">
-                <p class="w-100 text-center">Add Sneaker</p>
+                <p class="w-100 text-center">Toevoegen</p>
             </div>
         </div>
 
@@ -70,8 +70,8 @@
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none pe-3">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview w-100 m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
-                <div class="container h-100 position-relative">
+            <div class="sneakerPreview w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
+                <div class="container position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold" :class="labelColor">{{ id }}</span>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="row m-0 p-0 pt-2">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.svg"></div>
-                        <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</span></div>
+                        <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -148,9 +148,9 @@
             </div>
         </div>
         <div class="FORM col-8 col-xxl-10">
-            <div class="row h-100 valign">
+            <div class="row h-100 valign bg-blue rounded">
                 <div class="">
-                <div class="mx-auto row m-0 p-0 h-500 bg-blue rounded">
+                <div class="mx-auto  row m-0 p-0 h-500  rounded">
                 <div class="col-2 p-2">
                     <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none h-100">
                         <img class="w-50 mx-auto rota180 selectDisable" src="../img/next.svg">
@@ -187,7 +187,7 @@
                         <!-- MODEL -->
                         <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
                         <!-- SIZE -->
-                        <input @keyup.enter="next" id="SIZE" v-model="size" type="text" placeholder="SIZE" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
+                        <input @keyup.enter="next" id="SIZE" v-model="size" type="number" placeholder="SIZE" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
@@ -323,7 +323,7 @@
     var labelColor = ref();
     var brand = ref();
     var model = ref();
-    var size = ref();
+    var size = ref(0);
     var colors = ref([]);
     var laces = ref(0);
     var soles = ref(0);
@@ -333,12 +333,12 @@
     var status = ref(0);
     var teRepareren = ref();
 
-    var lacesz = "aanwezig";
-    var solesz = "aanwezig";
-    var paintz = "goed";
-    var brokenz = "goed";
+    var lacesz = "Aanwezig";
+    var solesz = "Aanwezig";
+    var paintz = "Goed";
+    var brokenz = "Goed";
 
-    var statusz = "cleaning";
+    var statusz = "Cleaning";
     
     var datum = createDate();
     var creator = ref();
@@ -534,18 +534,18 @@
     }
 
     function statusCheckbox(){
-        if(status.value == false) statusz = "repair";
-        else statusz = "cleaning";
+        if(status.value == false) statusz = "Repair";
+        else statusz = "Cleaning";
     }
 
     function lacesCheckbox(){
-        if(laces.value == false) lacesz = "geen";
-        else lacesz = "aanwezig";
+        if(laces.value == false) lacesz = "Geen";
+        else lacesz = "Aanwezig";
     }
 
     function solesCheckbox(){
-        if(soles.value == false) solesz = "geen";
-        else solesz = "aanwezig";
+        if(soles.value == false) solesz = "Geen";
+        else solesz = "Aanwezig";
     }
 
     function paintCheckbox(){
@@ -558,7 +558,7 @@
         else brokenz = "Goed"
     }
 
-    function saveSneaker(){
+    async function saveSneaker(){
         //if(id.value.length == 4) 
         /*
             console.log("ID is good");
@@ -592,17 +592,19 @@
 
         console.log(data);
 
-        SneakerService.create(data)
+        
+        await SneakerService.create(data)
         .then(response => {
-            id = response.data.id;
+            //id = response.data.id;
+            resetSneaker();
+            resetTargets();
+            refuse();
         })
         .catch( error => {
             console.log(error);
         });
 
-        resetSneaker();
-        resetTargets();
-        refuse();
+        
 
     }
 
@@ -611,12 +613,25 @@
         labelColor.value = "";
         brand.value = "";
         model.value = "";
-        size.value = "";
+        size.value = 0;
         colors.value = [];
-        laces.value = "";
-        soles.value = "";
-        status.value = "";
+        laces.value = false;
+        soles.value = false;
+        status.value = false;
+        paint.value = false;
         teRepareren.value = "";
+        /*
+        id = ref(0);
+        labelColor = ref();
+        brand = ref();
+        model = ref();
+        size = ref();
+        colors = ref([]);
+        laces = ref(0);
+        soles = ref(0);
+        status = ref(0);
+        teRepareren = ref();
+        */
 
     }
 
@@ -758,7 +773,7 @@
         bottom: 150px;
     }
 
-   input[type=text],select,select option{
+   input[type=text],select,select option,#SIZE{
     width: 100%;
     max-width: 400px;
     height: 66px;

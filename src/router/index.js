@@ -52,7 +52,17 @@ const routes = [
     path: '/csvdownload',
     name: 'csvdownload',
     component: () => import('../views/Csv_Download.vue')
-  }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/qr',
+    name: 'qr',
+    component: () => import('../views/Qr.vue')
+  },
 ]
 
 const router = createRouter({

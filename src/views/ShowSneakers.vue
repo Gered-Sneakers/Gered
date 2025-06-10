@@ -1,5 +1,6 @@
 <template>
-  <div class="vh-80 scroll">
+  <!--<div class="vh-80 scroll">-->
+    <div class="h-100 scroll">
     <div class="row max-1200 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
@@ -23,7 +24,7 @@
     </div>
     <div class="max-1217 m-0 p-0 mx-auto">
       <SneakerSmall
-        
+        class="sneakerSmall"
         v-if="sneakerList.length > 0"
         v-for="s in sneakerList"
         :id="s.id"
@@ -154,9 +155,14 @@ import SneakerService from '@/services/SneakerService';
     filter: brightness(1);
   }
 
+  .sneakerSmall{
+    min-height: 50px !important;
+  }
+
   .max-1200{
     max-width: 1200px;
     overflow-x: hidden;
+    
   }
 
   .max-1217{

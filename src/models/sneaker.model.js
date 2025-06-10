@@ -5,8 +5,9 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
       },*/
       id: { 
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         primaryKey: true,
+        allowNull: false
       },
       colorlabel: { 
         type: Sequelize.STRING 
@@ -21,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING 
       }, 
       size: { 
-        type: Sequelize.TINYINT
+        type: Sequelize.FLOAT
       }, 
       colors: { 
         type: Sequelize.STRING 
