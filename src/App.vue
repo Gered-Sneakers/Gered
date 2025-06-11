@@ -199,6 +199,13 @@ export default {
 .valign{
   display: flex;
   align-items: center;
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+}
+
+.valignz{
+  display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
 }
@@ -258,8 +265,6 @@ export default {
   border-bottom-right-radius: 50rem;
   border-top-right-radius: 50rem;
 }
-
-.rounded-
 
 .rounded-bottom-left{
   border-bottom-left-radius: .25rem;
@@ -553,7 +558,7 @@ a{
   fill: var(--gblue);
 }
 
-[type=text],[type=password],button{
+[type=text],[type=password],.btn-big{
   max-width: 800px !important;
   min-width: 400px !important;
 }

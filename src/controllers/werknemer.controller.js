@@ -1,7 +1,9 @@
 const db = require("../models");
 const Werknemers = db.werknemers; 
 //const Op = db.Sequelize.Op; 
-const { Op } = require("sequelize");
+//const { Op } = require("sequelize");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
  
 // Create and Save a new Werknemers
 exports.create = (req, res) => {
@@ -81,16 +83,27 @@ exports.findByName = (req, res) => {
 exports.login = async (req,res) => {
   const { name, password } = req.body;
   
+  
   try{
     const user = await Werknemers.findOne({where: {name}})
     
     if(!user) return res.status(404).send({ message: "User not found"});
 
-    if(user.pass !== password ) return res.status(401).send({ message: "Incorrect password"});
+    const validPass = await bcrypt.compare(password, user.pass);
+    if (!validPass) return res.status(401).send({ message: "Incorrect password" });
+
+    //if(user.pass !== password ) return res.status(401).send({ message: "Incorrect password"});
+
+    const token = jwt.sign(
+      { id: user.id, name: user.name },
+      process.env.JWT_SECRET, // use dotenv for real apps
+      { expiresIn: '2h' }
+    );
 
     return res.status(200).send({
       id: user.id,
       name: user.name,
+      token,
       message: "Login Successfull"
     })
   }

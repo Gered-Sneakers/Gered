@@ -4,13 +4,13 @@
         <!-- INPUT LEVERANCIER -->
         <div class="col-4 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">ADD LEVERANCIER</div>
+            <div class="mx-auto subTitle">+ LEVERANCIER</div>
           </div>
           <div class="w-100 text-center valign rounded-bottom bg-blue">
             <div class="w-100 m-0 p-0 mx-auto">
               <input type="text" class="text-center mb-2 w-90" placeholder="Leverancier" v-model="leverancierName"><br>
               <input type="text" class="visibility mb-2">
-              <!--<input type="button" id="loadFileXml" value="ADD IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
+              <!--<input type="button" id="loadFileXml" value="+ IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
               <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
             </div>
@@ -34,12 +34,12 @@
         <!-- INPUT BRAND -->
         <div class="col-4 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">ADD BRAND</div>
+            <div class="mx-auto subTitle">+ BRAND</div>
           </div>
           <div class="w-100 text-center valign rounded-bottom bg-blue">
             <div class="w-100 m-0 p-0 mx-auto">
               <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="BRAND"><br>
-              <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="ADD IMG" 
+              <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ IMG" 
                     @click="addBrandImg"  />
               <input type="file" id="imgBrand" class="mx-auto d-none"><br>
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
@@ -49,7 +49,7 @@
 
         <div class="col-4 px-2 mt-3 mx-auto d-none">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">ADD LABELCOLOR</div>
+            <div class="mx-auto subTitle">+ LABELCOLOR</div>
           </div>
           <div class="w-100 text-center vh-15 valign rounded-bottom bg-blue">
             <div class="mx-auto">
@@ -62,7 +62,7 @@
         <!-- INPUT WERKNEMER -->
         <div class="col-4 px-2 mt-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">ADD WERKNEMER</div>
+            <div class="mx-auto subTitle">+ WERKNEMER</div>
           </div>
           <div class="w-100 text-center valign rounded-bottom bg-blue">
             <div class="w-100 m-0 p-0 mx-auto">

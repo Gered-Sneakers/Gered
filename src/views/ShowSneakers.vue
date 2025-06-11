@@ -1,6 +1,6 @@
 <template>
   <!--<div class="vh-80 scroll">-->
-    <div class="h-100 scroll">
+    <div class="vh-80 scroll">
     <div class="row max-1200 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
@@ -80,17 +80,23 @@ import SneakerService from '@/services/SneakerService';
   
     },
     methods: {
+      /*
+      async getSneakers(){
+        try{
+        const response = await SneakerService.getAll()
+        this.sneakerList = response.data;
+        }
+        catch(error) {console.log("Failed to load sneakers:",error);}
+             
+      },*/
       getSneakers(){
         SneakerService.getAll()
-          .then(response => {
-            this.sneakerList = response.data;
-            console.log(this.sneakerList);
-          })
-          .catch(error =>{
+        .then(response =>{
+          this.sneakerList = response.data;
+        })
+        .catch(error =>{
             console.error(error);
-          })
-
-          
+        })
       },
       verkoop(id){
         console.log("VERKOOP");
@@ -143,6 +149,11 @@ import SneakerService from '@/services/SneakerService';
     },
     mounted () {
       this.getSneakers();
+    },
+    watch:{
+      $route(){
+        this.getSneakers();
+      }
     },
     components:{
       SneakerSmall

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-12 vh-80 m-0 p-0">
-            <div id="changeHeight" class="valign centered">
+            <div id="changeHeight" class="valign centered justify-content-center">
                 <div class="row m-0 p-0 mx-auto">
                     <div class="row m-0 p-1 mx-auto justify-content-center">
                        
@@ -177,16 +177,14 @@
                             @click="showSelected"
                             ><br>
                         </div>
-
                         <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign mb-1">
                             <img class="w-100 grow" src="../img/qr.svg">
                             <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-            <div class="h-75" v-if="sneaker">
+            <div class="" v-if="sneaker">
                 <Sneaker 
                     :id="sneaker.id"
                     :labelid="sneaker.labelid"
@@ -213,13 +211,7 @@
                 <ShowSneakers/>
             </div>
         </div>
-        <!--
-        <ConfirmBox
-            :id ="searchId"
-            class="d-none"
-        >
-        </ConfirmBox>
-        -->
+        
         <div id="confirm" class="full d-none">
             <div id="confirmBox" class="col-6 bg-dark text-light rounded p-5">
                 <p>Ben je zeker dat je {{ searchId }} wil verwijderen?</p>
@@ -227,6 +219,8 @@
             </div>
         </div>
     </div>
+    
+                        
   </template>
   
   <script>
