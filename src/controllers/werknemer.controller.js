@@ -88,22 +88,27 @@ exports.login = async (req,res) => {
     const user = await Werknemers.findOne({where: {name}})
     
     if(!user) return res.status(404).send({ message: "User not found"});
-
+/*
     const validPass = await bcrypt.compare(password, user.pass);
     if (!validPass) return res.status(401).send({ message: "Incorrect password" });
-
+*/
     //if(user.pass !== password ) return res.status(401).send({ message: "Incorrect password"});
-
+/*
     const token = jwt.sign(
-      { id: user.id, name: user.name },
+      { 
+        id: user.id, 
+        name: user.name,
+        isAdmin: user.isAdmin
+      },
       process.env.JWT_SECRET, // use dotenv for real apps
       { expiresIn: '2h' }
     );
-
+*/
     return res.status(200).send({
       id: user.id,
       name: user.name,
-      token,
+      isAdmin: user.isAdmin,
+      //token,
       message: "Login Successfull"
     })
   }

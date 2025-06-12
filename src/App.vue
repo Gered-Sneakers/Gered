@@ -175,6 +175,14 @@ export default {
   height: 15vh;
 }
 
+.vh-70{
+  height: 70vh;
+}
+
+.vh-75{
+  height: 75vh;
+}
+
 .vh-80{
   height: 80vh;
 }
@@ -372,8 +380,16 @@ a{
   width:60%;
 }
 
+.vh-5{
+  height: 5vh !important;
+}
+
 .vh-10{
   height: 10vh !important;
+}
+
+.vh-65{
+  height: 65vh !important;
 }
 
 .vh-70{

@@ -5,7 +5,7 @@
                 <p class="w-100 text-center">Zoeken</p>
             </div>
         </div>
-        <div class="col-12 vh-80 m-0 p-0">
+        <div class="col-12 vh-10 m-0 p-0">
             <div id="changeHeight" class="valign centered justify-content-center">
                 <div class="row m-0 p-0 mx-auto">
                     <div class="row m-0 p-1 mx-auto justify-content-center">
@@ -184,32 +184,34 @@
                     </div>
                 </div>
             </div>
-            <div class="" v-if="sneaker">
-                <Sneaker 
-                    :id="sneaker.id"
-                    :labelid="sneaker.labelid"
-                    :colorlabel="sneaker.colorlabel"
-                    :date="sneaker.date"
-                    :brand="sneaker.brand"
-                    :model="sneaker.model"
-                    :size="sneaker.size"
-                    :colors="sneaker.colors"
-                    :supplier="sneaker.supplier"
-                    :laces="sneaker.laces"
-                    :soles="sneaker.soles"
-                    :status="sneaker.status"
-                    :teRepareren="sneaker.teRepareren"
-                    :creator="sneaker.creator"
-                    :verkoop="sneaker.verkoop"
-                    :csv="sneaker.csv"
-                    @repair="repair"
-                    @update="update"
+            
+            
+        </div>
+        <div class="h-75" v-if="sneaker">
+            <Sneaker 
+                :id="sneaker.id"
+                :labelid="sneaker.labelid"
+                :colorlabel="sneaker.colorlabel"
+                :date="sneaker.date"
+                :brand="sneaker.brand"
+                :model="sneaker.model"
+                :size="sneaker.size"
+                :colors="sneaker.colors"
+                :supplier="sneaker.supplier"
+                :laces="sneaker.laces"
+                :soles="sneaker.soles"
+                :status="sneaker.status"
+                :teRepareren="sneaker.teRepareren"
+                :creator="sneaker.creator"
+                :verkoop="sneaker.verkoop"
+                :csv="sneaker.csv"
+                @repair="repair"
+                @update="update"
 
-                ></Sneaker>
-            </div>
-            <div class="h-75" v-else>
+            ></Sneaker>
+        </div>
+        <div class="m-0 p-0 vh-50" v-else>
                 <ShowSneakers/>
-            </div>
         </div>
         
         <div id="confirm" class="full d-none">
@@ -610,20 +612,6 @@
         padding-bottom: 100%;
     }
 
-   .w-10{
-    width: 7%;
-    position: sticky !important;
-    top: 0 !important;
-   }
-
-   .h-35{
-    height: 35%;
-   }
-
-   .h-65{
-    height: 65%;
-   }
-
    input[type=text]{
        width: 50vw;
        height: 75px;
@@ -635,7 +623,8 @@
    }
 
    .grow .wijzig{
-        color: #FACC15;
+        /*color: #FACC15;*/
+        color: green;
         transform: 1.05%;
    }
 
