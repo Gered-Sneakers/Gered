@@ -136,7 +136,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.svg"></div>
-                        <div class="col-9 text-end">{{ creator }}</div>
+                        <div class="col-9 text-end" v-if="creator">{{ creator = creator.charAt(0).toUpperCase() + creator.slice(1) }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -223,22 +223,22 @@
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
                             <div class="col-6 m-0 p-0 mb-4 text-center row">
                                 <img class="col-6 imgSquare mx-auto" src="../img/laces.svg">
-                                <div class="col-12 text-center"><input type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <div class="col-12 text-center"><input id="check1" type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
                             <div class="col-6 m-0 p-0 mb-4 text-center row">
                                 <img class="col-6 imgSquare mx-auto" src="../img/soles.svg">
-                                <div class="col-12 text-center"><input type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <div class="col-12 text-center"><input id=""check2 type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
                             <div class="col-6 mx-auto m-0 p-0 text-center row">
                                 <img class="col-6 imgSquare mx-auto" src="../img/paint.svg">
-                                <div class="col-12 text-center"><input type="checkbox" name="check4" v-model="paint" @click="paintCheckbox"@keyup.enter="saveSneaker"></div>
+                                <div class="col-12 text-center"><input id="check4" type="checkbox" name="check4" v-model="paint" @click="paintCheckbox"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
                             <div class="col-6 m-0 p-0 text-center row">
                                 <img class="col-6 imgSquare mx-auto" src="../img/repair.svg">
-                                <div class="col-12 text-center"><input type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
+                                <div class="col-12 text-center"><input id="check3" type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
                                 <label class="col-12" for="check3"> Beschadigd </label>
                             </div>
 
@@ -325,7 +325,7 @@
     var labelColor = ref();
     var brand = ref();
     var model = ref();
-    var size = ref(0);
+    var size = ref();
     var colors = ref([]);
     var laces = ref(0);
     var soles = ref(0);
@@ -606,8 +606,6 @@
             console.log(error);
         });
 
-        
-
     }
 
     function resetSneaker(){
@@ -618,10 +616,22 @@
         size.value = 0;
         colors.value = [];
         laces.value = false;
+        lacesz = "Aanwezig";
         soles.value = false;
+        solesz = "Aanwezig";
         status.value = false;
+        statusz = "Cleaning";
         paint.value = false;
+        paintz = "Goed";
         teRepareren.value = "";
+
+        /*
+        document.getElementById("check1").checked = false;
+        document.getElementById("check2").checked = false;
+        document.getElementById("check3").checked = false;
+        document.getElementById("check4").checked = false;
+        */
+
         /*
         id = ref(0);
         labelColor = ref();
