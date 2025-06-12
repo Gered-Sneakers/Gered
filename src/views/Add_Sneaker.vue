@@ -192,27 +192,29 @@
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
                                 <div class="row m-0 p-0">
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz green" value="groen" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz blue" value="blauw" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz yellow" value="geel" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz green" value="groen" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz blue" value="blauw" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz yellow" value="geel" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz purple" value="paars" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare lightgreen"><div class="mx-auto"><input type="checkbox" class="colorz lightgreen" value="lichtgroen" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare lightblue"><div class="mx-auto"><input type="checkbox" class="colorz lightblue" value="lichtblauw" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx" value="roos" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz purple" value="paars" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz brown" value="bruin" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx" value="roos" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz brown" value="bruin" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
+                                
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
-                                <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare goud"><div class="mx-auto"><input type="checkbox" class="colorz goud" value="goud" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare zilver"><div class="mx-auto"><input type="checkbox" class="colorz zilver" value="zilver" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare bronze"><div class="mx-auto"><input type="checkbox" class="colorz bronze" value="bronze" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -775,7 +777,7 @@
 
    input[type=text],select,select option,#SIZE{
     width: 100%;
-    max-width: 400px;
+    max-width: 400px !important;
     height: 66px;
     font-size: 50px;
    }

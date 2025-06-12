@@ -59,7 +59,7 @@ export default {
     --red: #FF0000;
     --green: #008000;
     --blue: #0000FF;
-    --yellow: #FFFF00;
+    --yellow: #FFf100;
     
     --grey: #808080;
     --black: #000000;
@@ -69,14 +69,22 @@ export default {
     --purple: #9D00FF;
     --darkgreen: #06402B;
     --navy: #000080;
-    --orange: #ff8c00;
+    --orange: #ff7400;
     
     --pink: #ff69b4;
     --lightgreen: #00ff00;
     --lightblue: #00ffff;
-    --beige: #DBC39A;
+    --beige: #C8AD7F;
 
-    --multi:  linear-gradient(140deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
+    --multi: linear-gradient(45deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
+    --goud: linear-gradient(45deg,#FFFFAC 5%,#FEDB37 10%,#9f7928 30%,#FFFFAC  50%,#9f7928 70%,#FEDB37 80%,#FFFFAC 95%);
+            /*
+            radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+            radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+            */
+    --zilver: linear-gradient(45deg,#999 5%,#fff 10%,#999 30%,#fff 50%,#999 70%,#fff 80%,#999 95%);
+    --bronze: linear-gradient(45deg, #ca7345 5%, #ffdeca 10%, #ca7345 30%, #ffdeca 50%, #ca7345 70%, #ffdeca 80%, #ca7345 95%);
+     /*linear-gradient(45deg,#673208 5%,#db6c2b 10%,#673208 30%,#db6c2b 50%,#673208 70%,#db6c2b 80%,#673208 95%);*/
 
     /* MAIN COLORS */
     --gBlack: #1F2937;
@@ -190,7 +198,6 @@ export default {
 .scroll{
   overflow-y: scroll !important;
 }
-
 
 .w-90{
   width: 90%;
@@ -553,6 +560,24 @@ a{
     accent-color: var(--yellow);
     background-color: var(--multi);
     background-image: var(--multi);
+    border: 3px solid transparent;
+  }
+  
+  .goud, .goud::before{
+    accent-color: var(--yellow);
+    background: var(--goud);
+    border: 3px solid transparent;
+  }
+
+  .zilver, .zilver::before{
+    accent-color: var(--grey);
+    background: var(--zilver);
+    border: 3px solid transparent;
+  }
+
+  .bronze, .bronze::before{
+    accent-color: var(--orange);
+    background: var(--bronze);
     border: 3px solid transparent;
   }
 

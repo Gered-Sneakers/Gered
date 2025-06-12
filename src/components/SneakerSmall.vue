@@ -80,7 +80,7 @@
 </script>
 
 <template>
-    <div class="row max-1200 mx-auto text-center">
+    <div class="row w-100 mx-auto text-center">
         <div id="id" class="col-1 borders valign" :class="colorlabel">{{ id }}</div>
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
         <div id="kleur" class="col-1 borders valign">

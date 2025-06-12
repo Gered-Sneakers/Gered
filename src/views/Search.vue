@@ -5,8 +5,8 @@
                 <p class="w-100 text-center">Zoeken</p>
             </div>
         </div>
-        <div class="col-12 vh-10 m-0 p-0">
-            <div id="changeHeight" class="valign centered justify-content-center">
+        <div class="col-12 vh-10 valign m-0 p-0">
+            <div id="changeHeight" class=" mx-auto">
                 <div class="row m-0 p-0 mx-auto">
                     <div class="row m-0 p-1 mx-auto justify-content-center">
                        
@@ -623,8 +623,7 @@
    }
 
    .grow .wijzig{
-        /*color: #FACC15;*/
-        color: green;
+        color: #FACC15;
         transform: 1.05%;
    }
 

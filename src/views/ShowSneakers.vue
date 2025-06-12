@@ -1,7 +1,7 @@
 <template>
   <!--<div class="vh-80 scroll">-->
     <div class="vh-65 scroll">
-    <div class="row max-1200 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
+    <div class="row w-100 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders mb-1"><img src="../img/color.svg"></div>
@@ -22,7 +22,7 @@
         <div id="leverancier" class="col-1 borders mb-1">lever</div>
         <div class="col-1 borders mb-1">lijst</div>
     </div>
-    <div class="max-1217 m-0 p-0 mx-auto">
+    <div class="w-100 m-0 p-0 mx-auto">
       <SneakerSmall
         class="sneakerSmall"
         v-if="sneakerList.length > 0"
@@ -48,12 +48,14 @@
     </div>
     
   </div>
-  <div class="row vh-5 max-1217 m-0 p-0 mx-auto bg-blue text-white ">
-      <div class="col-9 valign" >CSV: <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
-      <div v-if="csvList.length == 0" @click="csvAdd" class="col-3 bg-warning hover grow">Cee eS Veejen BEjBIs</div>
-      <div v-else @click="csvAdd" class="col-3 border-green bg-green hover grow">Cee eS Veejen BEjBIs</div>
-      
-    </div>
+  <div class="row w-100 vh-5 m-0 p-0 mx-auto bg-blue text-white ">
+      <div class="col-1 valign border-end border-light text-center justify-content-center"> <b>Totaal<br> {{ sneakerList.length }}</b></div>
+      <div class="col-9 valign" ><span class="border-end">CSV&nbsp;</span> <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
+      <div class="col-2 valign justify-content-center p-1">
+        <button v-if="csvList[0]==''" @click="console.log(csvList)" class="w-100 h-100 bg-warning hover fw-bold">Opslaan</button>
+        <button v-else @click="csvAdd" class="w-100 h-100 bg-success hover grow fw-bold">Opslaan</button>
+      </div>
+  </div>
     
     <!--
      <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
@@ -163,6 +165,7 @@ import SneakerService from '@/services/SneakerService';
       SneakerSmall
     }
   }
+
 </script>
   
 <style scoped>
