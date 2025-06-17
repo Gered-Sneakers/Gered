@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-    <div class="max-1200 row mx-auto bg-blue text-white text-center rounded-top py-2">
+    <div class="m-0 p-0 vh-80 scroll">
+    <div class="row w-100 m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
         <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
@@ -10,16 +10,16 @@
         <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
         <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
         <!-- IMAG ROW -->
-         <div id="xx" class="col-1 borders">id</div>
-         <div id="brand" class="col-2 borders">brand</div>
-         <div id="size" class="col-1 borders">size</div>
-         <div id="retailPrice" class="col-2 borders">retailPrice</div>
-         <div id="shopPrice" class="col-2 borders">shopPrice</div>
-         <div id="imgUrl" class="col-1 borders">imgUrl</div>
-         <div id="uitgebracht" class="col-2 borders">uitgebracht</div>
-         <div id="publish" class="col-1 borders">publish</div>
+         <div id="id" class="col-1 borders mb-1">id</div>
+         <div id="brand" class="col-2 borders mb-1">brand</div>
+         <div id="size" class="col-1 borders mb-1">size</div>
+         <div id="retailPrice" class="col-2 borders mb-1">retailPrice</div>
+         <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
+         <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
+         <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
+         <div id="publish" class="col-1 borders mb-1">publish</div>
     </div>
-    <div class="max-1200  vh-70 mx-auto ">
+    <div class="w-100 mx-auto ">
       <div v-for="(s,index) in sneakerList" :key="s.id">
       <SneakerCsv
         v-if="s.csv == 1"
@@ -37,18 +37,16 @@
       </SneakerCsv>
 
       </div>
-    </div>
-    <div class="w-50 mx-auto mt-2 vh-10 rounded valign bg-green grow">
 
-      <!--<router-link :to="{ name: 'csvdownload' }" class="grow col h-100 valign rounded">-->
-        <div class="w-100 text-center fw-bold text-light">
-          <a id="download" class="w-100 h-100 bg-warning" @click="goDownload">
-            DOWNLOAD CSV
-          </a>
-        </div>
-      <!--</router-link>-->
-        
     </div>
+    </div>
+    <div class="row mx-auto vh-5 bg-blue text-white py-2 valign">
+      <div class="col-1 h-100 valign justify-content-center border-end border-light fw-bold"> Totaal <br> {{ csvList.length }} </div>
+      <div class="col-3"></div>
+      <div class="col-4 h-100 mx-auto">
+          <button @click="goDownload" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green fw-bold hover">Download CSV</button>
+      </div>
+      <div class="col-4"></div>
     </div>
 </template>
   
@@ -156,6 +154,11 @@ import SneakerService from '@/services/SneakerService';
     .max-1200{
         width: 1200px;
         overflow-x: hidden;
+    }
+
+    .hover:hover{
+      color: var(--gWhite);
+      filter: brightness(125%);
     }
 
     

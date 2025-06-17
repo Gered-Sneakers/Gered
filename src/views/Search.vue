@@ -210,7 +210,7 @@
 
             ></Sneaker>
         </div>
-        <div class="m-0 p-0 vh-50" v-else>
+        <div class="m-0 p-0 vh-50 d-none" v-else>
                 <ShowSneakers/>
         </div>
         

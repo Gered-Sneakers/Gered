@@ -1,6 +1,6 @@
 <template>
   <!--<div class="vh-80 scroll">-->
-    <div class="vh-65 scroll">
+    <div class="vh-80 m-0 p-0 scroll">
     <div class="row w-100 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
@@ -19,10 +19,10 @@
         <div id="status" class="col-1 borders mb-1">status</div>
         <div id="user" class="col-2 borders mb-1">vriend</div>
         <div id="datum" class="col-2 borders mb-1">datum</div>
-        <div id="leverancier" class="col-1 borders mb-1">lever</div>
+        <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">lijst</div>
     </div>
-    <div class="w-100 m-0 p-0 mx-auto">
+    <div class="w-100 text-dark m-0 p-0 mx-auto">
       <SneakerSmall
         class="sneakerSmall"
         v-if="sneakerList.length > 0"
@@ -52,8 +52,8 @@
       <div class="col-1 valign border-end border-light text-center justify-content-center"> <b>Totaal<br> {{ sneakerList.length }}</b></div>
       <div class="col-9 valign" ><span class="border-end">CSV&nbsp;</span> <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
       <div class="col-2 valign justify-content-center p-1">
-        <button v-if="csvList[0]==''" @click="console.log(csvList)" class="w-100 h-100 bg-warning hover fw-bold">Opslaan</button>
-        <button v-else @click="csvAdd" class="w-100 h-100 bg-success hover grow fw-bold">Opslaan</button>
+        <button v-if="csvList[0]==null" @click="console.log(csvList)" class="w-100 h-100 bg-warning rounded hover fw-bold">Opslaan</button>
+        <button v-else @click="csvAdd" class="w-100 h-100 bg-success rounded hover fw-bold">Opslaan</button>
       </div>
   </div>
     

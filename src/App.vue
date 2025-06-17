@@ -437,24 +437,48 @@ a{
 
 /* LABEL COLORS */
 
-.labelBlue{
-  background-color: rgb(100, 150, 250);
-}
-
-.labelPink{
-  background-color: rgb(250, 168, 241);
-}
-
-.labelGreen{
-  background-color: rgb(146, 250, 146);
-}
-
 .labelGrey{
   background-color: rgb(163, 163, 163);
 }
 
+.labelRed{
+  background-color: rgb(250, 168, 241);
+}
+
+.labelPink{
+  background-color: rgb();
+}
+
+.labelViolet{
+  background-color: rgb();
+}
+
 .labelYellow{
   background-color: rgb(249, 249, 125);
+}
+
+.labelBrown{
+  background-color: rgb();
+}
+
+.labelDarkGreen{
+  background-color: rgb();
+}
+
+.labelOrange{
+  background-color: rgba();
+}
+
+.labelBlue{
+  background-color: rgb(100, 150, 250);
+}
+
+.labelWhite{
+  background-color: rgb();
+}
+
+.labelGreen{
+  background-color: rgb(146, 250, 146);
 }
 
 /* SNEAKER COLORS */

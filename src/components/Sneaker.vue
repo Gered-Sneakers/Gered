@@ -76,9 +76,9 @@ import KleurPreview from './KleurPreview.vue';
 </script>
 
 <template>
-    <div class="sneakerPreview w-75 mx-auto m-0 p-0 d-flex bg-blue borderzz border-blue rounded">
+    <div class="sneakerPreview w-75 mx-auto m-0 p-0 d-flex">
         <div class="container h-100 position-relative text-light text-center">
-            <div class="row m-0 p-0 mt-3 mb-3">
+            <div class="row m-0 p-0 mt-3 mb-3 bg-blue rounded p-3">
                 <div class="col-4 text-center">
                 </div>
                 <div class="col-4 text-center text-dark">

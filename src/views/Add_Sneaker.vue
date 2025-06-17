@@ -187,7 +187,7 @@
                         <!-- MODEL -->
                         <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
                         <!-- SIZE -->
-                        <input @keyup.enter="next" id="SIZE" v-model="size" type="number" placeholder="SIZE" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
+                        <input @keyup.enter="next" id="SIZE" v-model="size" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">

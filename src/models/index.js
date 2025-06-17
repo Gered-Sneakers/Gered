@@ -22,6 +22,7 @@ db.sneakers = require("./sneaker.model.js")(sequelize, Sequelize);
 db.leveranciers = require("./leverancier.model.js")(sequelize, Sequelize);
 db.werknemers = require("./werknemer.model.js")(sequelize, Sequelize);
 db.brands = require("./brand.model.js")(sequelize, Sequelize);
+db.labelcolors = require("./labelcolor.model.js")(sequelize , Sequelize);
 
 //db.sneakers = require("./sneaker.model.js")(sequelize, Sequelize.DataTypes); 
  

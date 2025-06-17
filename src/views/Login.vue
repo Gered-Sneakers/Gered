@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valignz">
-                <p class="w-100 text-center">Welkom {{ creator }}</p>
+                <p class="w-100 text-center">Welkom bij G-App {{ creator }}</p>
             </div>
         </div>
 
@@ -10,7 +10,6 @@
             <div class="row m-0 p-0 mx-auto">
                 <div class="col-12 m-0 p-0 mx-auto mb-5">
                     <img class="img-big mb-3 rotate" src="../img/den G.png">
-                    <H1 class="txt-big fw-bold">Welkom bij G-App</H1>
                 </div>
                 <div class="col-12 m-0 p-0 mx-auto">
                     <input 

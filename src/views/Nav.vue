@@ -21,17 +21,20 @@
         <img class="vh-10 p-4 mx-auto" src="../img/search.svg" title="Zoek">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
+    <!--
     <router-link :to="{ name: 'showSneakers'}" class="grow col-1 h-100 valign rounded bg-danger">
         <img class="vh-10 p-4 mx-auto" src="../img/clock.svg" title="Stock">
     </router-link>
+    -->
     <!--
     <router-link :to="{ name: 'verkoop'}" class="grow col h-100 valign rounded bg-danger">
         <img class="vh-10 p-4 mx-auto" src="../img/sell.svg" title="Verkoop">
     </router-link>
-    -->
+   
     <router-link :to="{ name: 'csv'}" class="grow col-1 h-100 valign rounded bg-danger">
         <img class="vh-10 p-4 mx-auto" src="../img/csv.svg" title="Verkoop">
     </router-link>
+     -->
   </div>
 </template>
 

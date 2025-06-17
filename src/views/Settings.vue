@@ -1,8 +1,22 @@
 <template>
-    <div class="settings row m-0 p-0 text-center">
-      <div class="row text-white">
+    <div class="settings row w-100 m-0 p-0 text-center">
+      <div class="toggleButton">
+        <div class="row vh-5 pb-3">
+          <div class="col-4 col-xxl-3 mx-auto">
+            <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
+          </div>
+          <div class="col-4 col-xxl-3 mx-auto">
+            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">CSV</button>
+          </div>
+          <div class="col-4 col-xxl-3 mx-auto">
+            <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Settings</button>
+          </div>
+        </div>
+      </div>
+      <div id="main" class="d-block">
+        <div class="row text-white">
         <!-- INPUT LEVERANCIER -->
-        <div class="col-4 px-2 mt-3 mx-auto">
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ LEVERANCIER</div>
           </div>
@@ -32,35 +46,26 @@
           </div>
         </div>
         <!-- INPUT BRAND -->
-        <div class="col-4 px-2 mt-3 mx-auto">
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ BRAND</div>
           </div>
           <div class="w-100 text-center valign rounded-bottom bg-blue">
             <div class="w-100 m-0 p-0 mx-auto">
-              <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="BRAND"><br>
-              <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ IMG" 
-                    @click="addBrandImg"  />
-              <input type="file" id="imgBrand" class="mx-auto d-none"><br>
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
+              <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="Merk"
+                v-model="brandName"
+              ><br>
+              <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ Foto" 
+                    @click="triggerFileInput"
+                     />
+              <input  @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
+              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrandImg">OK</button>
             </div>
           </div>
         </div>
 
-        <div class="col-4 px-2 mt-3 mx-auto d-none">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">+ LABELCOLOR</div>
-          </div>
-          <div class="w-100 text-center vh-15 valign rounded-bottom bg-blue">
-            <div class="mx-auto">
-              <input type="text" class="text-center mb-2 w-90" placeholder="COLORNAME"><br>
-              <input type="text" class="text-center mb-2 w-90"placeholder="#ffffff"><br>
-              <button class="mb-2 rounded grow">OK</button>
-            </div>
-          </div>
-        </div>
         <!-- INPUT WERKNEMER -->
-        <div class="col-4 px-2 mt-3 mx-auto">
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ WERKNEMER</div>
           </div>
@@ -70,13 +75,13 @@
                 type="text" 
                 class="text-center mb-2 w-90" 
                 v-model="werknemerName" 
-                placeholder="werknemer">
+                placeholder="Werknemer">
               <br>
               <input 
                 type="password" 
                 class="text-center mb-2 w-90" 
                 v-model="werknemerPass" 
-                placeholder="password">
+                placeholder="Wachtwoord">
               <br>
               <!--<div class="error" v-html="error"></div>-->
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addWerknemer">OK</button>
@@ -99,27 +104,65 @@
           </div>
         </div>
 
-        <!-- HISTORY -->
-        <div class="col-4 px-2 mt-3 mx-auto d-none">
+        <!-- INPUT LABELCOLOR -->
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">SEE HISTORY</div>
+            <div class="mx-auto subTitle">+ LABELKLEUR</div>
           </div>
-          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
-            <textarea class="w-90 h-90 rounded"></textarea>
+          <div class="w-100 text-center valign rounded-bottom bg-blue">
+            <div class="w-100 m-0 p-0 mx-auto">
+              <input 
+                type="text"  
+                class="text-center mb-2 w-90"
+                v-model="labelcolorName"
+                placeholder="KLEURNAAM"><br>
+              <input 
+                type="text" 
+                class="text-center mb-2 w-90"
+                v-model="labelcolorCode"
+                placeholder="#ffffff"><br>
+              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor">OK</button>
+            </div>
           </div>
         </div>
-        <!-- EXPORT CSV -->
-        <div class="col-4 px-2 mt-3 mx-auto d-none">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">EXPORT CSV</div>
-          </div>
-          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
-            <div>xxx</div>
+        </div>
+        <div class="row text-light">
+        
+        <!-- LEVERANCIERS -->
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
+          <div class="mb-3">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">LEVERANCIERS</div>
+            </div>
+            <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+              <Leverancier v-for="l in LeveranciersList"
+                @delete="confirmDeleteLeverancier(l.id,l.name)"
+                :name="l.name"
+                :isActive="l.isActive"
+              ></Leverancier>
+              <!-- DELETE LEVERANCIER -->
+              <div class="full m-0 p-0" v-if="leverancierId > 0">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ leverancierName }}</span> wil verwijderen?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
+                          </div>
+                        </div>
+                        
+                    </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- WERKNEMERS & LEVERANCIERS -->
-        <div class="col-6 col-xxl-4 px-2 mt-3 mx-auto">
-          <!-- WERKNEMERS -->
+
+        <!-- WERKNEMERS -->
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto">
           <div class="mb-3">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">WERKNEMERS</div>
@@ -173,39 +216,10 @@
               </div>
             </div>
           </div>
-          <!-- LEVERANCIERS -->
-          <div class="mb-3">
-            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-              <div class="mx-auto subTitle">LEVERANCIERS</div>
-            </div>
-            <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
-              <Leverancier v-for="l in LeveranciersList"
-                @delete="confirmDeleteLeverancier(l.id,l.name)"
-                :name="l.name"
-                :isActive="l.isActive"
-              ></Leverancier>
-              <!-- DELETE LEVERANCIER -->
-              <div class="full m-0 p-0" v-if="leverancierId > 0">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ leverancierName }}</span> wil verwijderen?</p>
-                        <div class="row m-0 p-0">
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
-                          </div>
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
-                          </div>
-                        </div>
-                        
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+        
         <!-- BRANDS -->
-        <div class="col-6 col-xxl-4 mb-3 px-2 mt-3 mx-auto">
+        <div class="col-4 col-xxl-3 mb-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">BRANDS</div>
           </div>
@@ -217,6 +231,52 @@
           </div>
         </div>
 
+        <!-- LABELKLEUR -->
+        <div class="col-4 col-xxl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">LABELKLEUREN</div>
+          </div>
+          <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+            <Labelcolor v-for="l in LabelcolorList"
+              :id="l.id"
+              :name="l.name"
+              :colorCode="l.colorCode"
+              :isActive="l.isActive"
+            ></Labelcolor>
+          </div>
+        </div>
+
+        </div>
+        <div class="row text-light">
+        <!-- HISTORY -->
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto d-none">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">SEE HISTORY</div>
+          </div>
+          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
+            <textarea class="w-90 h-90 rounded"></textarea>
+          </div>
+        </div>
+        <!-- EXPORT CSV -->
+        <div class="col-4 col-xxl-3 px-2 mb-3 mx-auto d-none">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">EXPORT CSV</div>
+          </div>
+          <div class="w-100 text-center vh-15 borderz border-blue rounded-bottom bg-blue">
+            <div>xxx</div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div id="sneaks" class="d-none m-0 p-0">
+        <div class="row m-0 p-0 text-light">
+          <ShowSneakers></ShowSneakers>
+        </div>
+      </div>
+      <div id="csv" class="d-none m-0 p-0">
+        <div class="row m-0 p-0 text-light">
+          <CsvSneakers></CsvSneakers>
+        </div>
       </div>
     </div>
   </template>
@@ -232,8 +292,18 @@
   import Werknemer from '@/components/Werknemer.vue';
   import WerknemerService from '@/services/WerknemerService';
 
+  import Labelcolor from '@/components/Labelcolor.vue';
+  import LabelcolorList from '@/assets/labelColors.json';
+  import LabelcolorService from '@/services/LabelcolorService';
+
+  import ShowSneakers from './ShowSneakers.vue';
+  import CsvSneakers from './Csv.vue';
+
   import { ref } from "vue"
   import ConfirmBox from '@/components/ConfirmBox.vue';
+  import Csv from './Csv.vue';
+  
+  import axios from 'axios';
 
     export default{
       data() {
@@ -244,6 +314,7 @@
 
           LeveranciersList: [],
           WerknemersList: [],
+          LabelcolorList: [],
           
           werknemerCheck: false,
           werknemerId: null,
@@ -258,10 +329,68 @@
           leverancierId: null,
           leverancierName: '',
 
+          labelcolorCheck: false,
+          labelcolorId: null,
+          labelcolorName: '',
+          labelcolorCode: '',
 
+          selectedFile: null,
+
+          brandCheck: false,
+          brandId: null,
+          brandName: '',
+      
         }
       },
       methods: {
+        toggleContent(nr){
+          var main = document.getElementById("main").classList;
+          var sneakers = document.getElementById("sneaks").classList;
+          var csv = document.getElementById("csv").classList;
+          //var btnSneakers = document.getElementById("toggleButton");
+          //var btnCsv = document.getElementById("toggleButton2");
+          //var btnSettings = document.getElementById("toggleButton3");
+
+          switch(nr){
+            case 1:
+            main.remove("d-block");
+            main.add("d-none");
+
+            csv.remove("d-block");
+            csv.add("d-none");
+            
+            sneakers.remove("d-none");
+            sneakers.add("d-block");
+            break;
+            case 2:
+            main.remove("d-block");
+            main.add("d-none");
+
+            csv.remove("d-none");
+            csv.add("d-block");
+            
+            sneakers.remove("d-block");
+            sneakers.add("d-none");
+            break;
+            case 3:
+            main.remove("d-none");
+            main.add("d-block");
+
+            csv.remove("d-block");
+            csv.add("d-none");
+
+            sneakers.remove("d-block");
+            sneakers.add("d-none");
+            break;
+          }
+        },
+        handleImageUpload(event) {
+          this.selectedFile = event.target.files[0];
+          console.log(this.selectedFile);
+        },
+        triggerFileInput() {
+          document.getElementById("imgBrand").click();
+        },
         getLeveranciers(){
             LeverancierService.getAll()
                 .then(response => {
@@ -272,6 +401,76 @@
                     console.error(error);
                     alert(error);
                })
+        },
+        addLeverancier(){
+          var data = {
+            name: this.leverancierName,
+            isActive: 1
+          }
+
+          LeverancierService.create(data)
+          .then(response => {
+            console.log(response);
+            this.getLeveranciers();
+          })
+          .catch( error => {
+              console.log(error);
+          });
+        },
+        confirmDeleteLeverancier(id,name){
+          this.leverancierId = id
+          this.leverancierName = name
+        },
+        refuseDeleteLeverancier(){
+          this.leverancierId = null
+          this.leverancierName = ''
+        },
+        deleteLeverancier(id){
+          const updateData = { isActive: 0 };
+          LeverancierService.update(id,updateData)
+            .then(() => {
+              this.getLeveranciers();
+              this.refuseDeleteLeverancier();
+            })
+            .catch(error=>{
+              console.error("Update failed", error);
+            })
+        },
+        addBrand(){
+          const imageInput = document.getElementById('imgBrand');
+          const file = imageInput.files[0];
+          
+        },
+        async addBrandImg(){
+
+          var data = {
+            name: this.brandName,
+            img: this.selectedFile.name
+          }
+
+          if (!this.selectedFile) return alert("No image selected");
+
+          const form = new FormData();
+                form.append("image", this.selectedFile);
+                form.append("brandName", this.brandName);
+              //form.append("image",form.value.media);
+
+      
+          BrandService.create(data)
+          .then(response => {
+
+          })
+          try{
+            //await axios.post("http:localhost:8080/api/upload-image", form , {
+            await axios.post("http://localhost:8080/api/uploadBrand", form , {
+              headers:{"Content-Type": "multipart/form-data"},
+            });
+            console.log("✅ Upload successful");
+            alert("Image uploaded!");
+          } catch (error) {
+            console.error("❌ Upload failed:", error);
+            alert("Upload failed!");
+          }
         },
         getWerknemers(){
           WerknemerService.getAll()
@@ -342,72 +541,35 @@
               console.error("Update failed" , error);
             })
         },
-        addLeverancier(){
-          var data = {
-            name: this.leverancierName,
-            isActive: 1
-          }
-
-          LeverancierService.create(data)
+        getLabelColors(){
+          LabelcolorService.getAll()
           .then(response => {
-            console.log(response);
-            this.getLeveranciers();
+            this.LabelcolorList = response.data;
+            console.log("DIT IS DE LIST");
+            console.log(this.LabelcolorList);
           })
-          .catch( error => {
-              console.log(error);
-          });
+          .catch(error => {
+            error = " LabelColors niet gevonden";
+            console.error(error);
+            alert(error);
+          })
         },
-        confirmDeleteLeverancier(id,name){
-          this.leverancierId = id
-          this.leverancierName = name
-        },
-        refuseDeleteLeverancier(){
-          this.leverancierId = null
-          this.leverancierName = ''
-        },
-        deleteLeverancier(id){
-          const updateData = { isActive: 0 };
-          LeverancierService.update(id,updateData)
-            .then(() => {
-              this.getLeveranciers();
-              this.refuseDeleteLeverancier();
-            })
-            .catch(error=>{
-              console.error("Update failed", error);
-            })
-        },
-        addBrand(){
-          const imageInput = document.getElementById('imgBrand');
-          const file = imageInput.files[0];
-          console.log(file);
-        },
-        async addBrandImg(){
-          document.getElementById("imgBrand").click();
-
-          const form = new FormData();
-                form.append("image",form.value.media);
-
-          try{
-            const response = await axios.post("http:localhost:8080/api/upload-image", form , {
-              headers:{
-                "Content-Type": "multipart/form-data",
-              },
-            });
-            console.log("✅ Upload successful:", response.data);
-            alert("Image uploaded!");
-          } catch (error) {
-            console.error("❌ Upload failed:", error);
-            alert("Upload failed!");
+        addLabelColor(){
+          var data = {
+            name: this.labelcolorName,
+            code: this.labelcolorCode
           }
 
-          const imgSrc= ref();
+          LabelcolorService.create(data)
+          .then(response => {
+            this.getLabelColors();
+          })
         }
-      },
-      watch: {
       },
       mounted () {
         this.getLeveranciers();
         this.getWerknemers();
+        this.getLabelColors();
       },
       computed: {/*
         LeveranciersList(){
@@ -423,7 +585,10 @@
       components: {
         Leverancier,
         Brand,
-        Werknemer
+        Werknemer,
+        Labelcolor,
+        ShowSneakers,
+        CsvSneakers
       }
     }
   </script>
@@ -483,8 +648,8 @@
       filter: brightness(125%);
     }
 
-    .blackIcons{
-        filter: brightness(0) !important;
+    #flip{
+      transform: scaleX(-1);
     }
 
   </style>
