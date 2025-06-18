@@ -35,20 +35,34 @@ export default {
 </script>
 
 <template>
-    <div  class="col-12 mb-2" 
+    <div  class="col-12 row m-0 p-0 mb-2 rounded" 
           v-if="isActive"
           @mouseover="hover=true" 
           @mouseleave="hover=false"
     > 
-      {{ name }} {{ colorCode }}
-      <span v-if="hover" class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('delete', id)">
-      ❌
-      </span>
+      <div class="col-md-3 col-lg-2 valign justify-content-center">
+          <div class="rect rounded" :style="{backgroundColor: colorCode}"></div>
+      </div>
+      <div class="col-md-6 col-lg-8 valign justify-content-center">
+        {{ name }} <br> {{ colorCode }}
+        
+      </div>
+      <div class="col-md-3 col-lg-2 rounded valign justify-content-center">
+        <span v-if="hover" class="ms-2 text-danger rounded" style="cursor:pointer;" @click="$emit('delete', id)">
+        ❌
+        </span>
+      </div>
     </div>
 </template>
 
 <style scoped>
   div:hover{
     color: var(--gYellow) !important;
+    background-color: grey;
+  }
+
+  .rect{
+    width: 25px;
+    height: 25px;
   }
 </style>

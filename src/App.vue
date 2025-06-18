@@ -56,6 +56,20 @@ export default {
 }
 
 :root{
+  /* LABEL COLORS */
+    --labelGrey: 	#a3a3a3;
+    --labelRed: #DB7093;
+    --labelPink: #FFB6C1;
+    --labelViolet: #9370DB;
+    --labelYellow: #FFFF66;
+    --labelBrown: #8a6a12;
+    --labelDGreen: #29AB87;
+    --labelOrange: #FF7F50;
+    --labelBlue: #6496fa;
+    --labelWhite: #f0f0f0;
+    --labelGreen: #88E788;
+
+  /* SHOE COLORS */ 
     --red: #FF0000;
     --green: #008000;
     --blue: #0000FF;
@@ -78,13 +92,8 @@ export default {
 
     --multi: linear-gradient(45deg, var(--yellow) 0%, var(--red) 25%,var(--green) 50% , var(--blue) 75% , var(--yellow) 95%);
     --goud: linear-gradient(45deg,#FFFFAC 5%,#FEDB37 10%,#9f7928 30%,#FFFFAC  50%,#9f7928 70%,#FEDB37 80%,#FFFFAC 95%);
-            /*
-            radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-            radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
-            */
     --zilver: linear-gradient(45deg,#999 5%,#fff 10%,#999 30%,#fff 50%,#999 70%,#fff 80%,#999 95%);
     --bronze: linear-gradient(45deg, #ca7345 5%, #ffdeca 10%, #ca7345 30%, #ffdeca 50%, #ca7345 70%, #ffdeca 80%, #ca7345 95%);
-     /*linear-gradient(45deg,#673208 5%,#db6c2b 10%,#673208 30%,#db6c2b 50%,#673208 70%,#db6c2b 80%,#673208 95%);*/
 
     /* MAIN COLORS */
     --gBlack: #1F2937;
@@ -281,6 +290,14 @@ export default {
   border-top-right-radius: 50rem;
 }
 
+.rounded-top-left{
+  border-top-left-radius: .25rem;
+}
+
+.rounded-top-right{
+  border-top-right-radius: .25rem;
+}
+
 .rounded-bottom-left{
   border-bottom-left-radius: .25rem;
 }
@@ -329,16 +346,16 @@ export default {
 }
 
 .rotate:hover{
-    animation: rotater 0.66s infinite !important;
-    transition: 150ms ease;
-  }
+  animation: rotater 0.66s infinite !important;
+  transition: 150ms ease;
+}
 
 .rotateFast:hover{
-    animation: rotater 0.5s infinite !important;
+  animation: rotater 0.5s infinite !important;
 }
 
 .rotateSlow:hover{
-    animation: rotator 0.75s infinite !important;
+  animation: rotator 0.75s infinite !important;
 }
 
 .grow:hover img{
@@ -355,6 +372,11 @@ export default {
 
 .growz:hover{
   transform:scale(1.05);
+}
+
+.hover:hover{
+  color: var(--gWhite);
+  filter: brightness(125%);
 }
 
 @keyframes rotater{
@@ -423,11 +445,11 @@ a{
 }
 
 .whiteIcons{
-    filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .blackIcons{
-    filter: brightness(0) !important;
+  filter: brightness(0) !important;
 }
 
 .rounded-top-left{
@@ -438,47 +460,50 @@ a{
 /* LABEL COLORS */
 
 .labelGrey{
-  background-color: rgb(163, 163, 163);
+  background-color: var(--labelGrey);
 }
 
 .labelRed{
-  background-color: rgb(250, 168, 241);
+  background-color: var(--labelRed);
 }
 
 .labelPink{
-  background-color: rgb();
+  background-color: var(--labelPink);
 }
 
 .labelViolet{
-  background-color: rgb();
+  background-color: var(--labelViolet);
 }
 
 .labelYellow{
-  background-color: rgb(249, 249, 125);
+  color: black !important;
+  background-color: var(--labelYellow);
 }
 
 .labelBrown{
-  background-color: rgb();
+  background-color: var(--labelBrown);
 }
 
 .labelDarkGreen{
-  background-color: rgb();
+  background-color: var(--labelDGreen);
 }
 
 .labelOrange{
-  background-color: rgba();
+  background-color: var(--labelOrange);
 }
 
 .labelBlue{
-  background-color: rgb(100, 150, 250);
+  background-color: var(--labelBlue);
 }
 
 .labelWhite{
-  background-color: rgb();
+  color: black !important;
+  background-color: var(--labelWhite);
 }
 
 .labelGreen{
-  background-color: rgb(146, 250, 146);
+  color: black !important;
+  background-color: var(--labelGreen);
 }
 
 /* SNEAKER COLORS */

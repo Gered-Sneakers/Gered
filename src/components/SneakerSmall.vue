@@ -70,8 +70,8 @@
             }
         },
         mounted () {
-            console.log(this.id," CSV ",this.csv);
-            console.log(this.id, " VERKOOP ",this.verkoop);
+            //console.log(this.id," CSV ",this.csv);
+            //console.log(this.id, " VERKOOP ",this.verkoop);
         },
         components: {
             KleurPreview

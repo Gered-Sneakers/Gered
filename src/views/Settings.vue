@@ -1,7 +1,8 @@
 <template>
     <div class="settings row w-100 m-0 p-0 text-center">
       <div class="toggleButton">
-        <div class="row vh-5 pb-3">
+        <div class="row m-0 p-0 vh-5"></div>
+        <div class="row vh-5 pb-3 w-100 sticky">
           <div class="col-4 col-xxl-3 mx-auto">
             <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
           </div>
@@ -59,7 +60,7 @@
                     @click="triggerFileInput"
                      />
               <input  @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrandImg">OK</button>
+              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
             </div>
           </div>
         </div>
@@ -112,11 +113,13 @@
           <div class="w-100 text-center valign rounded-bottom bg-blue">
             <div class="w-100 m-0 p-0 mx-auto">
               <input 
+                id="labelName"
                 type="text"  
                 class="text-center mb-2 w-90"
                 v-model="labelcolorName"
                 placeholder="KLEURNAAM"><br>
               <input 
+                id="labelCode"
                 type="text" 
                 class="text-center mb-2 w-90"
                 v-model="labelcolorCode"
@@ -158,6 +161,19 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- BRANDS -->
+        <div class="col-4 col-xxl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+            <div class="mx-auto subTitle">BRANDS</div>
+          </div>
+          <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+            <Brand v-for="l in BrandsList"
+              :name="l.name"
+              :img="l.img"
+            ></Brand>
           </div>
         </div>
 
@@ -215,19 +231,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        
-        <!-- BRANDS -->
-        <div class="col-4 col-xxl-3 mb-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">BRANDS</div>
-          </div>
-          <div class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
-            <Brand v-for="l in BrandsList"
-              :name="l.name"
-              :img="l.img"
-            ></Brand>
           </div>
         </div>
 
@@ -436,12 +439,14 @@
               console.error("Update failed", error);
             })
         },
-        addBrand(){
-          const imageInput = document.getElementById('imgBrand');
-          const file = imageInput.files[0];
-          
+        getBrands(){
+          BrandService.getAll()
+          .then(response => {
+            this.BrandsList = response.data;
+            console.log(this.BrandsList);
+          })
         },
-        async addBrandImg(){
+        async addBrand(){
 
           var data = {
             name: this.brandName,
@@ -544,8 +549,9 @@
         getLabelColors(){
           LabelcolorService.getAll()
           .then(response => {
+            console.log(response);
             this.LabelcolorList = response.data;
-            console.log("DIT IS DE LIST");
+            console.log("LABELCOLORS LIST");
             console.log(this.LabelcolorList);
           })
           .catch(error => {
@@ -563,13 +569,21 @@
           LabelcolorService.create(data)
           .then(response => {
             this.getLabelColors();
+            this.resetInputLabel();
           })
+        },
+        resetInputLabel(){
+          //document.getElementById("labelName").value = "";
+          //document.getElementById("labelCode").value = "";
+          this.labelcolorName = "";
+          this.labelcolorCode = "";
         }
       },
       mounted () {
         this.getLeveranciers();
         this.getWerknemers();
         this.getLabelColors();
+        this.getBrands();
       },
       computed: {/*
         LeveranciersList(){
@@ -602,6 +616,16 @@
         height: 100%;
         background-color: rgba(247,247,247,0.5);
         z-index: 99999;
+    }
+
+    .sticky{
+      position: fixed !important;
+      background-color: var(--gWhite);
+      top: 10vh !important;
+      width: 100%;
+      height: 5vh;
+      overflow: hidden;
+      
     }
 
     .settings{

@@ -1,7 +1,7 @@
 <template>
   <div id="brander" 
     :class="{highlight: modelValue === name}" 
-    class="brand invisBorder col-3 p-2 valign mx-auto rounded">
+    class="brand invisBorder col-4 p-2 valign mx-auto rounded">
     <label class="mx-auto w-100">
       <input 
         type="radio" 
@@ -10,7 +10,7 @@
         :checked="modelValue === name"
         @change="$emit('update:modelValue',name)"
         >
-      <img width="60px" height="60px" class="whiteIcons" :src="resolvedImgPath" :title="name">
+      <img width="80px" height="80px" class="whiteIcons" :src="resolvedImgPath" :title="name">
     </label>
   </div>
 </template>

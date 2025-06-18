@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- LEVERANCIER -->
-    <div class="row h-100 mainTargets d-none">
+    <div class="row h-100 mainTargets d-none bg-blue">
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
                 <div class="row">
@@ -68,13 +68,32 @@
             </div>
         </div>
     </div>
-    <div class="row h-100 mainTargets mx-auto text-Gered d-none pe-3">
+    <!-- LABELKLEUR -->
+    <div class="row h-100 mainTargets d-none bg-blue">
+        <!-- LABELKLEUR -->
+        <div id="xxxxxxx" class="row mx-3 mx-auto">
+            <div class="row mw-800 mx-auto valign">
+                <div id="IDLABEL" class="row w-100" @keyup.enter="go()">
+                    <div class="row mt-3 mx-auto mw-800">
+                        <h1 class="text-center text-light fw-bold mb-3">Labelkleur</h1>
+                        <Label v-for="labelcolor in LabelColors"
+                        :name="labelcolor"
+                        class="mx-auto text-center text-dark"
+                        v-model="labelColor"
+                        @change="go()"
+                        ></Label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row h-100 mainTargets mx-auto text-Gered d-none">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
             <div class="sneakerPreview w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
-                            <span class="px-3 py-2 h3 fw-bold" :class="labelColor">{{ id }}</span>
+                            <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ id }}</span>
                         </div>
                     </div>
                     <div class="row m-0 p-0 border-2 border-bottom border-light">
@@ -104,17 +123,20 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
-                        <div class="col-9 text-end">{{lacesz}}</div>
+                        <div class="col-9 text-end fw-1000" v-if="lacesz=='Aanwezig'">✔</div>
+                        <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.svg"></div>
-                        <div class="col-9 text-end">{{solesz}}</div>
+                        <div class="col-9 text-end fw-1000" v-if="solesz=='Aanwezig'">✔</div>
+                        <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/paint.svg"></div>
-                        <div class="col-9 text-end">{{paintz}}</div>
+                        <div class="col-9 text-end fw-1000" v-if="paintz=='Goed'">✔</div>
+                        <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <!--
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -147,8 +169,14 @@
                 </div>
             </div>
         </div>
-        <div class="FORM col-8 col-xxl-10">
-            <div class="row h-100 valign bg-blue rounded">
+        <div class="FORM col-8 col-xxl-10 bg-blue rounded-top-left">
+            <div id="navToevoegen" class="row vh-5 valign me-3">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+                    ❌
+                </div>
+            </div>
+            <div class="row h-100 valign rounded-top-left">
+                
                 <div class="">
                 <div class="mx-auto  row m-0 p-0 h-500  rounded">
                 <div class="col-2 p-2">
@@ -163,13 +191,15 @@
                             <div class="row m-0 p-0">
                                 <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
                             </div>
+                            <!--
                             <div class="row mt-3 mx-auto mw-800">
                                 <Label v-for="labelcolor in LabelColors"
                                 :name="labelcolor"
-                                class="mx-auto text-center"
+                                class="mx-auto text-center text-dark"
                                 v-model="labelColor"
                                 ></Label>
                             </div>
+                            -->
                         </div>
                         <!-- BRAND -->                    
                         <div id="brands" class="targets rounded row mx-3 mx-auto d-none">
@@ -283,6 +313,22 @@
           </div>
         </div>
     </div>
+
+    <div class="full m-0 p-0 d-none" id="confirmAnnuleren">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="my-5">Ben je zeker dat je opnieuw wil beginnen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="annuleren">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseAnnuleren">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
 <!--
     <ConfirmBox
         id="confirm"
@@ -338,7 +384,7 @@
     var lacesz = "Aanwezig";
     var solesz = "Aanwezig";
     var paintz = "Goed";
-    var brokenz = "Goed";
+    var brokenz = "✔";
 
     var statusz = "Cleaning";
     
@@ -348,6 +394,14 @@
 
     var leveranciers = [];
     var brands = [];
+
+    const enterEvent = new KeyboardEvent('keyup', {
+      key: 'Enter',
+      keyCode: 13,        // deprecated but sometimes needed
+      code: 'Enter',
+      which: 13,
+      bubbles: true
+    });
 
     const mainTargets = document.getElementsByClassName("mainTargets");
     const targets = document.getElementsByClassName("targets");
@@ -392,6 +446,14 @@
         //var idlabel = 
         document.getElementById("ID").focus();
         //console.log(idlabel);
+    }
+
+    function fakeEnter(){
+        labelColor.dispatchEvent(enterEvent);
+    }
+
+    function annuleren(){
+        window.location.reload();
     }
 
     function next(){
@@ -610,7 +672,6 @@
 
     function resetSneaker(){
         id.value = "";
-        labelColor.value = "";
         brand.value = "";
         model.value = "";
         size.value = 0;
@@ -676,6 +737,14 @@
         LeverancierService.getAll()
         .then( response =>{ leveranciers = response.data; } )
         .catch( err => {console.log(err);})
+    }
+
+    function showAnnuleren(){
+        document.getElementById("confirmAnnuleren").classList.remove("d-none");
+    }
+
+    function refuseAnnuleren(){
+        document.getElementById("confirmAnnuleren").classList.add("d-none");
     }
 
     function showConfirmBox(){
@@ -1001,5 +1070,9 @@
   .colorSquare{
     max-width: 100px;
     max-height: 100px;
+  }
+
+  .fw-1000{
+    font-weight: 1000;
   }
 </style>
