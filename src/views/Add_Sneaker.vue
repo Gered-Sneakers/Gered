@@ -41,11 +41,16 @@
     </div>
     <!-- LEVERANCIER -->
     <div class="row h-100 mainTargets d-none bg-blue">
+        <div id="navToevoegen" class="row vh-5 valign">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+                    ❌
+                </div>
+        </div>
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
                 <div class="row">
                 <select id="leveranciers" name="leveranciers"
-                    class="col-3 m-1 valign mx-auto rounded border-blue"
+                    class="col-3 m-1 valign mx-auto rounded border-blue bg-blue text-light"
                     v-model="leverancier" value="Leverancier" @change="go()"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
@@ -67,17 +72,24 @@
                 </div>
             </div>
         </div>
+        <div class="vh-5"></div>
     </div>
     <!-- LABELKLEUR -->
     <div class="row h-100 mainTargets d-none bg-blue">
+        <div id="navToevoegen" class="row vh-5 valign">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+                    ❌
+                </div>
+        </div>
         <!-- LABELKLEUR -->
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
                 <div id="IDLABEL" class="row w-100" @keyup.enter="go()">
                     <div class="row mt-3 mx-auto mw-800">
                         <h1 class="text-center text-light fw-bold mb-3">Labelkleur</h1>
-                        <Label v-for="labelcolor in LabelColors"
-                        :name="labelcolor"
+                        <Label v-for="labelcolor in labels"
+                        :name="labelcolor.name"
+                        :isActive="labelcolor.isActive"
                         class="mx-auto text-center text-dark"
                         v-model="labelColor"
                         @change="go()"
@@ -86,10 +98,11 @@
                 </div>
             </div>
         </div>
+        <div class="vh-5"></div>
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
+            <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
@@ -209,6 +222,7 @@
                                 :key="b.name"
                                 :name="b.name"
                                 :img="b.img"
+                                :isActive="b.isActive"
                                 v-model="brand"
                                 @keyup.enter="next"
                                 />
@@ -366,6 +380,8 @@
     import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
     import LeverancierService from '@/services/LeverancierService';
+import LabelcolorService from '@/services/LabelcolorService';
+import { isAxiosError } from 'axios';
 
     var id = ref();
     var labelColor = ref();
@@ -394,6 +410,7 @@
 
     var leveranciers = [];
     var brands = [];
+    var labels = [];
 
     const enterEvent = new KeyboardEvent('keyup', {
       key: 'Enter',
@@ -414,6 +431,7 @@
     onMounted(()=>{
         getBrands();
         getLeveranciers();
+        getLabelColors();
     })
     
     
@@ -674,7 +692,7 @@
         id.value = "";
         brand.value = "";
         model.value = "";
-        size.value = 0;
+        size.value = "";
         colors.value = [];
         laces.value = false;
         lacesz = "Aanwezig";
@@ -737,6 +755,12 @@
         LeverancierService.getAll()
         .then( response =>{ leveranciers = response.data; } )
         .catch( err => {console.log(err);})
+    }
+
+    function getLabelColors(){
+        LabelcolorService.getAll()
+        .then(response => { labels = response.data;console.log(labels); })
+        .catch(err => console.log(err));
     }
 
     function showAnnuleren(){
@@ -957,110 +981,6 @@
 
   .labelYellow{
     background-color: rgb(249, 249, 125);
-  }
-
-  .rood, .red, .red::before{
-    accent-color: var(--red);
-    background-color: var(--red);
-    border: 3px solid var(--red);
-  }
-
-  .groen, .green, .green::before{
-    accent-color: var(--green);
-    background-color: var(--green);
-    border: 3px solid var(--green);
-  }
-
-  .blauw, .blue, .blue::before{
-    accent-color: var(--blue);
-    background-color: var(--blue);
-    border: 3px solid var(--blue);
-  }
-
-  .geel, .yellow, .yellow::before{
-    accent-color: var(--yellow);
-    background-color: var(--yellow);
-    border: 3px solid var(--yellow);
-    color: black;
-  }
-
-  .grijs,.grey, .grey::before{
-    accent-color: var(--grey);
-    background-color: var(--grey);
-    border: 3px solid var(--grey);
-  }
-  
-  .bruin,.brown .brown::before{
-    accent-color: var(--brown);
-    background-color: var(--brown);
-    border: 3px solid var(--brown);
-  }
-
-  .zwart, .black, .black::before{
-    accent-color: var(--black);
-    background-color: var(--black);
-    border: 3px solid var(--black);
-  }
-  
-  .wit, .white, .white::before{
-    accent-color: var(--white);
-    background-color: var(--white);
-    border: 3px solid var(--white);
-  }
-  
-  .paars, .purple, .purple::before{
-    accent-color: var(--purple);
-    background-color: var(--purple);
-    border: 3px solid var(--purple);
-  }
-  
-  .darkgreen, .darkgreen::before{
-    accent-color: var(--darkgreen);
-    background-color: var(--darkgreen);
-    border: 3px solid var(--darkgreen);
-  }
-  
-  .navy, .navy::before{
-    accent-color: var(--navy);
-    background-color: var(--navy);
-    border: 3px solid var(--navy);
-  }
-  
-  .oranje,.orange, .orange::before{
-    accent-color: var(--orange);
-    background-color: var(--orange);
-    border: 3px solid var(--orange);
-  }
-  
-  .roos, .pink, .pink::before{
-    accent-color: var(--pink);
-    background-color: var(--pink);
-    border: 3px solid var(--pink);
-  }
-  
-  .lichtgroen, .lightgreen, .lightgreen::before{
-    accent-color: var(--lightgreen);
-    background-color: var(--lightgreen);
-    border: 3px solid var(--lightgreen);
-  }
-  
-  .lichtblauw, .lightblue, .lightblue::before{
-    accent-color: var(--lightblue);
-    background-color: var(--lightblue);
-    border: 3px solid var(--lightblue);
-  }
-  
-  .beige, .beige::before{
-    accent-color: var(--beige);
-    background-color: var(--beige);
-    border: 3px solid var(--beige);
-  }
-
-  .multi, .multi::before{
-    accent-color: var(--yellow);
-    background-color: var(--multi);
-    background-image: var(--multi);
-    border: 3px solid transparent;
   }
   
   .h-500{

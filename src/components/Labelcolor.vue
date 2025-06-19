@@ -28,6 +28,55 @@ export default {
     },
     emits: ['activate'],//['update:modelValue'],
     methods: {
+      translate (name) {
+        
+        switch(name){
+          case "Grey":
+            name = "Grijs";
+            return name;
+            
+          case "Red":
+            name = "Rood";
+            return name;
+            
+          case "Pink":
+            name = "Roze";
+            return name;
+            
+          case "Violet":
+            name = "Paars";
+            return name;
+            
+          case "Yellow":
+            name = "Geel";
+            return name;
+            
+          case "Brown":
+            name = "Bruin";
+            return name;
+            
+          case "DGreen":
+            name = "D Groen";
+            return name;
+            
+          case "Orange":
+            name = "Oranje";
+            return name;
+            
+          case "Blue":
+            name = "Blauw";
+            return name;
+            
+          case "White":
+            name = "Wit";
+            return name;
+            
+          case "Green":
+            name = "Groen";
+            return name;
+            
+        }
+      }
     },
     computed: {
     }
@@ -39,15 +88,13 @@ export default {
           v-if="isActive"
           @mouseover="hover=true" 
           @mouseleave="hover=false"
-    > 
-      <div class="col-md-3 col-lg-2 valign justify-content-center">
-          <div class="rect rounded" :style="{backgroundColor: colorCode}"></div>
+          :style="{backgroundColor: colorCode}"
+    > <div class="col-2"></div>
+      <div class="col-8 valign justify-content-center rounded text-dark">
+        <!--{{ translate(name.replace("label", "")) }} <br> {{ colorCode }}-->
+        {{ translate(name.replace("label", "")) }}
       </div>
-      <div class="col-md-6 col-lg-8 valign justify-content-center">
-        {{ name }} <br> {{ colorCode }}
-        
-      </div>
-      <div class="col-md-3 col-lg-2 rounded valign justify-content-center">
+      <div class="col-2 rounded valign justify-content-center">
         <span v-if="hover" class="ms-2 text-danger rounded" style="cursor:pointer;" @click="$emit('delete', id)">
         ❌
         </span>

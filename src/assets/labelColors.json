@@ -1,13 +1,13 @@
 [
-    "labelGrey",
-    "labelRed",
-    "labelPink",
-    "labelViolet",
-    "labelYellow",
-    "labelBrown",
-    "labelDarkGreen"
-    ,"labelOrange"
-    ,"labelBlue"
-    ,"labelWhite"
-    ,"labelGreen"
+  { "name": "labelGrey", "code": "#xx" },
+  { "name": "labelRed", "code": "#xx" },
+  { "name": "labelPink", "code": "#xx" },
+  { "name": "labelViolet", "code": "#xx" },
+  { "name": "labelYellow", "code": "#xx" },
+  { "name": "labelBrown", "code": "#xx" },
+  { "name": "labelDarkGreen", "code": "#xx" },
+  { "name": "labelOrange", "code": "#xx" },
+  { "name": "labelBlue", "code": "#xx" },
+  { "name": "labelWhite", "code": "#xx" },
+  { "name": "labelGreen", "code": "#xx" }
 ]

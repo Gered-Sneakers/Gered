@@ -1,5 +1,5 @@
 <template>
-  <div id="brander" 
+  <div id="brander" v-if="isActive"
     :class="{highlight: modelValue === name}" 
     class="brand invisBorder col-4 p-2 valign mx-auto rounded">
     <label class="mx-auto w-100">
@@ -30,6 +30,10 @@ export default {
     img:{
         type: String,
         required: true
+    },
+    isActive:{
+      type: Boolean,
+      required: true
     },
     modelValue: String
   },

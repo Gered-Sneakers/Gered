@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
       }, 
       img: { 
         type: Sequelize.STRING 
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN
       }
     }); 
    

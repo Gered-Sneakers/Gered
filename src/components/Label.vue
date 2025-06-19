@@ -1,5 +1,6 @@
 <template>
     <div
+      v-if="isActive"
       :class="{highlight: modelValue === name}" 
       class="brand invisBorder col-3 p-2 valign mx-auto rounded text-center">
       <label class="mx-auto rounded text-center" :class="name">
@@ -12,13 +13,15 @@
           :checked="modelValue === name"
           @change="$emit('update:modelValue',name)"
           >
-          <div class="rect mx-auto rounded" :class="name"></div>
+          <div class="rect justify-content-center rounded valign" :class="name">{{translate(name.replace("label", ""))}}</div>
       </label>
     </div>
   </template>
   
   <script>
+    
   export default {
+    
     name: 'Label_Component',
     data(){
       return{
@@ -29,12 +32,70 @@
           type: String,
           required: true
       },
+      isActive:{
+        type: Boolean,
+        required: true
+      },
       modelValue: String
     },
     emits: ['update:modelValue'],
     methods: {
+      translate (name) {
+        
+        switch(name){
+          case "Grey":
+            name = "Grijs";
+            return name;
+            
+          case "Red":
+            name = "Rood";
+            return name;
+            
+          case "Pink":
+            name = "Roze";
+            return name;
+            
+          case "Violet":
+            name = "Paars";
+            return name;
+            
+          case "Yellow":
+            name = "Geel";
+            return name;
+            
+          case "Brown":
+            name = "Bruin";
+            return name;
+            
+          case "DGreen":
+            name = "D Groen";
+            return name;
+            
+          case "Orange":
+            name = "Oranje";
+            return name;
+            
+          case "Blue":
+            name = "Blauw";
+            return name;
+            
+          case "White":
+            name = "Wit";
+            return name;
+            
+          case "Green":
+            name = "Groen";
+            return name;
+
+          default:
+            return name;
+            
+        }
+      }
     },
     computed: {
+    },
+    mounted () {
     }
   }
   </script>

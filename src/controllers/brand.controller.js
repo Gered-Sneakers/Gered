@@ -43,7 +43,6 @@ exports.findAll = (req, res) => {
 }; 
  
 // Find a single Brands with an id 
-
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -66,7 +65,23 @@ exports.findOne = (req, res) => {
 
  
 // Update a Brands by the id in the request 
-exports.update = (req, res) => {}; 
+exports.update = (req, res) => {
+  const id = req.params.id;
+  Brands.update(req.body, {
+    where: { id: id}
+  })
+  .then(num => {
+    if(num == 1){
+      res.send({ message: "Brand updated successfully."});
+    }
+    else{
+      res.status(404).send({ message : `Werknemer with id=${id} not found.`})
+    }
+  })
+  .catch(err => {
+    res.status(500).send({ message: "Error updating the brand with id " + id })
+  })
+}; 
  
 // Delete a Brands with the specified id in the request 
 exports.delete = (req, res) => {}; 

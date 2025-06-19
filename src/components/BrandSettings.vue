@@ -4,9 +4,13 @@
         name: 'BrandSettings_View',
         data(){
           return{
+            hover: false
           }
         },
         props:{
+          id:{
+            type: Number
+          },
          	name:{
          		type: String,
          		required: true
@@ -15,28 +19,39 @@
               type: String,
               required: true
           },
+          isActive:{
+            type: Boolean,
+            required: true
+          },
     modelValue: String
   },
-  emits: ['update:modelValue'],
+  emits: ['update'],
   methods: {
-
+    show(){
+      console.log(this.name +" "+ this.isActive)
+    }
   },
   computed: {
     resolvedImgPath(){
       return new URL(`/src/img/brands/${this.img}`, import.meta.url).href;
     }
+  },
+  mounted(){
+    this.show();
   }
 }
 </script>
 
 <template>
-    <div class="col-4 rounded mx-auto"> 
+    <div class="col-4 rounded mx-auto" v-if="isActive"> 
       <div class="bg-light m-2 rounded">
-        <img class="w-100 grow  blackIcons" :src="resolvedImgPath" :title="name">
+        <img @click="$emit('update', id)" class="w-100 grow blackIcons" :src="resolvedImgPath" :title="name">
       </div>
     </div> 
 </template>
 
 <style scoped>
-  
+  div:hover{
+
+  }
 </style>
