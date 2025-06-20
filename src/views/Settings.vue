@@ -15,9 +15,9 @@
         </div>
       </div>
       <div id="main" class="d-block">
-        <div class="row text-white">
-        <!-- INPUT LEVERANCIER -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <div class="row text-white">
+          <!-- INPUT LEVERANCIER -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ LEVERANCIER</div>
           </div>
@@ -30,24 +30,10 @@
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
             </div>
           </div>
-        </div>
-        <div class="full m-0 p-0" v-if="leverancierCheck">
-          <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-            <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{  }}</span> wil verwijderen?</p>
-                <div class="row m-0 p-0">
-                  <div class="col-6 m-0 p-0">
-                    <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteWerknemer(werknemerId)">JA</button> 
-                  </div>
-                  <div class="col-6 m-0 p-0">
-                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
-                  </div>
-                </div>
-            </div>
           </div>
-        </div>
-        <!-- INPUT BRAND -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+
+          <!-- INPUT BRAND -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ BRAND</div>
           </div>
@@ -63,10 +49,10 @@
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
             </div>
           </div>
-        </div>
+          </div>
 
-        <!-- INPUT WERKNEMER -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <!-- INPUT WERKNEMER -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ WERKNEMER</div>
           </div>
@@ -88,25 +74,10 @@
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addWerknemer">OK</button>
             </div>
           </div>
-        </div>
-        <div class="full m-0 p-0" v-if="werknemerCheck">
-          <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-            <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{  }}</span> wil verwijderen?</p>
-                <div class="row m-0 p-0">
-                  <div class="col-6 m-0 p-0">
-                    <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteWerknemer(werknemerId)">JA</button> 
-                  </div>
-                  <div class="col-6 m-0 p-0">
-                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
-                  </div>
-                </div>
-            </div>
           </div>
-        </div>
-
-        <!-- INPUT LABELCOLOR -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          
+          <!-- INPUT LABELCOLOR -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div class="mx-auto subTitle">+ LABELKLEUR</div>
           </div>
@@ -127,9 +98,9 @@
               <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor">OK</button>
             </div>
           </div>
-        </div>
-        </div>
-        <div class="row text-light">
+          </div>
+      </div>
+      <div id="isActive" class="row text-light">
         
         <!-- LEVERANCIERS -->
         <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
@@ -140,11 +111,29 @@
             <div v-if="showLeverancier"
             class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
               <Leverancier 
-                v-for="l in LeveranciersList"
-                @delete="confirmDeleteLeverancier(l.id,l.name)"
+                v-for="l in LeveranciersList.filter(l => l.isActive === true || l.isActive === 1)"
+                :id="l.id"
                 :name="l.name"
                 :isActive="l.isActive"
+                :icon="'❌'"
+                @delete="confirmDeleteLeverancier"
               ></Leverancier>
+
+              <div class="full m-0 p-0" v-if="leverancierCheck">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                  <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                      <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ leverancierName }}</span> wil verwijderen?</p>
+                      <div class="row m-0 p-0">
+                        <div class="col-6 m-0 p-0">
+                          <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
+                        </div>
+                        <div class="col-6 m-0 p-0">
+                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -252,9 +241,12 @@
               :name="l.name"
               :colorCode="l.colorCode"
               :isActive="l.isActive"
+              :icon="'❌'"
             ></Labelcolor>
           </div>
         </div>
+
+
         <!-- INACTIEVE STUFF -->
         <!-- LEVERANCIERS -->
         <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
@@ -263,11 +255,28 @@
               <div class="mx-auto subTitle">DELETED <br> LEVERANCIERS</div>
             </div>
             <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
-              <Leverancier v-for="l in LeveranciersList"
-                @delete="confirmDeleteLeverancier(l.id,l.name)"
+              <LeverancierInactief v-for="l in LeveranciersList"
+                :id="l.id"
                 :name="l.name"
                 :isActive="!l.isActive"
-              ></Leverancier>
+                :icon="'✔'"
+                @recover="confirmRecoverLeverancier(l.id,l.name)"
+              ></LeverancierInactief>
+              <div class="full m-0 p-0" v-if="leverancierCheckReco">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                  <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                      <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ leverancierName }}</span> terugkomt?</p>
+                      <div class="row m-0 p-0">
+                        <div class="col-6 m-0 p-0">
+                          <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLeverancier(leverancierId)">JA</button> 
+                        </div>
+                        <div class="col-6 m-0 p-0">
+                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -290,7 +299,7 @@
         <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
           <div class="mb-3">
             <div class="w-100 valign rounded-top bg-red text-white vh-10">
-              <div class="mx-auto subTitle">DELETED <br> WERKNEMERS</div>
+              <div @click="test" class="mx-auto subTitle">DELETED <br> WERKNEMERS</div>
             </div>
             <div class="row m-0 p-0 py-3 text-center rounded-bottom bg-blue">
                 <Werknemer v-for="l in WerknemersList"
@@ -303,10 +312,10 @@
                 
                 ></Werknemer>
               <!-- DELETE WERKNEMER -->
-              <div class="full m-0 p-0" v-if="werknemerId > 0">
+              <div class="full m-0 p-0" v-if="werknemerRecover">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ werknemerName }}</span> wil verwijderen?</p>
+                        <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ werknemerName }}</span> terugkomt?</p>
                         <div class="row m-0 p-0">
                           <div class="col-6 m-0 p-0">
                             <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteWerknemer(werknemerId)">JA</button> 
@@ -315,27 +324,6 @@
                             <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
                           </div>
                         </div>
-                    </div>
-                </div>
-              </div>
-              <!-- UPDATE WERKNEMER-->
-              <div class="full m-0 p-0" v-if="updateId > 0">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateWerknemer">
-                          <p class="my-5">Wil je <span class="text-yellow">{{ updateId }}</span> wijzigen? </p>
-                          <!--<span>{{ updateId }}</span>-->
-                          <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
-                          <div><input class="text-center" v-model="updatePass"></div>
-                          <div class="row m-0 p-0 mt-5">
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateWerknemer()">JA</button> 
-                          </div>
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetWerknemer">NEE</button>
-                          </div>
-                        </div>
-                        
-                        
                     </div>
                 </div>
               </div>
@@ -354,6 +342,7 @@
               :name="l.name"
               :colorCode="l.colorCode"
               :isActive="!l.isActive"
+              :icon="'✔'"
             ></Labelcolor>
           </div>
         </div>
@@ -375,6 +364,7 @@
   
   <script>
   import Leverancier from '@/components/LeverancierSettings.vue';
+  import LeverancierInactief from '@/components/LeverancierSettingsInactief.vue';
   import LeverancierService from '@/services/LeverancierService';
 
   import Brand from '@/components/BrandSettings.vue';
@@ -410,6 +400,7 @@
           BrandsList: [],
           
           werknemerCheck: false,
+          werknemerRecover: false,
           werknemerId: null,
           werknemerName: '',
           werknemerPass: '',
@@ -418,6 +409,7 @@
           updateName: '',
           updatePass: '',
 
+          leverancierCheckReco: false,
           leverancierCheck: false,
           leverancierId: null,
           leverancierName: '',
@@ -443,6 +435,9 @@
         }
       },
       methods: {
+        test(){
+          console.log(this.inactieveWerknemers);
+        },
         toggleContent(nr){
           var main = document.getElementById("main").classList;
           var sneakers = document.getElementById("sneaks").classList;
@@ -519,27 +514,70 @@
               console.log(error);
           });
         },
-        confirmDeleteLeverancier(id,name){
-          this.leverancierId = id
-          this.leverancierName = name
+        confirmDeleteLeverancier(leverancier){
+          console.log("CONFIRM DELETE LEVER");
+          this.leverancierId = leverancier.id
+          this.leverancierName = leverancier.name
+          this.leverancierCheck = true
         },
         refuseDeleteLeverancier(){
           this.leverancierId = null
           this.leverancierName = ''
+          this.leverancierCheck = false
+          this.leverancierCheckReco = false
         },
-        deleteLeverancier(id){
-          const updateData = { isActive: 0 };
-          LeverancierService.update(id,updateData)
+        deleteLeverancier(id) {
+          console.log("🗑️ Deactivating leverancier ID:", id);
+
+          const leverancier = this.LeveranciersList.find(l => l.id === id);
+          if (!leverancier) {
+            console.error(`❌ Leverancier with ID ${id} not found`);
+            return;
+          }
+        
+          const updateData = { ...leverancier, isActive: false };
+          console.log(updateData);
+          LeverancierService.update(id, updateData)
             .then(() => {
+              console.log("✅ Leverancier gedeactiveerd");
               this.getLeveranciers();
               this.refuseDeleteLeverancier();
             })
-            .catch(error=>{
-              console.error("Update failed", error);
-            })
-        },
+            .catch(error => {
+              console.error("❌ Fout bij deactivatie:", error.response || error);
+              alert("Deactivatie mislukt");
+            });
+        }
+        ,
         resetInputLeverancier(){
           this.leverancierName = "";
+        },
+        confirmRecoverLeverancier(id,name){
+          this.leverancierId = id
+          this.leverancierName = name
+          this.leverancierCheckReco = true
+        },
+        recoverLeverancier(id) {
+          console.log("🗑️ Deactivating leverancier ID:", id);
+
+          const leverancier = this.LeveranciersList.find(l => l.id === id);
+          if (!leverancier) {
+            console.error(`❌ Leverancier with ID ${id} not found`);
+            return;
+          }
+        
+          const updateData = { ...leverancier, isActive: true };
+          console.log(updateData);
+          LeverancierService.update(id, updateData)
+            .then(() => {
+              console.log("✅ Leverancier gedeactiveerd");
+              this.getLeveranciers();
+              this.refuseDeleteLeverancier();
+            })
+            .catch(error => {
+              console.error("❌ Fout bij deactivatie:", error.response || error);
+              alert("Deactivatie mislukt");
+            });
         },
 
         /* BRANDS */
@@ -622,6 +660,7 @@
           WerknemerService.getAll()
             .then(response => {
               this.WerknemersList = response.data;
+              console.log("WERKNEMERSLIST");
               console.log(this.WerknemersList);
             })
             .catch(error => {
@@ -692,11 +731,11 @@
           this.werknemerName = "";
           this.werknemerPass = "";
         },
+
         /* LABELS  */
         getLabelColors(){
           LabelcolorService.getAll()
           .then(response => {
-            console.log(response);
             this.LabelcolorList = response.data;
             console.log("LABELCOLORS LIST");
             console.log(this.LabelcolorList);
@@ -731,6 +770,12 @@
         this.getBrands();
       },
       computed: {
+        actieveLeveranciers() {
+          return this.LeveranciersList.filter(l => l.isActive === true || l.isActive === 1);
+        },
+        inactieveLeveranciers() {
+          return this.LeveranciersList.filter(l => l.isActive === false || l.isActive === 0);
+        }
       },
       components: {
         Leverancier,
@@ -738,7 +783,8 @@
         Werknemer,
         Labelcolor,
         ShowSneakers,
-        CsvSneakers
+        CsvSneakers,
+        LeverancierInactief
       }
     }
   </script>

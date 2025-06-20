@@ -62,7 +62,23 @@ exports.findOne = (req, res) => {
 }; 
  
 // Update a Leveranciers by the id in the request 
-exports.update = (req, res) => {}; 
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Leveranciers.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({ message: "Leverancier updated successfully." });
+      } else {
+        res.status(404).send({ message: `Leverancier with id=${id} not found.` });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({ message: "Error updating Leverancier with id=" + id });
+    });
+}; 
  
 // Delete a Leveranciers with the specified id in the request 
 exports.delete = (req, res) => {}; 

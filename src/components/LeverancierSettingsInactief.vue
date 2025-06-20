@@ -8,36 +8,29 @@
           }
         },
         props:{
-          id:{
-            type: Number,
-            required: true
-          },
          	name:{
          		type: String,
          		required: true
          	},
-          isActive:{
-            type: Boolean
-          }
-  },
-  emits: ['delete'],//['update:modelValue']
-  methods: {
-
-  },
-  computed: {
-  }
+            isActive:{
+              type: Boolean
+            }
+         },
+         methods: { },
+         computed: { }
 }
 </script>
 
 <template>
+    <!-- -->
     <div  class="col-12 mb-2" 
-          v-if="isActive === true || isActive === 1"
+          v-if="isActive==true"
           @mouseover="hover=true" 
           @mouseleave="hover=false"
     > 
-      {{ name }} {{ id}}
-      <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('delete',{ id,name,isActive})">
-        ❌
+      {{ name }}
+      <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('recover', {id , name , isActive})">
+        ✔
       </span>
     </div> 
 </template>

@@ -52,11 +52,8 @@
             creator:{
                 type: String
             },
-            verkoop:{
-                type: Number
-            },
             csv: {
-                type: Number
+                type: Boolean
             }
         },
         methods:{

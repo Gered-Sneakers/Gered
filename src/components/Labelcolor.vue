@@ -24,9 +24,12 @@ export default {
             type: Boolean,
             required: true
         },
-        //modelValue: String
+        icon:{
+            type: String,
+            required: true
+        }
     },
-    emits: ['activate'],//['update:modelValue'],
+    emits: ['activate'],
     methods: {
       translate (name) {
         
@@ -95,8 +98,10 @@ export default {
         {{ translate(name.replace("label", "")) }}
       </div>
       <div class="col-2 rounded valign justify-content-center">
-        <span v-if="hover" class="ms-2 text-danger rounded" style="cursor:pointer;" @click="$emit('delete', id)">
-        ❌
+        <span v-if="hover">
+        <span v-if="isActive==true" class="ms-2 text-danger rounded" style="cursor:pointer;" @click="$emit('delete', id)">
+        {{ icon }}
+        </span>
         </span>
       </div>
     </div>

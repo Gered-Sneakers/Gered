@@ -40,7 +40,6 @@
         :verkoop="s.verkoop"
         :csv="s.csv"
         @csv="csv"
-        @verkoop="verkoop"
       >
 
       </SneakerSmall>
