@@ -128,7 +128,7 @@
                           <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
                         </div>
                         <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
+                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
                         </div>
                       </div>
                   </div>
@@ -150,16 +150,16 @@
               :name="l.name"
               :img="l.img"
               :isActive="l.isActive"
-              @update="confirmUpdateBrand(l.id,l.active)"
+              @update="confirmUpdateBrand(l.id,l.name,l.active)"
             ></Brand>
             <!-- UPDATE BRAND vindme -->
             <div class="full m-0 p-0" v-if="brandId > 0">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateBrand">
-                          <p class="my-5">Wil je <span class="text-yellow">{{ brandId }}</span> verwijderen? </p>
+                          <p class="my-5">Wil je <span class="text-yellow">{{ brandName }}</span> verwijderen? </p>
                           <div class="row m-0 p-0 mt-5">
                           <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateBrand()">JA</button> 
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateBrand(this.brandId)">JA</button> 
                           </div>
                           <div class="col-6 m-0 p-0">
                             <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetBrand()">NEE</button>
@@ -184,12 +184,13 @@
                   :name="l.name"
                   :pass="l.pass"
                   :isActive="l.isActive"
+                  :icon="'❌'"
                   @activate="confirmDeleteWerknemer(l.id,l.name)"
-                  @update="confirmUpdateWerknemer(l.id,l.name,l.pass)"
+                  @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
                 
                 ></Werknemer>
               <!-- DELETE WERKNEMER -->
-              <div class="full m-0 p-0" v-if="werknemerId > 0">
+              <div class="full m-0 p-0" v-if="werknemerCheck">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
                         <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ werknemerName }}</span> wil verwijderen?</p>
@@ -234,7 +235,7 @@
           <div class="w-100 valign rounded-top bg-blue text-white vh-10">
             <div @click="showLabelkleur = !showLabelkleur" class="mx-auto subTitle">LABELKLEUREN</div>
           </div>
-          <div  v-if="showLabelkleur"
+          <div v-if="showLabelkleur"
           class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
             <Labelcolor v-for="l in LabelcolorList"
               :id="l.id"
@@ -242,7 +243,23 @@
               :colorCode="l.colorCode"
               :isActive="l.isActive"
               :icon="'❌'"
+              @activate="confirmDeleteLabelcolor(l.id,l.name)"
             ></Labelcolor>
+            <div class="full m-0 p-0" v-if="labelcolorCheck">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ labelcolorName }}</span> wil verwijderen?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLabelColor(labelcolorId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetInputLabel">NEE</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
 
@@ -255,13 +272,13 @@
               <div class="mx-auto subTitle">DELETED <br> LEVERANCIERS</div>
             </div>
             <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
-              <LeverancierInactief v-for="l in LeveranciersList"
+              <Leverancier v-for="l in LeveranciersList"
                 :id="l.id"
                 :name="l.name"
                 :isActive="!l.isActive"
                 :icon="'✔'"
-                @recover="confirmRecoverLeverancier(l.id,l.name)"
-              ></LeverancierInactief>
+                @delete="confirmRecoverLeverancier(l.id,l.name)"
+              ></Leverancier>
               <div class="full m-0 p-0" v-if="leverancierCheckReco">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                   <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
@@ -271,7 +288,7 @@
                           <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLeverancier(leverancierId)">JA</button> 
                         </div>
                         <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteLeverancier">NEE</button>
+                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
                         </div>
                       </div>
                   </div>
@@ -291,7 +308,23 @@
               :name="l.name"
               :img="l.img"
               :isActive="!l.isActive"
+              @update="confirmRecoverBrand(l.id,l.name)"
             ></Brand>
+            <div class="full m-0 p-0" v-if="brandCheckReco">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ brandName }}</span> terugkomt?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverBrand(brandId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetBrand">NEE</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
 
@@ -307,7 +340,8 @@
                   :name="l.name"
                   :pass="l.pass"
                   :isActive="!l.isActive"
-                  @activate="confirmDeleteWerknemer(l.id,l.name)"
+                  :icon="'✔'"
+                  @activate="confirmRecoverWerknemer(l.id,l.name,l.isActive)"
                   @update="confirmUpdateWerknemer(l.id,l.name,l.pass)"
                 
                 ></Werknemer>
@@ -318,7 +352,7 @@
                         <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ werknemerName }}</span> terugkomt?</p>
                         <div class="row m-0 p-0">
                           <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteWerknemer(werknemerId)">JA</button> 
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverWerknemer(werknemerId)">JA</button> 
                           </div>
                           <div class="col-6 m-0 p-0">
                             <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
@@ -343,7 +377,23 @@
               :colorCode="l.colorCode"
               :isActive="!l.isActive"
               :icon="'✔'"
+              @activate="confirmRecoverLabelcolor(l.id,l.name,l.isActive)"
             ></Labelcolor>
+            <div class="full m-0 p-0" v-if="labelcolorCheckReco">
+                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ labelcolorName }}</span> terugkomt?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLabelcolor(labelcolorId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetInputLabel">NEE</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
 
@@ -364,7 +414,7 @@
   
   <script>
   import Leverancier from '@/components/LeverancierSettings.vue';
-  import LeverancierInactief from '@/components/LeverancierSettingsInactief.vue';
+  //import LeverancierInactief from '@/components/LeverancierSettingsInactief.vue';
   import LeverancierService from '@/services/LeverancierService';
 
   import Brand from '@/components/BrandSettings.vue';
@@ -375,7 +425,6 @@
   import WerknemerService from '@/services/WerknemerService';
 
   import Labelcolor from '@/components/Labelcolor.vue';
-  import LabelcolorList from '@/assets/labelColors.json';
   import LabelcolorService from '@/services/LabelcolorService';
 
   import ShowSneakers from './ShowSneakers.vue';
@@ -414,6 +463,7 @@
           leverancierId: null,
           leverancierName: '',
 
+          labelcolorCheckReco: false,
           labelcolorCheck: false,
           labelcolorId: null,
           labelcolorName: '',
@@ -421,6 +471,7 @@
 
           selectedFile: null,
 
+          brandCheckReco: false,
           brandCheck: false,
           brandId: null,
           brandName: '',
@@ -520,7 +571,7 @@
           this.leverancierName = leverancier.name
           this.leverancierCheck = true
         },
-        refuseDeleteLeverancier(){
+        resetLeverancier(){
           this.leverancierId = null
           this.leverancierName = ''
           this.leverancierCheck = false
@@ -541,14 +592,13 @@
             .then(() => {
               console.log("✅ Leverancier gedeactiveerd");
               this.getLeveranciers();
-              this.refuseDeleteLeverancier();
+              this.resetLeverancier();
             })
             .catch(error => {
               console.error("❌ Fout bij deactivatie:", error.response || error);
               alert("Deactivatie mislukt");
             });
-        }
-        ,
+        },
         resetInputLeverancier(){
           this.leverancierName = "";
         },
@@ -572,7 +622,7 @@
             .then(() => {
               console.log("✅ Leverancier gedeactiveerd");
               this.getLeveranciers();
-              this.refuseDeleteLeverancier();
+              this.resetLeverancier();
             })
             .catch(error => {
               console.error("❌ Fout bij deactivatie:", error.response || error);
@@ -638,12 +688,12 @@
               console.error("Update failed", error);
             })
         },
-        confirmUpdateBrand(id,active){
-          
+        confirmUpdateBrand(id,name,active){
           this.brandId = id
           this.brandActive = active
+          this.brandName = name
           console.log("UPDATE BRAND ID");
-          console.log(brandId);
+          console.log(this.brandId);
         },
         resetInputBrand(){
           this.brandName = ""
@@ -653,6 +703,34 @@
           this.brandId = ""
           this.brandName = ""
           this.brandActive = ""
+          this.brandCheck = false
+          this.brandCheckReco = false
+        },
+        confirmRecoverBrand(id,name){
+          this.brandId = id
+          this.brandName = name
+          this.brandCheckReco = true
+        },
+        recoverBrand(id){
+          console.log("🗑️ Recovering brand ID:", id);
+
+          const brand = this.BrandsList.find(l => l.id === id);
+          if (!brand) {
+            console.error(`❌ Brand with ID ${id} not found`);
+            return;
+          }
+        
+          const updateData = { ...brand, isActive: true };
+          BrandService.update(id, updateData)
+            .then(() => {
+              console.log("✅ Brand gedeactiveerd");
+              this.getBrands();
+              this.resetBrand();
+            })
+            .catch(error => {
+              console.error("❌ Fout bij deactivatie:", error.response || error);
+              alert("Deactivatie mislukt");
+            });
         },
 
         /* WERKNEMERS */
@@ -686,12 +764,13 @@
         confirmDeleteWerknemer(id,name){
           this.werknemerId = id
           this.werknemerName = name
-          this.ShowWerknemer = true
+          this.werknemerCheck = true
         },
         refuseDeleteWerknemer(){
           this.werknemerId = null
           this.werknemerName = ''
-          this.showWerknemer = false
+          this.werknemerCheck = false
+          this.werknemerRecover = false
         },
         deleteWerknemer(id){
           const updateData = { isActive: 0 };
@@ -710,9 +789,14 @@
            this.updatePass = pass
         },
         resetWerknemer(){
+          this.werknemerId = null
+          this.werknemerName = ''
+          this.werknemerPass = ''
           this.updateId = null
           this.updateName = ''
           this.updatePass = ''
+          this.werknemerCheck = false
+          this.werknemerRecover = false
         },
         updateWerknemer(){
           const updateData = { name: this.updateName , pass: this.updatePass };
@@ -730,6 +814,32 @@
         resetInputWerknemer(){
           this.werknemerName = "";
           this.werknemerPass = "";
+        },
+        confirmRecoverWerknemer(id,name){
+          this.werknemerId = id
+          this.werknemerName = name
+          this.werknemerRecover = true
+        },
+        recoverWerknemer(id){
+          console.log("🗑️ Recovering werknemer ID:", id);
+
+          const werknemer = this.WerknemersList.find(l => l.id === id);
+          if (!werknemer) {
+            console.error(`❌ Werknemer with ID ${id} not found`);
+            return;
+          }
+        
+          const updateData = { ...werknemer, isActive: true };
+          WerknemerService.update(id, updateData)
+            .then(() => {
+              console.log("✅ Werknemer geactiveerd");
+              this.getWerknemers();
+              this.resetWerknemer();
+            })
+            .catch(error => {
+              console.error("❌ Fout bij deactivatie:", error.response || error);
+              alert("Deactivatie mislukt");
+            });
         },
 
         /* LABELS  */
@@ -758,9 +868,43 @@
             this.resetInputLabel();
           })
         },
+        deleteLabelColor(id){
+          const updateData = { isActive: 0 };
+          LabelcolorService.update(id,updateData)
+            .then(()=> {
+              this.getLabelColors();
+              this.resetInputLabel();
+            })
+            .catch(error=>{
+              console.error("Update failed" , error);
+            })
+        },
+        confirmDeleteLabelcolor(id,name){
+          this.labelcolorId = id
+          this.labelcolorName = name
+          this.labelcolorCheck = true
+        },
         resetInputLabel(){
-          this.labelcolorName = "";
-          this.labelcolorCode = "";
+          this.labelcolorName = ""
+          this.labelcolorCode = ""
+          this.labelcolorCheck = false
+          this.labelcolorCheckReco = false
+        },
+        recoverLabelcolor(id){
+          const updateData = { isActive: 1 };
+          LabelcolorService.update(id,updateData)
+            .then(()=> {
+              this.getLabelColors();
+              this.resetInputLabel();
+            })
+            .catch(error=>{
+              console.error("Update failed" , error);
+            })
+        },
+        confirmRecoverLabelcolor(id,name,active){
+          this.labelcolorId = id
+          this.labelcolorName = name
+          this.labelcolorCheckReco = true
         }
       },
       mounted () {
@@ -783,17 +927,16 @@
         Werknemer,
         Labelcolor,
         ShowSneakers,
-        CsvSneakers,
-        LeverancierInactief
+        CsvSneakers
       }
     }
   </script>
 
   <style scoped>
     .full{
-        position: absolute;
-        top: 0vh;
-        left: 0vw;
+        position: fixed ; /* absolute */
+        top: 0;
+        left: 0;
         /*width: 100%;
         height: 100%;*/
         width: 100%;
@@ -816,7 +959,6 @@
       position: absolute;
       top: 10vh;
       left: 0;
-      /*overflow-y: scroll !important;*/
     }
 
     [type=file]{

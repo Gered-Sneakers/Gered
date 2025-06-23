@@ -24,9 +24,11 @@ export default {
         type: Boolean,
         required: true
       },
+      icon:{
+        type: String
+      }
       //modelValue: String
     },
-    emits: ['activate'],//['update:modelValue'],
     methods: {
     },
     computed: {
@@ -42,14 +44,15 @@ export default {
       <span> ({{ id }}) </span>
       
       {{ name }} 
-      <span v-if="hover"> - {{ pass }}</span> 
-      <span v-if="hover" class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('update', id)">
-      🔨
+      <span v-if="hover">
+        <span> - {{ pass }}</span> 
+        <span class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
+        🔨
+        </span>
+        <span class="ms-2 text-success fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,activate)">
+        {{ icon }}
+        </span>
       </span>
-      <span v-if="hover" class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('activate', id)">
-      ❌
-      </span>
-  
   </div>
 
 </template>

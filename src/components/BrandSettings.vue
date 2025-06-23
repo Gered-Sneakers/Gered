@@ -45,13 +45,13 @@
 <template>
     <div class="col-4 rounded mx-auto" v-if="isActive"> 
       <div class="bg-light m-2 rounded">
-        <img @click="$emit('update', id)" class="w-100 grow blackIcons" :src="resolvedImgPath" :title="name">
+        <img @click="$emit('update', id,isActive)" class="w-100 grow blackIcons" :src="resolvedImgPath" :title="name">
       </div>
     </div> 
 </template>
 
 <style scoped>
-  div:hover{
-
+  .bg-light:hover{
+    border: 5px solid blue;
   }
 </style>

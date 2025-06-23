@@ -27,6 +27,8 @@
 
 <script>
 import Nav from './views/Nav.vue'
+import LabelcolorService from './services/LabelcolorService';
+
 //import Footer from './views/Footer.vue'
 
 export default {
@@ -34,6 +36,16 @@ export default {
   components: {
     Nav,
     //Footer
+  },
+  methods: {
+    injectLabelColors(labelColors){
+      let style = document.createElement('style');
+        style.text
+
+    }
+  },
+  mounted(){
+
   }
 }
 </script>

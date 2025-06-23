@@ -93,13 +93,13 @@ export default {
           @mouseleave="hover=false"
           :style="{backgroundColor: colorCode}"
     > <div class="col-2"></div>
-      <div class="col-8 valign justify-content-center rounded text-dark">
+      <div class="col-8 valign justify-content-center rounded text-dark fw-bold">
         <!--{{ translate(name.replace("label", "")) }} <br> {{ colorCode }}-->
         {{ translate(name.replace("label", "")) }}
       </div>
       <div class="col-2 rounded valign justify-content-center">
         <span v-if="hover">
-        <span v-if="isActive==true" class="ms-2 text-danger rounded" style="cursor:pointer;" @click="$emit('delete', id)">
+        <span v-if="isActive==true" class="ms-2 text-success rounded fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,active)">
         {{ icon }}
         </span>
         </span>

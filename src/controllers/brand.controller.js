@@ -63,7 +63,6 @@ exports.findOne = (req, res) => {
 
 }; 
 
- 
 // Update a Brands by the id in the request 
 exports.update = (req, res) => {
   const id = req.params.id;

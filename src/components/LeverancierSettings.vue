@@ -17,7 +17,11 @@
          		required: true
          	},
           isActive:{
-            type: Boolean
+            type: Boolean,
+            required: true
+          },
+          icon:{
+            type: String
           }
   },
   emits: ['delete'],//['update:modelValue']
@@ -35,9 +39,9 @@
           @mouseover="hover=true" 
           @mouseleave="hover=false"
     > 
-      {{ name }} {{ id}}
+      |{{ id }}|{{ " " + name }} 
       <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('delete',{ id,name,isActive})">
-        ❌
+        {{ icon }}
       </span>
     </div> 
 </template>

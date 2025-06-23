@@ -1,8 +1,6 @@
 const db = require("../models");
 const Labelcolors = db.labelcolors; 
-//const Op = db.Sequelize.Op; 
- 
-// Create and Save a new Brands
+
 exports.create = (req, res) => {
     console.log("📥 Data received:", req.body);
     //console.log(req.body.)
@@ -26,8 +24,7 @@ exports.create = (req, res) => {
       });
   
 };
- 
-// Retrieve all Brands from the database. 
+
 exports.findAll = (req, res) => {
     Labelcolors.findAll()
         .then(data =>{
@@ -42,18 +39,30 @@ exports.findAll = (req, res) => {
             })
         })
 }; 
- 
-// Find a single Brands with an id 
+
 exports.findOne = (req, res) => {}; 
  
-// Update a Brands by the id in the request 
-exports.update = (req, res) => {}; 
- 
-// Delete a Brands with the specified id in the request 
+
+exports.update = (req, res) => {
+  const id = req.params.id;
+  Labelcolors.update(req.body, {
+    where: { id: id}
+  })
+  .then(num => {
+    if(num == 1){
+      res.send({ message: "Labelcolor updated successfully."});
+    }
+    else{
+      res.status(404).send({ message : `Labelcolor with id=${id} not found.`})
+    }
+  })
+  .catch(err => {
+    res.status(500).send({ message: "Error updating the brand with id " + id })
+  })
+}; 
+
 exports.delete = (req, res) => {}; 
  
-// Delete all Brands from the database. 
 exports.deleteAll = (req, res) => {}; 
  
-// Find all published Brands 
 exports.findAllPublished = (req, res) => {}; 
