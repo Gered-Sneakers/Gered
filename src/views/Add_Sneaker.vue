@@ -1,5 +1,6 @@
 <template>
     <!-- LOGIN -->
+     <!--
     <div class="row m-0 h-100 mainTargets d-flex">
         <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valign">
@@ -25,22 +26,23 @@
                         class="text-center mx-auto border-blue rounded mb-3" 
                         v-model="pass"
                         @keyup.enter="login()" 
-                        > <!-- GO() moet hier terugkome -->
-                </div>
+                        >  --><!-- GO() moet hier terugkome -->
+                <!--</div>-->
                 <!--
                 <div class="row m-0 p-0 mx-auto">
                   <div class="w-100 mx-auto text-center">
                     <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.svg">
                   </div>
                 </div>
-                -->
+                --><!--
             </div>
             </div>
             </div>
         </div>
-    </div>
+    </div>-->
+   <div class="h-100 bg-blue">
     <!-- LEVERANCIER -->
-    <div class="row h-100 mainTargets d-none bg-blue">
+    <div class="row h-100 mainTargets bg-blue">
         <div id="navToevoegen" class="row vh-5 valign">
                 <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
                     ❌
@@ -54,9 +56,11 @@
                     v-model="leverancier" value="Leverancier" @change="go()"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
+                    
                     <div v-for="l in leveranciers">
                         <option v-if="l.isActive"> {{ l.name }} </option>
                     </div>
+                    
                     <!--
                     <label class="w-100">
                       <input 
@@ -102,7 +106,7 @@
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none">
         <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
-            <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-blue rounded">
+            <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-3 mb-5">
                         <div class="col-12 text-center">
@@ -343,6 +347,19 @@
           </div>
         </div>
     </div>
+
+    <div class="full m-0 p-0 d-none" id="confirmColor">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="my-5">Je kan maximaal 3 kleuren kiezen.</p>
+              <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="closeConfirmColor()">JA</button> 
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
 <!--
     <ConfirmBox
         id="confirm"
@@ -354,7 +371,7 @@
     >
     </ConfirmBox>
 -->
-
+</div>
 </template>
   
 <script setup>
@@ -380,8 +397,9 @@
     import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
     import LeverancierService from '@/services/LeverancierService';
-import LabelcolorService from '@/services/LabelcolorService';
-import { isAxiosError } from 'axios';
+    import LabelcolorService from '@/services/LabelcolorService';
+
+    import { isAxiosError } from 'axios';
 
     var id = ref();
     var labelColor = ref();
@@ -408,7 +426,7 @@ import { isAxiosError } from 'axios';
     var creator = ref();
     var pass = ref();
 
-    var leveranciers = [];
+    var leveranciers = ref([]);
     var brands = [];
     var labels = [];
 
@@ -427,6 +445,8 @@ import { isAxiosError } from 'axios';
 
     var mainCounter = 0;
     var counter = 0;
+
+    var showConfirmboxColors = false;
 
     onMounted(()=>{
         getBrands();
@@ -472,6 +492,14 @@ import { isAxiosError } from 'axios';
 
     function annuleren(){
         window.location.reload();
+    }
+
+    function openConfirmColor(){
+        document.getElementById("confirmColor").classList.remove("d-none");
+    }
+
+    function closeConfirmColor(){
+        document.getElementById("confirmColor").classList.add("d-none");
     }
 
     function next(){
@@ -603,8 +631,12 @@ import { isAxiosError } from 'axios';
 	    			checkedcount += (checkboxgroup[i].checked) ? 1 : 0;
 	    		}
 	    		if (checkedcount > limit) {
-	    			alert("Je kan maximaal " + limit + " kleuren kiezen.");
+	    			//alert("Je kan maximaal " + limit + " kleuren kiezen."); 
+                    console.log("brapapapaa");
+                    //this.showConfirmboxColors = true;
+                    openConfirmColor();
 	    			this.checked = false;
+                   
 	    		}
 	    	}
 	    }
@@ -753,7 +785,7 @@ import { isAxiosError } from 'axios';
 
     function getLeveranciers(){
         LeverancierService.getAll()
-        .then( response =>{ leveranciers = response.data; } )
+        .then( response =>{ leveranciers.value = response.data; } )
         .catch( err => {console.log(err);})
     }
 

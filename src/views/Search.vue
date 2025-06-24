@@ -5,7 +5,7 @@
                 <p class="w-100 text-center">Zoeken</p>
             </div>
         </div>
-        <div class="col-12 vh-10 valign m-0 p-0">
+        <div class="col-12 h-25 valign m-0 p-0">
             <div id="changeHeight" class=" mx-auto">
                 <div class="row m-0 p-0 mx-auto">
                     <div class="row m-0 p-1 mx-auto justify-content-center">
@@ -162,8 +162,13 @@
                             
                         </div>
 
-                        <div id="filterIcon" class="col-2 bg-blue m-0 valign rounded mb-1" @click="hideFilters">
+                        <div id="filterIcon" class="col-2 bg-blue m-0 valign rounded mb-1 d-none" @click="hideFilters">
                             <img src="../img/filter.svg" class="w-100 whiteIcons grow">
+                        </div>
+
+                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign">
+                            <img class="w-100 grow" src="../img/qr.svg">
+                            <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
                         
                         <div class="col-8">
@@ -177,7 +182,7 @@
                             @click="showSelected"
                             ><br>
                         </div>
-                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign mb-1">
+                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign">
                             <img class="w-100 grow" src="../img/qr.svg">
                             <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
@@ -639,23 +644,6 @@
     border: 3px solid transparent;
     color: var(--multi) !important;
   }
-/*
-   .wit{
-    border: 1px solid black;
-   }
-
-
-   .multi{
-    border: 0 !important;
-    padding-left: 5px;
-   }
-
-   .zwart, .black, .black::before{
-    accent-color: var(--black);
-    background-color: var(--black);
-    border: 3px solid var(--black);
-  }
-*/
 
   </style>
   

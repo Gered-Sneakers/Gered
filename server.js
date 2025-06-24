@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));  // parse requests of content-t
 app.use('/public', express.static('public')); 
 app.use('/api', uploadRoutes);                    // make folder accessible
 //app.use('/brands', express.static(path.join(__dirname, 'public/uploads')));
+require("./src/routes/auth.routes")(app);
 
 const db = require("./src/models"); 
 db.sequelize.sync();

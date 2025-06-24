@@ -4,8 +4,8 @@ module.exports = app => {
     var router = require("express").Router(); 
 
     router.post("/", werknemers.create); 
-    router.post("/login", werknemers.login);
-    router.post("/admin", werknemers.adminLogin);
+    //router.post("/login", werknemers.login);
+    //router.post("/admin", werknemers.adminLogin);
 
     router.get("/", werknemers.findAll); 
     router.get("/published", werknemers.findAllPublished); 
