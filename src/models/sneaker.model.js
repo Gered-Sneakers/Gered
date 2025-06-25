@@ -38,9 +38,6 @@ module.exports = (sequelize, Sequelize) => {
       }, 
       status: { 
         type: Sequelize.STRING 
-      }, 
-      teRepareren: { 
-        type: Sequelize.STRING 
       },
       creator: { 
         type: Sequelize.STRING 

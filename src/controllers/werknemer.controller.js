@@ -1,14 +1,17 @@
 const db = require("../models");
 const Werknemers = db.werknemers; 
+const bcrypt = require("bcrypt")
  
 // Create and Save a new Werknemers
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     console.log("📥 Data received:", req.body);
+
+    const hashedPassword = await bcrypt.hash(req.body.pass, 10)
     
     const werknemer = {
       id: req.body.id,
       name: req.body.name,
-      pass: req.body.pass,
+      pass: hashedPassword, //req.body.pass,
       isActive: req.body.isActive
     };
   

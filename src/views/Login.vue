@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valignz">
-                <p class="w-100 text-center">Welkom bij G-App {{ name }}</p>
+                <p class="w-100 text-center">Welkom bij G-App {{ authState.loginName }}</p>
             </div>
         </div>
 
-        <div class="row w-100 vh-80 valignz m-0 p-0 text-center">
+        <div class="row w-100 vh-80 valignz m-0 p-0 text-center" v-if="!authState.isLoggedIn">
             <div class="row m-0 p-0 mx-auto">
                 <div class="col-12 m-0 p-0 mx-auto mb-5">
                     <img class="img-big mb-3 rotate" src="../img/den G.png">
@@ -15,7 +15,7 @@
                     <input 
                         type="text" size="14" id="loginNaam" placeholder="Naam"
                         class=" text-center mx-auto border-blue rounded mb-3"  
-                        v-model="name"
+                        v-model="authState.loginName"
                         @keyup.enter="document.getElementById('loginPass').focus()"
                     >
                 </div>
@@ -23,7 +23,8 @@
                     <input 
                         type="password" size="14" id="loginPass"  placeholder="Wachtwoord"
                         class=" text-center mx-auto border-blue rounded mb-3" 
-                        v-model="pass"
+                        autocomplete="off"
+                        v-model="authState.loginPass"
                         @keyup.enter="login()" 
                     >
                 </div>
@@ -36,6 +37,23 @@
                     <button @click="register" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 text-white">
                     <span class="">Registreren</span>
                     </button> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="row w-100 vh-80 valignz m-0 p-0 text-center" v-else>
+            <div class="col-12 h-100 m-0 p-0 mx-auto valign justify-content-center">
+                <div>
+                <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
+                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
+                        <span class="">ADD SNEAKER</span>
+                    </button> 
+                </router-link>
+                <router-link :to="{ name: 'repair' }" class="col h-100 valign rounded mt-4">
+                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
+                        <span class="">REPAIR</span>
+                    </button> 
+                </router-link>
                 </div>
             </div>
         </div>
@@ -55,7 +73,10 @@
     <div class="full m-0 p-0 d-none" id="errorbox" ref="errorbox">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5 mx-3">De develeoper is ermee bezig hé seg! <br> {{name}}, even geduld aub!</p>
+              <p class="my-5 mx-3">Wete gij u passwoord ni ofwa?!</p>
+              <p class="my-5 mx-3">Zedde misschin verbannen?!</p>
+              <p class="my-5 mx-3">Ik weet het wel zenne <br> pas maar op want kheb u int oog!</p>
+              <p class="my-5 mx-3">Doe nekeer samali op uwe heps , samaliheps </p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left" @click="byeError">JA</button> 
@@ -71,13 +92,15 @@
   
 <script>
 import axios from "axios"
+import { authState } from '@/stores/auth'
 
   export default {
     name: 'Login_View',
     data(){
         return{
             name: "",
-            pass: ""
+            pass: "",
+            authState
         }
     },
     props: {
@@ -87,19 +110,24 @@ import axios from "axios"
         async login() {
             try{
                 const res = await axios.post("http://localhost:8080/api/login", {
-                    name: this.name,
-                    pass: this.pass
+                    name: this.authState.loginName,
+                    pass: this.authState.loginPass
                 })
                 localStorage.setItem("token", res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data.user))
                 localStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin))
-                var admin = localStorage.getItem("admin")
-                console.log(admin);
+
+                authState.isLoggedIn = true
+                authState.isAdmin = res.data.user.isAdmin
+                
+                const isAdmin = JSON.parse(localStorage.getItem("admin"));
+                console.log("ADMIN");
+                console.log(isAdmin);
                 
                 var user = localStorage.getItem("user");
                 console.log(user);
-                if(admin)   this.$router.push("/settings")
-                else                    this.$router.push("/addSneaker")
+                if(isAdmin===1 || isAdmin === true)  this.$router.push("/settings")
+                //else                this.$router.push("/addSneaker")
                 
             }
             catch(err){
@@ -108,11 +136,6 @@ import axios from "axios"
                 this.$refs.errorbox.classList.add("d-block");
             }   
         },
-        logout(){
-            localStorage.removeItem("token")
-            localStorage.removeItem("user")
-            this.$router.push('/login')
-        },
         register(){
             var confirm = document.getElementById("confirm").classList;
             
@@ -120,6 +143,7 @@ import axios from "axios"
             else confirm.add("d-none");
         },
         byeError(){
+            authState.pass = ""
             this.$refs.errorbox.classList.remove("d-block");
             this.$refs.errorbox.classList.add("d-none");
         }

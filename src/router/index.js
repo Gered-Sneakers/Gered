@@ -2,8 +2,6 @@ import { compile } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Login from "../views/Login.vue"
 
-
-
 const routes = [
   {
     path: '/',
@@ -19,7 +17,7 @@ const routes = [
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue'),
-    //meta: { requiresAuth: true, adminOnly: true }
+    meta: { requiresAuth: true, adminOnly: true }
   },
   {
     path: '/addsneaker',
@@ -82,6 +80,11 @@ const routes = [
     path: "/unauthorized",
     name: "unauthorized",
     component: () => import("../views/Unauthorized.vue")
+  },
+  {
+    path: "/repair",
+    name: "repair",
+    component: () => import("../views/Repair.vue")
   }
 ]
 
@@ -96,7 +99,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.requiresAuth && !token) {
     next("/login");
-  } else if (to.meta.adminOnly && user.isAdmin !== 1) {
+  } else if (to.meta.adminOnly && user.isAdmin !== true) {
     next("/unauthorized");
   } else {
     next();

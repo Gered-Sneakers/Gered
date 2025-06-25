@@ -83,6 +83,7 @@ import SneakerService from '@/services/SneakerService';
             console.error(error);
           })
       },
+      emptyList(){},
       updateCsvList(index,data){
         this.csvList[index] = data;
       },
@@ -90,10 +91,13 @@ import SneakerService from '@/services/SneakerService';
         console.log("Broghetti hier uw codetti");
         console.log(this.csvList);
 
+        
+
         if(!this.csvList.length) return;
 
         const headers = ["handle","title","vendor","type","option1 name","option1 value","option2 name","option2 value","option3 name","option3 value","variant price","variant inventory qty","variant compare at price","variant barcode","image src","image position","image alt text","published"]
         const shopifyData = this.csvList.map(i =>({
+          
           handle: i.handle,
           title: i.title,
           vendor: i.vendor,
@@ -104,7 +108,7 @@ import SneakerService from '@/services/SneakerService';
           "option2 value":i.size,
           "option3 name":"uitgave",
           "option3 value":i.uitgave,
-          "variant price": i.price,
+          "variant price": (i.retail > 100 && i.retail < 125) ? i.prijs + 5 : i.prijs,
           "variant inventory qty": i.amount,
           "variant compare at price": i.retailprice,
           "variant barcode": i.barcode,

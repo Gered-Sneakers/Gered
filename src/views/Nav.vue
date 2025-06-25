@@ -1,7 +1,7 @@
 <template>
   <div class="nav vh-10 row m-0 p-0 text-blue fw-bold">
     <router-link :to="{ name: 'login' }" class="grow col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/gered.svg" title="Home">
+        <img class="vh-10 p-4 mx-auto" src="../img/home.svg" title="Home">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
     <router-link :to="{ name: 'addsneaker' }" class="grow col h-100 valign rounded">
@@ -17,35 +17,87 @@
         <img class="vh-10 p-4 mx-auto" src="../img/search.svg" title="Zoek">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
-    <router-link :to="{ name: 'admin' }" class="grow col h-100 valign rounded d-none">
+    <router-link :to="{ name: 'settings' }" class="grow col h-100 valign rounded" v-if="authState.isAdmin">
         <img class="vh-10 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
-        <!--<p class="w-100 pt-3 align-middle text-center">Admin</p>-->
     </router-link>
-    <!--
-    <router-link :to="{ name: 'showSneakers'}" class="grow col-1 h-100 valign rounded bg-danger">
-        <img class="vh-10 p-4 mx-auto" src="../img/clock.svg" title="Stock">
-    </router-link>
-    -->
-    <!--
-    <router-link :to="{ name: 'verkoop'}" class="grow col h-100 valign rounded bg-danger">
-        <img class="vh-10 p-4 mx-auto" src="../img/sell.svg" title="Verkoop">
-    </router-link>
-   
-    <router-link :to="{ name: 'csv'}" class="grow col-1 h-100 valign rounded bg-danger">
-        <img class="vh-10 p-4 mx-auto" src="../img/csv.svg" title="Verkoop">
-    </router-link>
-     -->
+    <div class="grow col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
+        <img class="vh-10 p-4 mx-auto" src="../img/logout.svg" title="Uitloggen">
+    </div>
   </div>
+  <div class="full m-0 p-0" id="confirm" v-if="showConfirm">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="my-5 mx-3">Ben je zeker dat je <span class="text-yellow">{{ id }}</span> wil uitloggen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="logout">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuse">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import { authState } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
 export default {
   name: 'Nav_View',
-  props: {
+  setup() {
+    const router = useRouter()
+    const showConfirm = ref(false)
 
+    function logout() {
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      localStorage.removeItem("admin")
+
+      authState.isLoggedIn = false
+      authState.isAdmin = false
+
+      showConfirm.value = false
+      //this.refuse();
+      authState.loginName = ''
+      authState.loginPass = ''
+      
+      router.push("/login")/*.then(() => {
+        location.reload();
+      });*/
+      
+    }
+
+    function showConfirmBox(){
+      showConfirm.value = true;
+    }
+
+    function refuse(){
+      showConfirm.value = false;
+    }
+
+
+    return {
+      authState,
+      logout,
+      showConfirm,
+      showConfirmBox,
+      refuse
+    }
   },
-  methods: {
-
+  mounted() {
+    const adminFlag = localStorage.getItem("admin");
+    this.isAdmin = adminFlag === "1" || adminFlag === "true" || JSON.parse(adminFlag) === true;
+    console.log("beertje");
+    console.log(adminFlag);
+    this.isLoggedIn = !!localStorage.getItem("token")
+    console.log("Logedin");
+    console.log(this.isLoggedIn)
+    console.log("AUTH");
+    console.log(authState);
   }
 }
 </script>
@@ -65,6 +117,15 @@ export default {
   filter:brightness(0.75) !important;
 }
 */
+.full{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(247,247,247,0.5);
+}
+
 .nav{
   height: 75px;
   z-index: 11;

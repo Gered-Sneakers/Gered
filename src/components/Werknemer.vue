@@ -45,7 +45,6 @@ export default {
       
       {{ name }} 
       <span v-if="hover">
-        <span> - {{ pass }}</span> 
         <span class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
         🔨
         </span>

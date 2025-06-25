@@ -290,16 +290,8 @@
                                 <label class="col-12" for="check3"> Beschadigd </label>
                             </div>
 
-                            <!--
-                                <input type="text" placeholder="Beschrijf schade"
-                                class="w-100 roundedz borderz border-blue mx-auto text-center" 
-                                v-model="teRepareren"
-                                @keyup.enter="saveSneaker"
-                                >
-                            -->
                         </div>
                         </div>
-                        <!--<input type="text" size="14" class="roundedz borderz border-blue model text-center d-none" placeholder="laces">-->
                     </div>
                 </div>
                 <div class="col-2 p-2">
@@ -399,8 +391,6 @@
     import LeverancierService from '@/services/LeverancierService';
     import LabelcolorService from '@/services/LabelcolorService';
 
-    import { isAxiosError } from 'axios';
-
     var id = ref();
     var labelColor = ref();
     var brand = ref();
@@ -413,7 +403,6 @@
     var broken = ref(0);
     var leverancier = ref();
     var status = ref(0);
-    var teRepareren = ref();
 
     var lacesz = "Aanwezig";
     var solesz = "Aanwezig";
@@ -452,6 +441,9 @@
         getBrands();
         getLeveranciers();
         getLabelColors();
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user && user.name)  creator.value = user.name;
+  
     })
     
     
@@ -684,7 +676,6 @@
             console.log("LEVERANCIER: " + leverancier.value.lenght);
             console.log("LACES: " + lacesz.length);
             console.log("SOLES: " + solesz.length);
-            console.log("STATUS: " + statusz.length + " " + teRepareren.value.lenght);
             */
         console.log(creator.value);
         var data = {
@@ -699,7 +690,6 @@
             laces: lacesz,
             soles: solesz,
             status: statusz,
-            teRepareren: teRepareren.value,
             //verkoop: verkoop,
             creator: creator.value
         };
@@ -734,28 +724,6 @@
         statusz = "Cleaning";
         paint.value = false;
         paintz = "Goed";
-        teRepareren.value = "";
-
-        /*
-        document.getElementById("check1").checked = false;
-        document.getElementById("check2").checked = false;
-        document.getElementById("check3").checked = false;
-        document.getElementById("check4").checked = false;
-        */
-
-        /*
-        id = ref(0);
-        labelColor = ref();
-        brand = ref();
-        model = ref();
-        size = ref();
-        colors = ref([]);
-        laces = ref(0);
-        soles = ref(0);
-        status = ref(0);
-        teRepareren = ref();
-        */
-
     }
 
     function colorsToString(){
@@ -815,7 +783,7 @@
   
 <style scoped>
     .full{
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
