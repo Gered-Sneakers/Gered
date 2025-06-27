@@ -80,10 +80,13 @@ exports.findByName = (req, res) => {
 };
  
 // Update a Werknemers by the id in the request 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
+  const updates = { ...req.body }
 
-  Werknemers.update(req.body, {
+  if(updates.pass) updates.pass = await bcrypt.hash(updates.pass,10);
+
+  await Werknemers.update(updates, {
     where: { id: id }
   })
     .then(num => {

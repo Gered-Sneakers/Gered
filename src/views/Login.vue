@@ -54,6 +54,11 @@
                         <span class="">REPAIR</span>
                     </button> 
                 </router-link>
+                <router-link :to="{ name: 'repair' }" class="col h-100 valign rounded mt-4">
+                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
+                        <span class="">STOCK</span>
+                    </button> 
+                </router-link>
                 </div>
             </div>
         </div>
@@ -113,6 +118,7 @@ import { authState } from '@/stores/auth'
                     name: this.authState.loginName,
                     pass: this.authState.loginPass
                 })
+
                 localStorage.setItem("token", res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data.user))
                 localStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin))
@@ -126,8 +132,7 @@ import { authState } from '@/stores/auth'
                 
                 var user = localStorage.getItem("user");
                 console.log(user);
-                if(isAdmin===1 || isAdmin === true)  this.$router.push("/settings")
-                //else                this.$router.push("/addSneaker")
+                //if(isAdmin===1 || isAdmin === true)  this.$router.push("/settings")
                 
             }
             catch(err){

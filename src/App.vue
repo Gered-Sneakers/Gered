@@ -395,6 +395,14 @@ export default {
   filter: brightness(125%);
 }
 
+.hover-dark:hover{
+  color: var(--gGreen);
+}
+
+.hover-dark:hover svg {
+  fill: var(--gGreen);
+}
+
 @keyframes rotater{
   0%  {transform:rotate(0)}
   25% {transform:rotate(-90deg)}
