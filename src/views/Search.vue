@@ -359,7 +359,28 @@
 
             })
         },
+        cleaning(){
+
+        },
         repair(){
+            SneakerService.update(this.id,{sneaker})
+            .then(response => {
+                //status repair
+            })
+            .catch(error => {
+
+            })
+        },
+        stock(){
+            SneakerService.update(this.id,{sneaker})
+            .then(response => {
+                //status repair
+            })
+            .catch(error => {
+
+            })
+        },
+        sold(){
             SneakerService.update(this.id,{sneaker})
             .then(response => {
                 //status repair

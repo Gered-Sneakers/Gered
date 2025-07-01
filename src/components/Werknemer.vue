@@ -37,14 +37,16 @@ export default {
 </script>
 
 <template>
-    <div class="col-12 mb-2" 
+    <div class="col-12 row m-0 p-0 mb-2" 
         v-if="isActive==1"
         @mouseover="hover=true" 
-        @mouseleave="hover=false">
-      <span> ({{ id }}) </span>
-      
-      {{ name }} 
-      <span v-if="hover">
+        @mouseleave="hover=false"
+    >
+      <span class="col-3 m-0 p-0">{{ id }}|</span>
+      <span class="col-6 text-center text-light"> {{ name }} </span>
+     
+      <span v-if="hover" class="col-3 row m-0 p-0">
+        
         <span class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
         🔨
         </span>
