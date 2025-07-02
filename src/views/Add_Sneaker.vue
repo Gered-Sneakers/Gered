@@ -203,8 +203,8 @@
                 </div>
                 <div class="col-8 valign">
                     <div class="w-100 text-center"> <!--@keyup.enter="next"-->
-                        <!-- ID + LABELCOLOR  -->
-                        <div id="IDLABEL" class="row w-100 targets" @keyup.enter="next">
+                        <!-- ID -->
+                        <div id="IDLABEL" class="row w-100 targets" @keyup.enter="searchSneaker">
                             <div class="row m-0 p-0">
                                 <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
                             </div>
@@ -663,6 +663,18 @@
         if(broken.value == false) brokenz = "Beschadigd";
         else brokenz = "Goed"
     }
+
+    async function searchSneaker() {
+        console.log("Search method started");
+
+    try {
+        const response = await SneakerService.get(id.value);
+        alert("Deze sneaker bestaat al.")
+        id.value = ""
+    } catch (err) {
+        next();
+    }
+}
 
     async function saveSneaker(){
         //if(id.value.length == 4) 

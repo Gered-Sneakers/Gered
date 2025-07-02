@@ -360,7 +360,13 @@
             })
         },
         cleaning(){
+            SneakerService.update(this.id,{sneaker})
+            .then(response => {
+                //status repair
+            })
+            .catch(error => {
 
+            })
         },
         repair(){
             SneakerService.update(this.id,{sneaker})
