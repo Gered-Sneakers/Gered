@@ -42,18 +42,18 @@ export default {
         @mouseover="hover=true" 
         @mouseleave="hover=false"
     >
-      <span class="col-3 m-0 p-0">{{ id }}|</span>
+      <span class="col-3 m-0 p-0 fw-bold">{{ id  }}</span>
       <span class="col-6 text-center text-light"> {{ name }} </span>
      
-      <span v-if="hover" class="col-3 row m-0 p-0">
+      <div class="col-3 row m-0 p-0" v-if="hover">
         
-        <span class="ms-2 text-danger" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
+        <div class="col-6 text-danger text-center" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
         🔨
-        </span>
-        <span class="ms-2 text-success fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,activate)">
+        </div>
+        <div class="col-6 text-success text-center fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,activate)">
         {{ icon }}
-        </span>
-      </span>
+        </div>
+      </div>
   </div>
 
 </template>

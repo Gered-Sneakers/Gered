@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
       model: { 
         type: Sequelize.STRING 
       }, 
+      extra: {
+        type: Sequelize.STRING
+      },
       size: { 
         type: Sequelize.FLOAT
       }, 
@@ -31,24 +34,35 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING 
       }, 
       laces: { 
-        type: Sequelize.STRING 
+        type: Sequelize.INTEGER 
       }, 
       soles: { 
-        type: Sequelize.STRING 
-      }, 
+        type: Sequelize.INTEGER 
+      },
+      paint: {
+        type: Sequelize.INTEGER
+      },
+      glue: {
+        type: Sequelize.INTEGER
+      },
       status: { 
         type: Sequelize.STRING 
+      },
+      shoelace: {
+        type: Sequelize.INTEGER
       },
       creator: { 
         type: Sequelize.STRING 
       },
-      verkoop: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
       csv: {
         type: Sequelize.BOOLEAN,
         defaultvalue: false
+      },
+      price:{
+        type: Sequelize.INTEGER
+      },
+      updatedBy: {
+        type: Sequelize.STRING
       }
     }); 
    

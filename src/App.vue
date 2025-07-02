@@ -403,6 +403,12 @@ export default {
   fill: var(--gGreen);
 }
 
+.highlight {
+  background-color: rgba(0,159,253,0.5);
+  border: 5px solid rgb(0,159,253);
+  border-radius: 0.375rem !important;
+}
+
 @keyframes rotater{
   0%  {transform:rotate(0)}
   25% {transform:rotate(-90deg)}

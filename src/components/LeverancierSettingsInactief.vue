@@ -29,7 +29,7 @@
           @mouseleave="hover=false"
     > 
       {{ name }}
-      <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('recover', {id , name , isActive})">
+      <span v-if="hover" class="ms-2 text-success fw-bold" style="cursor:pointer;" @click="$emit('recover', {id , name , isActive})">
         ✔
       </span>
     </div> 
