@@ -160,6 +160,14 @@
       .labelYellow{
         background-color: rgb(249, 249, 125);
       }
+
+  @media (min-width: 1600px) {
+    .rect{
+      width: 120px !important;
+      height: 120px !important;
+      font-size: 22px;
+    }
+  }
   
   </style>
   

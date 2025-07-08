@@ -43,9 +43,6 @@ import KleurPreview from './KleurPreview.vue';
             status:{
                 type: String
             },
-            teRepareren:{
-                type: String
-            },
             verkoop:{
                 type: Number
             },

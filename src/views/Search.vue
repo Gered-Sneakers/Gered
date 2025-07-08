@@ -192,7 +192,7 @@
             
             
         </div>
-        <div class="h-75" v-if="sneaker">
+        <div class="h-75 bg-warning" v-if="sneaker">
             <Sneaker 
                 :id="sneaker.id"
                 :labelid="sneaker.labelid"
@@ -231,7 +231,7 @@
   </template>
   
   <script>
-    import KleurPreview from '@/components/KleurPreview.vue';
+    //import KleurPreview from '@/components/KleurPreview.vue';
     import SneakerService from '@/services/SneakerService';
     import Sneaker from '@/components/Sneaker.vue';
     import ConfirmBox from '@/components/ConfirmBox.vue';
@@ -509,7 +509,7 @@
         });
     },
     components: {
-        KleurPreview,
+        //KleurPreview,
         Sneaker,
         ConfirmBox,
         ShowSneakers

@@ -1,50 +1,9 @@
 <template>
-    <!-- LOGIN -->
-     <!--
-    <div class="row m-0 h-100 mainTargets d-flex">
-        <div class="col-12 vh-10 bg-blue text-white">
-            <div class="title h-100 valign">
-                <p class="w-100 text-center">Toevoegen</p>
-            </div>
-        </div>
-
-        <div class="row m-0 w-100 h-100 text-center">
-            <div class="col-12 vh-80">
-            <div class="h-100 valign text-center mx-auto">
-            <div class="row m-0 valign">
-                <div class="row m-0 p-0 mx-auto">
-                    <input 
-                        type="text" size="14" id="loginNaam" placeholder="naam"
-                        class="text-center mx-auto border-blue rounded mb-3"  
-                        v-model="creator"
-                        @keyup.enter="document.getElementById('loginPass').focus()"
-                        >
-                </div>
-                <div class="row m-0 p-0 mx-auto">
-                    <input 
-                        type="password" size="14" id="loginPass"  placeholder="pass"
-                        class="text-center mx-auto border-blue rounded mb-3" 
-                        v-model="pass"
-                        @keyup.enter="login()" 
-                        >  --><!-- GO() moet hier terugkome -->
-                <!--</div>-->
-                <!--
-                <div class="row m-0 p-0 mx-auto">
-                  <div class="w-100 mx-auto text-center">
-                    <img @click="go();testUser();" class="goButton rotate mx-auto" src="../img/gered_logo.svg">
-                  </div>
-                </div>
-                --><!--
-            </div>
-            </div>
-            </div>
-        </div>
-    </div>-->
    <div class="h-100 bg-blue">
     <!-- LEVERANCIER -->
     <div class="row h-100 mainTargets bg-blue">
-        <div id="navToevoegen" class="row vh-5 valign">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+        <div id="navToevoegen" class="row vh-7 valign">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
                     ❌
                 </div>
         </div>
@@ -80,8 +39,8 @@
     </div>
     <!-- LABELKLEUR -->
     <div class="row h-100 mainTargets d-none bg-blue">
-        <div id="navToevoegen" class="row vh-5 valign">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+        <div id="navToevoegen" class="row vh-7 valign">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
                     ❌
                 </div>
         </div>
@@ -105,10 +64,10 @@
         <div class="vh-5"></div>
     </div>
     <div class="row h-100 mainTargets mx-auto text-Gered d-none">
-        <div class=" mx-auto col-4 col-xxl-2 h-100 rounded-top d-flex align-items-center position-relative">
+        <div class=" mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-3 mb-5">
+                    <div class="row m-0 p-0 mt-4 mb-5">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ id }}</span>
                         </div>
@@ -140,28 +99,27 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
-                        <div class="col-9 text-end fw-1000" v-if="lacesz=='Aanwezig'">✔</div>
+                        <div class="col-9 text-end fw-1000 text-success" v-if="laces == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.svg"></div>
-                        <div class="col-9 text-end fw-1000" v-if="solesz=='Aanwezig'">✔</div>
+                        <div class="col-9 text-end fw-1000 text-success" v-if="soles == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/paint.svg"></div>
-                        <div class="col-9 text-end fw-1000" v-if="paintz=='Goed'">✔</div>
+                        <div class="col-9 text-end fw-1000 text-success" v-if="paint == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
-                    <!--
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/repair.svg"></div>
-                        <div class="col-9 text-end">{{brokenz}}</div>
+                        <div class="col-9 text-end fw-1000 text-success" v-if="broken == 1">✔</div>
+                        <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
-                    -->
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
@@ -186,9 +144,9 @@
                 </div>
             </div>
         </div>
-        <div class="FORM col-8 col-xxl-10 bg-blue rounded-top-left">
-            <div id="navToevoegen" class="row vh-5 valign me-3">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover fs-3">
+        <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
+            <div id="navToevoegen" class="row vh-7 valign me-3">
+                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
                     ❌
                 </div>
             </div>
@@ -269,25 +227,21 @@
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets rounded row text-start d-none">
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
-                            <div class="col-6 m-0 p-0 mb-4 text-center row">
-                                <img class="col-6 imgSquare mx-auto" src="../img/laces.svg">
-                                <div class="col-12 text-center"><input id="check1" type="checkbox" name="check1" v-model="laces" @click="lacesCheckbox()"@keyup.enter="saveSneaker"></div>
+                            <div class="col-6 m-0 p-0 mb-4 text-center row" :class="{ highlight: !laces }">
+                                <img class="col-6 imgSquare mx-auto" src="../img/laces.svg" @click="laces = !laces;statusCheckbox()">
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
-                            <div class="col-6 m-0 p-0 mb-4 text-center row">
-                                <img class="col-6 imgSquare mx-auto" src="../img/soles.svg">
-                                <div class="col-12 text-center"><input id=""check2 type="checkbox" name="check2" v-model="soles" @click="solesCheckbox()"@keyup.enter="saveSneaker"></div>
+                            <div class="col-6 m-0 p-0 mb-4 text-center row" :class="{ highlight: !soles }">
+                                <img class="col-6 imgSquare mx-auto" src="../img/soles.svg" @click="soles = !soles;statusCheckbox()">
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
-                            <div class="col-6 mx-auto m-0 p-0 text-center row">
-                                <img class="col-6 imgSquare mx-auto" src="../img/paint.svg">
-                                <div class="col-12 text-center"><input id="check4" type="checkbox" name="check4" v-model="paint" @click="paintCheckbox"@keyup.enter="saveSneaker"></div>
+                            <div class="col-6 mx-auto m-0 p-0 text-center row" :class="{ highlight: !paint }">
+                                <img class="col-6 imgSquare mx-auto" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
-                            <div class="col-6 m-0 p-0 text-center row">
-                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg">
-                                <div class="col-12 text-center"><input id="check3" type="checkbox" name="check3" v-model="status" @click="statusCheckbox()"@keyup.enter="saveSneaker"></div>
-                                <label class="col-12" for="check3"> Beschadigd </label>
+                            <div class="col-6 m-0 p-0 text-center row" :class="{ highlight: !broken }">
+                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg" @click="broken = !broken;statusCheckbox()">
+                                <label class="col-12" for="check3"> Lijmen </label>
                             </div>
 
                         </div>
@@ -311,7 +265,7 @@
     <div class="full m-0 p-0 d-none" id="confirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ id }}</span> wil toevoegen?</p>
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{ id }}</span> wil toevoegen?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
@@ -327,7 +281,7 @@
     <div class="full m-0 p-0 d-none" id="confirmAnnuleren">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5">Ben je zeker dat je opnieuw wil beginnen?</p>
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je opnieuw wil beginnen?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="annuleren">JA</button> 
@@ -343,7 +297,7 @@
     <div class="full m-0 p-0 d-none" id="confirmColor">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5">Je kan maximaal 3 kleuren kiezen.</p>
+              <p class="d-flex align-items-center justify-content-center my-5">Je kan maximaal 3 kleuren kiezen.</p>
               <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="closeConfirmColor()">JA</button> 
@@ -367,13 +321,10 @@
 </template>
   
 <script setup>
-    import Brands from '@/assets/brands.json';
     import Brand from '@/components/Brand.vue';
 
-    import Leveranciers from '@/assets/leveranciers.json';
     import Leverancier from '@/components/Leverancier.vue';
 
-    import LabelColors from '@/assets/labelColors.json';
     import Label from '@/components/Label.vue';
 
     import KleurPreview from '@/components/KleurPreview.vue';
@@ -383,7 +334,7 @@
 
     import SneakerService from '@/services/SneakerService';
 
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import { onMounted } from 'vue';
 
     import BrandService from '@/services/BrandService';
@@ -397,27 +348,23 @@
     var model = ref();
     var size = ref();
     var colors = ref([]);
-    var laces = ref(0);
-    var soles = ref(0);
-    var paint = ref(0);
-    var broken = ref(0);
+    var laces = ref(true);
+    var soles = ref(true);
+    var paint = ref(true);
+    var broken = ref(true);
     var leverancier = ref();
     var status = ref(0);
-
-    var lacesz = "Aanwezig";
-    var solesz = "Aanwezig";
-    var paintz = "Goed";
-    var brokenz = "✔";
+    var datum = createDate();
+    var creator = ref();
 
     var statusz = "Cleaning";
     
-    var datum = createDate();
-    var creator = ref();
-    var pass = ref();
+    var prevLeverancier = ref(0);
 
     var leveranciers = ref([]);
     var brands = [];
     var labels = [];
+
 
     const enterEvent = new KeyboardEvent('keyup', {
       key: 'Enter',
@@ -434,9 +381,21 @@
 
     var mainCounter = 0;
     var counter = 0;
+/*
+    // Track statusz and revert leverancier if needed
+    watch(() => statusz, (newStatus) => {
+      if (newStatus === "Cleaning" && previousLeverancier.value !== null) {
+        leverancier.value = previousLeverancier.value;
+      }
+    });
 
-    var showConfirmboxColors = false;
-
+    // Update previousLeverancier only when manually changed (not programmatically)
+    watch(() => leverancier.value, (newVal, oldVal) => {
+      if (statusz !== "Cleaning") {
+        previousLeverancier.value = oldVal;
+      }
+    });
+*/
     onMounted(()=>{
         getBrands();
         getLeveranciers();
@@ -447,24 +406,10 @@
     })
     
     
-    
     //----------------------
     //      FRONTEND
     //----------------------
-    function login(){
-        console.log(creator.value);
-        console.log(pass.value);
-
-        WerknemerService.login({name:creator.value,password:pass.value})
-        .then(res => {
-            go();
-        })
-        .catch(error=>{
-            //console.error(error);
-            alert("Je gegevens klopte niet.");
-        })
-    }
-
+  
     function go(){
         mainTargets[mainCounter].classList.remove("d-flex");
         mainTargets[mainCounter].classList.add("d-none");
@@ -476,10 +421,6 @@
         //var idlabel = 
         document.getElementById("ID").focus();
         //console.log(idlabel);
-    }
-
-    function fakeEnter(){
-        labelColor.dispatchEvent(enterEvent);
     }
 
     function annuleren(){
@@ -640,10 +581,22 @@
     }
 
     function statusCheckbox(){
-        if(status.value == false) statusz = "Repair";
-        else statusz = "Cleaning";
+        //console.log("laces" + laces.value);
+        //console.log("soles" + soles.value);
+        //console.log("paint" + paint.value);
+        //console.log("glue" + broken.value);
+        if(laces.value == true && soles.value == true && paint.value == true && broken.value == true ){
+            status.value = 1;
+            statusz = "Cleaning";
+            //prevLeverancier.value = leverancier.value; NOPE BRADDAR
+        } 
+        else {
+            status.value = 2;
+            statusz = "Repair";
+            //leverancier.value = "Gered";            NOPE BRAADDAARRRR
+        }
     }
-
+    /*
     function lacesCheckbox(){
         if(laces.value == false) lacesz = "Geen";
         else lacesz = "Aanwezig";
@@ -663,6 +616,7 @@
         if(broken.value == false) brokenz = "Beschadigd";
         else brokenz = "Goed"
     }
+    */
 
     async function searchSneaker() {
         console.log("Search method started");
@@ -699,9 +653,9 @@
             size: size.value,
             colors: colorsToString(),
             supplier: leverancier.value,
-            laces: lacesz,
-            soles: solesz,
-            status: statusz,
+            laces: laces,
+            soles: soles,
+            status: status,
             //verkoop: verkoop,
             creator: creator.value
         };
@@ -728,14 +682,15 @@
         model.value = "";
         size.value = "";
         colors.value = [];
-        laces.value = false;
-        lacesz = "Aanwezig";
-        soles.value = false;
-        solesz = "Aanwezig";
-        status.value = false;
-        statusz = "Cleaning";
-        paint.value = false;
-        paintz = "Goed";
+        laces.value = 0;
+        //lacesz = "Aanwezig";
+        soles.value = 0;
+        //solesz = "Aanwezig";
+        status.value = 0;
+        //statusz = "Cleaning";
+        paint.value = 0;
+        //paintz = "Goed";
+        broken.value = 0;
     }
 
     function colorsToString(){
@@ -1007,4 +962,46 @@
   .fw-1000{
     font-weight: 1000;
   }
+
+  @media (min-width: 1600px) {
+    .sneakerPreview{
+        margin-left: 25px !important;
+    } 
+
+  .sneakerPreview div{
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 30px;
+  }
+
+  .smallz{
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navToevoegen div{
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+
+  .full .row .col-6 p{
+    height: 30vh;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .full button{
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .rect{
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
 </style>

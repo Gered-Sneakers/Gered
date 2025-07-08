@@ -65,6 +65,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: var(--gText);
+  cursor: 50px 50px !important;
 }
 
 :root{
@@ -202,6 +203,10 @@ export default {
 
 .h-90{
   height: 90% !important;
+}
+
+.vh-7{
+  height: 7.5vh;
 }
 
 .vh-15{
@@ -682,4 +687,45 @@ a{
   max-width: 800px !important;
   min-width: 400px !important;
 }
+
+
+ @media (min-width: 1600px) {
+    .sneakerPreview{
+        margin-left: 25px !important;
+    } 
+
+  .sneakerPreview div{
+    font-size: 30px;
+  }
+
+  .smallz{
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navToevoegen div{
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+
+  .full .row .col-6 p{
+    height: 30vh;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .full button{
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .rect{
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
 </style>
