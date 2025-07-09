@@ -24,6 +24,9 @@ export default {
         type: Boolean,
         required: true
       },
+      isAdmin:{
+        type: Boolean
+      },
       icon:{
         type: String
       }
@@ -43,7 +46,7 @@ export default {
         @mouseleave="hover=false"
     >
       <span class="col-3 m-0 p-0 fw-bold">{{ id  }}</span>
-      <span class="col-6 text-center text-light"> {{ name }} </span>
+      <span class="col-6 text-center text-light fw-bold"> {{ name }} </span>
      
       <div class="col-3 row m-0 p-0" v-if="hover">
         

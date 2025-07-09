@@ -12,7 +12,7 @@
                 <div class="row">
                 <select id="leveranciers" name="leveranciers"
                     class="col-3 m-1 valign mx-auto rounded border-blue bg-blue text-light"
-                    v-model="leverancier" value="Leverancier" @change="go()"
+                    v-model="leverancier" value="Leverancier" @change="go()" @input="prevLeverancier = $event.target.value;"
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
                     
@@ -67,7 +67,7 @@
         <div class=" mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-4 mb-5">
+                    <div class="row m-0 p-0 mt-4 mb-3">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ id }}</span>
                         </div>
@@ -127,6 +127,11 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/stock.svg"></div>
+                        <div class="col-9 text-end">{{datum}}</div>
+                    </div>
+                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.svg"></div>
                         <div class="col-9 text-end">{{leverancier}}</div>
                     </div>
@@ -140,6 +145,7 @@
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
+                    
                     <div class="row m-0 p-0 mb-4"></div>
                 </div>
             </div>
@@ -360,6 +366,7 @@
     var statusz = "Cleaning";
     
     var prevLeverancier = ref(0);
+    var repairs = [];
 
     var leveranciers = ref([]);
     var brands = [];
@@ -381,21 +388,7 @@
 
     var mainCounter = 0;
     var counter = 0;
-/*
-    // Track statusz and revert leverancier if needed
-    watch(() => statusz, (newStatus) => {
-      if (newStatus === "Cleaning" && previousLeverancier.value !== null) {
-        leverancier.value = previousLeverancier.value;
-      }
-    });
 
-    // Update previousLeverancier only when manually changed (not programmatically)
-    watch(() => leverancier.value, (newVal, oldVal) => {
-      if (statusz !== "Cleaning") {
-        previousLeverancier.value = oldVal;
-      }
-    });
-*/
     onMounted(()=>{
         getBrands();
         getLeveranciers();
@@ -436,9 +429,6 @@
     }
 
     function next(){
-        //console.log("NEXT");
-        //console.log("COUNTER START: " + counter);
-        //console.log(targets[counter]);
 
         //CURRENT
         targets[counter].classList.remove("d-inline");
@@ -469,9 +459,6 @@
     }
 
     function back(){
-        //console.log("BACK");
-        //console.log("COUNTER START: " + counter);
-        //console.log(targets[counter]);
 
         //CURRENT
         targets[counter].classList.remove("d-inline");
@@ -581,19 +568,20 @@
     }
 
     function statusCheckbox(){
-        //console.log("laces" + laces.value);
-        //console.log("soles" + soles.value);
-        //console.log("paint" + paint.value);
-        //console.log("glue" + broken.value);
+        console.log("laces" + laces.value);
+        console.log("soles" + soles.value);
+        console.log("paint" + paint.value);
+        console.log("broken" + broken.value);
+
         if(laces.value == true && soles.value == true && paint.value == true && broken.value == true ){
             status.value = 1;
             statusz = "Cleaning";
-            //prevLeverancier.value = leverancier.value; NOPE BRADDAR
-        } 
+            leverancier.value = prevLeverancier.value;
+        }
         else {
             status.value = 2;
             statusz = "Repair";
-            //leverancier.value = "Gered";            NOPE BRAADDAARRRR
+            leverancier.value = "Gered";
         }
     }
     /*

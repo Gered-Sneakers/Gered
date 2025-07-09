@@ -128,8 +128,12 @@ export default {
 
 .nav{
   height: 75px;
-  z-index: 11;
+  z-index: 9999999999999999;
   font-size: 18px;
+}
+
+.nav > *{
+  z-index: 9999999999999999999999999999;
 }
 
 a{

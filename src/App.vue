@@ -66,6 +66,7 @@ export default {
   text-align: center;
   color: var(--gText);
   cursor: 50px 50px !important;
+  font-size: 1.1rem;
 }
 
 :root{
@@ -150,7 +151,11 @@ export default {
 .bg-red{
   background-color: var(--gRed);
 }
-
+/*
+.bg-gold{
+  background-color: var(--goud);
+}
+*/
 .border-Gered{
   border-color: var(--gBlack);
 }
@@ -161,6 +166,11 @@ export default {
 
 .text-Gered{
   color: var(--gText);
+}
+
+.text-purple{
+  color: var(--purple);
+  text-shadow: 2px 2px black;
 }
 
 .nav-main{
@@ -239,6 +249,10 @@ export default {
 
 .w-80{
   width: 80%;
+}
+
+.max-1800{
+  max-width: 1800px !important;
 }
 
 .valign{
@@ -489,6 +503,35 @@ a{
 
 .rounded-top-left{
 
+}
+
+/* EXTEND BOOTSTRAP GRID */
+
+/* Add custom breakpoint: xxxl (≥1800px) */
+@media (min-width: 1800px) {
+  .container-xxxl {
+    max-width: 1760px;
+  }
+
+  /* 12-column system like Bootstrap */
+  .col-xxxl-1  { flex: 0 0 auto; width: 8.333333%; }
+  .col-xxxl-2  { flex: 0 0 auto; width: 16.666667%; }
+  .col-xxxl-3  { flex: 0 0 auto; width: 25%; }
+  .col-xxxl-4  { flex: 0 0 auto; width: 33.333333%; }
+  .col-xxxl-5  { flex: 0 0 auto; width: 41.666667%; }
+  .col-xxxl-6  { flex: 0 0 auto; width: 50%; }
+  .col-xxxl-7  { flex: 0 0 auto; width: 58.333333%; }
+  .col-xxxl-8  { flex: 0 0 auto; width: 66.666667%; }
+  .col-xxxl-9  { flex: 0 0 auto; width: 75%; }
+  .col-xxxl-10 { flex: 0 0 auto; width: 83.333333%; }
+  .col-xxxl-11 { flex: 0 0 auto; width: 91.666667%; }
+  .col-xxxl-12 { flex: 0 0 auto; width: 100%; }
+
+  /* Custom sizes beyond the 12-grid system */
+  .col-xxxl-24 { flex: 0 0 auto; width: 20%; }  /* 1/5 of 100% */
+  .col-xxxl-48 { flex: 0 0 auto; width: 40%; }
+  .col-xxxl-33 { flex: 0 0 auto; width: 33.3333%; } /* 1/3 */
+  .col-xxxl-66 { flex: 0 0 auto; width: 66.6666%; } /* 2/3 */
 }
 
 

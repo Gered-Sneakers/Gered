@@ -1,5 +1,5 @@
 <template>
-    <div class="loggen row m-0 p-0 text-center fw-bold">
+    <div class="loggen bg-blue h-100 row m-0 p-0 text-center fw-bold">
         <div class="col-12 vh-10 bg-blue text-light">
             <div class="title h-100 valign">
                 <p class="w-100 text-center">Zoeken</p>
@@ -192,7 +192,7 @@
             
             
         </div>
-        <div class="h-75 bg-warning" v-if="sneaker">
+        <div class="h-75" v-if="sneaker">
             <Sneaker 
                 :id="sneaker.id"
                 :labelid="sneaker.labelid"
@@ -225,9 +225,7 @@
                 <button class="bg-green border-green rounded confirmbutton grow" @click="remove">YES</button> <button class="bg-red border-red rounded confirmbutton grow" @click="refuse">NO</button>
             </div>
         </div>
-    </div>
-    
-                        
+    </div>                       
   </template>
   
   <script>

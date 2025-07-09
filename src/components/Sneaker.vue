@@ -73,7 +73,7 @@ import KleurPreview from './KleurPreview.vue';
 </script>
 
 <template>
-    <div class="sneakerPreview w-75 mx-auto m-0 p-0 d-flex">
+    <div class="sneakerPreview w-75 mx-auto m-0 p-0 d-flex  border border-2 border-light rounded">
         <div class="container h-100 position-relative text-light text-center">
             <div class="row m-0 p-0 mt-3 mb-3 bg-blue rounded p-3">
                 <div class="col-4 row m-0 p-0 text-center justify-content-start">
@@ -90,7 +90,7 @@ import KleurPreview from './KleurPreview.vue';
                     <div class="col-0 col-md-4"></div>
                 </div>
                 <div class="col-4 text-center text-dark justify-content-center">
-                    <span class="px-3 py-2 h3 fw-bold" :class="colorlabel">{{ id }}</span>
+                    <span class="px-3 py-2 h3 fw-bold rounded" :class="colorlabel">{{ id }}</span>
                 </div>
                 <div class="col-4 row m-0 p-0 justify-content-end"> 
                     <div class="col-0 col-md-4"></div>                    

@@ -1,6 +1,6 @@
 <template>
-    <div class="settings row w-100 m-0 p-0 text-center">
-      <div class="toggleButton">
+    <div class="settings row w-100 m-0 p-0 text-center ">
+      <div class="toggleButton mt-0 pt-0">
         <div class="row m-0 p-0 vh-5"></div>
         <div class="row vh-5 pb-3 w-100 sticky">
           <div class="col-4 col-xl-3 mx-auto">
@@ -14,183 +14,184 @@
           </div>
         </div>
       </div>
-      <div id="main" class="d-block">
-          <div class="row text-white">
-          <!-- INPUT LEVERANCIER -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">+ LEVERANCIER</div>
-          </div>
-          <div class="w-100 text-center valign rounded-bottom bg-blue">
-            <div class="w-100 m-0 p-0 mx-auto">
-              <input type="text" class="text-center mb-2 w-90" placeholder="Leverancier" v-model="leverancierName"><br>
-              <input type="text" class="visibility mb-2">
-              <!--<input type="button" id="loadFileXml" value="+ IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
-              <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
+      <div id="main" class="d-block max-1800 mx-auto">
+          <div id="inputFields" class="row text-white">
+            <!-- INPUT LEVERANCIER -->
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">+ LEVERANCIER</div>
             </div>
-          </div>
-          </div>
+            <div class="w-100 text-center valign rounded-bottom bg-blue">
+              <div class="w-100 m-0 p-0 mx-auto">
+                <input type="text" class="text-center mb-2 w-90" placeholder="Leverancier" v-model="leverancierName"><br>
+                <input type="text" class="visibility mb-2">
+                <!--<input type="button" id="loadFileXml" value="+ IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
+                <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
+              </div>
+            </div>
+            </div>
 
-          <!-- INPUT BRAND -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">+ BRAND</div>
-          </div>
-          <div class="w-100 text-center valign rounded-bottom bg-blue">
-            <div class="w-100 m-0 p-0 mx-auto">
-              <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="Merk"
-                v-model="brandName"
-              ><br>
-              <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ Foto" 
-                    @click="triggerFileInput"
-                     />
-              <input  @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
+            <!-- INPUT BRAND -->
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">+ BRAND</div>
             </div>
-          </div>
-          </div>
+            <div class="w-100 text-center valign rounded-bottom bg-blue">
+              <div class="w-100 m-0 p-0 mx-auto">
+                <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="Merk"
+                  v-model="brandName"
+                ><br>
+                <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ Foto" 
+                      @click="triggerFileInput"
+                       />
+                <input  @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
+              </div>
+            </div>
+            </div>
 
-          <!-- INPUT WERKNEMER -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">+ WERKNEMER</div>
-          </div>
-          <div class="w-100 text-center valign rounded-bottom bg-blue">
-            <div class="w-100 m-0 p-0 mx-auto">
-              <input 
-                type="text" 
-                class="text-center mb-2 w-90" 
-                v-model="werknemerName" 
-                placeholder="Werknemer">
-              <br>
-              <input 
-                type="password" 
-                class="text-center mb-2 w-90" 
-                v-model="werknemerPass" 
-                placeholder="Wachtwoord">
-              <br>
-              <!--<div class="error" v-html="error"></div>-->
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addWerknemer">OK</button>
+            <!-- INPUT WERKNEMER -->
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">+ WERKNEMER</div>
             </div>
-          </div>
-          </div>
-          
-          <!-- INPUT LABELCOLOR -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div class="mx-auto subTitle">+ LABELKLEUR</div>
-          </div>
-          <div class="w-100 text-center valign rounded-bottom bg-blue">
-            <div class="w-100 m-0 p-0 mx-auto">
-              <input 
-                id="labelName"
-                type="text"  
-                class="text-center mb-2 w-90"
-                v-model="labelcolorName"
-                placeholder="Kleurnaam"><br>
-              <input 
-                id="labelCode"
-                type="text" 
-                class="text-center mb-2 w-90"
-                v-model="labelcolorCode"
-                placeholder="#ffffff"><br>
-              <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor">OK</button>
+            <div class="w-100 text-center valign rounded-bottom bg-blue">
+              <div class="w-100 m-0 p-0 mx-auto">
+                <input 
+                  type="text" 
+                  class="text-center mb-2 w-90" 
+                  v-model="werknemerName" 
+                  placeholder="Werknemer">
+                <br>
+                <input 
+                  type="password" 
+                  class="text-center mb-2 w-90" 
+                  v-model="werknemerPass" 
+                  placeholder="Wachtwoord">
+                <br>
+                <!--<div class="error" v-html="error"></div>-->
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addWerknemer">OK</button>
+              </div>
             </div>
-          </div>
+            </div>
+
+            <!-- INPUT LABELCOLOR -->
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div class="mx-auto subTitle">+ LABELKLEUR</div>
+            </div>
+            <div class="w-100 text-center valign rounded-bottom bg-blue">
+              <div class="w-100 m-0 p-0 mx-auto">
+                <input 
+                  id="labelName"
+                  type="text"  
+                  class="text-center mb-2 w-90"
+                  v-model="labelcolorName"
+                  placeholder="Kleurnaam"><br>
+                <input 
+                  id="labelCode"
+                  type="text" 
+                  class="text-center mb-2 w-90"
+                  v-model="labelcolorCode"
+                  placeholder="#ffffff"><br>
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor">OK</button>
+              </div>
+            </div>
           </div>
       </div>
-      <div id="isActive" class="row text-light">
-        
-        <!-- LEVERANCIERS -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="mb-3">
-            <div @click="showLeverancier = !showLeverancier" class="w-100 valign rounded-top bg-blue text-white vh-10">
-              <div class="mx-auto subTitle">LEVERANCIERS</div>
-            </div>
-            <div v-if="showLeverancier"
-            class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
-              <Leverancier 
-                v-for="l in LeveranciersList.filter(l => l.isActive === true || l.isActive === 1)"
-                :id="l.id"
-                :name="l.name"
-                :isActive="l.isActive"
-                :icon="'❌'"
-                @delete="confirmDeleteLeverancier"
-              ></Leverancier>
+        <div id="isActive" class="row text-light">
 
-              <div class="full m-0 p-0" v-if="leverancierCheck">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                  <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                      <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ leverancierName }}</span> wil verwijderen?</p>
-                      <div class="row m-0 p-0">
-                        <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
+          <!-- LEVERANCIERS -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="mb-3">
+              <div @click="showLeverancier = !showLeverancier" class="w-100 valign rounded-top bg-blue text-white vh-10">
+                <div class="mx-auto subTitle">LEVERANCIERS</div>
+              </div>
+              <div v-if="showLeverancier"
+              class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+                <Leverancier 
+                  v-for="l in LeveranciersList.filter(l => l.isActive === true || l.isActive === 1)"
+                  :id="l.id"
+                  :name="l.name"
+                  :isActive="l.isActive"
+                  :icon="'❌'"
+                  @delete="confirmDeleteLeverancier"
+                ></Leverancier>
+
+                <div class="full m-0 p-0" v-if="leverancierCheck">
+                  <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ leverancierName }}</span> wil verwijderen?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="deleteLeverancier(leverancierId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
+                          </div>
                         </div>
-                        <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
-                        </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- BRANDS -->
-        <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div @click="showBrand = !showBrand" class="mx-auto subTitle">BRANDS</div>
-          </div>
-          <div v-if="showBrand"
-          class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
-            <Brand 
-              v-for="l in BrandsList"
-              :name="l.name"
-              :img="l.img"
-              :isActive="l.isActive"
-              @update="confirmUpdateBrand(l.id,l.name,l.active)"
-            ></Brand>
-            <!-- UPDATE BRAND vindme -->
-            <div class="full m-0 p-0" v-if="brandId > 0">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateBrand">
-                          <p class="my-5">Wil je <span class="text-yellow">{{ brandName }}</span> verwijderen? </p>
-                          <div class="row m-0 p-0 mt-5">
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateBrand(this.brandId)">JA</button> 
-                          </div>
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetBrand()">NEE</button>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <!-- WERKNEMERS -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="mb-3">
+          <!-- BRANDS -->
+          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-              <div @click="showWerknemer = !showWerknemer" class="mx-auto subTitle">WERKNEMERS</div>
+              <div @click="showBrand = !showBrand" class="mx-auto subTitle">BRANDS</div>
             </div>
-            <div v-if="showWerknemer"
-            class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
-                <Werknemer v-for="l in WerknemersList"
-                  :id="l.id"
-                  :name="l.name"
-                  :pass="l.pass"
-                  :isActive="l.isActive"
-                  :icon="'❌'"
-                  @activate="confirmDeleteWerknemer(l.id,l.name)"
-                  @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
-                
-                ></Werknemer>
-              <!-- DELETE WERKNEMER -->
-              <div class="full m-0 p-0" v-if="werknemerCheck">
+            <div v-if="showBrand"
+            class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+              <Brand 
+                v-for="l in BrandsList"
+                :name="l.name"
+                :img="l.img"
+                :isActive="l.isActive"
+                @update="confirmUpdateBrand(l.id,l.name,l.active)"
+              ></Brand>
+              <!-- UPDATE BRAND vindme -->
+              <div class="full m-0 p-0" v-if="brandId > 0">
+                  <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                      <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateBrand">
+                            <p class="my-5">Wil je <span class="text-yellow">{{ brandName }}</span> verwijderen? </p>
+                            <div class="row m-0 p-0 mt-5">
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateBrand(this.brandId)">JA</button> 
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetBrand()">NEE</button>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <!-- WERKNEMERS -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="mb-3">
+              <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+                <div @click="showWerknemer = !showWerknemer" class="w-100 mx-auto subTitle">WERKNEMERS</div>
+                <div class="navArrow"><img class="arrowIcon mx-auto blackIcons" src="../img/downarrow.svg"></div>
+              </div>
+              <div v-if="showWerknemer"
+                class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
+                  <Werknemer v-for="l in WerknemersList"
+                    :id="l.id"
+                    :name="l.name"
+                    :pass="l.pass"
+                    :isActive="l.isActive"
+                    :icon="'❌'"
+                    @activate="confirmDeleteWerknemer(l.id,l.name)"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
+
+                  ></Werknemer>
+                <!-- DELETE WERKNEMER -->
+                <div class="full m-0 p-0" v-if="werknemerCheck">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
                         <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ werknemerName }}</span> wil verwijderen?</p>
@@ -204,9 +205,9 @@
                         </div>
                     </div>
                 </div>
-              </div>
-              <!-- UPDATE WERKNEMER-->
-              <div class="full m-0 p-0" v-if="updateId > 0">
+                </div>
+                <!-- UPDATE WERKNEMER-->
+                <div class="full m-0 p-0" v-if="updateId > 0">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateWerknemer">
                           <p class="my-5">Wil je <span class="text-yellow">{{ updateId }}</span> wijzigen? </p>
@@ -225,27 +226,27 @@
                         
                     </div>
                 </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- LABELKLEUR -->
-        <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-blue text-white vh-10">
-            <div @click="showLabelkleur = !showLabelkleur" class="mx-auto subTitle">LABELKLEUREN</div>
-          </div>
-          <div v-if="showLabelkleur"
-          class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
-            <Labelcolor v-for="l in LabelcolorList"
-              :id="l.id"
-              :name="l.name"
-              :colorCode="l.colorCode"
-              :isActive="l.isActive"
-              :icon="'❌'"
-              @activate="confirmDeleteLabelcolor(l.id,l.name)"
-            ></Labelcolor>
-            <div class="full m-0 p-0" v-if="labelcolorCheck">
+          <!-- LABELKLEUR -->
+          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top bg-blue text-white vh-10">
+              <div @click="showLabelkleur = !showLabelkleur" class="mx-auto subTitle">LABELKLEUREN</div>
+            </div>
+            <div v-if="showLabelkleur"
+            class="row m-0 p-0 px-3 pb-3 text-center rounded-bottom bg-blue">
+              <Labelcolor v-for="l in LabelcolorList"
+                :id="l.id"
+                :name="l.name"
+                :colorCode="l.colorCode"
+                :isActive="l.isActive"
+                :icon="'❌'"
+                @activate="confirmDeleteLabelcolor(l.id,l.name)"
+              ></Labelcolor>
+              <div class="full m-0 p-0" v-if="labelcolorCheck">
                 <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
                         <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ labelcolorName }}</span> wil verwijderen?</p>
@@ -259,47 +260,47 @@
                         </div>
                     </div>
                 </div>
-              </div>
+                </div>
+            </div>
           </div>
         </div>
-
-
-        <!-- INACTIEVE STUFF -->
-        <!-- LEVERANCIERS -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="mb-3">
-            <div class="w-100 valign rounded-top bg-red text-white vh-10">
-              <div class="mx-auto subTitle">DELETED <br> LEVERANCIERS</div>
-            </div>
-            <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
-              <Leverancier v-for="l in LeveranciersList"
-                :id="l.id"
-                :name="l.name"
-                :isActive="!l.isActive"
-                :icon="'✔'"
-                @delete="confirmRecoverLeverancier(l.id,l.name)"
-              ></Leverancier>
-              <div class="full m-0 p-0" v-if="leverancierCheckReco">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                  <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                      <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ leverancierName }}</span> terugkomt?</p>
-                      <div class="row m-0 p-0">
-                        <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLeverancier(leverancierId)">JA</button> 
+        <div id="inActive" class="row text-light">
+          <!-- INACTIEVE STUFF -->
+          <!-- LEVERANCIERS -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="mb-3">
+              <div class="w-100 valign rounded-top bg-red text-white vh-10">
+                <div class="mx-auto subTitle">DELETED <br> LEVERANCIERS</div>
+              </div>
+              <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
+                <Leverancier v-for="l in LeveranciersList"
+                  :id="l.id"
+                  :name="l.name"
+                  :isActive="!l.isActive"
+                  :icon="'✔'"
+                  @delete="confirmRecoverLeverancier(l.id,l.name)"
+                ></Leverancier>
+                <div class="full m-0 p-0" v-if="leverancierCheckReco">
+                  <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                        <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ leverancierName }}</span> terugkomt?</p>
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLeverancier(leverancierId)">JA</button> 
+                          </div>
+                          <div class="col-6 m-0 p-0">
+                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
+                          </div>
                         </div>
-                        <div class="col-6 m-0 p-0">
-                          <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetLeverancier">NEE</button>
-                        </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- BRANDS -->
-        <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+          <!-- BRANDS -->
+          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-red text-white vh-10">
             <div class="mx-auto subTitle">DELETED <br> BRANDS</div>
           </div>
@@ -326,78 +327,163 @@
                 </div>
               </div>
           </div>
-        </div>
+          </div>
 
-        <!-- WERKNEMERS -->
-        <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
-          <div class="mb-3">
+          <!-- WERKNEMERS -->
+          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="mb-3">
+              <div class="w-100 valign rounded-top bg-red text-white vh-10">
+                <div @click="test" class="mx-auto subTitle">DELETED <br> WERKNEMERS</div>
+              </div>
+              <div class="row m-0 p-0 py-3 text-center rounded-bottom bg-blue">
+                  <Werknemer v-for="l in WerknemersList"
+                    :id="l.id"
+                    :name="l.name"
+                    :pass="l.pass"
+                    :isActive="!l.isActive"
+                    :icon="'✔'"
+                    @activate="confirmRecoverWerknemer(l.id,l.name,l.isActive)"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass)"
+
+                  ></Werknemer>
+                <!-- DELETE WERKNEMER -->
+                <div class="full m-0 p-0" v-if="werknemerRecover">
+                  <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                      <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                          <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ werknemerName }}</span> terugkomt?</p>
+                          <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverWerknemer(werknemerId)">JA</button> 
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LABELKLEUR -->
+          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-red text-white vh-10">
-              <div @click="test" class="mx-auto subTitle">DELETED <br> WERKNEMERS</div>
+              <div class="mx-auto subTitle">DELETED <br> LABELKLEUREN</div>
             </div>
-            <div class="row m-0 p-0 py-3 text-center rounded-bottom bg-blue">
-                <Werknemer v-for="l in WerknemersList"
-                  :id="l.id"
-                  :name="l.name"
-                  :pass="l.pass"
-                  :isActive="!l.isActive"
-                  :icon="'✔'"
-                  @activate="confirmRecoverWerknemer(l.id,l.name,l.isActive)"
-                  @update="confirmUpdateWerknemer(l.id,l.name,l.pass)"
-                
-                ></Werknemer>
-              <!-- DELETE WERKNEMER -->
-              <div class="full m-0 p-0" v-if="werknemerRecover">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                        <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ werknemerName }}</span> terugkomt?</p>
-                        <div class="row m-0 p-0">
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverWerknemer(werknemerId)">JA</button> 
+            <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
+              <Labelcolor v-for="l in LabelcolorList"
+                :id="l.id"
+                :name="l.name"
+                :colorCode="l.colorCode"
+                :isActive="!l.isActive"
+                :icon="'✔'"
+                @activate="confirmRecoverLabelcolor(l.id,l.name,l.isActive)"
+              ></Labelcolor>
+              <div class="full m-0 p-0" v-if="labelcolorCheckReco">
+                  <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                      <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
+                          <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ labelcolorName }}</span> terugkomt?</p>
+                          <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLabelcolor(labelcolorId)">JA</button> 
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                              <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetInputLabel">NEE</button>
+                            </div>
                           </div>
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuseDeleteWerknemer">NEE</button>
-                          </div>
-                        </div>
-                    </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
-        </div>
 
-        <!-- LABELKLEUR -->
-        <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
-          <div class="w-100 valign rounded-top bg-red text-white vh-10">
-            <div class="mx-auto subTitle">DELETED <br> LABELKLEUREN</div>
-          </div>
-          <div class="row m-0 p-0 px-3 py-3 text-center rounded-bottom bg-blue">
-            <Labelcolor v-for="l in LabelcolorList"
-              :id="l.id"
-              :name="l.name"
-              :colorCode="l.colorCode"
-              :isActive="!l.isActive"
-              :icon="'✔'"
-              @activate="confirmRecoverLabelcolor(l.id,l.name,l.isActive)"
-            ></Labelcolor>
-            <div class="full m-0 p-0" v-if="labelcolorCheckReco">
-                <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-                    <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="confirm">
-                        <p class="my-5">Ben je zeker dat je <span class="text-yellow">{{ labelcolorName }}</span> terugkomt?</p>
-                        <div class="row m-0 p-0">
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="recoverLabelcolor(labelcolorId)">JA</button> 
-                          </div>
-                          <div class="col-6 m-0 p-0">
-                            <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetInputLabel">NEE</button>
-                          </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
+            <div class="col-4 col-xl-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple h-100 valign"><img class="h-75 purpleFilter" src="../img/toilet.svg"></div>
               </div>
-          </div>
-        </div>
+              <div class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
+              
+              </div>
+            </div>
 
-        </div>    
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple">REPAIRS</div>
+              </div>
+              <div
+                class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
+                  <!--<Werknemer v-for="l in WerknemersList"
+                    :id="l.id"
+                    :name="l.name"
+                    :pass="l.pass"
+                    :isActive="l.isActive"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
+
+                  ></Werknemer>
+                  -->
+                  <div class="row text-warning d-none">
+                    <div class="col-3 fw-bold">id</div>
+                    <div class="col-6 fw-bold">naam</div>
+                    <div class="col-3 fw-bold">€</div>
+                    <div class="m-0 p-0 d-flex justify-content-center">
+                      <hr class="m-0 p-0 w-90">
+                    </div>
+                  </div>
+                  <div class="row" v-for="l in RepairsList">
+
+                    <div class="col-2 fw-bold">{{ l.id }}</div>
+                    <div class="col-6 fw-bold">{{ l.name }}</div>
+                    <div class="col-2 fw-bold">{{ l.price }}</div>
+                    <div class="col-2"> <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;">🔨</span></div>
+                    <Repairs
+                      :id="l.id"
+                      :name="l.name"
+                      :price="l.price"
+                    ></Repairs>
+                  </div>                
+              </div>
+            </div>
+
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple">ADMINS</div>
+              </div>
+              <div v-if="showWerknemer"
+                class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
+                <div v-for="l in WerknemersList">
+                  <Werknemer 
+                    v-if="l.isAdmin"
+                    :id="l.id"
+                    :name="l.name"
+                    :pass="l.pass"
+                    :isActive="l.isActive"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
+
+                  ></Werknemer>    
+                </div>            
+              </div>
+            </div>
+
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="w-100 valign rounded-top goud text-white vh-10">
+              <div class="mx-auto subTitle text-purple">+ ADMIN</div>
+            </div>
+            <div class="w-100 text-center valign rounded-bottom bg-blue">
+              <div class="w-100 m-0 p-0 pt-3 mx-auto">
+                <input type="text" class="text-center mb-1 w-90" placeholder="Leverancier" v-model="leverancierName"><br>
+                <input type="text" class="visibility">
+                <!--<input type="button" id="loadFileXml" value="+ IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
+                <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
+              </div>
+            </div>
+            </div>
+
+            <!-- BOTTOM row -->
+        </div>
       </div>
       <div id="sneaks" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">
@@ -430,6 +516,9 @@
   import ShowSneakers from './ShowSneakers.vue';
   import CsvSneakers from './Csv.vue';
 
+  import Repairs from '@/components/Repairs.vue'
+  import RepairsService from '@/services/RepairsService';
+
   import { ref } from "vue"
   import ConfirmBox from '@/components/ConfirmBox.vue';
   import Csv from './Csv.vue';
@@ -447,6 +536,7 @@
           WerknemersList: [],
           LabelcolorList: [],
           BrandsList: [],
+          RepairsList: [],
           
           werknemerCheck: false,
           werknemerRecover: false,
@@ -481,7 +571,8 @@
           showLeverancier: true,
           showBrand: true,
           showWerknemer: true,
-          showLabelkleur: true
+          showLabelkleur: true,
+          showRepairs: true
       
         }
       },
@@ -905,6 +996,21 @@
           this.labelcolorId = id
           this.labelcolorName = name
           this.labelcolorCheckReco = true
+        },
+
+        /* REPAIRS */
+        async getRepairs(){
+          RepairsService.getAll()
+          .then(response => {
+            this.RepairsList = response.data;
+            console.log("REPAIRS LIST");
+            console.log(this.RepairsList);
+          })
+          .catch(error => {
+            error = " Repairs niet gevonden";
+            console.error(error);
+            alert(error);
+          })
         }
       },
       mounted () {
@@ -912,6 +1018,10 @@
         this.getWerknemers();
         this.getLabelColors();
         this.getBrands();
+        this.getRepairs();
+        console.log(this.WerknemersList);
+        console.log("REPAIR BRO");
+        console.log(this.RepairsList);
       },
       computed: {
         actieveLeveranciers() {
@@ -926,6 +1036,7 @@
         Brand,
         Werknemer,
         Labelcolor,
+        Repairs,
         ShowSneakers,
         CsvSneakers
       }
@@ -943,6 +1054,37 @@
         height: 100%;
         background-color: rgba(247,247,247,0.5);
         z-index: 99999;
+    }
+
+    .subTitle {
+      position: relative;
+      display: inline-block;
+    }
+
+    .valign{
+      display: flex;
+      align-items: center;  /* vertical align */
+      justify-content: center; /* horizontal align (optioneel) */
+    }
+
+    .navArrow {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 100%; /* places it just below the title */
+    }
+
+    .bg-gold{
+      background-color: linear-gradient(45deg,#FFFFAC 5%,#FEDB37 10%,#9f7928 30%,#FFFFAC  50%,#9f7928 70%,#FEDB37 80%,#FFFFAC 95%) !important;
+    }
+
+    .purpleFilter{
+      filter: brightness(0) saturate(100%) invert(14%) sepia(97%) saturate(7482%) hue-rotate(276deg) brightness(95%) contrast(90%);
+    }
+
+    .arrowIcon {
+      width: 20px; /* Adjust as needed */
+      margin-top: 5px;
     }
 
     .sticky{

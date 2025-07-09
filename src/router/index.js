@@ -85,6 +85,11 @@ const routes = [
     path: "/repair",
     name: "repair",
     component: () => import("../views/Repair.vue")
+  },
+  {
+    path: "/stock",
+    name: "stock",
+    component: () => import("../views/Stock.vue")
   }
 ]
 

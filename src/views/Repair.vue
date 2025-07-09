@@ -2,15 +2,28 @@
     <div class="h-100 valign bg-blue text-light px-5">
         <div class="targets row w-100 m-0 p-0" v-if="sneaker == null">
             <img class="vh-15 mb-4" src="../img/repair.svg">
-            <input type="text" size="14" 
-                id="search"
-                class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                maxlength="4"
-                placeholder="labelnr" 
-                v-model="id"
-                @keyup.enter="search()"
-                @click="showSelected"
-            >
+            <div class="w-100 text-center d-flex justify-content-center">
+                <input type="text" size="14" 
+                    id="search"
+                    class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                    maxlength="4"
+                    placeholder="labelnr" 
+                    v-model="id"
+                    @keyup.enter="search()"
+                    @click="showSelected"
+                >
+            </div>
+            <div class="w-100 text-center d-flex justify-content-center">
+                <input type="text" size="4"
+                    id="bakNr"
+                    class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                    maxlength="5"
+                    placeholder="baknummer" 
+                    v-model="baknr"
+                    @keyup.enter="showConfirmUpdate = true"
+                    @click="showConfirmUpdate"
+                >
+            </div>
         </div>
         <div class="targets row w-100 m-0 p-0" v-if="sneaker != null">
             <div class="col-3 col-xxl-3">
@@ -211,6 +224,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
             solesCheck: false,
             paintCheck: false,
             glueCheck: false,
+            baknr: "",
             showConfirmUpdate: false,
             showConfirmAnnuleren: false
             
@@ -254,7 +268,11 @@ import KleurPreview from '@/components/KleurPreview.vue';
             
         },
         update(){
-            const updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue }
+            if(this.baknr == ""){
+                const updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue }
+            }else{
+                const updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , bakNr: this.baknr}
+            }
             SneakerService.update(this.id,updateData)
             .then( () => {
                 console.log("yolo baby update , check db bro");
@@ -307,7 +325,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
         border-radius: 0.375rem;
     }
     
-    #search{
+    #search,#bakNr{
         width: 100%;
         max-width: 400px !important;
         height: 66px;

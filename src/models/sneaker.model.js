@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING 
       }, 
       brand: { 
-        type: Sequelize.STRING 
+        type: Sequelize.STRING // ID
       }, 
       model: { 
         type: Sequelize.STRING 
@@ -31,37 +31,40 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING 
       }, 
       supplier: { 
-        type: Sequelize.STRING 
+        type: Sequelize.STRING // ID
       }, 
       laces: { 
-        type: Sequelize.INTEGER 
+        type: Sequelize.BOOLEAN 
       }, 
       soles: { 
-        type: Sequelize.INTEGER 
+        type: Sequelize.BOOLEAN 
       },
       paint: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       glue: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       status: { 
-        type: Sequelize.STRING 
+        type: Sequelize.STRING // ID
       },
       shoelace: {
         type: Sequelize.INTEGER
       },
       creator: { 
-        type: Sequelize.STRING 
+        type: Sequelize.STRING // ID
       },
       csv: {
         type: Sequelize.BOOLEAN,
         defaultvalue: false
       },
       price:{
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       updatedBy: {
+        type: Sequelize.STRING // ID
+      },
+      baknr: {
         type: Sequelize.STRING
       }
     }); 

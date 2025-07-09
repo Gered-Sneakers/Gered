@@ -29,6 +29,7 @@ require("./src/routes/leverancier.routes.js")(app);
 require("./src/routes/werknemer.routes.js")(app);
 require("./src/routes/brand.routes.js")(app); 
 require("./src/routes/labelcolor.routes.js")(app);
+require("./src/routes/repairs.routes.js")(app);
 
 app._router.stack
   .filter(r => r.route)

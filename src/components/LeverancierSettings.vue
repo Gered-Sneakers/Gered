@@ -42,7 +42,7 @@
       <div class="col-3 m-0 p-0 fw-bold">
         {{ id }}
       </div>
-      <div class="col-6 m-0 p-0 text-center">
+      <div class="col-6 m-0 p-0 text-center fw-bold">
         {{ name }} 
       </div>
       <div class="col-3 m-0 p-0">
