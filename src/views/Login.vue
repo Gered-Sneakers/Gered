@@ -17,6 +17,7 @@
                         class=" text-center mx-auto border-blue rounded mb-3"  
                         v-model="authState.loginName"
                         @keyup.enter="document.getElementById('loginPass').focus()"
+                        @input="authState.loginName = authState.loginName.charAt(0).toUpperCase() + authState.loginName.slice(1)"
                     >
                 </div>
                 <div class="col-12 m-0 p-0 mx-auto">

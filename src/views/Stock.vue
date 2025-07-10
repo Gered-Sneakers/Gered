@@ -3,15 +3,15 @@
         <div class="targets row w-100 m-0 p-0" v-if="sneaker == null">
             <img class="vh-15 mb-4" src="../img/stock.svg">
             <div class="w-100 text-center d-flex justify-content-center">
-                    <input type="text" size="14" 
-                        id="search"
-                        class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                        maxlength="4"
-                        placeholder="labelnr" 
-                        v-model="id"
-                        @keyup.enter="showConfirmUpdate = true"
-                        @click="showConfirmUpdate"
-                    >
+                <input type="text" size="14" 
+                    id="search"
+                    class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                    maxlength="4"
+                    placeholder="labelnr" 
+                    v-model="id"
+                    @keyup.enter="showConfirmUpdate = true"
+                    @click="showConfirmUpdate"
+                >
             </div>
             <div class="w-100 text-center d-flex justify-content-center">
                 <input type="text" size="4"
@@ -30,13 +30,13 @@
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat <span class="text-yellow mx-2">{{id}}</span> naar stock moet?</p>
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat <span class="text-yellow mx-2">{{id}}</span> naar <span class="text-yellow mx-2">{{baknr}}</span> stock moet?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="update">JA</button> 
                 </div>
                 <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="showConfirmUpdate = !showConfirmUpdate">NEE</button>
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="">NEE</button>
                 </div>
               </div>
           </div>
@@ -78,17 +78,17 @@ import KleurPreview from '@/components/KleurPreview.vue';
                     console.error(error);
                     alert(error);
                })
-
-            
-            
         },
         update(){
-            const updateData = { status: 4 }
+            const updateData = { status: 4 , bakNr: this.baknr}
+            
             SneakerService.update(this.id,updateData)
             .then( () => {
+                console.log("UPDATE STOCK: " + this.id + " " + this.baknr)
+                console.log(updateData);
                 console.log("yolo baby update , check db bro");
-                this.showConfirmAnnuleren = ! this.showConfirmAnnuleren;
-                
+                //this.showConfirmUpdate = ! this.showConfirmUpdate;
+                this.reset();                
             })
             .catch(error => {
                     error = "Sneaker upodate nope bra";
@@ -99,10 +99,32 @@ import KleurPreview from '@/components/KleurPreview.vue';
         },
         annuleren(){
             window.location.reload();
+        },
+        reset(){
+            document.getElementById("search").focus();
+            this.showConfirmUpdate = !this.showConfirmUpdate
+            this.id = null
+            this.baknr = null
+        },
+        capitalize(string){
+                var firstLetter = string.charAt(0);
+                var rest = string.substring(1);
+
+                firstLetter = firstLetter.toUpperCase();
+
+                console.log(firstLetter+rest);
+                return (firstLetter+rest);
         }
     },
     components: {
         KleurPreview
+    },
+    watch: {
+      baknr(newVal) {
+        if (newVal) {
+          this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
+        }
+      }
     }
   }
 </script>

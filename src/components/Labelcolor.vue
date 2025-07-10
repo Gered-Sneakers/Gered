@@ -108,9 +108,16 @@ export default {
 </template>
 
 <style scoped>
-  div:hover{
-    color: var(--gYellow) !important;
-    background-color: grey;
+  .col-12{
+    border: 2px solid transparent;
+  }
+
+  .col-12:hover{
+    border: 2px solid blue;
+  }
+
+  .col-8:hover{
+    color: #F59E0B !important;
   }
 
   .rect{

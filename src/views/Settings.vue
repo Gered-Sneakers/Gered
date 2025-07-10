@@ -3,13 +3,16 @@
       <div class="toggleButton mt-0 pt-0">
         <div class="row m-0 p-0 vh-5"></div>
         <div class="row vh-5 pb-3 w-100 sticky">
-          <div class="col-4 col-xl-3 mx-auto">
+          <div class="col-3 col-xl-3 mx-auto">
             <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
           </div>
-          <div class="col-4 col-xl-3 mx-auto">
+          <div class="col-3 col-xl-3 mx-auto">
             <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">CSV</button>
           </div>
-          <div class="col-4 col-xl-3 mx-auto">
+          <div class="col-3 col-xl-3 mx-auto">
+            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Verkoop</button>
+          </div>
+          <div class="col-3 col-xl-3 mx-auto">
             <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Settings</button>
           </div>
         </div>
@@ -176,7 +179,6 @@
             <div class="mb-3">
               <div class="w-100 valign rounded-top bg-blue text-white vh-10">
                 <div @click="showWerknemer = !showWerknemer" class="w-100 mx-auto subTitle">WERKNEMERS</div>
-                <div class="navArrow"><img class="arrowIcon mx-auto blackIcons" src="../img/downarrow.svg"></div>
               </div>
               <div v-if="showWerknemer"
                 class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
@@ -187,7 +189,7 @@
                     :isActive="l.isActive"
                     :icon="'❌'"
                     @activate="confirmDeleteWerknemer(l.id,l.name)"
-                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isAdmin,l.isActive)"
 
                   ></Werknemer>
                 <!-- DELETE WERKNEMER -->
@@ -213,7 +215,15 @@
                           <p class="my-5">Wil je <span class="text-yellow">{{ updateId }}</span> wijzigen? </p>
                           <!--<span>{{ updateId }}</span>-->
                           <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
-                          <div><input class="text-center" v-model="updatePass"></div>
+                          <div><input type="password" class="text-center" v-model="updatePass"></div>
+                          <div v-if="updateId == 1" class="mt-2 defaultInput">
+                            <span>is Admin: </span>
+                            <img
+                              @click="updateAdmin = !updateAdmin"
+                              :class="['rounded-circle', updateAdmin ? 'bg-success' : 'bg-danger']"
+                              src="../img/admin.svg"
+                            >
+                          </div>
                           <div class="row m-0 p-0 mt-5">
                           <div class="col-6 m-0 p-0">
                             <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateWerknemer()">JA</button> 
@@ -415,35 +425,35 @@
               </div>
               <div
                 class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
-                  <!--<Werknemer v-for="l in WerknemersList"
-                    :id="l.id"
-                    :name="l.name"
-                    :pass="l.pass"
-                    :isActive="l.isActive"
-                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
-
-                  ></Werknemer>
-                  -->
-                  <div class="row text-warning d-none">
-                    <div class="col-3 fw-bold">id</div>
-                    <div class="col-6 fw-bold">naam</div>
-                    <div class="col-3 fw-bold">€</div>
-                    <div class="m-0 p-0 d-flex justify-content-center">
-                      <hr class="m-0 p-0 w-90">
-                    </div>
-                  </div>
-                  <div class="row" v-for="l in RepairsList">
-
-                    <div class="col-2 fw-bold">{{ l.id }}</div>
-                    <div class="col-6 fw-bold">{{ l.name }}</div>
-                    <div class="col-2 fw-bold">{{ l.price }}</div>
-                    <div class="col-2"> <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;">🔨</span></div>
-                    <Repairs
+                    <div class="col-12 m-0 p-0"  v-for="l in RepairsList">
+                    <Repairs 
                       :id="l.id"
                       :name="l.name"
                       :price="l.price"
+                      @activate=""
+                      @update="confirmUpdateRepairs(l.id,l.name,l.price)"
                     ></Repairs>
-                  </div>                
+                    </div>
+                    <!-- UPDATE REPAIRS-->
+                    <div class="full m-0 p-0" v-if="repairId > 0">
+                    <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+                        <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateWerknemer">
+                              <p class="my-5">Wil je <span class="text-yellow">{{ repairId }}</span> wijzigen? </p>
+                              <div><input class="d-block mx-auto text-center" v-model="repairName"></div>
+                              <div><input class="text-center" v-model="repairPrice"></div>
+                              <div class="row m-0 p-0 mt-5">
+                              <div class="col-6 m-0 p-0">
+                                <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="updateRepairs()">JA</button> 
+                              </div>
+                              <div class="col-6 m-0 p-0">
+                                <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetRepairs()">NEE</button>
+                              </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    </div>
               </div>
             </div>
 
@@ -460,23 +470,21 @@
                     :name="l.name"
                     :pass="l.pass"
                     :isActive="l.isActive"
-                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive)"
+                    @update="confirmUpdateWerknemer(l.id,l.name,l.pass,l.isActive,l.isAdmin)"
 
                   ></Werknemer>    
                 </div>            
               </div>
             </div>
 
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto d-none">
             <div class="w-100 valign rounded-top goud text-white vh-10">
               <div class="mx-auto subTitle text-purple">+ ADMIN</div>
             </div>
             <div class="w-100 text-center valign rounded-bottom bg-blue">
               <div class="w-100 m-0 p-0 pt-3 mx-auto">
-                <input type="text" class="text-center mb-1 w-90" placeholder="Leverancier" v-model="leverancierName"><br>
+                <input type="text" class="text-center mb-1 w-90 bg-danger" placeholder="Admin"><br>
                 <input type="text" class="visibility">
-                <!--<input type="button" id="loadFileXml" value="+ IMG" @click="document.getElementById('imgLeverancier').click();" class="mx-auto mb-2 rounded" />-->
-                <input type="file" id="imgLeverancier" class="mx-auto d-none"><br>
                 <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
               </div>
             </div>
@@ -495,33 +503,35 @@
           <CsvSneakers></CsvSneakers>
         </div>
       </div>
+      <div id="verkoop" class="d-none m-0 p-0">
+        <div class="row m-0 p-0 text-light">
+          <Verkoop></Verkoop>
+        </div>
+      </div>
     </div>
   </template>
   
   <script>
   import Leverancier from '@/components/LeverancierSettings.vue';
-  //import LeverancierInactief from '@/components/LeverancierSettingsInactief.vue';
   import LeverancierService from '@/services/LeverancierService';
 
   import Brand from '@/components/BrandSettings.vue';
-  //import Brands from '@/assets/brands.json';
   import BrandService from '@/services/BrandService';
 
   import Werknemer from '@/components/Werknemer.vue';
   import WerknemerService from '@/services/WerknemerService';
+
+  import Repairs from '@/components/Repairs.vue'
+  import RepairsService from '@/services/RepairsService';
 
   import Labelcolor from '@/components/Labelcolor.vue';
   import LabelcolorService from '@/services/LabelcolorService';
 
   import ShowSneakers from './ShowSneakers.vue';
   import CsvSneakers from './Csv.vue';
+  import Verkoop from './Verkoop.vue';
 
-  import Repairs from '@/components/Repairs.vue'
-  import RepairsService from '@/services/RepairsService';
-
-  import { ref } from "vue"
   import ConfirmBox from '@/components/ConfirmBox.vue';
-  import Csv from './Csv.vue';
   
   import axios from 'axios';
 
@@ -543,10 +553,11 @@
           werknemerId: null,
           werknemerName: '',
           werknemerPass: '',
-
+          
           updateId: null,
           updateName: '',
           updatePass: '',
+          updateAdmin: 0,
 
           leverancierCheckReco: false,
           leverancierCheck: false,
@@ -566,7 +577,10 @@
           brandId: null,
           brandName: '',
           brandActive: '',
-          
+
+          repairId: null,
+          repairName: '',
+          repairPrice: null,
 
           showLeverancier: true,
           showBrand: true,
@@ -584,41 +598,63 @@
           var main = document.getElementById("main").classList;
           var sneakers = document.getElementById("sneaks").classList;
           var csv = document.getElementById("csv").classList;
+          var verkoop = document.getElementById("verkoop").classList;
           //var btnSneakers = document.getElementById("toggleButton");
           //var btnCsv = document.getElementById("toggleButton2");
           //var btnSettings = document.getElementById("toggleButton3");
 
           switch(nr){
             case 1:
-            main.remove("d-block");
-            main.add("d-none");
+              main.remove("d-block");
+              main.add("d-none");
 
-            csv.remove("d-block");
-            csv.add("d-none");
-            
-            sneakers.remove("d-none");
-            sneakers.add("d-block");
+              csv.remove("d-block");
+              csv.add("d-none");
+
+              verkoop.remove("d-block");
+              verkoop.add("d-none");
+
+              sneakers.remove("d-none");
+              sneakers.add("d-block");
             break;
             case 2:
-            main.remove("d-block");
-            main.add("d-none");
+              main.remove("d-block");
+              main.add("d-none");
 
-            csv.remove("d-none");
-            csv.add("d-block");
-            
-            sneakers.remove("d-block");
-            sneakers.add("d-none");
+              csv.remove("d-none");
+              csv.add("d-block");
+
+              verkoop.remove("d-block");
+              verkoop.add("d-none");
+
+              sneakers.remove("d-block");
+              sneakers.add("d-none");
             break;
             case 3:
-            main.remove("d-none");
-            main.add("d-block");
+              main.remove("d-none");
+              main.add("d-block");
 
-            csv.remove("d-block");
-            csv.add("d-none");
+              csv.remove("d-block");
+              csv.add("d-none");
 
-            sneakers.remove("d-block");
-            sneakers.add("d-none");
+              verkoop.remove("d-block");
+              verkoop.add("d-none");
+
+              sneakers.remove("d-block");
+              sneakers.add("d-none");
             break;
+            case 4:
+              verkoop.remove("d-none");
+              verkoop.add("d-block");
+
+              sneakers.remove("d-block");
+              sneakers.add("d-none");
+
+              csv.remove("d-block");
+              csv.add("d-none");
+
+              main.remove("d-block");
+              main.add("d-none");
           }
         },
         handleImageUpload(event) {
@@ -627,6 +663,9 @@
         },
         triggerFileInput() {
           document.getElementById("imgBrand").click();
+        },
+        showInfo(){
+          console.log(this.updateAdmin);
         },
 
         /* LEVERANCIERS */
@@ -874,10 +913,11 @@
               console.error("Update failed" , error);
             })
         },
-        confirmUpdateWerknemer(id,name,pass){
+        confirmUpdateWerknemer(id,name,pass,isAdmin){
            this.updateId = id
            this.updateName = name
            this.updatePass = pass
+           this.updateAdmin = isAdmin
         },
         resetWerknemer(){
           this.werknemerId = null
@@ -890,13 +930,14 @@
           this.werknemerRecover = false
         },
         updateWerknemer(){
-          const updateData = { name: this.updateName , pass: this.updatePass };
+          const updateData = { name: this.updateName , pass: this.updatePass , isAdmin: this.updateAdmin };
           WerknemerService.update(this.updateId,updateData)
             .then(()=> {
               this.getWerknemers();
               this.updateId = null,
               this.updateName = '',
-              this.updatePass = ''
+              this.updatePass = '',
+              this.updateAdmin = ''
           })
             .catch(error=>{
               console.error("Update failed" , error);
@@ -931,6 +972,9 @@
               console.error("❌ Fout bij deactivatie:", error.response || error);
               alert("Deactivatie mislukt");
             });
+        },
+        toggleAdmin(){
+          
         },
 
         /* LABELS  */
@@ -1011,7 +1055,31 @@
             console.error(error);
             alert(error);
           })
+        },
+        updateRepairs(){
+            const updateData = { price: this.repairPrice }
+            RepairsService.update(this.repairId,updateData)
+            .then(()=> {
+              this.getRepairs();
+              this.repairId = null,
+              this.repairName = '',
+              this.repairPrice = ''
+          })
+            .catch(error=>{
+              console.error("Update failed" , error);
+            })
+        },
+        resetRepairs(){
+          this.repairId = null,
+          this.repairName = '',
+          this.repairPrice = null
+        },
+        confirmUpdateRepairs(id,name,price){
+          this.repairId = id
+          this.repairName = name
+          this.repairPrice = price
         }
+
       },
       mounted () {
         this.getLeveranciers();
@@ -1038,7 +1106,8 @@
         Labelcolor,
         Repairs,
         ShowSneakers,
-        CsvSneakers
+        CsvSneakers,
+        Verkoop
       }
     }
   </script>
@@ -1112,7 +1181,7 @@
       min-height: 120px !important;
     }
 
-    input{
+    input,.defaultInput{
       border-radius: 25rem;
       max-width: 800px !important;
       min-width: 200px !important;

@@ -362,6 +362,7 @@
     var status = ref(0);
     var datum = createDate();
     var creator = ref();
+    var extra = ref();
 
     var statusz = "Cleaning";
     
@@ -641,11 +642,21 @@
             size: size.value,
             colors: colorsToString(),
             supplier: leverancier.value,
-            laces: laces,
-            soles: soles,
-            status: status,
+            laces: laces.value,
+            soles: soles.value,
+            paint: paint.value,
+            glue: broken.value,
+            status: status.value,
             //verkoop: verkoop,
-            creator: creator.value
+            //csv: csv,
+            creator: creator.value,
+            extra: extra.value,
+            //shoeLace: shoelace,
+            //updatedBy: creator,
+            //price: price,
+            //bakNr: bakNr,
+            //createdAt: '',
+            //updatedAt: ''
         };
 
         console.log(data);

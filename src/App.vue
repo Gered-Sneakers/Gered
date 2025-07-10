@@ -505,6 +505,8 @@ a{
 
 }
 
+
+
 /* EXTEND BOOTSTRAP GRID */
 
 /* Add custom breakpoint: xxxl (≥1800px) */
@@ -726,7 +728,7 @@ a{
   fill: var(--gblue);
 }
 
-[type=text],[type=password],.btn-big{
+[type=text],[type=password],.btn-big,.defaultInput{
   max-width: 800px !important;
   min-width: 400px !important;
 }

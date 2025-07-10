@@ -77,7 +77,8 @@ exports.findOne = (req, res) => {
 // Update a Sneakers by the id in the request 
 exports.update = (req, res) => {
   const id = req.params.id;
-
+  console.log("BOLLE---------------------------------------------");
+  console.log(req.body);
   Sneakers.update(req.body, {
     where: { id: id }
   })

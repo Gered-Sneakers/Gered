@@ -44,7 +44,7 @@
                 type: String   
             },
             status:{
-                type: String
+                type: Number
             },
             teRepareren:{
                 type: String
@@ -54,6 +54,9 @@
             },
             csv: {
                 type: Boolean
+            },
+            verkoop:{
+              type: Boolean
             }
         },
         methods:{
@@ -94,7 +97,7 @@
         <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,4) }}</div>
         <div class="col-1 valign borders"> 
             <img class="csvImg me-2 h-100 grow" src="../img/csv.svg" v-if="csv==null" @click="$emit('csv',id);showCsv = false"> 
-            <!--<img class="me-2 w-50 grow" src="../img/sell.svg" v-if="verkoop==0" @click="$emit('verkoop',id);showVerkoop = false">-->
+            <img class="me-2 w-50 grow" src="../img/sell.svg" v-if="status=='4'" @click="$emit('verkoop',id);showVerkoop = false">
         </div>
     </div>
 </template>

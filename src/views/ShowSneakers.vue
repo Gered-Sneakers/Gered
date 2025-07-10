@@ -40,6 +40,7 @@
         :verkoop="s.verkoop"
         :csv="s.csv"
         @csv="csv"
+        @verkoop="verkoop"
       >
 
       </SneakerSmall>
@@ -58,7 +59,7 @@
     
     <!--
      <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
-    <div @click="verkoopAdd" class="border border-warning bg-warning hover grow">VERKAUFEN BEBI</div>
+    <div @click="verkoopAdd" class="border border-warning bg-warning hover">VERKAUFEN BEBI</div>
     -->
 </template>
   
@@ -101,7 +102,6 @@ import SneakerService from '@/services/SneakerService';
             console.error(error);
         })
       },
-      /*
       verkoop(id){
         console.log("VERKOOP");
         !this.verkoopList.includes(id) && this.verkoopList.push(id);
@@ -126,7 +126,6 @@ import SneakerService from '@/services/SneakerService';
           
         });
       },
-      */
       csv(id){
         console.log("CSV");
         console.log(id);
@@ -151,6 +150,7 @@ import SneakerService from '@/services/SneakerService';
           })
         })
       }
+
     },
     mounted () {
       this.getSneakers();

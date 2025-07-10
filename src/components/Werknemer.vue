@@ -25,7 +25,7 @@ export default {
         required: true
       },
       isAdmin:{
-        type: Boolean
+        type: Number
       },
       icon:{
         type: String
@@ -50,7 +50,7 @@ export default {
      
       <div class="col-3 row m-0 p-0" v-if="hover">
         
-        <div class="col-6 text-danger text-center" style="cursor:pointer;" @click="$emit('update', id,name,pass)">
+        <div class="col-6 text-danger text-center" style="cursor:pointer;" @click="$emit('update', id,name,pass,isAdmin)">
         🔨
         </div>
         <div class="col-6 text-success text-center fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,activate)">

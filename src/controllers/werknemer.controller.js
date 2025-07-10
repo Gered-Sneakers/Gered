@@ -33,7 +33,7 @@ exports.findAll = (req, res) => {
     Werknemers.findAll()
         .then(data =>{
             res.send(data);
-            console.log(data);
+            //console.log(data);
         })
         .catch(err => {
             res.status(500).send({
@@ -83,6 +83,7 @@ exports.findByName = (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
   const updates = { ...req.body }
+  console.log(req.body);
 
   if(updates.pass) updates.pass = await bcrypt.hash(updates.pass,10);
 

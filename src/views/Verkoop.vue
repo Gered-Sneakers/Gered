@@ -1,6 +1,6 @@
 <template>
-  <div class="scroll">
-    <div class="row max-1217 mx-auto bg-blue text-white text-center rounded-top">
+  <div class="vh-85 scroll w-100 m-0 p-0">
+    <div class="row mx-auto bg-blue text-white text-center rounded-top">
         <div id="id" class="col-1 borders rounded-top">ID</div>
         <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
@@ -11,7 +11,7 @@
         <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
         <div id="" class="col-1 borders rounded-top"><img src="../img/file.svg"></div>
     </div>
-    <div class="max-1217 m-0 p-0 mx-auto vh-80 scroll">
+    <div class="m-0 p-0 mx-auto">
 
         <div v-for="s in sneakerList" v-if="sneakerList.length > 0">
         <SneakerVerkoop
@@ -75,8 +75,8 @@ var verkoopList = [];
   
     },
     methods: {
-        getSneakers(){
-          SneakerService.getAll()
+        async getSneakers(){
+          await SneakerService.getAll()
             .then(response => {
               this.sneakerList = response.data;
               console.log(this.sneakerList);

@@ -58,14 +58,18 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.BOOLEAN,
         defaultvalue: false
       },
+      verkoop: {
+        type: Sequelize.BOOLEAN
+      },
       price:{
         type: Sequelize.FLOAT
       },
       updatedBy: {
         type: Sequelize.STRING // ID
       },
-      baknr: {
-        type: Sequelize.STRING
+      bakNr: {
+        type: Sequelize.STRING,
+        allowNull: true
       }
     }); 
    
