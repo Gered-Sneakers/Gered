@@ -8,7 +8,7 @@
           return{
             colorArray: this.colors.split(' '),
             showCsv: true,
-            showVerkoop: true
+            showVerkoop: true,
           }
         },
         props:{
@@ -67,9 +67,29 @@
                 firstLetter = firstLetter.toUpperCase();
 
                 console.log(firstLetter+rest);
+            },
+            show(){
+              console.log(this.status);
             }
         },
+        computed: {
+          getStatus(){
+            switch (parseInt(this.status)) {
+              case 1:
+                return new URL('../img/cleaning.svg', import.meta.url).href;
+              case 2:
+                return new URL('../img/repair.svg', import.meta.url).href;
+              case 3:
+                return new URL('../img/stock.svg', import.meta.url).href;
+              case 4:
+                return new URL('../img/sell.svg', import.meta.url).href;
+              default:
+                return new URL('../img/cleaning.svg', import.meta.url).href;
+            }
+          }
+        },
         mounted () {
+
             //console.log(this.id," CSV ",this.csv);
             //console.log(this.id, " VERKOOP ",this.verkoop);
         },
@@ -90,14 +110,13 @@
             /> 
         </div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="status" v-if="status =='cleaning'" class="col-1 valign borders"><img src="../img/cleaning.svg"></div>
-        <div id="status" v-else class="col-1 valign borders"><img src="../img/repair.svg"></div>
+        <div id="status" class="col-1 valign borders"><img class="h-50" :src="getStatus"></div>
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
         <div id="datum" class="col-2 valign borders">{{ date }}</div>
-        <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,4) }}</div>
+        <div id="leverancier" class="col-1 valign borders">{{ supplier.slice(0,7) }}</div>
         <div class="col-1 valign borders"> 
-            <img class="csvImg me-2 h-100 grow" src="../img/csv.svg" v-if="csv==null" @click="$emit('csv',id);showCsv = false"> 
-            <img class="me-2 w-50 grow" src="../img/sell.svg" v-if="status=='4'" @click="$emit('verkoop',id);showVerkoop = false">
+            <img class="csvImg me-2 h-100 grow" src="../img/csv.svg" v-if="csv==null" @click="$emit('csv',id);showCsv = false">
+            <img class="me-2 w-50 grow" src="../img/sell.svg" v-if="status!==4" v-show="showVerkoop" @click="$emit('verkoop',id);showVerkoop = false">
         </div>
     </div>
 </template>

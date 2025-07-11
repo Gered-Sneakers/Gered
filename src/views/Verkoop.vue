@@ -9,13 +9,12 @@
         <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
         <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
-        <div id="" class="col-1 borders rounded-top"><img src="../img/file.svg"></div>
+        <div id="" class="col-1 borders rounded-top"><img src="../img/sell.svg"></div>
     </div>
     <div class="m-0 p-0 mx-auto">
 
         <div v-for="s in sneakerList" v-if="sneakerList.length > 0">
         <SneakerVerkoop
-          v-if="s.verkoop"
           :id="s.id"
           :colorlabel="s.colorlabel"
           :date="s.date"
@@ -23,7 +22,7 @@
           :model="s.model"
           :size="s.size"
           :colors="s.colors"
-          :supplier="s.supplier"
+          :supplier="getLeverancierName"
           :status="s.status"
           :creator="s.creator"
           :verkoop="s.verkoop"
@@ -59,6 +58,7 @@
 
 import SneakerVerkoop from '@/components/SneakerVerkoop.vue';
 import SneakerService from '@/services/SneakerService';
+import LeverancierService from '@/services/LeverancierService';
 
 var csvList = [];
 var verkoopList = [];
@@ -68,6 +68,8 @@ var verkoopList = [];
     data(){
         return{
           sneakerList: [],
+          leverancierList: [],
+          leverancierName: "",
           id: ""
         }
     },
@@ -84,6 +86,13 @@ var verkoopList = [];
             .catch(error =>{
               console.error(error);
             })
+        },
+        getLeveranciers(){
+          LeverancierService.getAll()
+          .then(x => {
+            this.leverancierList = x.data;
+            //console.log(leverancierList);
+          })
         },
         showConfirmBox(){
           document.getElementById("confirm").classList.remove("d-none");
@@ -103,8 +112,28 @@ var verkoopList = [];
             // REMOVE FROM STOCK
         }
     },
+    computed: {
+      getLeverancierName(){
+        this.leverancierName = this.leverancierList[parseInt(this.supplier)-1];
+        /*
+        switch(parseInt(this.supplier)){
+          case 1:
+            return "Gered";
+          case 2:
+            return "";
+          case 3:
+            return "Stock";
+          case 4:
+            return "Verkoop";
+          default:
+            return "Cleaning";
+        }
+            */
+      }
+    },
     mounted () {
       this.getSneakers();
+      this.getLeveranciers();
     },
     components:{
       SneakerVerkoop

@@ -12,10 +12,6 @@
           }
         },
         props:{
-            dbid:{
-         		type: Number,
-         		required: true
-         	},
             id:{
                 type: Number,
                 required: true
@@ -48,10 +44,7 @@
                 type: String   
             },
             status:{
-                type: String
-            },
-            teRepareren:{
-                type: String
+                type: Number
             },
             creator:{
                 type: String
@@ -74,6 +67,22 @@
                 console.log(firstLetter+rest);
             }
         },
+        computed: {
+          getStatus(){
+            switch (parseInt(this.status)) {
+              case 1:
+                return new URL('../img/cleaning.svg', import.meta.url).href;
+              case 2:
+                return new URL('../img/repair.svg', import.meta.url).href;
+              case 3:
+                return new URL('../img/stock.svg', import.meta.url).href;
+              case 4:
+                return new URL('../img/sell.svg', import.meta.url).href;
+              default:
+                return new URL('../img/cleaning.svg', import.meta.url).href;
+            }
+          }
+        },
         mounted () {
             
         },
@@ -86,7 +95,7 @@
 <template>
     <div class="row mx-auto text-center text-dark">
         <div id="id" class="col-1 borders valign" :class="colorlabel">{{ id }}</div>
-        <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
+        <div id="model" class="col-2 borders" :title="model">{{ brand }} <br> <span v-if="model" >{{ model.slice(0,18) }}</span><span v-else>&nbsp;</span></div>
         <div id="kleur" class="col-1 borders valign">
             <KleurPreview 
                 v-for="c in colorArray"
@@ -94,11 +103,10 @@
             /> 
         </div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="status" v-if="status =='cleaning'" class="col-1 valign borders"><img src="../img/cleaning.svg"></div>
-        <div id="status" v-else class="col-1 valign borders"><img src="../img/repair.svg"></div>
+        <div id="status" class="col-1 valign borders"><img class="h-50" :src="getStatus"></div>
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
         <div id="datum" class="col-2 valign borders">{{ date }}</div>
-        <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,4) }}</div>
+        <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,7) }}</div>
         <div id="" class="col-1 valign borders" @click="$emit('verkoop',id)"><img src="../img/sell.svg"></div>
     </div>
 </template>

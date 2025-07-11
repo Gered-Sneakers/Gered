@@ -9,7 +9,6 @@
                     maxlength="4"
                     placeholder="labelnr" 
                     v-model="id"
-                    @update="search()"
                     @click="showSelected"
                 >
             </div>
@@ -18,9 +17,10 @@
                     id="bakNr"
                     class="w-100 text-center border-blue rounded mx-auto mb-1" 
                     maxlength="5"
-                    placeholder="baknummer" 
+                    placeholder="baknummer"
                     v-model="baknr"
-                    @keyup.enter="showConfirmUpdate = true"
+                    @focus="moveCursorToEnd"
+                    @keyup.enter="search"
                     @click="showConfirmUpdate"
                 >
             </div>
@@ -29,7 +29,7 @@
             <div class="col-3 col-xxl-3">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-4 mb-5">
+                    <div class="row m-0 p-0 mt-4 mb-3">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold rounded invis-border" :class="sneaker.colorlabel">{{ sneaker.id }}</span>
                         </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="row m-0 p-0 pt-2">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.svg"></div>
-                        <div class="col-9 text-end">{{ sneaker.brand }}{{ " " }}<span v-if="model">{{ sneaker.model = sneaker.model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
+                        <div class="col-9 text-end">{{ sneaker.brand }}{{ " " }}<span v-if="sneaker.model">{{ sneaker.model = sneaker.model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -84,16 +84,22 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
-                        <div class="col-9 text-end fw-1000">{{sneaker.status}}</div>
-                        <div class="col-9 text-end fw-1000" v-if="sneaker.status==1">Cleaning</div>
-                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==2">Repair</div>
-                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==3">Stock</div>
-                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==4">Verkocht</div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/stock.svg"></div>
+                        <div class="col-9 text-end fw-1000">{{baknr}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-4 valign justify-content-start grow"><img class="smallz whiteIcons" src="@/img/delivery.svg" :title="sneaker.supplier"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
+                        
+                        <div class="col-9 text-end fw-1000" v-if="sneaker.status==1">Cleaning</div>
+                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==2">Repair</div>
+                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==3">Stock</div>
+                        <div class="col-9 text-end fw-1000" v-else-if="sneaker.status==4">Verkoop</div>
+                        <div class="col-9 text-end fw-1000" v-else> - </div>
+                    </div>
+                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <div class="row m-0 p-0">
+                        <div class="col-4 valign justify-content-start grow"><img class="smallz whiteIcons" src="@/img/delivery.svg" :title="leveranciersList[sneaker.supplier-1].name"></div>
                         <div class="col-4 valign justify-content-center grow"><img class="smallz whiteIcons" src="@/img/login.svg" :title="sneaker.creator"></div>
                         <div class="col-4 valign justify-content-end grow"><img class="smallz whiteIcons" src="@/img/clock.svg" :title="sneaker.date"></div>
                     </div>
@@ -106,7 +112,7 @@
             <div class="">
                 <div class="row m-0 p-0 mx-auto text-light">
                     <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="sneaker.laces = !sneaker.laces"
+                            @click="addLaces"
                     >
                         <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.laces }">
                             <img class="imgSquare w-100 mx-auto" src="../img/laces.svg">
@@ -114,7 +120,7 @@
                         </div>
                     </div>
                     <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="sneaker.soles = !sneaker.soles"
+                            @click="addSoles"
                     >
                         <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.soles }">
                             <img class="imgSquare w-100 mx-auto" src="../img/soles.svg">
@@ -124,7 +130,7 @@
                 </div>
                 <div class="row m-0 p-0 mx-auto text-light">
                     <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="sneaker.paint = !sneaker.paint"
+                            @click="addPaint"
                     >
                         <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.paint }">
                             <img class="imgSquare w-100 mx-auto" src="../img/paint.svg">
@@ -132,7 +138,7 @@
                         </div>
                     </div>
                     <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="sneaker.glue = !sneaker.glue"
+                            @click="addGlue"
                     >
                         <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.glue }">
                             <img class="imgSquare w-100 mx-auto" src="../img/repair.svg">
@@ -156,7 +162,7 @@
                     </div>
                 </div>
                 <div @click="showConfirmUpdate = !showConfirmUpdate" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
-                        <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
+                    <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
                 </div>
             </div>
         </div>
@@ -180,7 +186,7 @@
         <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
             <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
               <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-                  <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{id}}</span> in <span class="text-yellow mx-2">{{"R." + baknr}}</span> wil updaten?</p>
+                  <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{id}}</span> in <span class="text-yellow mx-2">{{ baknr}}</span> wil updaten?</p>
                   <div class="row m-0 p-0">
                     <div class="col-6 m-0 p-0">
                       <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="update">JA</button> 
@@ -198,6 +204,9 @@
 <script>
 import SneakerService from '@/services/SneakerService';
 import KleurPreview from '@/components/KleurPreview.vue';
+import RepairsService from '@/services/RepairsService';
+import LeverancierService from '@/services/LeverancierService';
+
 
   export default {
     name: 'Repair_View',
@@ -224,9 +233,15 @@ import KleurPreview from '@/components/KleurPreview.vue';
             solesCheck: false,
             paintCheck: false,
             glueCheck: false,
-            baknr: "",
+            baknr: "R.",
+            price: 0,
+
             showConfirmUpdate: false,
-            showConfirmAnnuleren: false
+            showConfirmAnnuleren: false,
+
+            repairList: [],
+            leveranciersList: []
+
             
         }
     },
@@ -234,7 +249,6 @@ import KleurPreview from '@/components/KleurPreview.vue';
   
     },
     methods: {
-        
         search(){  
         /*     
             try{
@@ -253,12 +267,13 @@ import KleurPreview from '@/components/KleurPreview.vue';
         */
             SneakerService.get(this.id)
                 .then(response => {
-                    
                     this.sneaker = response.data;
                     console.log(this.sneaker);
+                    console.log("LACES" + this.sneaker.laces);
                     this.sneaker.colors = this.sneaker.colors.split(" ");
                     this.sneaker.colors.pop();
-                    console.log(this.sneaker);
+                    //price = this.sneaker.price;
+                    //console.log(price);
                 })
                 .catch(error => {
                     error = "Sneaker niet gevonden";
@@ -267,20 +282,26 @@ import KleurPreview from '@/components/KleurPreview.vue';
                })
         },
         update(){
+            console.log("SNEAKY");
             console.log(this.sneaker);
-            if(this.sneaker){
-                const updateData = {};
+
+            console.log("ID");
+            console.log(this.id);
+
+            if(this.id){
+                var updateData = {};
                 if(this.baknr){
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , bakNr: "R." + this.baknr}
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , price: this.sneaker.price , bakNr: this.baknr}
 
                 }else{
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue }
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , price: this.sneaker.price }
                 }
+                //if()
                 SneakerService.update(this.id,updateData)
                 .then( () => {
                     console.log("yolo baby update , check db bro");
-                    this.showConfirmAnnuleren = ! this.showConfirmAnnuleren;
-
+                    this.showConfirmUpdate = ! this.showConfirmUpdate;
+                    this.annuleren();
                 })
                 .catch(error => {
                         error = "Sneaker upodate nope bra";
@@ -291,17 +312,108 @@ import KleurPreview from '@/components/KleurPreview.vue';
         },
         annuleren(){
             window.location.reload();
+        },
+        handleBaknrInput(event) {
+           const input = event.target.value;
+
+           // Remove "R." if user tries to backspace
+           let raw = input.startsWith('R.') ? input.slice(2) : input;
+
+           // Capitalize first character only
+           if (raw.length > 0) {
+             raw = raw.charAt(0).toUpperCase() + raw.slice(1);
+           }
+       
+           this.baknr = raw;
+         },
+         moveCursorToEnd(event) {
+          const el = event.target;
+          const value = el.value;
+
+          // Set the cursor at the end
+          requestAnimationFrame(() => {
+            el.selectionStart = el.selectionEnd = value.length;
+          });
+        },
+        getRepairs(){
+            RepairsService.getAll()
+            .then(x => {
+                this.repairList = x.data;
+                console.log(this.repairList);
+            })
+            .catch(err =>{
+                error = "fuck it eroor";
+                console.error(err);
+            })
+        },
+        show(){
+            console.log(this.sneaker.price);
+        },
+        addLaces(){
+            if(!this.sneaker.laces){
+                if(!this.lacesCheck){
+                    this.sneaker.price = this.sneaker.price + this.repairList[0].price;
+                    this.lacesCheck = true;
+                } 
+            } 
+            this.sneaker.laces = !this.sneaker.laces;
+            this.show();
+        },
+        addSoles(){
+            if(!this.sneaker.soles){
+                if(!this.solesCheck){
+                    this.sneaker.price = this.sneaker.price + this.repairList[1].price;
+                    this.solesCheck = true;
+                } 
+            }
+            this.sneaker.soles = !this.sneaker.soles;
+            this.show();
+        },
+        addPaint(){
+            if(!this.sneaker.paint){
+                if(!this.paintCheck) { 
+                    this.sneaker.price = this.sneaker.price + this.repairList[2].price; 
+                    this.paintCheck = true;
+                }
+            }
+            this.sneaker.paint = !this.sneaker.paint;
+            this.show();
+        },
+        addGlue(){
+            if(!this.sneaker.glue){
+                if(!this.glueCheck) { 
+                    this.sneaker.price = this.sneaker.price + this.repairList[3].price; 
+                    this.glueCheck = true;
+                }
+            }
+            this.sneaker.glue = !this.sneaker.glue;
+            this.show();
+        },
+        getLeveranciers(){
+            LeverancierService.getAll()
+            .then(x => {
+                this.leveranciersList = x.data;
+                console.log(this.leveranciersList);
+            })
+            .catch(err =>{
+                console.log(err);
+            })
         }
     },
     watch: {
       baknr(newVal) {
         if (newVal) {
-          this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
+          this.baknr = this.baknr.toUpperCase();
         }
       }
     },
     components: {
         KleurPreview
+    },
+    mounted(){
+        this.getRepairs();
+        this.getLeveranciers();
+        //this.getSneakers();
     }
   }
 </script>

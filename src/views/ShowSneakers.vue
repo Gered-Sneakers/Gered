@@ -34,7 +34,7 @@
         :model="s.model"
         :size="s.size"
         :colors="s.colors"
-        :supplier="s.supplier"
+        :supplier="leverancierList[s.supplier-1].name"
         :status="s.status"
         :creator="s.creator"
         :verkoop="s.verkoop"
@@ -67,6 +67,7 @@
 
 import SneakerSmall from '@/components/SneakerSmall.vue';
 import SneakerService from '@/services/SneakerService';
+import LeverancierService from '@/services/LeverancierService';
 
 //var csvList = [];
 //var verkoopList = [];
@@ -76,6 +77,7 @@ import SneakerService from '@/services/SneakerService';
     data(){
         return{
           sneakerList: [],
+          leverancierList: [],
           verkoopList: [],
           csvList: []
         }
@@ -105,6 +107,7 @@ import SneakerService from '@/services/SneakerService';
       verkoop(id){
         console.log("VERKOOP");
         !this.verkoopList.includes(id) && this.verkoopList.push(id);
+
         console.log(this.verkoopList);
       },
       verkoopRemove(id){
@@ -115,7 +118,7 @@ import SneakerService from '@/services/SneakerService';
         this.verkoopList.forEach(v => {
           console.log(v);
           
-          SneakerService.update(v,{ verkoop:1 })
+          SneakerService.update(v,{ status:4 })
           .then(res =>{
             console.log(res);
             console.log("We don giv a fu bwoi");
@@ -149,11 +152,18 @@ import SneakerService from '@/services/SneakerService';
             console.log(err);
           })
         })
+      },
+      getLeveranciers(){
+        LeverancierService.getAll()
+        .then( x => {
+          this.leverancierList = x.data;
+        })
       }
 
     },
     mounted () {
       this.getSneakers();
+      this.getLeveranciers();
     },
     watch:{
       $route(){
