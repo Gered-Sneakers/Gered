@@ -26,10 +26,20 @@
 </template>
 
 <script>
-import Nav from './views/Nav.vue'
-import LabelcolorService from './services/LabelcolorService';
+import { ref , onMounted , provide } from 'vue'
 
-//import Footer from './views/Footer.vue'
+import Nav from './views/Nav.vue'
+
+/* DATABASE SERVICES */
+import AuthService from './services/AuthService';
+import BrandService from './services/BrandService';
+import LabelcolorService from './services/LabelcolorService';
+import LeverancierService from './services/LeverancierService';
+import RepairsService from './services/RepairsService';
+import SneakerService from './services/SneakerService';
+import WerknemerService from './services/WerknemerService';
+import Sneaker from './components/Sneaker.vue';
+
 
 export default {
   name: 'App',
@@ -37,16 +47,60 @@ export default {
     Nav,
     //Footer
   },
-  methods: {
-    injectLabelColors(labelColors){
-      let style = document.createElement('style');
-        style.text
-
+  data() {
+    return {
+      brands: [],
+      labelColors: [],
+      leveranciers: [],
+      repairs: [],
+      sneakers: [],
+      werknemers: []
     }
   },
-  mounted(){
+  async created() {
+    try {
+      const [brandRes,labelColorRes,leverancierRes,repairRes,sneakerRes,werknemerRes] = await Promise.all([
+        BrandService.getAll(),
+        LabelcolorService.getAll(),
+        LeverancierService.getAll(),
+        RepairsService.getAll(),
+        SneakerService.getAll(),
+        WerknemerService.getAll()
+      ])
 
-  }
+      this.brands = brandRes.data
+      this.labelColors = labelColorRes.data
+      this.leveranciers = leverancierRes.data
+      this.repairs = repairRes.data
+      this.sneakers = sneakerRes.data
+      this.werknemers = werknemerRes.data
+
+      console.log("APP.VUE DB IMPORT");
+      console.log(this.brands);
+      console.log(this.labelColors);
+      console.log(this.leveranciers);
+      console.log(this.repairs);
+      console.log(this.werknemers);
+      console.log(this.sneakers)
+    } catch (err) {
+      console.error('Fout bij ophalen van data:', err)
+    }
+  },
+  provide() {
+    return {
+      brands: () => this.brands,
+      labelColors: () => this.labelColors,
+      leveranciers: () => this.leveranciers,
+      repairs: () => this.repairs,
+      sneakers: () => this.sneakers,
+      werknemers: () => this.werknemers,
+      
+    }
+  },
+  mounted(){ 
+    //this.fetchAll()
+  },
+  
 }
 </script>
 

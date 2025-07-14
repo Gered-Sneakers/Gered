@@ -107,13 +107,11 @@ import KleurPreview from '@/components/KleurPreview.vue';
             this.baknr = null
         },
         capitalize(string){
-                var firstLetter = string.charAt(0);
-                var rest = string.substring(1);
-
-                firstLetter = firstLetter.toUpperCase();
-
-                console.log(firstLetter+rest);
-                return (firstLetter+rest);
+            var firstLetter = string.charAt(0);
+            var rest = string.substring(1);
+            firstLetter = firstLetter.toUpperCase();
+            console.log(firstLetter+rest);
+            return (firstLetter+rest);
         }
     },
     components: {

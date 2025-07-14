@@ -17,7 +17,7 @@
         <div id="kleur" class="col-1 borders mb-1">kleur</div>
         <div id="maat" class="col-1 borders mb-1">maat</div>
         <div id="status" class="col-1 borders mb-1">status</div>
-        <div id="user" class="col-2 borders mb-1">vriend</div>
+        <div id="user" class="col-2 borders mb-1">user</div>
         <div id="datum" class="col-2 borders mb-1">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">csv</div>
@@ -34,7 +34,7 @@
         :model="s.model"
         :size="s.size"
         :colors="s.colors"
-        :supplier="leverancierList[s.supplier-1].name"
+        :supplier="s.supplier"
         :status="s.status"
         :creator="s.creator"
         :verkoop="s.verkoop"
@@ -64,9 +64,9 @@
 </template>
   
 <script>
-
+//import { inject } from 'vue'
 import SneakerSmall from '@/components/SneakerSmall.vue';
-import SneakerService from '@/services/SneakerService';
+//import SneakerService from '@/services/SneakerService';
 import LeverancierService from '@/services/LeverancierService';
 
 //var csvList = [];
@@ -76,10 +76,15 @@ import LeverancierService from '@/services/LeverancierService';
     name: 'ShowSneakers_View',
     data(){
         return{
-          sneakerList: [],
+          //sneakerList: [],
           leverancierList: [],
           verkoopList: [],
-          csvList: []
+          csvList: [],
+          //brands: inject('brands'),
+          //labelColors: inject("labelColors"),
+          //leveranciers: inject("leveranciers"),
+          //sneakers: inject("sneakers"),
+          //werknemers: inject("werknemers")
         }
     },
     props: {
@@ -161,9 +166,26 @@ import LeverancierService from '@/services/LeverancierService';
       }
 
     },
+    inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
+    computed: {
+      sneakerList(){
+        return this.sneakers();
+      }
+    },
     mounted () {
-      this.getSneakers();
-      this.getLeveranciers();
+      console.log("SNEAKERZ SHOW ---------------")
+      console.log(this.sneakers());
+      console.log(this.brands());
+      console.log(this.labelColors());
+      console.log(this.leveranciers());
+      console.log(this.werknemers());
+      console.log("-----------------------------");
+      
+      console.log("SNEAKERLIST");
+      console.log(this.sneakerList);
+
+      //this.getSneakers();
+      //this.getLeveranciers();
     },
     watch:{
       $route(){

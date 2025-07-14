@@ -505,7 +505,8 @@
       </div>
       <div id="verkoop" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">
-          <Verkoop></Verkoop>
+          <Verkoop
+          ></Verkoop>
         </div>
       </div>
     </div>

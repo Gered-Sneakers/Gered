@@ -22,7 +22,7 @@
           :model="s.model"
           :size="s.size"
           :colors="s.colors"
-          :supplier="getLeverancierName"
+          :supplier="s.supplier"
           :status="s.status"
           :creator="s.creator"
           :verkoop="s.verkoop"
@@ -91,7 +91,8 @@ var verkoopList = [];
           LeverancierService.getAll()
           .then(x => {
             this.leverancierList = x.data;
-            //console.log(leverancierList);
+            console.log("LEVERANCIER");
+            console.log(this.leverancierList);
           })
         },
         showConfirmBox(){
@@ -113,23 +114,7 @@ var verkoopList = [];
         }
     },
     computed: {
-      getLeverancierName(){
-        this.leverancierName = this.leverancierList[parseInt(this.supplier)-1];
-        /*
-        switch(parseInt(this.supplier)){
-          case 1:
-            return "Gered";
-          case 2:
-            return "";
-          case 3:
-            return "Stock";
-          case 4:
-            return "Verkoop";
-          default:
-            return "Cleaning";
-        }
-            */
-      }
+      
     },
     mounted () {
       this.getSneakers();

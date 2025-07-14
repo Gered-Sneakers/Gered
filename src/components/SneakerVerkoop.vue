@@ -4,6 +4,7 @@
 
     export default {
         name: 'SneakerSmall',
+        inject: ['leveranciers'],
         data(){
           return{
             colorArray: this.colors.split(' '),
@@ -54,6 +55,12 @@
             },
             csv:{
                 type: Boolean
+            },
+            leverancierList:{
+                type: Array
+            },
+            brandList:{
+                type: Array
             }
 
         },
@@ -84,7 +91,7 @@
           }
         },
         mounted () {
-            
+            console.log(this.leveranciers);
         },
         components: {
             KleurPreview
@@ -106,7 +113,7 @@
         <div id="status" class="col-1 valign borders"><img class="h-50" :src="getStatus"></div>
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
         <div id="datum" class="col-2 valign borders">{{ date }}</div>
-        <div id="leverancier" class="col-1 valign borders">{{ supplier.substring(0,7) }}</div>
+        <div id="leverancier" class="col-1 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
         <div id="" class="col-1 valign borders" @click="$emit('verkoop',id)"><img src="../img/sell.svg"></div>
     </div>
 </template>
