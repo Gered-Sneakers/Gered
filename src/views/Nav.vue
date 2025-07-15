@@ -91,11 +91,9 @@ export default {
   mounted() {
     const adminFlag = localStorage.getItem("admin");
     this.isAdmin = adminFlag === "1" || adminFlag === "true" || JSON.parse(adminFlag) === true;
-    console.log("beertje");
-    console.log(adminFlag);
+    console.log("ADMIN: " + adminFlag);
     this.isLoggedIn = !!localStorage.getItem("token")
-    console.log("Logedin");
-    console.log(this.isLoggedIn)
+    console.log("Logedin: " + this.isLoggedIn)
     console.log("AUTH");
     console.log(authState);
   }

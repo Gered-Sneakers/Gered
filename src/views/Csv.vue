@@ -1,44 +1,44 @@
 <template>
     <div class="m-0 p-0 vh-80 scroll">
-    <div class="row w-100 m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2">
-        <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
-        <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
-        <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
-        <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
-        <div id="img" class="col-1 borders mb-1"><img src="../img/img.svg"></div>
-        <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
-        <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
-        <!-- IMAG ROW -->
-         <div id="id" class="col-1 borders mb-1">id</div>
-         <div id="brand" class="col-2 borders mb-1">brand</div>
-         <div id="size" class="col-1 borders mb-1">size</div>
-         <div id="retailPrice" class="col-2 borders mb-1">retailPrice</div>
-         <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
-         <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
-         <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
-         <div id="publish" class="col-1 borders mb-1">publish</div>
-    </div>
-    <div class="w-100 mx-auto ">
-      <div v-for="(s,index) in sneakerList" :key="s.id">
-      <SneakerCsv
-        v-if="s.csv == 1"
-        :id="s.id"
-        :colorlabel="s.colorlabel"
-        :brand="s.brand"
-        :model="s.model"
-        :size="s.size"
-        :colors="s.colors"
-        :csv="s.csv"
-        :publish="s.publish"
-        :createdAt="s.createdAt"
-        @update="updateCsvList(index,$event)"
-      >
-      </SneakerCsv>
+      <div class="row w-100 m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
+          <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
+          <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
+          <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
+          <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
+          <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
+          <div id="img" class="col-1 borders mb-1"><img src="../img/img.svg"></div>
+          <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
+          <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
+          <!-- IMAG ROW -->
+           <div id="id" class="col-1 borders mb-1">id</div>
+           <div id="brand" class="col-2 borders mb-1">brand</div>
+           <div id="size" class="col-1 borders mb-1">size</div>
+           <div id="retailPrice" class="col-2 borders mb-1">retailPrice</div>
+           <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
+           <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
+           <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
+           <div id="publish" class="col-1 borders mb-1">publish</div>
+      </div>
+      <div class="w-100 mx-auto ">
+        <div v-for="(s,index) in sneakerList" :key="s.id">
+          <SneakerCsv
+            v-if="s.csv == 1"
+            :id="s.id"
+            :colorlabel="s.colorlabel"
+            :brand="s.brand"
+            :model="s.model"
+            :size="s.size"
+            :colors="s.colors"
+            :csv="s.csv"
+            :publish="s.publish"
+            :createdAt="s.createdAt"
+            @update="updateCsvList(index,$event)"
+          >
+          </SneakerCsv>
+
+        </div>
 
       </div>
-
-    </div>
     </div>
     <div class="row mx-auto vh-5 bg-blue text-white py-2 valign">
       <div class="col-1 h-100 valign justify-content-center border-end border-light fw-bold"> Totaal <br> {{ csvList.length }} </div>
@@ -155,16 +155,74 @@ import SneakerService from '@/services/SneakerService';
 </script>
   
 <style scoped>
-    .max-1200{
-        width: 1200px;
-        overflow-x: hidden;
-    }
 
     .hover:hover{
       color: var(--gWhite);
       filter: brightness(125%);
     }
 
-    
+   .full{
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(247,247,247,0.5);
+   }
+  
+   svg{
+     filter: brightness(1);
+   }
+  
+   .max-1200{
+     max-width: 1200px;
+     overflow-x: hidden;
+   }
+  
+   .max-1217{
+     max-width: 1215px;
+   }
+  
+   .borders{
+     border-top: 0px solid var(--gBlack);
+     border-bottom: 2px solid var(--gBlack);
+     border-left: 1px solid var(--gBlack);
+     border-right: 2px solid var(--gBlack);
+   }
+  
+   .row{
+     overflow: visible !important;
+   }
+  
+   .smallz{
+     width: 22px;
+     height: 22px;
+   }
+  
+   .small{
+     width: 16px;
+     height: 16px;
+   }
+  
+  .labelBlue{
+     background-color: rgb(100, 125, 250);
+   }
+  
+   .labelPink{
+     background-color: rgb(250, 168, 241);
+   }
+  
+   .labelGreen{
+     background-color: rgb(146, 250, 146);
+   }
+  
+   .labelGrey{
+     background-color: rgb(163, 163, 163);
+   }
+  
+   .labelYellow{
+     background-color: rgb(249, 249, 125);
+   }
+  
 
 </style>

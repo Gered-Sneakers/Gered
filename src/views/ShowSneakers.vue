@@ -1,7 +1,7 @@
 <template>
   <!--<div class="vh-80 scroll">-->
-    <div class="vh-80 m-0 p-0 scroll">
-    <div class="row w-100 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
+  <div class="vh-80 m-0 p-0 scroll">
+    <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders mb-1"><img src="../img/color.svg"></div>
@@ -22,10 +22,9 @@
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">csv</div>
     </div>
-    <div class="w-100 text-dark m-0 p-0 mx-auto">
+    <div class="w-100 text-dark m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
       <SneakerSmall
-        class="sneakerSmall"
-        v-if="sneakerList.length > 0"
+        class="sneakerSmall img-50"
         v-for="s in sneakerList"
         :id="s.id"
         :colorlabel="s.colorlabel"
@@ -34,7 +33,7 @@
         :model="s.model"
         :size="s.size"
         :colors="s.colors"
-        :supplier="s.supplier"
+        :supplier="getLeverancierName(s.supplier)"
         :status="s.status"
         :creator="s.creator"
         :verkoop="s.verkoop"
@@ -64,9 +63,8 @@
 </template>
   
 <script>
-//import { inject } from 'vue'
 import SneakerSmall from '@/components/SneakerSmall.vue';
-//import SneakerService from '@/services/SneakerService';
+import SneakerService from '@/services/SneakerService';
 import LeverancierService from '@/services/LeverancierService';
 
 //var csvList = [];
@@ -80,11 +78,6 @@ import LeverancierService from '@/services/LeverancierService';
           leverancierList: [],
           verkoopList: [],
           csvList: [],
-          //brands: inject('brands'),
-          //labelColors: inject("labelColors"),
-          //leveranciers: inject("leveranciers"),
-          //sneakers: inject("sneakers"),
-          //werknemers: inject("werknemers")
         }
     },
     props: {
@@ -163,6 +156,11 @@ import LeverancierService from '@/services/LeverancierService';
         .then( x => {
           this.leverancierList = x.data;
         })
+      },
+      getLeverancierName(id){
+        id = parseInt(id);
+        const found = this.leveranciers().find(l => l.id === id)
+        return found ? found.name : "???"
       }
 
     },

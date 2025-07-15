@@ -202,10 +202,10 @@
                 :model="sneaker.model"
                 :size="sneaker.size"
                 :colors="sneaker.colors"
-                :supplier="sneaker.supplier"
+                :supplier="getLeverancierName(sneaker.supplier)"
                 :laces="sneaker.laces"
                 :soles="sneaker.soles"
-                :status="sneaker.status"
+                :status="getStatusName(sneaker.status)"
                 :teRepareren="sneaker.teRepareren"
                 :creator="sneaker.creator"
                 :verkoop="sneaker.verkoop"
@@ -255,7 +255,7 @@
             filteredSneakers: false,
 
             brands: "",
-            leveranciers: "",
+            leveranciers: [],
             werknemers: "",
             color: "",
 
@@ -406,6 +406,7 @@
             else this.filteredSneakers = this.filteredSneakers.filter(s => s.leverancier.name.toLowerCase().includes(this.selectedLeverancier.toLowerCase()))
             console.log(this.filteredSneakers);
         },
+        
         /*,
         remove(){
             if(!this.searchId){
@@ -487,6 +488,36 @@
                 console.warn("Scan error: ", errorMessage);
               }
             );
+        },
+        getLeverancierName(id){
+          id = parseInt(id);
+          const found = this.leveranciers.find(l => l.id === id)
+          return found ? found.name : "???"
+        },
+        getStatusName(id){
+            id = parseInt(id);
+            var name = "Cleaning";
+            switch(id){
+                case 1:
+                    name = "Cleaning"
+                    break;
+                case 2:
+                    name = "Repair"
+                    break;
+                case 3:
+                    name = "Stock"
+                    break;
+                case 4: 
+                    name = "Verkoop"
+                    break;
+                case 5: 
+                    name = "Verkocht"
+                    break;
+                default:
+                    name = "Cleaning"
+                    break;
+            }
+            return name;
         }
 
     },

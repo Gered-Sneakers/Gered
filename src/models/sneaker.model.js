@@ -70,6 +70,12 @@ module.exports = (sequelize, Sequelize) => {
       bakNr: {
         type: Sequelize.STRING,
         allowNull: true
+      },
+      sold: {
+        type: Sequelize.BOOLEAN
+      },
+      soldDate: {
+        type: Sequelize.STRING
       }
     }); 
    

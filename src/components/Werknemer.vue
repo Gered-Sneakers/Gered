@@ -4,7 +4,8 @@ export default {
     name: 'Werknemer_View',
     data(){
       return{
-        hover: false
+        hover: false,
+        idd: null
       }
     },
     props:{

@@ -192,11 +192,15 @@ import KleurPreview from './KleurPreview.vue';
         max-width: 1200px;
     }
 
+    [type="number"],[type="url"]{
+      border-width: 0px !important;
+    }
+
     .borders{
         border-top: 0px solid var(--gBlack);
-        border-bottom: 1px solid var(--gBlack);
+        border-bottom: 2px solid var(--gBlack);
         border-left: 1px solid var(--gBlack);
-        border-right: 1px solid var(--gBlack);
+        border-right: 2px solid var(--gBlack);
     }
 
     .row{

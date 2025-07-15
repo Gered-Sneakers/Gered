@@ -216,7 +216,7 @@
                           <!--<span>{{ updateId }}</span>-->
                           <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
                           <div><input type="password" class="text-center" v-model="updatePass"></div>
-                          <div v-if="updateId == 1" class="mt-2 defaultInput">
+                          <div class="mt-2 defaultInput" v-show="idd === 1">
                             <span>is Admin: </span>
                             <img
                               @click="updateAdmin = !updateAdmin"
@@ -232,8 +232,6 @@
                             <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="resetWerknemer">NEE</button>
                           </div>
                         </div>
-                        
-                        
                     </div>
                 </div>
                 </div>
@@ -504,9 +502,8 @@
         </div>
       </div>
       <div id="verkoop" class="d-none m-0 p-0">
-        <div class="row m-0 p-0 text-light">
-          <Verkoop
-          ></Verkoop>
+        <div class="m-0 p-0 text-light">
+          <Verkoop></Verkoop>
         </div>
       </div>
     </div>
@@ -539,6 +536,7 @@
     export default{
       data() {
         return {
+          idd: null,
           user: "",
           pass: "",
           error: null,
@@ -1091,6 +1089,18 @@
         console.log(this.WerknemersList);
         console.log("REPAIR BRO");
         console.log(this.RepairsList);
+        
+        const storedId = localStorage.getItem("id");
+        console.log("STORE ID: " + storedId)
+
+        // Handle undefined, null, or invalid cases safely
+        if (storedId && storedId !== "undefined") {
+          this.idd = parseInt(storedId); // no need for JSON.parse if it's a number
+        } else {
+          this.idd = null;
+        }
+       
+        console.log("USER ID =", this.idd);
       },
       computed: {
         actieveLeveranciers() {
@@ -1213,6 +1223,8 @@
     #flip{
       transform: scaleX(-1);
     }
+
+    
 
   </style>
   

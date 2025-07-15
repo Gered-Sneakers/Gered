@@ -79,10 +79,9 @@
     <div class="full m-0 p-0 d-none" id="errorbox" ref="errorbox">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+                <img src="../img/nofear.png">
               <p class="my-5 mx-3">Wete gij u passwoord ni ofwa?!</p>
-              <p class="my-5 mx-3">Zedde misschin verbannen?!</p>
               <p class="my-5 mx-3">Ik weet het wel zenne <br> pas maar op want kheb u int oog!</p>
-              <p class="my-5 mx-3">Doe nekeer samali op uwe heps , samaliheps </p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left" @click="byeError">JA</button> 
@@ -104,6 +103,7 @@ import { authState } from '@/stores/auth'
     name: 'Login_View',
     data(){
         return{
+            id: null,
             name: "",
             pass: "",
             authState
@@ -123,9 +123,16 @@ import { authState } from '@/stores/auth'
                 localStorage.setItem("token", res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data.user))
                 localStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin))
+                localStorage.setItem("id", JSON.stringify(res.data.id))
 
+                console.log("DATA HIER BOLIBOL");
+                console.log(res.data);
+
+                
                 authState.isLoggedIn = true
                 authState.isAdmin = res.data.user.isAdmin
+                authState.loginName = this.name
+                authState.loginPass = this.pass
                 
                 const isAdmin = JSON.parse(localStorage.getItem("admin"));
                 console.log("ADMIN");
@@ -149,7 +156,7 @@ import { authState } from '@/stores/auth'
             else confirm.add("d-none");
         },
         byeError(){
-            authState.pass = ""
+            //authState.pass = ""
             this.$refs.errorbox.classList.remove("d-block");
             this.$refs.errorbox.classList.add("d-none");
         }

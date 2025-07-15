@@ -16,8 +16,8 @@
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
                     
-                    <div v-for="l in leveranciers">
-                        <option v-if="l.isActive"> {{ l.name }} </option>
+                    <div v-for="(l,key) in leveranciers">
+                        <option v-if="l.isActive" :value="key"> {{ l.name }} </option>
                     </div>
                     
                     <!--
@@ -312,17 +312,6 @@
           </div>
         </div>
     </div>
-<!--
-    <ConfirmBox
-        id="confirm"
-        ref="confirmBoxRef"
-        class="d-none"
-        :id="id"
-        :parentConfirm="saveSneaker"
-        :parentRefuse="refuse"
-    >
-    </ConfirmBox>
--->
 </div>
 </template>
   
@@ -334,7 +323,7 @@
     import Label from '@/components/Label.vue';
 
     import KleurPreview from '@/components/KleurPreview.vue';
-    import LabelPreview from '@/components/LabelPreview.vue';
+    //import LabelPreview from '@/components/LabelPreview.vue';
 
     import ConfirmBox from '@/components/ConfirmBox.vue';
 
@@ -641,7 +630,7 @@
             model: model.value,
             size: size.value,
             colors: colorsToString(),
-            supplier: leverancier.value,
+            supplier: leverancier.value+1,
             laces: laces.value,
             soles: soles.value,
             paint: paint.value,
@@ -681,15 +670,15 @@
         model.value = "";
         size.value = "";
         colors.value = [];
-        laces.value = 0;
+        laces.value = true;
         //lacesz = "Aanwezig";
-        soles.value = 0;
+        soles.value = true;
         //solesz = "Aanwezig";
-        status.value = 0;
+        status.value = true;
         //statusz = "Cleaning";
-        paint.value = 0;
+        paint.value = true;
         //paintz = "Goed";
-        broken.value = 0;
+        broken.value = true;
     }
 
     function colorsToString(){

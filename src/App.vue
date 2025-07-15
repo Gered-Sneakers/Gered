@@ -190,6 +190,11 @@ export default {
   
   }
 
+  .img-50 img{
+    max-width: 50px !important;
+    max-height: 50px !important;
+  }
+
   .sticky{
     position: sticky;
     top: 0;
@@ -287,6 +292,10 @@ export default {
 
 .vh-80{
   height: 80vh;
+}
+
+.vh-85{
+  height: 85vh !important;
 }
 
 .scroll{
