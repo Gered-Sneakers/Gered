@@ -3,16 +3,19 @@
       <div class="toggleButton mt-0 pt-0">
         <div class="row m-0 p-0 vh-5"></div>
         <div class="row vh-5 pb-3 w-100 sticky">
-          <div class="col-3 col-xl-3 mx-auto">
+          <div class="col mx-auto">
             <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
           </div>
-          <div class="col-3 col-xl-3 mx-auto">
+          <div class="col mx-auto">
             <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">CSV</button>
           </div>
-          <div class="col-3 col-xl-3 mx-auto">
+          <div class="col mx-auto">
             <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Verkoop</button>
           </div>
-          <div class="col-3 col-xl-3 mx-auto">
+          <div class="col mx-auto">
+            <button @click="toggleContent(5)" id="verkochtButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Verkocht</button>
+          </div>
+          <div class="col mx-auto">
             <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Settings</button>
           </div>
         </div>
@@ -80,7 +83,7 @@
             </div>
 
             <!-- INPUT LABELCOLOR -->
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto greyOut">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">+ LABELKLEUR</div>
             </div>
@@ -98,7 +101,7 @@
                   class="text-center mb-2 w-90"
                   v-model="labelcolorCode"
                   placeholder="#ffffff"><br>
-                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor">OK</button>
+                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLabelColor" disabled>OK</button>
               </div>
             </div>
           </div>
@@ -410,10 +413,14 @@
         <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
             <div class="col-4 col-xl-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
-                <div class="mx-auto subTitle text-purple h-100 valign"><img class="h-75 purpleFilter" src="../img/toilet.svg"></div>
+                <div class="mx-auto subTitle text-purple h-100 valign"> DATA </div>
               </div>
-              <div class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
-              
+              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
+                  <div class="col-6 text-start mb-1"> Cleaning </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
+                  <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ repairCount }} </div>
+                  <div class="col-6 text-start mb-1"> Stock </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
               </div>
             </div>
 
@@ -493,17 +500,22 @@
       </div>
       <div id="sneaks" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">
-          <ShowSneakers></ShowSneakers>
+          <ShowSneakers ref="sneakerComponent"></ShowSneakers>
         </div>
       </div>
       <div id="csv" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">
-          <CsvSneakers></CsvSneakers>
+          <CsvSneakers ref="csvComponent"></CsvSneakers>
         </div>
       </div>
       <div id="verkoop" class="d-none m-0 p-0">
         <div class="m-0 p-0 text-light">
-          <Verkoop></Verkoop>
+          <Verkoop ref="verkoopComponent"></Verkoop>
+        </div>
+      </div>
+      <div id="verkocht" class="d-none m-0 p-0">
+        <div class="m-0 p-0 text-light">
+          <Verkocht ref="verkochtComponent"></Verkocht>
         </div>
       </div>
     </div>
@@ -528,6 +540,7 @@
   import ShowSneakers from './ShowSneakers.vue';
   import CsvSneakers from './Csv.vue';
   import Verkoop from './Verkoop.vue';
+  import Verkocht from './Verkocht.vue';
 
   import ConfirmBox from '@/components/ConfirmBox.vue';
   
@@ -593,67 +606,52 @@
         test(){
           console.log(this.inactieveWerknemers);
         },
-        toggleContent(nr){
-          var main = document.getElementById("main").classList;
-          var sneakers = document.getElementById("sneaks").classList;
-          var csv = document.getElementById("csv").classList;
-          var verkoop = document.getElementById("verkoop").classList;
-          //var btnSneakers = document.getElementById("toggleButton");
-          //var btnCsv = document.getElementById("toggleButton2");
-          //var btnSettings = document.getElementById("toggleButton3");
+        toggleContent(nr) {
+          const sneakers = document.getElementById("sneaks");
+          const csv = document.getElementById("csv");
+          const verkoop = document.getElementById("verkoop");
+          const verkocht = document.getElementById("verkocht");
+          const main = document.getElementById("main");
 
-          switch(nr){
+          // Reset all to hidden
+          main.classList.replace("d-block", "d-none");
+          sneakers.classList.replace("d-block", "d-none");
+          csv.classList.replace("d-block", "d-none");
+          verkoop.classList.replace("d-block", "d-none");
+          verkocht.classList.replace("d-block", "d-none");
+
+          switch (nr) {
             case 1:
-              main.remove("d-block");
-              main.add("d-none");
-
-              csv.remove("d-block");
-              csv.add("d-none");
-
-              verkoop.remove("d-block");
-              verkoop.add("d-none");
-
-              sneakers.remove("d-none");
-              sneakers.add("d-block");
-            break;
+              sneakers.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.sneakerComponent?.getSneakers?.();
+              });
+              break;
+            
             case 2:
-              main.remove("d-block");
-              main.add("d-none");
-
-              csv.remove("d-none");
-              csv.add("d-block");
-
-              verkoop.remove("d-block");
-              verkoop.add("d-none");
-
-              sneakers.remove("d-block");
-              sneakers.add("d-none");
-            break;
+              csv.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.csvComponent?.getSneakers?.();
+              });
+              break;
+            
             case 3:
-              main.remove("d-none");
-              main.add("d-block");
-
-              csv.remove("d-block");
-              csv.add("d-none");
-
-              verkoop.remove("d-block");
-              verkoop.add("d-none");
-
-              sneakers.remove("d-block");
-              sneakers.add("d-none");
-            break;
+              main.classList.replace("d-none", "d-block");
+              break;
+            
             case 4:
-              verkoop.remove("d-none");
-              verkoop.add("d-block");
-
-              sneakers.remove("d-block");
-              sneakers.add("d-none");
-
-              csv.remove("d-block");
-              csv.add("d-none");
-
-              main.remove("d-block");
-              main.add("d-none");
+              verkoop.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.verkoopComponent?.getSneakers?.();
+              });
+              break;
+            
+            case 5:
+              verkocht.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.verkochtComponent?.getSneakers?.();
+              });
+              break;
           }
         },
         handleImageUpload(event) {
@@ -1102,12 +1100,28 @@
        
         console.log("USER ID =", this.idd);
       },
+      inject: ["sneakers"],
       computed: {
         actieveLeveranciers() {
           return this.LeveranciersList.filter(l => l.isActive === true || l.isActive === 1);
         },
         inactieveLeveranciers() {
           return this.LeveranciersList.filter(l => l.isActive === false || l.isActive === 0);
+        },
+        cleaningCount() {
+          return this.sneakers().filter(s => s.status === 1).length;
+        },
+        repairCount() {
+          return this.sneakers().filter(s => s.status === 2).length;
+        },
+        stockCount() {
+          return this.sneakers().filter(s => s.status === 3).length;
+        },
+        verkoopCount() {
+          return this.sneakers().filter(s => s.status === 4).length;
+        },
+        verkochtCount() {
+          return this.sneakers().filter(s => s.status === 5).length;
         }
       },
       components: {
@@ -1118,7 +1132,8 @@
         Repairs,
         ShowSneakers,
         CsvSneakers,
-        Verkoop
+        Verkoop,
+        Verkocht
       }
     }
   </script>
@@ -1222,6 +1237,10 @@
 
     #flip{
       transform: scaleX(-1);
+    }
+
+    .greyOut{
+      filter:grayscale(100%);
     }
 
     

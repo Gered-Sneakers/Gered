@@ -16,8 +16,8 @@
                     >
                     <option disabled selected value="undefined"> Leverancier</option> 
                     
-                    <div v-for="(l,key) in leveranciers">
-                        <option v-if="l.isActive" :value="key"> {{ l.name }} </option>
+                    <div v-for="l in leveranciers">
+                        <option v-if="l.isActive" :key="l.id" :value="l.id"> {{ l.name }} </option>
                     </div>
                     
                     <!--
@@ -352,6 +352,7 @@
     var datum = createDate();
     var creator = ref();
     var extra = ref();
+    var price = 25;
 
     var statusz = "Cleaning";
     
@@ -404,6 +405,7 @@
         //var idlabel = 
         document.getElementById("ID").focus();
         //console.log(idlabel);
+        console.log(leverancier.value);
     }
 
     function annuleren(){
@@ -574,27 +576,6 @@
             leverancier.value = "Gered";
         }
     }
-    /*
-    function lacesCheckbox(){
-        if(laces.value == false) lacesz = "Geen";
-        else lacesz = "Aanwezig";
-    }
-
-    function solesCheckbox(){
-        if(soles.value == false) solesz = "Geen";
-        else solesz = "Aanwezig";
-    }
-
-    function paintCheckbox(){
-        if(paint.value == false) paintz = "Verven";
-        else paintz = "Goed" 
-    }
-
-    function brokenCheckbox(){
-        if(broken.value == false) brokenz = "Beschadigd";
-        else brokenz = "Goed"
-    }
-    */
 
     async function searchSneaker() {
         console.log("Search method started");
@@ -622,6 +603,9 @@
             console.log("SOLES: " + solesz.length);
             */
         console.log(creator.value);
+        console.log("LEVERANCIER: " + leverancier.value)
+        if(size.value >= 36) price = 25;
+        else price = 20;
         var data = {
             id: id.value,
             colorlabel: labelColor.value,
@@ -630,19 +614,19 @@
             model: model.value,
             size: size.value,
             colors: colorsToString(),
-            supplier: leverancier.value+1,
+            supplier: leverancier.value,
             laces: laces.value,
             soles: soles.value,
             paint: paint.value,
             glue: broken.value,
-            status: status.value,
+            status: 1,
             //verkoop: verkoop,
             //csv: csv,
             creator: creator.value,
             extra: extra.value,
             //shoeLace: shoelace,
             //updatedBy: creator,
-            //price: price,
+            price: price,
             //bakNr: bakNr,
             //createdAt: '',
             //updatedAt: ''

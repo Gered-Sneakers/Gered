@@ -8,9 +8,10 @@
         <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
         <div id="status" class="col-1 borders mb-1"><img src="../img/warning.svg"></div>
         <div id="user" class="col-2 borders mb-1"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
+        <div id="datum" class="col-1 borders mb-1"><img src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 borders mb-1"><img src="../img/delivery.svg"></div>
-        <div class="col-1 borders mb-1"><img src="../img/file.svg"></div>
+        <div class="col-1 borders mb-1"><img src="../img/csv.svg"></div>
+        <div class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
         <div id="id" class="col-1 borders mb-1">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
@@ -18,14 +19,16 @@
         <div id="maat" class="col-1 borders mb-1">maat</div>
         <div id="status" class="col-1 borders mb-1">status</div>
         <div id="user" class="col-2 borders mb-1">user</div>
-        <div id="datum" class="col-2 borders mb-1">datum</div>
+        <div id="datum" class="col-1 borders mb-1">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">csv</div>
+        <div class="col-1 borders mb-1">verkoop</div>
     </div>
     <div class="w-100 text-dark m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
+      <div class="m-0 p-0" v-for="s in sneakerList">
       <SneakerSmall
         class="sneakerSmall img-50"
-        v-for="s in sneakerList"
+        v-if="s.status !== 5"
         :id="s.id"
         :colorlabel="s.colorlabel"
         :date="s.date"
@@ -43,7 +46,7 @@
       >
 
       </SneakerSmall>
-      
+      </div>
     </div>
     
   </div>
@@ -74,7 +77,7 @@ import LeverancierService from '@/services/LeverancierService';
     name: 'ShowSneakers_View',
     data(){
         return{
-          //sneakerList: [],
+          sneakerList: [],
           leverancierList: [],
           verkoopList: [],
           csvList: [],
@@ -84,39 +87,24 @@ import LeverancierService from '@/services/LeverancierService';
   
     },
     methods: {
-      /*
       async getSneakers(){
-        try{
-        const response = await SneakerService.getAll()
-        this.sneakerList = response.data;
-        }
-        catch(error) {console.log("Failed to load sneakers:",error);}
-             
-      },*/
-      getSneakers(){
-        SneakerService.getAll()
-        .then(response =>{
-          this.sneakerList = response.data;
-        })
-        .catch(error =>{
-            console.error(error);
-        })
-      },
+          await SneakerService.getAll()
+            .then(response => {
+              this.sneakerList = response.data;
+              console.log(this.sneakerList);
+            })
+            .catch(error =>{
+              console.error(error);
+            })
+        },/*
       verkoop(id){
         console.log("VERKOOP");
         !this.verkoopList.includes(id) && this.verkoopList.push(id);
 
         console.log(this.verkoopList);
-      },
+      },*/
       verkoopRemove(id){
-        this.verkoopList = this.verkoopList.filter(v => v !== id);
-      },
-      verkoopAdd(){
-        console.log("VERFAUKEN BWOI");
-        this.verkoopList.forEach(v => {
-          console.log(v);
-          
-          SneakerService.update(v,{ status:4 })
+        SneakerService.update(id,{ status:3 })
           .then(res =>{
             console.log(res);
             console.log("We don giv a fu bwoi");
@@ -124,8 +112,19 @@ import LeverancierService from '@/services/LeverancierService';
           .catch(err => {
             console.log(err);
           })
-          
-        });
+      },
+      verkoop(id){       
+          SneakerService.update(id,{ status:4 })
+          .then(res =>{
+            console.log(res);
+            console.log("We don giv a fu bwoi");
+            //this.sneakers();
+            //window.location.reload();
+
+          })
+          .catch(err => {
+            console.log(err);
+          })
       },
       csv(id){
         console.log("CSV");

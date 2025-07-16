@@ -10,6 +10,7 @@
                     placeholder="labelnr" 
                     v-model="id"
                     @click="showSelected"
+                    
                 >
             </div>
             <div class="w-100 text-center d-flex justify-content-center">
@@ -183,7 +184,7 @@
             </div>
         </div>
 
-        <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
+        <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate">
             <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
               <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
                   <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{id}}</span> in <span class="text-yellow mx-2">{{ baknr}}</span> wil updaten?</p>
@@ -270,6 +271,10 @@ import LeverancierService from '@/services/LeverancierService';
                     this.sneaker = response.data;
                     console.log(this.sneaker);
                     console.log("LACES" + this.sneaker.laces);
+                    console.log("SOLES" + this.sneaker.soles);
+                    console.log("PAINT" + this.sneaker.paint);
+                    console.log("GLUE" + this.sneaker.glue);
+                    console.log("STATUS" + this.sneaker.status)
                     this.sneaker.colors = this.sneaker.colors.split(" ");
                     this.sneaker.colors.pop();
                     //price = this.sneaker.price;
@@ -286,15 +291,23 @@ import LeverancierService from '@/services/LeverancierService';
             console.log(this.sneaker);
 
             console.log("ID");
-            console.log(this.id);
+            console.log(this.sneaker.id);
 
-            if(this.id){
+            if(this.sneaker.id){
                 var updateData = {};
+
+                console.log("SALAMI HEPS BABY");
+
+                if(this.sneaker.laces == true && this.sneaker.soles == true && this.sneaker.paint === true && this.sneaker.glue === true) this.sneaker.status = 1
+                else this.sneaker.status = 2
+
+                console.log("STATUS" + this.sneaker.status);
+
                 if(this.baknr){
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , price: this.sneaker.price , bakNr: this.baknr}
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr}
 
                 }else{
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , price: this.sneaker.price }
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price }
                 }
                 //if()
                 SneakerService.update(this.id,updateData)
