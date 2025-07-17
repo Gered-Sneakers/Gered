@@ -9,6 +9,7 @@
             showCsv: true,
             showVerkoop: true,
             verkoopCheck: false,
+            csvCheck: false
             //leverancierList: 
           }
         },
@@ -78,6 +79,10 @@
             handleSell(){
               this.verkoopCheck = true
               this.$emit('verkoop', this.id)
+            },
+            handleCsv(){
+              this.csvCheck = true
+              this.$emit('csv',id);
             }
         },
         inject: ["leveranciers"],
@@ -111,8 +116,6 @@
         },
         mounted () {
 
-            //console.log(this.id," CSV ",this.csv);
-            //console.log(this.id, " VERKOOP ",this.verkoop);
         },
         components: {
             KleurPreview
@@ -138,16 +141,19 @@
         <div id="datum" class="col-1 valign borders">{{ date }}</div>
         <div id="leverancier" class="col-1 valign borders">{{ supplierName }}</div>
         <!--<div id="leverancier" class="col-1 valign borders">{{ leveranciersList[supplier] }}</div>-->
-        <div class="col-1 valign borders"> 
-          <div class="w-100 h-100 m-0 p-0 valign">
-            <img class="csvImg me-2 h-100 grow" src="../img/csv.svg" v-if="csv==null" @click="$emit('csv',id);showCsv = false">
+        <div class="col-1 m-0 p-0 valign borders"> 
+          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="csv==null" @click="handleCsv">
+            <img class="csvImg me-2 h-100 grow" :class="{'whiteIcons':csvCheck}" src="../img/csv.svg"  >
+          </div>
+          <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else @click="$emit('csv',id)">
+            <img class="csvImg me-2 h-100 grow whiteIcons" src="../img/csv.svg"  >
           </div>
         </div>
         <div class="col-1 m-0 p-0 valign borders"> 
-          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':verkoopCheck}" v-if="status !== 4">
-            <img class="me-2 h-75 grow" :class="{'whiteIcons':verkoopCheck}" src="../img/sell.svg" @click="handleSell">
+          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':verkoopCheck}" v-if="status !== 4" @click="handleSell">
+            <img class="me-2 h-75 grow" :class="{'whiteIcons':verkoopCheck}" src="../img/sell.svg">
           </div>
-          <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else @click="handleSell">
+          <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else>
             <img class="me-2 h-75 grow whiteIcons" src="../img/sell.svg">
           </div>
         </div>

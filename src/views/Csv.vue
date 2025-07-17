@@ -1,26 +1,26 @@
 <template>
     <div class="m-0 p-0 vh-80 scroll">
-      <div class="row w-100 m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-          <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
+      <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
+          <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
           <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
-          <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
+          <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
           <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
           <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
           <div id="img" class="col-1 borders mb-1"><img src="../img/img.svg"></div>
           <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
           <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
           <!-- IMAG ROW -->
-           <div id="id" class="col-1 borders mb-1">id</div>
+           <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')">id</div>
            <div id="brand" class="col-2 borders mb-1">brand</div>
-           <div id="size" class="col-1 borders mb-1">size</div>
+           <div id="size" class="col-1 borders mb-1" @click="toggleSort('size')">size</div>
            <div id="retailPrice" class="col-2 borders mb-1">retailPrice</div>
            <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
            <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
            <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
            <div id="publish" class="col-1 borders mb-1">publish</div>
       </div>
-      <div class="w-100 mx-auto ">
-        <div v-for="(s,index) in sneakerList" :key="s.id">
+      <div class="m-0 p-0 mx-auto ">
+        <div v-for="(s,index) in filteredSneakers" :key="s.id">
           <SneakerCsv
             v-if="s.csv == 1"
             :id="s.id"
@@ -60,7 +60,11 @@ import SneakerService from '@/services/SneakerService';
     data(){
         return{
           sneakerList: [],
-          csvList: []
+          csvList: [],
+          selectedBrand: null,
+          selectedSize: null,
+          sortAscending: true,
+          sortKey: 'id'
         }
     },
     props: {
@@ -73,7 +77,7 @@ import SneakerService from '@/services/SneakerService';
             this.sneakerList = response.data;
             console.log(this.sneakerList);
             this.sneakerList.forEach(s => {
-              Object.defineProperty(s,"publish",{value:false});
+              Object.defineProperty(s, "publish", { value: false });
             });
             console.log(this.sneakerList);
             console.log("SORTING");
@@ -90,9 +94,7 @@ import SneakerService from '@/services/SneakerService';
       goDownload(){
         console.log("Broghetti hier uw codetti");
         console.log(this.csvList);
-
         
-
         if(!this.csvList.length) return;
 
         const headers = ["handle","title","vendor","type","option1 name","option1 value","option2 name","option2 value","option3 name","option3 value","variant price","variant inventory qty","variant compare at price","variant barcode","image src","image position","image alt text","published"]
@@ -137,13 +139,42 @@ import SneakerService from '@/services/SneakerService';
             link.click();
             document.body.removeChild(link);
 
+          
+
         
-      }
+      },
+      toggleSort(key) {
+        if (this.sortKey === key) {
+          this.sortAscending = !this.sortAscending;
+        } else {
+          this.sortKey = key;
+          this.sortAscending = true;
+        }
+      },
 
     },
+    inject: ['sneakers'],
     computed: {
-      sortedSneakers(){ return this.sneakerList.filter(s => s.csv == 1 ).sort((a,b) => new Date(b.createdAt)- new Date(a.createdAt))}
+      //sortedSneakers(){ return this.sneakerList.filter(s => s.csv == 1 ).sort((a,b) => a.id - b.id)}//new Date(b.createdAt)- new Date(a.createdAt))}
+      filteredSneakers() {
+        let filtered = this.sneakers();
 
+        // Only allow sneakers with csv === 1
+        filtered = filtered.filter(s => s.csv == 1);
+
+        if (this.selectedBrand) {
+          filtered = filtered.filter(s => s.brand === this.selectedBrand);
+        }
+      
+        if (this.selectedSize) {
+          filtered = filtered.filter(s => s.size === this.selectedSize);
+        }
+      
+        return filtered.sort((a, b) => {
+          const key = this.sortKey;
+          return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
+        });
+      },
     },
     mounted () {
       this.getSneakers();

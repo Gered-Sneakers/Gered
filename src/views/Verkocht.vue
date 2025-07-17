@@ -1,27 +1,31 @@
 <template>
   <div class="vh-85 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-        <div id="id" class="col borders rounded-top"><img src="../img/barcode.svg"></div>
+      <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
+        <div id="id" class="col borders rounded-top"  @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col borders"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="col borders"><img src="../img/ruler.svg"></div>
+        <div id="maat" class="col borders" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
         <div id="datum" class="col borders"><img src="../img/clock.svg"></div>
         <div id="prijs" class="col borders"><img src="../img/money.svg"></div>
         <div id="leverancier" class="col borders"><img src="../img/delivery.svg"></div>
-    </div>
-    <div class="row m-0 p-0 mx-auto bg-blue text-white text-center pb-2 sticky">
+        <div id="leverancier" class="col borders"><img src="../img/delivery.svg"></div>
+      </div>
+      <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
         <!-- IMAG ROW -->
-        <div id="id" class="col borders mb-1">id</div>
+        <div id="id" class="col borders mb-1 fw-bold"  @click="toggleSort('id')">id</div>
         <div id="merk" class="col borders mb-1">merk</div>
         <div id="kleur" class="col borders mb-1">kleur</div>
-        <div id="maat" class="col borders mb-1">maat</div>
-        <div id="datum" class="col borders mb-1">verkocht</div>
+        <div id="maat" class="col borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
+        <div id="datum" class="col borders border-primaryd mb-1">verkocht</div>
         <div id="prijs" class="col borders mb-1">prijs</div>
         <div id="leverancier" class="col borders mb-1">bron</div>
+        <div id="leverancier" class="col borders mb-1">retour</div>
+      </div>
     </div>
-    <div class="m-0 p-0 mx-auto">
+    <div class="m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
 
-        <div v-for="s in sneakerList" v-if="sneakerList.length > 0">
+        <div v-for="s in filteredSneakers" :key="s.id">
         <SneakerVerkocht
           v-if="s.status == 5"
           :id="s.id"
@@ -82,7 +86,9 @@ var verkoopList = [];
           leverancierList: [],
           leverancierName: "",
           id: "",
-          showConfirmUpdate: false
+          showConfirmUpdate: false,
+          sortKey: 'id',
+          sortAscending: true
         }
     },
     props: {
@@ -142,7 +148,14 @@ var verkoopList = [];
                   alert(error);
           })
         },
-        
+        toggleSort(key){
+          if (this.sortKey === key) {
+            this.sortAscending = !this.sortAscending;
+          } else {
+            this.sortKey = key;
+            this.sortAscending = true;
+          }
+        }
           
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
@@ -164,6 +177,17 @@ var verkoopList = [];
           console.log(today);
 
           return today;
+        },
+        filteredSneakers() {
+          let filtered = Array.isArray(this.sneakerList) ? this.sneakerList : [];
+
+          // Show only sold sneakers (status == 5)
+          filtered = filtered.filter(s => s.status == 5);
+
+          return filtered.sort((a, b) => {
+            const key = this.sortKey;
+            return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
+          });
         }
     },
     mounted () {
@@ -208,6 +232,10 @@ var verkoopList = [];
 
   .row{
     overflow: visible !important;
+  }
+
+  .bg-danger{
+    background-color: red !important;
   }
 
   .smallz{

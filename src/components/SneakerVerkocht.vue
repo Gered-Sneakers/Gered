@@ -7,7 +7,8 @@
         inject: ['leveranciers'],
         data(){
           return{
-            colorArray: this.colors.split(' ')
+            colorArray: this.colors.split(' '),
+            retour: false
           }
         },
         props:{
@@ -82,24 +83,9 @@
             }
         },
         computed: {
-          getStatus(){
-            switch (parseInt(this.status)) {
-              case 1:
-                return new URL('../img/cleaning.svg', import.meta.url).href;
-              case 2:
-                return new URL('../img/repair.svg', import.meta.url).href;
-              case 3:
-                return new URL('../img/stock.svg', import.meta.url).href;
-              case 4:
-                return new URL('../img/sell.svg', import.meta.url).href;
-              default:
-                return new URL('../img/cleaning.svg', import.meta.url).href;
-            }
-          },
           supplierName() {
             return this.supplier ? this.supplier.substring(0, 7) : 'Onbekend';
           }
-
         },
         mounted () {
             //console.log(this.leveranciers);
@@ -124,6 +110,9 @@
         <div id="user" class="col valign borders">{{ soldDate }}</div>
         <div id="datum" class="col valign borders">{{ price }}</div>
         <div id="leverancier" class="col valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
+        <div id="" class="col m-0 p-0 valign borders">
+            <div class="w-100 h-100 m-0 p-0" :class="{'bg-danger':retour}" @click="retour = !retour"></div>
+        </div>
     </div>
 </template>
 

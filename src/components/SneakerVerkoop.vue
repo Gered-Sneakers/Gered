@@ -3,7 +3,7 @@
     import KleurPreview from './KleurPreview.vue';
 
     export default {
-        name: 'SneakerSmall',
+        name: 'SneakerVerkoop',
         inject: ['leveranciers'],
         data(){
           return{
@@ -123,10 +123,9 @@
             /> 
         </div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="status" class="col-1 valign borders"><img class="h-50" :src="getStatus"></div>
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
-        <div id="datum" class="col-2 valign borders">{{ price }}</div>
-        <div id="leverancier" class="col-1 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
+        <div id="datum" class="col-2 valign borders">€{{ price }}</div>
+        <div id="leverancier" class="col-2 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
         <div id="" class="col-1 valign borders" @click="$emit('verkoop',id)"><img class="growz" src="../img/sell.svg"></div>
     </div>
 </template>

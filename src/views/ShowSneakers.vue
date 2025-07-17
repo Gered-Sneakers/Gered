@@ -2,10 +2,10 @@
   <!--<div class="vh-80 scroll">-->
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-        <div id="id" class="col-1 borders mb-1"><img src="../img/barcode.svg"></div>
+        <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders mb-1"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders mb-1"><img src="../img/ruler.svg"></div>
+        <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
         <div id="status" class="col-1 borders mb-1"><img src="../img/warning.svg"></div>
         <div id="user" class="col-2 borders mb-1"><img src="../img/login.svg"></div>
         <div id="datum" class="col-1 borders mb-1"><img src="../img/clock.svg"></div>
@@ -13,10 +13,10 @@
         <div class="col-1 borders mb-1"><img src="../img/csv.svg"></div>
         <div class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
-        <div id="id" class="col-1 borders mb-1">id</div>
+        <div id="id" class="col-1 borders mb-1 fw-bold" @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
         <div id="kleur" class="col-1 borders mb-1">kleur</div>
-        <div id="maat" class="col-1 borders mb-1">maat</div>
+        <div id="maat" class="col-1 borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
         <div id="status" class="col-1 borders mb-1">status</div>
         <div id="user" class="col-2 borders mb-1">user</div>
         <div id="datum" class="col-1 borders mb-1">datum</div>
@@ -25,7 +25,7 @@
         <div class="col-1 borders mb-1">verkoop</div>
     </div>
     <div class="w-100 text-dark m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
-      <div class="m-0 p-0" v-for="s in sneakerList">
+      <div class="m-0 p-0" v-for="s in filteredSneakers">
       <SneakerSmall
         class="sneakerSmall img-50"
         v-if="s.status !== 5"
@@ -51,12 +51,22 @@
     
   </div>
   <div class="row w-100 vh-5 m-0 p-0 mx-auto bg-blue text-white ">
-      <div class="col-1 valign border-end border-light text-center justify-content-center"> <b>Totaal<br> {{ sneakerList.length }}</b></div>
-      <div class="col-9 valign" ><span class="border-end">CSV&nbsp;</span> <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
+      <div class="col-1 valign  text-center justify-content-center"> <b>Totaal </b></div>
+      <div class="col-1 valign border-end border-light fw-bold text-center "><span class="w-100 text-center">{{ sneakerList.length }}</span></div>
+      <div class="col-10 row m-0 p-0">
+        <div class="brandPick col valign mx-auto justify-content-center" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
+          <!--<img :src="x.img">-->
+          <img class="medz whiteIcons" :title="x.name" :src="`/src/img/brands/${x.img}`">
+        </div>
+      </div>
+      <!--
+      <div class="col-9 valign" >
+      <span class="border-end">
+        CSV&nbsp;</span> <span v-for="v in csvList" @click="csvRemove(v)" class="border-end border-light px-1 grow">{{ v }} </span></div>
       <div class="col-2 valign justify-content-center p-1">
         <button v-if="csvList[0]==null" @click="console.log(csvList)" class="w-100 h-100 bg-warning rounded fw-bold">Opslaan</button>
         <button v-else @click="csvAdd" class="w-100 h-100 bg-green rounded hover fw-bold">Opslaan</button>
-      </div>
+      </div>-->
   </div>
     
     <!--
@@ -70,6 +80,7 @@ import SneakerSmall from '@/components/SneakerSmall.vue';
 import SneakerService from '@/services/SneakerService';
 import LeverancierService from '@/services/LeverancierService';
 
+
 //var csvList = [];
 //var verkoopList = [];
 
@@ -81,6 +92,11 @@ import LeverancierService from '@/services/LeverancierService';
           leverancierList: [],
           verkoopList: [],
           csvList: [],
+
+          selectedBrand: null,
+          selectedSize: null,
+          sortAscending: true,
+          sortKey: 'id'
         }
     },
     props: {
@@ -96,13 +112,7 @@ import LeverancierService from '@/services/LeverancierService';
             .catch(error =>{
               console.error(error);
             })
-        },/*
-      verkoop(id){
-        console.log("VERKOOP");
-        !this.verkoopList.includes(id) && this.verkoopList.push(id);
-
-        console.log(this.verkoopList);
-      },*/
+      },
       verkoopRemove(id){
         SneakerService.update(id,{ status:3 })
           .then(res =>{
@@ -144,6 +154,7 @@ import LeverancierService from '@/services/LeverancierService';
           .then(res=>{
             console.log(res);
             console.log("We don giv a fu bwoi");
+            this.csvList = [];
           })
           .catch(err => {
             console.log(err);
@@ -161,12 +172,61 @@ import LeverancierService from '@/services/LeverancierService';
         const found = this.leveranciers().find(l => l.id === id)
         return found ? found.name : "???"
       }
+      // FILTERS
+      ,
+      selectBrand(brandName){
+        this.selectedBrand = brandName;
+      },
+      filterSize(){
+        let filtered = this.sneakerList;
+
+        if (this.selectedBrand) {
+          filtered = filtered.filter(s => s.brand === this.selectedBrand);
+        }
+      
+        if (this.selectedSize) {
+          filtered = filtered.filter(s => s.size === this.selectedSize);
+        }
+      
+        return filtered.sort((a, b) => a.size - b.size);
+      },
+      toggleSort(key) {
+        if (this.sortKey === key) {
+          this.sortAscending = !this.sortAscending; // toggle direction
+        } else {
+          this.sortKey = key;
+          this.sortAscending = true; // reset to ascending on new key
+        }
+      },
 
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
     computed: {
       sneakerList(){
         return this.sneakers();
+      },
+      activeBrands() {
+        return this.brands().filter(x => x.isActive);
+      },
+      filteredSneakers() {
+        let filtered = this.sneakerList;
+            
+        if (this.selectedBrand) {
+          filtered = filtered.filter(s => s.brand === this.selectedBrand);
+        }
+      
+        if (this.selectedSize) {
+          filtered = filtered.filter(s => s.size === this.selectedSize);
+        }
+      
+        return filtered.sort((a, b) => {
+          const key = this.sortKey;
+          return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
+        });
+      },
+      availableSizes(){
+        const sizes = this.sneakerList.map(s => s.size);
+        return [...new Set(sizes)].sort((a,b) => a-b);
       }
     },
     mounted () {
@@ -178,8 +238,8 @@ import LeverancierService from '@/services/LeverancierService';
       console.log(this.werknemers());
       console.log("-----------------------------");
       
-      console.log("SNEAKERLIST");
-      console.log(this.sneakerList);
+      //console.log("SNEAKERLIST");
+      //console.log(this.sneakerList);
 
       //this.getSneakers();
       //this.getLeveranciers();
@@ -215,6 +275,17 @@ import LeverancierService from '@/services/LeverancierService';
     max-width: 1215px;
   }
 
+  .brandPick{
+    border-radius: 0.375rem !important;
+    border: 2px solid transparent;
+  }
+
+  .brandPick:hover{
+    background-color: rgba(0,159,253,0.5);
+    border: 2px solid rgb(0,159,253);
+    
+  }
+
   .borders{
     border-top: 0px solid var(--gBlack);
     border-bottom: 2px solid var(--gBlack);
@@ -224,6 +295,11 @@ import LeverancierService from '@/services/LeverancierService';
 
   .row{
     overflow: visible !important;
+  }
+
+  .medz{
+    width: 30px;
+    height: 30px;
   }
 
   .smallz{

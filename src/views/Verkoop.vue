@@ -3,29 +3,27 @@
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
   <!--<div class="vh-85 scroll m-0 p-0">-->
     <!--<div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">-->
-        <div id="id" class="col-1 borders rounded-top">ID</div>
+        <div id="id" class="col-1 borders rounded-top" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
         <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders"><img src="../img/ruler.svg"></div>
-        <div id="status" class="col-1 borders"><img src="../img/warning.svg"></div>
+        <div id="maat" class="col-1 borders" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
         <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
         <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="col-1 borders"><img src="../img/delivery.svg"></div>
+        <div id="leverancier" class="col-2 borders"><img src="../img/delivery.svg"></div>
         <div id="" class="col-1 borders rounded-top"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
-        <div id="id" class="col-1 borders mb-1">id</div>
+        <div id="id" class="col-1 borders mb-1 fw-bold"  @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
         <div id="kleur" class="col-1 borders mb-1">kleur</div>
-        <div id="maat" class="col-1 borders mb-1">maat</div>
-        <div id="status" class="col-1 borders mb-1">status</div>
+        <div id="maat" class="col-1 borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
         <div id="user" class="col-2 borders mb-1">user</div>
         <div id="datum" class="col-2 borders mb-1">prijs</div>
-        <div id="leverancier" class="col-1 borders mb-1">bron</div>
+        <div id="leverancier" class="col-2 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">verkoop</div>
     </div>
-    <div class="m-0 p-0 mx-auto">
+    <div class="m-0 p-0 mx-auto" v-if="filteredSneakers.length > 0">
 
-        <div v-for="s in sneakerList" v-if="sneakerList.length > 0">
+        <div v-for="s in filteredSneakers" :key="s.id">
         <SneakerVerkoop
           v-if="s.status == 4"
           :id="s.id"
@@ -57,7 +55,7 @@
               <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ id }}</span> wil verkopen?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="confirmVerkoop">JA</button> 
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @keyup.enter="confirmVerkoop" @click="confirmVerkoop">JA</button> 
                 </div>
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="showConfirmUpdate = !showConfirmUpdate">NEE</button>
@@ -85,7 +83,9 @@ var verkoopList = [];
           leverancierList: [],
           leverancierName: "",
           id: "",
-          showConfirmUpdate: false
+          showConfirmUpdate: false,
+          sortKey: 'id',
+          sortAscending: true
         }
     },
     props: {
@@ -145,6 +145,14 @@ var verkoopList = [];
                   alert(error);
           })
         },
+        toggleSort(key){
+          if (this.sortKey === key) {
+            this.sortAscending = !this.sortAscending;
+          } else {
+            this.sortKey = key;
+            this.sortAscending = true;
+          }
+        }
         
           
     },
@@ -167,6 +175,17 @@ var verkoopList = [];
           console.log(today);
 
           return today;
+        },
+        filteredSneakers() {
+          let filtered = Array.isArray(this.sneakerList) ? this.sneakerList : [];
+
+          // Only status 4 (sneakers ready to be sold)
+          //filtered = filtered.filter(s => s.status == 4);
+
+          return filtered.sort((a, b) => {
+            const key = this.sortKey;
+            return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
+          });
         }
     },
     mounted () {
