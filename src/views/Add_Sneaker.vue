@@ -168,7 +168,7 @@
                 <div class="col-8 valign">
                     <div class="w-100 text-center"> <!--@keyup.enter="next"-->
                         <!-- ID -->
-                        <div id="IDLABEL" class="row w-100 targets" @keyup.enter="searchSneaker">
+                        <div id="IDLABEL" class="row w-100 targets" @keyup.enter="next">
                             <div class="row m-0 p-0">
                                 <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
                             </div>
@@ -316,6 +316,8 @@
 </template>
   
 <script setup>
+    import { inject } from 'vue'
+
     import Brand from '@/components/Brand.vue';
 
     import Leverancier from '@/components/Leverancier.vue';
@@ -363,6 +365,8 @@
     var brands = [];
     var labels = [];
 
+    const sneakers = inject('sneakers')
+
 
     const enterEvent = new KeyboardEvent('keyup', {
       key: 'Enter',
@@ -393,8 +397,8 @@
     //----------------------
     //      FRONTEND
     //----------------------
-  
     function go(){
+
         mainTargets[mainCounter].classList.remove("d-flex");
         mainTargets[mainCounter].classList.add("d-none");
         mainCounter += 1;
@@ -420,8 +424,31 @@
         document.getElementById("confirmColor").classList.add("d-none");
     }
 
-    function next(){
-
+    async function next(){
+        if(counter == 0){
+            console.log("COUNTER IS 0");
+            try{
+                await SneakerService.get(id.value);
+                alert("Deze ID bestaat al");
+                id.value = "";
+                counter = 0;
+                return;
+            }catch(err){
+                console.log("Gucci baby let the app go");
+            }
+            /*
+            .then(res => {
+                alert("Deze ID bestaat al");
+                id = "";
+                counter = 0;
+                return;
+            })
+            .catch(err => {
+                alert(err)
+            })
+                */
+        }
+        
         //CURRENT
         targets[counter].classList.remove("d-inline");
         targets[counter].classList.add("d-none");
@@ -578,17 +605,9 @@
     }
 
     async function searchSneaker() {
-        console.log("Search method started");
-
-    try {
-        const response = await SneakerService.get(id.value);
-        alert("Deze sneaker bestaat al.")
-        id.value = ""
-    } catch (err) {
-        next();
+        
     }
-}
-
+    
     async function saveSneaker(){
         //if(id.value.length == 4) 
         /*
@@ -655,13 +674,9 @@
         size.value = "";
         colors.value = [];
         laces.value = true;
-        //lacesz = "Aanwezig";
         soles.value = true;
-        //solesz = "Aanwezig";
         status.value = true;
-        //statusz = "Cleaning";
         paint.value = true;
-        //paintz = "Goed";
         broken.value = true;
     }
 

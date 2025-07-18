@@ -55,7 +55,7 @@
               <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ id }}</span> wil verkopen?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @keyup.enter="confirmVerkoop" @click="confirmVerkoop">JA</button> 
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover"  @click="confirmVerkoop">JA</button> 
                 </div>
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="showConfirmUpdate = !showConfirmUpdate">NEE</button>
