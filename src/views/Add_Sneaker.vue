@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="row m-0 p-0 pt-2">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.svg"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" title="merk + model" src="@/img/tag.svg"></div>
                         <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -133,7 +133,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.svg"></div>
-                        <div class="col-9 text-end">{{leverancier}}</div>
+                        <div class="col-9 text-end">{{ getLeverancierName(leverancier) }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -365,7 +365,7 @@
     var brands = [];
     var labels = [];
 
-    const sneakers = inject('sneakers')
+   // const sneakers = inject('sneakers')
 
 
     const enterEvent = new KeyboardEvent('keyup', {
@@ -436,17 +436,6 @@
             }catch(err){
                 console.log("Gucci baby let the app go");
             }
-            /*
-            .then(res => {
-                alert("Deze ID bestaat al");
-                id = "";
-                counter = 0;
-                return;
-            })
-            .catch(err => {
-                alert(err)
-            })
-                */
         }
         
         //CURRENT
@@ -603,10 +592,6 @@
             leverancier.value = "Gered";
         }
     }
-
-    async function searchSneaker() {
-        
-    }
     
     async function saveSneaker(){
         //if(id.value.length == 4) 
@@ -697,6 +682,10 @@
 
         //console.log(firstLetter+rest);
         return firstLetter+rest;
+    }
+
+    function getLeverancierName(id) {
+        return leveranciers.value.find(l => l.id === id)?.name ?? "???";
     }
 
     function getBrands(){
