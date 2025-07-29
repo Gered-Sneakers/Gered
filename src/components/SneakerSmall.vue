@@ -39,12 +39,6 @@
             supplier:{
                 type: String   
             },
-            laces:{
-                type: String   
-            },
-            soles:{
-                type: String   
-            },
             status:{
                 type: Number
             },
@@ -112,6 +106,9 @@
           },
           colorArray(){
             return this.colors ? this.colors.split(' ') : []
+          },
+          stringId(){
+            return String(this.id).padStart(4, '0')
           }
         },
         mounted () {
@@ -125,7 +122,7 @@
 
 <template>
     <div class="row w-100 mx-auto text-center">
-        <div id="id" class="col-1 borders valign" :class="colorlabel">{{ id }}</div>
+        <div id="id" class="col-1 borders valign" :class="colorlabel">{{ stringId }}</div>
         
         <div id="model" class="col-2 borders" :title="brand + ' - ' + model">{{ brand }} <br> {{ truncate(model) }}</div> 
         

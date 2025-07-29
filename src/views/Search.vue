@@ -210,6 +210,8 @@
                 :creator="sneaker.creator"
                 :verkoop="sneaker.verkoop"
                 :csv="sneaker.csv"
+                :extra="sneaker.extra"
+                :bakNr="sneaker.bakNr"
                 @repair="repair"
                 @update="update"
 

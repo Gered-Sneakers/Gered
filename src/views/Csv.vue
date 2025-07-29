@@ -32,6 +32,7 @@
             :csv="s.csv"
             :publish="s.publish"
             :createdAt="s.createdAt"
+            :price="s.price"
             @update="updateCsvList(index,$event)"
           >
           </SneakerCsv>
@@ -40,10 +41,10 @@
 
       </div>
     </div>
-    <div class="row mx-auto vh-5 bg-blue text-white py-2 valign">
-      <div class="col-1 h-100 valign justify-content-center border-end border-light fw-bold"> Totaal <br> {{ csvList.length }} </div>
+    <div class="row mx-auto vh-5 bg-blue text-white valign">
+      <div class="col-1 h-100 valign justify-content-center fw-bold" title="Totaal"> {{ csvList.length }} </div>
       <div class="col-3"></div>
-      <div class="col-4 h-100 mx-auto">
+      <div class="col-4 h-100 py-1 mx-auto">
           <button @click="goDownload" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green fw-bold hover">Download CSV</button>
       </div>
       <div class="col-4"></div>
@@ -70,23 +71,46 @@ import SneakerService from '@/services/SneakerService';
     props: {
       
     },
-    methods: {
+    methods: {/*
       getSneakers(){
-        SneakerService.getAll()
-          .then(response => {
-            this.sneakerList = response.data;
-            console.log(this.sneakerList);
-            this.sneakerList.forEach(s => {
-              Object.defineProperty(s, "publish", { value: false });
-            });
-            console.log(this.sneakerList);
-            console.log("SORTING");
-            this.sneakerList = this.sortedSneakers;
-          })
-          .catch(error =>{
-            console.error(error);
-          })
+        this.sneakerList = this.sneakers();
       },
+      */
+      async getSneakers(){
+          await SneakerService.getAll()
+            .then(response => {
+              this.sneakerList = response.data;
+
+              this.sneakerList.forEach(s => {
+                Object.defineProperty(s, "publish", { value: false });
+              });
+
+              console.log(this.sneakerList);
+            })
+            .catch(error =>{
+              console.error(error);
+            })
+        },
+      /*
+      async getSneakers() {
+        try {
+          const response = await SneakerService.getAll();
+          this.sneakerList = response.data;
+        
+          console.log(this.sneakerList);
+        
+          
+        
+          console.log(this.sneakerList);
+          console.log("SORTING");
+        
+          this.sneakerList = this.sortedSneakers;
+        
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      */
       emptyList(){},
       updateCsvList(index,data){
         this.csvList[index] = data;
@@ -157,7 +181,7 @@ import SneakerService from '@/services/SneakerService';
     computed: {
       //sortedSneakers(){ return this.sneakerList.filter(s => s.csv == 1 ).sort((a,b) => a.id - b.id)}//new Date(b.createdAt)- new Date(a.createdAt))}
       filteredSneakers() {
-        let filtered = this.sneakers();
+        let filtered = this.sneakerList; //this.sneakers();
 
         // Only allow sneakers with csv === 1
         filtered = filtered.filter(s => s.csv == 1);

@@ -17,7 +17,7 @@
 </script>
 
 <template>
-    <div v-if="color" :class="color" class="small d-inline-block align-middle border border-dark me-1"></div>
+    <div v-if="color" :class="color" class="small d-inline-block align-middle border border-dark me-1 p-0 m-0"></div>
 </template>
 
 <style scoped>
@@ -46,7 +46,7 @@
   width: 16px;
   height: 16px;
 }
-
+/*
  @media (min-width: 1600px) {
   .small{
     width: 25px !important;
@@ -54,7 +54,7 @@
   }
 
  }
-
+*/
 /* SNEAKER COLORS */
 
   .rood, .red, .red::before{

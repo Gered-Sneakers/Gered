@@ -48,10 +48,12 @@
                 <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="Merk"
                   v-model="brandName"
                 ><br>
-                <input type="button" id="brandButton" class="w-90 mx-auto mb-2 roundedz" value="+ Foto" 
+                <button id="brandButton" height="32.39px" class="w-90 mx-auto mb-2 roundedz border border-dark bg-green fw-bold" value="+ Foto" 
                       @click="triggerFileInput"
-                       />
-                <input  @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
+                >
+                <div class="w-100 h-100 m-0 p-0 invertColor">+ <img class="blackIcons " src="../img/img.svg"/></div>
+                </button>
+                <input @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
                 <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
               </div>
             </div>
@@ -219,7 +221,7 @@
                           <!--<span>{{ updateId }}</span>-->
                           <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
                           <div><input type="password" class="text-center" v-model="updatePass"></div>
-                          <div class="mt-2 defaultInput" v-show="idd === 1">
+                          <div class="mt-2 defaultInput" v-show=" idd === 1">
                             <span>is Admin: </span>
                             <img
                               @click="updateAdmin = !updateAdmin"
@@ -430,6 +432,10 @@
               </div>
               <div
                 class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
+                    <div class="col-3 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">id</div>
+                    <div class="col-6 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">naam</div>
+                    <div class="col-2 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">€</div>
+                    <div class="col-1 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1"></div>
                     <div class="col-12 m-0 p-0"  v-for="l in RepairsList">
                     <Repairs 
                       :id="l.id"
@@ -505,7 +511,7 @@
       </div>
       <div id="csv" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">
-          <CsvSneakers ref="csvComponent"></CsvSneakers>
+          <CsvSneakers ref="csvComponent" :key="csvKey"></CsvSneakers>
         </div>
       </div>
       <div id="verkoop" class="d-none m-0 p-0">
@@ -541,6 +547,8 @@
   import CsvSneakers from './Csv.vue';
   import Verkoop from './Verkoop.vue';
   import Verkocht from './Verkocht.vue';
+
+  import { authState } from '@/stores/auth';
 
   import ConfirmBox from '@/components/ConfirmBox.vue';
   
@@ -598,7 +606,9 @@
           showBrand: true,
           showWerknemer: true,
           showLabelkleur: true,
-          showRepairs: true
+          showRepairs: true,
+
+          csvKey: 0
       
         }
       },
@@ -620,9 +630,13 @@
           verkoop.classList.replace("d-block", "d-none");
           verkocht.classList.replace("d-block", "d-none");
 
+          // reload components
+          this.componentKey += 1;
+
           switch (nr) {
             case 1:
               sneakers.classList.replace("d-none", "d-block");
+              
               this.$nextTick(() => {
                 this.$refs.sneakerComponent?.getSneakers?.();
               });
@@ -630,6 +644,8 @@
             
             case 2:
               csv.classList.replace("d-none", "d-block");
+
+              console.log("CSV RELOAD PLS");
               this.$nextTick(() => {
                 this.$refs.csvComponent?.getSneakers?.();
               });
@@ -1088,9 +1104,10 @@
         console.log("REPAIR BRO");
         console.log(this.RepairsList);
         
-        const storedId = localStorage.getItem("id");
-        console.log("STORE ID: " + storedId)
+        this.idd = JSON.parse(localStorage.getItem("id"));
+        console.log("USER ID:", this.idd); // should show the number
 
+        /*
         // Handle undefined, null, or invalid cases safely
         if (storedId && storedId !== "undefined") {
           this.idd = parseInt(storedId); // no need for JSON.parse if it's a number
@@ -1099,6 +1116,7 @@
         }
        
         console.log("USER ID =", this.idd);
+        */
       },
       inject: ["sneakers"],
       computed: {
@@ -1122,7 +1140,8 @@
         },
         verkochtCount() {
           return this.sneakers().filter(s => s.status === 5).length;
-        }
+        },
+        
       },
       components: {
         Leverancier,
@@ -1149,6 +1168,14 @@
       height: 100%;
       background-color: rgba(247,247,247,0.5);
       z-index: 99999;
+    }
+
+    #brandButton{
+      height: 32.39px !important;
+    }
+
+    .invertColor:hover{
+      filter: brightness(0) invert(1) !important;
     }
 
     .subTitle {
@@ -1242,8 +1269,6 @@
     .greyOut{
       filter:grayscale(100%);
     }
-
-    
 
   </style>
   

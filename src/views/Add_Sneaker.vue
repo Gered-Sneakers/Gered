@@ -69,7 +69,7 @@
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-4 mb-3">
                         <div class="col-12 text-center">
-                            <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ id }}</span>
+                            <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
                         </div>
                     </div>
                     <div class="row m-0 p-0 border-2 border-bottom border-light">
@@ -83,13 +83,13 @@
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
-                        <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/ruler.svg"></div>
+                        <div class="col-3 valign"><img class="smallz whiteIcons" title="xx" src="@/img/ruler.svg"></div>
                         <div class="col-9 text-end">{{ size }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/color.svg"></div>
-                        <div class="col-9 text-end">
+                        <div class="col-9 text-end py-0 my-0">
                             <KleurPreview 
                                 v-for="c in colors"
                                 :color="c"
@@ -117,7 +117,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/repair.svg"></div>
-                        <div class="col-9 text-end fw-1000 text-success" v-if="broken == 1">✔</div>
+                        <div class="col-9 text-end fw-1000 text-success" v-if="glue == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -198,6 +198,8 @@
                         </div>
                         <!-- MODEL -->
                         <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
+                        <!-- EXTRA -->
+                        <input @keyup.enter="next" id="EXTRA" v-model="extra" type="text" placeholder="EXTRA" class="targets rounded border-blue model text-center d-none" maxlength="25">
                         <!-- SIZE -->
                         <input @keyup.enter="next" id="SIZE" v-model="size" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
@@ -245,8 +247,8 @@
                                 <img class="col-6 imgSquare mx-auto" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
-                            <div class="col-6 m-0 p-0 text-center row" :class="{ highlight: !broken }">
-                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg" @click="broken = !broken;statusCheckbox()">
+                            <div class="col-6 m-0 p-0 text-center row" :class="{ highlight: !glue }">
+                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg" @click="glue = !glue;statusCheckbox()">
                                 <label class="col-12" for="check3"> Lijmen </label>
                             </div>
 
@@ -256,7 +258,7 @@
                 </div>
                 <div class="col-2 p-2">
                     <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
-                        <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
+                        <img class="w-50 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                     <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none h-100">
                         <img class="w-50 mx-auto selectDisable" src="../img/add.svg">
@@ -333,6 +335,7 @@
 
     import { ref, watch } from 'vue'
     import { onMounted } from 'vue';
+    import { computed } from 'vue'
 
     import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
@@ -348,6 +351,7 @@
     var laces = ref(true);
     var soles = ref(true);
     var paint = ref(true);
+    var glue = ref(true);
     var broken = ref(true);
     var leverancier = ref();
     var status = ref(0);
@@ -365,9 +369,6 @@
     var brands = [];
     var labels = [];
 
-   // const sneakers = inject('sneakers')
-
-
     const enterEvent = new KeyboardEvent('keyup', {
       key: 'Enter',
       keyCode: 13,        // deprecated but sometimes needed
@@ -380,6 +381,7 @@
     const targets = document.getElementsByClassName("targets");
 
     //const previewImg = document.getElementsByClassName("previewImg");
+    
 
     var mainCounter = 0;
     var counter = 0;
@@ -391,6 +393,10 @@
         const user = JSON.parse(localStorage.getItem("user"));
         if (user && user.name)  creator.value = user.name;
   
+    })
+
+    const stringId = computed(() => {
+        return String(id.value).padStart(4, '0')
     })
     
     
@@ -579,9 +585,9 @@
         console.log("laces" + laces.value);
         console.log("soles" + soles.value);
         console.log("paint" + paint.value);
-        console.log("broken" + broken.value);
+        console.log("glue" + glue.value);
 
-        if(laces.value == true && soles.value == true && paint.value == true && broken.value == true ){
+        if(laces.value == true && soles.value == true && paint.value == true && glue.value == true ){
             status.value = 1;
             statusz = "Cleaning";
             leverancier.value = prevLeverancier.value;
@@ -589,23 +595,11 @@
         else {
             status.value = 2;
             statusz = "Repair";
-            leverancier.value = "Gered";
+            leverancier.value = 1;
         }
     }
     
     async function saveSneaker(){
-        //if(id.value.length == 4) 
-        /*
-            console.log("ID is good");
-            console.log("LABEL: " + labelColor.value.length);
-            console.log("BRAND: " + brand.value.length);
-            console.log("MODEL: " + model.value.length);
-            console.log("SIZE: " + size.value.lenght);
-            console.log("COLORS: " + colorsToString());
-            console.log("LEVERANCIER: " + leverancier.value.lenght);
-            console.log("LACES: " + lacesz.length);
-            console.log("SOLES: " + solesz.length);
-            */
         console.log(creator.value);
         console.log("LEVERANCIER: " + leverancier.value)
         if(size.value >= 36) price = 25;
@@ -619,10 +613,10 @@
             size: size.value,
             colors: colorsToString(),
             supplier: leverancier.value,
-            laces: laces.value,
-            soles: soles.value,
-            paint: paint.value,
-            glue: broken.value,
+            laces: laces.value ? 1 : 0,
+            soles: soles.value ? 1 : 0,
+            paint: paint.value ? 1 : 0,
+            glue: glue.value ? 1 : 0,
             status: 1,
             //verkoop: verkoop,
             //csv: csv,
@@ -658,10 +652,12 @@
         model.value = "";
         size.value = "";
         colors.value = [];
+        extra.value = "";
         laces.value = true;
         soles.value = true;
         status.value = true;
         paint.value = true;
+        glue.value = true;
         broken.value = true;
     }
 
@@ -978,6 +974,7 @@
     width: 120px !important;
     height: 120px !important;
   }
+
 }
 
 </style>

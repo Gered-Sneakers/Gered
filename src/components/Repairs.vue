@@ -4,7 +4,8 @@
         name: 'Repairs',
         data(){
           return{
-            hover: false
+            hover: false,
+            idd: 0
           }
         },
         props:{
@@ -26,6 +27,9 @@
     
       },
       computed: {
+      },
+      mounted(){
+        this.idd = localStorage.getItem("id");
       }
     }
 </script>
@@ -42,10 +46,10 @@
         {{ name }} 
       </div>
       <div class="col-2 m-0 p-0 fw-bold">
-        € {{ price }}
+       {{ price }}
       </div>
       <div class="col-1 m-0 p-0">
-        <span v-if="hover" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('update',{id,name,price})">
+        <span v-if="hover && idd == 1" class="ms-2 text-success" style="cursor:pointer;" @click="$emit('update',{id,name,price})">
             🔨
         </span>
       </div>
@@ -54,7 +58,5 @@
 </template>
 
 <style scoped>
-  div:hover{
-    color: var(--gYellow) !important;
-  }
+
 </style>

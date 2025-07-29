@@ -37,7 +37,7 @@
     }
   },
   mounted(){
-    this.show();
+    //this.show();
   }
 }
 </script>
@@ -53,5 +53,6 @@
 <style scoped>
   .bg-light:hover{
     border: 5px solid blue;
+    cursor: pointer !important;
   }
 </style>

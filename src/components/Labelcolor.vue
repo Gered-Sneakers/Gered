@@ -114,12 +114,13 @@ export default {
 
   .col-12:hover{
     border: 2px solid blue;
+    cursor: pointer !important;
   }
-
+/*
   .col-8:hover{
     color: #F59E0B !important;
   }
-
+*/
   .rect{
     width: 25px;
     height: 25px;

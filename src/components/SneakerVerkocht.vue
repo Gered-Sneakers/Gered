@@ -110,9 +110,7 @@
         <div id="user" class="col valign borders">{{ soldDate }}</div>
         <div id="datum" class="col valign borders">{{ price }}</div>
         <div id="leverancier" class="col valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
-        <div id="" class="col m-0 p-0 valign borders">
-            <div class="w-100 h-100 m-0 p-0" :class="{'bg-danger':retour}" @click="retour = !retour"></div>
-        </div>
+        <div id="retour" class="col valign borders" :class="{'bg-danger':retour}" @click="retour = !retour"></div>
     </div>
 </template>
 

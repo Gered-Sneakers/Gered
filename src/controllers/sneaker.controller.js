@@ -12,15 +12,17 @@ exports.create = (req, res) => {
       date: req.body.date,
       brand: req.body.brand,
       model: req.body.model,
+      extra: req.body.extra,
       size: req.body.size,
       colors: req.body.colors,
       supplier: req.body.supplier,
       laces: req.body.laces,
       soles: req.body.soles,
+      paint: req.body.paint,
+      glue: req.body.glue,
       status: req.body.status,
-      teRepareren: req.body.teRepareren,
       creator: req.body.creator,
-      verkoop: req.body.verkoop
+      price: req.body.price
       
       //published: req.body.published ?? false
     };

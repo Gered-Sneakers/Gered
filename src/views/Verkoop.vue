@@ -1,5 +1,5 @@
 <template>
-  <div class="vh-85 m-0 p-0 scroll">
+  <div class="vh-80 m-0 p-0 scroll">
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
   <!--<div class="vh-85 scroll m-0 p-0">-->
     <!--<div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">-->
@@ -48,6 +48,14 @@
         @verkoop="verkoop"
       -->
     </div>
+  </div>
+  <div class="row mx-auto vh-5 bg-blue text-white valign">
+      <div class="col-1" v-if="filteredSneakers.lenght == 0"></div>
+      <div class="col-1 h-100 valign justify-content-center fw-bold" v-else title="Totaal"> {{ filteredSneakers.length }} </div>
+      <div class="col-3"></div>
+      <div class="col-4 h-100 py-1 mx-auto">
+      </div>
+      <div class="col-4"></div>
   </div>
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">

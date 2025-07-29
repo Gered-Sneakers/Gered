@@ -1,30 +1,35 @@
 <template>
     <div class="h-100 valign bg-blue text-light px-5">
         <div class="targets row w-100 m-0 p-0" v-if="sneaker == null">
-            <img class="vh-15 mb-4" src="../img/repair.svg">
-            <div class="w-100 text-center d-flex justify-content-center">
-                <input type="text" size="14" 
-                    id="search"
-                    class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                    maxlength="4"
-                    placeholder="labelnr" 
-                    v-model="id"
-                    @click="showSelected"
-                    
-                >
-            </div>
-            <div class="w-100 text-center d-flex justify-content-center">
-                <input type="text" size="4"
-                    id="bakNr"
-                    class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                    maxlength="5"
-                    placeholder="baknummer"
-                    v-model="baknr"
-                    @focus="moveCursorToEnd"
-                    @keyup.enter="search"
-                    @click="showConfirmUpdate"
-                >
-            </div>
+                <img class="vh-15 mb-4 d-block mx-auto" src="../img/repair.svg">
+                <div class="w-100 text-center d-flex justify-content-center">
+                    <input type="text" size="14" 
+                        id="search"
+                        class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                        maxlength="4"
+                        placeholder="labelnr" 
+                        v-model="id"
+                        @click="showSelected"
+
+                    >
+                </div>
+                <div class="w-100 text-center d-flex justify-content-center">
+                    <input type="text" size="4"
+                        id="bakNr"
+                        class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                        maxlength="5"
+                        placeholder="baknummer"
+                        v-model="baknr"
+                        @focus="moveCursorToEnd"
+                        @keyup.enter="search"
+                        @click="showConfirmUpdate"
+                    >
+                </div>
+                <div class="w-100 text-center d-flex justify-content-center">
+                    <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                        <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                    </div>
+                </div>
         </div>
         <div class="targets row w-100 m-0 p-0" v-if="sneaker != null">
             <div class="col-3 col-xxl-3">
@@ -32,7 +37,7 @@
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-4 mb-3">
                         <div class="col-12 text-center">
-                            <span class="px-3 py-2 h3 fw-bold rounded invis-border" :class="sneaker.colorlabel">{{ sneaker.id }}</span>
+                            <span class="px-3 py-2 h3 fw-bold rounded invis-border" :class="sneaker.colorlabel">{{ stringId }}</span>
                         </div>
                     </div>
                     <div class="row m-0 p-0 border-2 border-bottom border-light">
@@ -187,7 +192,7 @@
         <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate">
             <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
               <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-                  <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{id}}</span> in <span class="text-yellow mx-2">{{ baknr}}</span> wil updaten?</p>
+                  <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{stringId}}</span> in <span class="text-yellow mx-2">{{ baknr}}</span> wil updaten?</p>
                   <div class="row m-0 p-0">
                     <div class="col-6 m-0 p-0">
                       <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="update">JA</button> 
@@ -241,7 +246,9 @@ import LeverancierService from '@/services/LeverancierService';
             showConfirmAnnuleren: false,
 
             repairList: [],
-            leveranciersList: []
+            leveranciersList: [],
+
+            counter: 0
 
             
         }
@@ -326,6 +333,48 @@ import LeverancierService from '@/services/LeverancierService';
         annuleren(){
             window.location.reload();
         },
+        async next(){
+            if(this.counter == 0){
+                console.log("COUNTER IS 0");
+                try{
+                    await SneakerService.get(id.value);
+                    alert("Deze ID bestaat al");
+                    id.value = "";
+                    counter = 0;
+                    return;
+                }catch(err){
+                    console.log("Gucci baby let the app go");
+                }
+            }
+
+            //CURRENT
+            targets[counter].classList.remove("d-inline");
+            targets[counter].classList.add("d-none");
+
+            counter = counter + 1;
+
+            //NEXT
+            targets[counter].classList.remove("d-none");
+            targets[counter].classList.add("d-inline");
+            targets[counter].focus();
+
+            //COUNTER NEXT
+            if(counter == 1){
+                document.getElementsByClassName("returnButton")[0].classList.remove("d-none");
+                document.getElementsByClassName("returnButton")[0].classList.add("d-flex");
+            }
+            if(counter == targets.length-1){
+                document.getElementsByClassName("nextButton")[0].classList.remove("d-flex");
+                document.getElementsByClassName("nextButton")[0].classList.add("d-none");
+
+                document.getElementsByClassName("addButton")[0].classList.remove("d-none");
+                document.getElementsByClassName("addButton")[0].classList.add("d-flex");
+            }
+
+            //console.log("COUNTER NEXT: ")
+            //console.log(counter);
+        },
+        
         handleBaknrInput(event) {
            const input = event.target.value;
 
@@ -361,6 +410,10 @@ import LeverancierService from '@/services/LeverancierService';
         },
         show(){
             console.log(this.sneaker.price);
+            console.log(this.sneaker.laces);
+            console.log(this.sneaker.soles);
+            console.log(this.sneaker.paint);
+            console.log(this.sneaker.glue);
         },
         addLaces(){
             if(!this.sneaker.laces){
@@ -420,12 +473,22 @@ import LeverancierService from '@/services/LeverancierService';
         }
       }
     },
+    computed:{
+        stringId(){
+            return String(this.id).padStart(4, '0')
+        }
+    },
     components: {
         KleurPreview
     },
     mounted(){
         this.getRepairs();
         this.getLeveranciers();
+
+        this.$nextTick(() => {
+            document.getElementById('search').focus();
+        })
+        
         //this.getSneakers();
     }
   }

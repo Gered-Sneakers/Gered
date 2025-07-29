@@ -1,11 +1,12 @@
 <template>
     <div class="row">
+        <!--
         <div class="col-12 vh-10 bg-blue text-white">
             <div class="title h-100 valignz">
                 <p class="w-100 text-center">Welkom bij G-App {{ authState.loginName }}</p>
             </div>
         </div>
-
+        -->
         <div class="row w-100 vh-80 valignz m-0 p-0 text-center" v-if="!authState.isLoggedIn">
             <div class="row m-0 p-0 mx-auto">
                 <div class="col-12 m-0 p-0 mx-auto mb-5">
@@ -45,6 +46,7 @@
         <div class="row w-100 vh-80 valignz m-0 p-0 text-center" v-else>
             <div class="col-12 h-100 m-0 p-0 mx-auto valign justify-content-center">
                 <div>
+                <img class="mx-auto vh-15 w-15 mb-5 rotate" src="../img/den G.png">
                 <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
                     <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
                         <span class="">ADD SNEAKER</span>
@@ -80,7 +82,7 @@
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
                 <img src="../img/nofear.png">
-              <p class="my-5 mx-3">Wete gij u passwoord ni ofwa?!</p>
+              <p class="my-5 mx-3">Weet u uw passwoord niet?!</p>
               <p class="my-5 mx-3">Ik weet het wel zenne <br> pas maar op want kheb u int oog!</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
@@ -123,7 +125,7 @@ import { authState } from '@/stores/auth'
                 localStorage.setItem("token", res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data.user))
                 localStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin))
-                localStorage.setItem("id", JSON.stringify(res.data.id))
+                localStorage.setItem("id", JSON.stringify(res.data.user.id))
 
                 console.log("DATA HIER BOLIBOL");
                 console.log(res.data);

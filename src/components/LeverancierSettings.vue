@@ -57,5 +57,6 @@
 <style scoped>
   div:hover{
     color: var(--gYellow) !important;
+    cursor: pointer !important;
   }
 </style>

@@ -20,9 +20,9 @@
     <router-link :to="{ name: 'settings' }" class="grow col h-100 valign rounded" v-if="authState.isAdmin">
         <img class="vh-10 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
     </router-link>
-    <div class="grow col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
+    <router-link to="#" class="grow col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
         <img class="vh-10 p-4 mx-auto" src="../img/logout.svg" title="Uitloggen">
-    </div>
+    </router-link>
   </div>
   <div class="full m-0 p-0" id="confirm" v-if="showConfirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">

@@ -8,7 +8,7 @@
         <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
         <div id="status" class="col-1 borders mb-1"><img src="../img/warning.svg"></div>
         <div id="user" class="col-2 borders mb-1"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-1 borders mb-1"><img src="../img/clock.svg"></div>
+        <div id="datum" class="col-1 borders mb-1" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 borders mb-1"><img src="../img/delivery.svg"></div>
         <div class="col-1 borders mb-1"><img src="../img/csv.svg"></div>
         <div class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
@@ -19,12 +19,14 @@
         <div id="maat" class="col-1 borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
         <div id="status" class="col-1 borders mb-1">status</div>
         <div id="user" class="col-2 borders mb-1">user</div>
-        <div id="datum" class="col-1 borders mb-1">datum</div>
+        <div id="datum" class="col-1 borders mb-1 fw-bold" @click="toggleSort('date')">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">csv</div>
         <div class="col-1 borders mb-1">verkoop</div>
     </div>
-    <div class="w-100 text-dark m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
+    <div class="w-100 text-dark m-0 p-0 mx-auto" 
+     v-if="sneakerList.length > 0"
+    >
       <div class="m-0 p-0" v-for="s in filteredSneakers">
       <SneakerSmall
         class="sneakerSmall img-50"
@@ -41,19 +43,22 @@
         :creator="s.creator"
         :verkoop="s.verkoop"
         :csv="s.csv"
-        @csv="csv"
+        @csv="csvAdd(s.id)"
         @verkoop="verkoop"
+        @contextmenu.prevent="handleRightClick(s.id)"
       >
 
       </SneakerSmall>
       </div>
+      
     </div>
-    
   </div>
   <div class="row w-100 vh-5 m-0 p-0 mx-auto bg-blue text-white ">
-      <div class="col-1 valign  text-center justify-content-center"> <b>Totaal </b></div>
-      <div class="col-1 valign border-end border-light fw-bold text-center "><span class="w-100 text-center">{{ sneakerList.length }}</span></div>
-      <div class="col-10 row m-0 p-0">
+      <div class="col-1 valign border-2 border-end border-light fw-bold text-center"><span class="w-100 text-center" title="Totaal">{{ total }}</span></div>
+      <div class="col-1 valign fw-bold text-center"><img class="mx-auto" src="../img/ruler.svg"> </div>
+      <div class="col-1 valign border-2 border-end border-light fw-bold text-center p-0"><input class="sizeFilter w-75 h-75 mx-auto text-center" v-model="selectedSize"/></div>
+      <div class="col-9 row m-0 p-0">
+        <div class="col valign brandPick fw-bold text-center" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
         <div class="brandPick col valign mx-auto justify-content-center" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
           <!--<img :src="x.img">-->
           <img class="medz whiteIcons" :title="x.name" :src="`/src/img/brands/${x.img}`">
@@ -73,13 +78,16 @@
      <div >VERKOOP: <span v-for="v in verkoopList" @click="verkoopRemove(v)">{{ v+" " }} </span></div>
     <div @click="verkoopAdd" class="border border-warning bg-warning hover">VERKAUFEN BEBI</div>
     -->
+
+    <div id="overlay" class="overlay">
+      <div class="message">Right-click the sneaker to change data</div>
+    </div>
 </template>
   
 <script>
 import SneakerSmall from '@/components/SneakerSmall.vue';
 import SneakerService from '@/services/SneakerService';
 import LeverancierService from '@/services/LeverancierService';
-
 
 //var csvList = [];
 //var verkoopList = [];
@@ -93,10 +101,14 @@ import LeverancierService from '@/services/LeverancierService';
           verkoopList: [],
           csvList: [],
 
+          total: 0,
+
           selectedBrand: null,
           selectedSize: null,
           sortAscending: true,
-          sortKey: 'id'
+          sortKey: 'id',
+          x: 0,
+          y: 0,
         }
     },
     props: {
@@ -107,6 +119,7 @@ import LeverancierService from '@/services/LeverancierService';
           await SneakerService.getAll()
             .then(response => {
               this.sneakerList = response.data;
+              this.total = this.sneakerList.length;
               console.log(this.sneakerList);
             })
             .catch(error =>{
@@ -128,14 +141,12 @@ import LeverancierService from '@/services/LeverancierService';
           .then(res =>{
             console.log(res);
             console.log("We don giv a fu bwoi");
-            //this.sneakers();
-            //window.location.reload();
 
           })
           .catch(err => {
             console.log(err);
           })
-      },
+      },/*
       csv(id){
         console.log("CSV");
         console.log(id);
@@ -144,22 +155,17 @@ import LeverancierService from '@/services/LeverancierService';
       },
       csvRemove(id){
         this.csvList = this.csvList.filter(c => c !== id);
-      },
-      csvAdd(){
-        console.log("Cee eS Veejen GIYAL");
-        this.csvList.forEach(c => {
-          console.log(c);
+      },*/
+      csvAdd(id){
+        console.log("CSVeejen Bejbi");
 
-          SneakerService.update(c,{ csv:1 })
+          SneakerService.update(id,{ csv:1 })
           .then(res=>{
             console.log(res);
-            console.log("We don giv a fu bwoi");
-            this.csvList = [];
           })
           .catch(err => {
             console.log(err);
           })
-        })
       },
       getLeveranciers(){
         LeverancierService.getAll()
@@ -177,6 +183,7 @@ import LeverancierService from '@/services/LeverancierService';
       selectBrand(brandName){
         this.selectedBrand = brandName;
       },
+      /*
       filterSize(){
         let filtered = this.sneakerList;
 
@@ -189,15 +196,18 @@ import LeverancierService from '@/services/LeverancierService';
         }
       
         return filtered.sort((a, b) => a.size - b.size);
-      },
+      },*/
       toggleSort(key) {
-        if (this.sortKey === key) {
+        if(this.sortKey === key) {
           this.sortAscending = !this.sortAscending; // toggle direction
         } else {
           this.sortKey = key;
           this.sortAscending = true; // reset to ascending on new key
         }
       },
+      handleRightClick(id) {
+        alert("Do you want to change " + id);
+      }
 
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
@@ -211,23 +221,41 @@ import LeverancierService from '@/services/LeverancierService';
       filteredSneakers() {
         let filtered = this.sneakerList;
             
-        if (this.selectedBrand) {
-          filtered = filtered.filter(s => s.brand === this.selectedBrand);
-        }
-      
+        if (this.selectedBrand) filtered = filtered.filter(s => s.brand === this.selectedBrand);
+        if (this.selectedSize) filtered = filtered.filter(s => s.size == this.selectedSize);
+
+        this.total = filtered.length;
+      /*
         if (this.selectedSize) {
           filtered = filtered.filter(s => s.size === this.selectedSize);
+          
         }
-      
+      */
         return filtered.sort((a, b) => {
           const key = this.sortKey;
+
+          // sort by date
+          if (key === 'date') {
+            const parseDate = str => {
+              const [day, month, year] = str.split('-').map(Number);
+              return new Date(year, month - 1, day);
+            };
+
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
+
+            return this.sortAscending ? dateA - dateB : dateB - dateA;
+          }
+
+          // ✅ fallback for numeric fields like id, size
           return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
         });
-      },
+      }/*,
       availableSizes(){
         const sizes = this.sneakerList.map(s => s.size);
         return [...new Set(sizes)].sort((a,b) => a-b);
-      }
+      }*/
+      
     },
     mounted () {
       console.log("SNEAKERZ SHOW ---------------")
@@ -237,12 +265,10 @@ import LeverancierService from '@/services/LeverancierService';
       console.log(this.leveranciers());
       console.log(this.werknemers());
       console.log("-----------------------------");
-      
-      //console.log("SNEAKERLIST");
-      //console.log(this.sneakerList);
-
-      //this.getSneakers();
-      //this.getLeveranciers();
+      setTimeout(() => {
+        const overlay = document.getElementById("overlay");
+        if (overlay) overlay.remove();
+      }, 5000);
     },
     watch:{
       $route(){
@@ -257,6 +283,34 @@ import LeverancierService from '@/services/LeverancierService';
 </script>
   
 <style scoped>
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.85);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  
+
+  @keyframes fadeInOut {
+    0%   { opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
   svg{
     filter: brightness(1);
   }
@@ -280,11 +334,20 @@ import LeverancierService from '@/services/LeverancierService';
     border: 2px solid transparent;
   }
 
-  .brandPick:hover{
+  .brandPick:hover {
     background-color: rgba(0,159,253,0.5);
     border: 2px solid rgb(0,159,253);
-    
+    cursor: pointer;    
   }
+
+  #maat:hover{
+    background-color: rgba(0,159,253,0.5);
+    border-radius: 25rem;
+  }
+
+ 
+
+ 
 
   .borders{
     border-top: 0px solid var(--gBlack);

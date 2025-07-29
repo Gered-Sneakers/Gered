@@ -1,5 +1,5 @@
 <template>
-  <div class="vh-85 m-0 p-0 scroll">
+  <div class="vh-80 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
         <div id="id" class="col borders rounded-top"  @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
@@ -9,7 +9,7 @@
         <div id="datum" class="col borders"><img src="../img/clock.svg"></div>
         <div id="prijs" class="col borders"><img src="../img/money.svg"></div>
         <div id="leverancier" class="col borders"><img src="../img/delivery.svg"></div>
-        <div id="leverancier" class="col borders"><img src="../img/delivery.svg"></div>
+        <div id="retour" class="col borders"><img src="../img/delivery.svg"></div>
       </div>
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
         <!-- IMAG ROW -->
@@ -20,7 +20,7 @@
         <div id="datum" class="col borders border-primaryd mb-1">verkocht</div>
         <div id="prijs" class="col borders mb-1">prijs</div>
         <div id="leverancier" class="col borders mb-1">bron</div>
-        <div id="leverancier" class="col borders mb-1">retour</div>
+        <div id="retour" class="col borders mb-1">retour</div>
       </div>
     </div>
     <div class="m-0 p-0 mx-auto" v-if="sneakerList.length > 0">
@@ -51,6 +51,17 @@
         @verkoop="verkoop"
       -->
     </div>
+  </div>
+  <div class="row mx-auto vh-5 bg-blue text-white valign">
+      <div class="col" v-if="filteredSneakers.lenght == 0"></div>
+      <div class="col h-100 valign justify-content-center fw-bold" v-else title="Totaal"> {{ filteredSneakers.length }} </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
   </div>
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">

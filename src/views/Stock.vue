@@ -24,6 +24,11 @@
                     @click="showConfirmUpdate"
                 >
             </div>
+            <div class="w-100 text-center d-flex justify-content-center">
+                <div @click="showConfirmUpdate = true" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                    <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -64,7 +69,6 @@ import KleurPreview from '@/components/KleurPreview.vue';
   
     },
     methods: {
-        
         search(){  
             SneakerService.get(this.id)
                 .then(response => {
@@ -123,6 +127,11 @@ import KleurPreview from '@/components/KleurPreview.vue';
           this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
         }
       }
+    },
+    mounted(){
+        this.$nextTick(() => {
+            document.getElementById('search').focus();
+        })
     }
   }
 </script>

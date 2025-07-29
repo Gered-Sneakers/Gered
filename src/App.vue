@@ -475,8 +475,34 @@ export default {
 .hover:hover{
   color: var(--gWhite);
   filter: brightness(125%);
+  /*cursor: url('./img/crosshair.cur') -15 -15,auto !important;*/
+  cursor: pointer !important;
 }
-
+/*
+@keyframes pulse{
+    0% {
+      opacity: 0.2;
+      height: 1em;
+      width: 1em;
+      margin-top: -0.5em;
+      margin-left: -0.5em;
+    }
+    50% {
+      opacity: 0.9;
+      height: 3em;
+      width: 3em;
+      margin-top: -1.5em;
+      margin-left: -1.5em;
+    }
+    100% {
+      opacity: 0.2;
+      height: 1em;
+      width: 1em;
+      margin-top: -0.5em;
+      margin-left: -0.5em;
+    }
+  }
+*/
 .hover-dark:hover{
   color: var(--gGreen);
 }
@@ -517,8 +543,20 @@ a{
   width:283px;
 }
 
+.w-10{
+  width: 10% !important;
+}
+
 .w-60{
-  width:60%;
+  width: 60%;
+}
+
+.w-85{
+  width: 85%;
+}
+
+.w-95{
+  width: 95%;
 }
 
 .vh-5{
@@ -539,6 +577,10 @@ a{
 
 .vh-80{
   height:  80vh !important;
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 .title{

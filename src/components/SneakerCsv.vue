@@ -55,7 +55,7 @@ import KleurPreview from './KleurPreview.vue';
             },
             createdAt:{
                 type: String
-            }
+            },
         },
         methods:{
             capitalize(string){
@@ -127,7 +127,7 @@ import KleurPreview from './KleurPreview.vue';
             this.publi = this.publish;
             this.date = this.createdAt;
             this.emitCsvData();
-            console.log(this.date);
+            //console.log(this.date);
         },
         watch: {
           handle: 'emitCsvData',
