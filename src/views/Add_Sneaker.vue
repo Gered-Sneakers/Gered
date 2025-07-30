@@ -9,7 +9,14 @@
         </div>
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
-                <div class="row">
+                <div class="row text-light" v-for="l in leveranciers">
+                    <div class="col-4 leverancier border text-center rounded growz mx-auto justify-content-center align-content-center" 
+                        v-if="l.isActive"
+                        @click="go();prevLeverancier = l.id;leverancier = l.id"
+                        >
+                        {{ l.name }}
+                    </div>
+                <!--
                 <select id="leveranciers" name="leveranciers"
                     class="col-3 m-1 valign mx-auto rounded border-blue bg-blue text-light"
                     v-model="leverancier" value="Leverancier" @change="go()" @input="prevLeverancier = $event.target.value;"
@@ -19,19 +26,8 @@
                     <div v-for="l in leveranciers">
                         <option v-if="l.isActive" :key="l.id" :value="l.id"> {{ l.name }} </option>
                     </div>
-                    
-                    <!--
-                    <label class="w-100">
-                      <input 
-                        type="radio" 
-                        :value=l.name
-                        v-model="leverancier"
-                        @click="go(),leverancierImg=l.img"
-                        >
-                    
-                      <img class="w-100" :src="resolvedImgPath(l.img)" :title="l.name">
-                    </label>-->
                 </select>
+                -->
                 </div>
             </div>
         </div>
@@ -396,7 +392,7 @@
     })
 
     const stringId = computed(() => {
-        return String(id.value).padStart(4, '0')
+        return (id?.value ? String(id.value).padStart(4, '0') : '0000')
     })
     
     
@@ -404,6 +400,8 @@
     //      FRONTEND
     //----------------------
     function go(){
+
+        //if(leverancier.value) console.log(leverancier.value);
 
         mainTargets[mainCounter].classList.remove("d-flex");
         mainTargets[mainCounter].classList.add("d-none");
@@ -415,7 +413,7 @@
         //var idlabel = 
         document.getElementById("ID").focus();
         //console.log(idlabel);
-        console.log(leverancier.value);
+        //console.log(leverancier.value);
     }
 
     function annuleren(){
@@ -886,10 +884,16 @@
     cursor: pointer;
   }
 
-  [type=radio]:checked + img{
-    background-color: rgba(0,159,253,0.5);
-    border: 5px solid rgb(0,159,253);
+  [type=radio]:checked + img, .leverancier:hover{
+    background-color: rgba(0,159,253,0.5) !important;
+    border: 5px solid rgb(0,159,253) !important;
     border-radius: 0.375rem !important;
+  }
+
+  .leverancier{
+    font-size: 28px;
+    height: 80px;
+    border: 5px solid transparent !important;
   }
 
   #leveranciers{
@@ -943,7 +947,7 @@
   .sneakerPreview div{
     padding-left: 30px;
     padding-right: 30px;
-    font-size: 30px;
+    font-size: 26px;
   }
 
   .smallz{

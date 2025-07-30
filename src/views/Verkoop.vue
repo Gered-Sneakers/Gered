@@ -60,7 +60,7 @@
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ id }}</span> wil verkopen?</p>
+              <p class="my-5">Ben je zeker dat <span class="text-yellow">{{ stringId }}</span> wil verkopen?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover"  @click="confirmVerkoop">JA</button> 
@@ -194,6 +194,9 @@ var verkoopList = [];
             const key = this.sortKey;
             return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
           });
+        },
+        stringId(){
+          return (this.id? String(this.id).padStart(4, '0') : '0000')
         }
     },
     mounted () {

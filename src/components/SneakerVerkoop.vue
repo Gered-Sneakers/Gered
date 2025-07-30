@@ -100,6 +100,9 @@
           },
           supplierName() {
             return this.supplier ? this.supplier.substring(0, 7) : 'Onbekend';
+          },
+          stringId(){
+            return (this.id? String(this.id).padStart(4, '0') : '0000')
           }
 
         },
@@ -114,7 +117,7 @@
 
 <template>
     <div class="row mx-auto text-center text-dark">
-        <div id="id" class="col-1 borders valign" :class="colorlabel">{{ id }}</div>
+        <div id="id" class="col-1 borders valign" :class="colorlabel">{{ stringId }}</div>
         <div id="model" class="col-2 borders" :title="model">{{ brand }} <br> <span v-if="model" >{{ model.slice(0,18) }}</span><span v-else>&nbsp;</span></div>
         <div id="kleur" class="col-1 borders valign">
             <KleurPreview 

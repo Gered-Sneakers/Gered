@@ -123,6 +123,11 @@ import KleurPreview from './KleurPreview.vue';
               })
             }
         },
+        computed:{
+          stringId(){
+            return (this.id? String(this.id).padStart(4, '0') : '0000')
+          }
+        },
         mounted () {
             this.publi = this.publish;
             this.date = this.createdAt;
@@ -156,7 +161,7 @@ import KleurPreview from './KleurPreview.vue';
 
 <template>
     <div class="row m-0 p-0 mx-auto text-center flex-nowrap text-dark">
-        <div id="id" class="col-1 borders valign text-light" :class="colorlabel">{{ id }}</div>
+        <div id="id" class="col-1 borders valign text-light" :class="colorlabel">{{ stringId }}</div>
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
         <div id="price" class="col-2 m-0 p-0 valign borders">

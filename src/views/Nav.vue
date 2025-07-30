@@ -1,11 +1,11 @@
 <template>
   <div class="nav vh-10 row m-0 p-0 text-blue fw-bold">
     <router-link :to="{ name: 'login' }" class="grow col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/home.svg" title="Home">
+        <img class="vh-7 p-4 mx-auto" src="../img/home.svg" title="Home">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
     <router-link :to="{ name: 'addsneaker' }" class="grow col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/add.svg" title="Sneaker toevoegen">
+        <img class="vh-7 p-4 mx-auto" src="../img/add.svg" title="Sneaker toevoegen">
       <!--<p class="w-100 pt-3 align-middle text-center">Add</p>-->
     </router-link>
     <!--
@@ -14,14 +14,14 @@
     </router-link>
     -->
     <router-link :to="{ name: 'search' }" class="grow col h-100 valign rounded">
-        <img class="vh-10 p-4 mx-auto" src="../img/search.svg" title="Zoek">
+        <img class="vh-7 p-4 mx-auto" src="../img/search.svg" title="Zoek">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
     <router-link :to="{ name: 'settings' }" class="grow col h-100 valign rounded" v-if="authState.isAdmin">
-        <img class="vh-10 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
+        <img class="vh-7 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
     </router-link>
     <router-link to="#" class="grow col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
-        <img class="vh-10 p-4 mx-auto" src="../img/logout.svg" title="Uitloggen">
+        <img class="vh-7 p-4 mx-auto" src="../img/logout.svg" title="Uitloggen">
     </router-link>
   </div>
   <div class="full m-0 p-0" id="confirm" v-if="showConfirm">

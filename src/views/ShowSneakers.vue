@@ -79,8 +79,24 @@
     <div @click="verkoopAdd" class="border border-warning bg-warning hover">VERKAUFEN BEBI</div>
     -->
 
+    <div class="full m-0 p-0" id="confirm" v-if="confirm">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Wil je <span class="text-yellow mx-2">{{ stringId }}</span> wijzigen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="changeSneaker(id)">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="confirm = !confirm">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
     <div id="overlay" class="overlay">
-      <div class="message">Right-click the sneaker to change data</div>
+      <div class="message">Rechtermuis op een rij om data te wijzigen.</div>
     </div>
 </template>
   
@@ -109,6 +125,9 @@ import LeverancierService from '@/services/LeverancierService';
           sortKey: 'id',
           x: 0,
           y: 0,
+          confirm: false,
+          id: null
+          
         }
     },
     props: {
@@ -175,7 +194,7 @@ import LeverancierService from '@/services/LeverancierService';
       },
       getLeverancierName(id){
         id = parseInt(id);
-        const found = this.leveranciers().find(l => l.id === id)
+        const found = this.leveranciers().find(l => l.id == id)
         return found ? found.name : "???"
       }
       // FILTERS
@@ -206,7 +225,11 @@ import LeverancierService from '@/services/LeverancierService';
         }
       },
       handleRightClick(id) {
-        alert("Do you want to change " + id);
+        this.id = id;
+        this.confirm = !this.confirm;
+      },
+      changeSneaker(id){
+        this.$router.push({ name: 'changeSneaker', params: { id: id } });
       }
 
     },
@@ -250,7 +273,11 @@ import LeverancierService from '@/services/LeverancierService';
           // ✅ fallback for numeric fields like id, size
           return this.sortAscending ? a[key] - b[key] : b[key] - a[key];
         });
-      }/*,
+      },
+      stringId(){
+        return (this.id? String(this.id).padStart(4, '0') : '0000')
+      }
+      /*,
       availableSizes(){
         const sizes = this.sneakerList.map(s => s.size);
         return [...new Set(sizes)].sort((a,b) => a-b);
@@ -297,12 +324,10 @@ import LeverancierService from '@/services/LeverancierService';
     align-items: center;
     z-index: 9999;
     opacity: 0;
-    animation: fadeInOut 3s forwards;
+    animation: fadeInOut 2s forwards;
     font-size: 1.5rem;
     text-align: center;
   }
-
-  
 
   @keyframes fadeInOut {
     0%   { opacity: 0; }
@@ -345,8 +370,28 @@ import LeverancierService from '@/services/LeverancierService';
     border-radius: 25rem;
   }
 
- 
+  .full{
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(247,247,247,0.5);
+     z-index: 99999999999999999999999999999999;
+  }
 
+  .full .row .col-6 p{
+    height: 30vh;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .full button{
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
  
 
   .borders{

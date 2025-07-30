@@ -1,12 +1,31 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
 <script>
 import KleurPreview from './KleurPreview.vue';
+import Brand from './BrandList.vue';
 
     export default {
-        name: 'Sneaker',
+        name: 'SneakerChange',
         data(){
           return{
             
+            _id: null,
+            _colorlabel: this.colorlabel,
+            _date: this.date,
+            _brand: this.brand,
+            _model: this.model,
+            _size: this.size,
+            _color: this.color,
+            _supplier: this.supplier,
+            _laces: this.laces,
+            _soles: this.soles,
+            _paint: this.paint,
+            _glue: this.glue,
+            _status: this.status,
+            _verkoop: this.verkoop,
+            _csv: this.csv,
+            _creator: this.creator,
+            _bakNr: this.bakNr,
+            _extra: this.extra
             
           }
         },
@@ -25,7 +44,7 @@ import KleurPreview from './KleurPreview.vue';
                 type: String   
             },
             model:{
-                type: String
+                type: String   
             },
             size:{
                 type: Number   
@@ -37,16 +56,16 @@ import KleurPreview from './KleurPreview.vue';
                 type: String   
             },
             laces:{
-                type: Boolean   
+                type: String   
             },
             soles:{
-                type: Boolean   
+                type: String   
             },
             paint:{
-                type: Boolean
+                type: String
             },
             glue:{
-                type: Boolean
+                type: String
             },
             status:{
                 type: String
@@ -55,7 +74,7 @@ import KleurPreview from './KleurPreview.vue';
                 type: Number
             },
             csv:{
-                type: Boolean
+                type: Number
             },
             creator:{
                 type: String
@@ -76,17 +95,32 @@ import KleurPreview from './KleurPreview.vue';
 
                 console.log(firstLetter+rest);
             }
+            
         },
+        inject: ["sneakers","leveranciers","brands"],
         computed:{
             stringId(){
                 return String(this.id).padStart(4, '0')
+            },
+            colorArray() {
+                try {
+                  // Als colors een JSON array string is zoals '["rood","blauw"]'
+                  if (this.colors.startsWith('[')) {
+                    return JSON.parse(this.colors);
+                  }
+                  // Als het een gewone komma-gescheiden string is
+                  return this.colors.split(',').map(c => c.trim());
+                } catch (e) {
+                  return [];
+                }
+            },
+            brandList() {
+                return typeof this.brands === 'function' ? this.brands() : this.brands;
             }
-            
-        },
-        mounted(){
         },
         components: {
-            KleurPreview
+            KleurPreview,
+            Brand
         }
     }
 </script>
@@ -94,7 +128,7 @@ import KleurPreview from './KleurPreview.vue';
 <template>
     <div class="sneakerPreview w-75 mx-auto m-0 p-0 d-flex">
         <div class="container h-100 position-relative text-light text-center">
-            <div class="row m-0 p-0 py-0 px-0 bg-blue rounded ">
+            <div class="row m-0 p-0 mt-3 py-0 px-0 bg-blue rounded ">
                 <div class="d-none col-4 row m-0 p-0 text-center justify-content-start">
                     <div class="col-6 col-md-4 grow justify-content-start hover-dark" @click="$emit('cleaning',id)">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m360-680 40-80v-40h-40v-80h240q17 0 28.5 11.5T640-840v40l-40 80H480v-40l-80 80h-40ZM320-80v-274q0-11 3.5-23.5T332-400l148-280h120q14 14 27 37.5t13 42.5v520H320Zm80-80h160v-440h-32L400-356v196Zm0 0h160-160Z"/></svg>
@@ -109,7 +143,7 @@ import KleurPreview from './KleurPreview.vue';
                     <div class="col-0 col-md-4"></div>
                 </div>
                 <div class="col-12 mb-2 text-center text-dark justify-content-center">
-                    <span class="px-4 py-3 h3 fw-bold rounded cardFont" :class="colorlabel">{{ stringId }}</span>
+                    <span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>
                 </div>
                 <div class="d-none col-4 row m-0 p-0 justify-content-end"> 
                     <div class="col-0 col-md-4"></div>                    
@@ -128,21 +162,39 @@ import KleurPreview from './KleurPreview.vue';
                 
                 <div class="row w-100 m-0 p-0 pt-2">
                 <div class="col-15 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
-                <div class="col-75 text-center">{{ brand }}{{ " " }}{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</div>
+                <div class="col-75 text-center">
+                    <div class="row">
+                        <div class="col-6">
+                        <select class="float-end" v-model="_brand">
+                            <option disabled value="">Merk</option>
+                            <Brand id="brand"
+                                v-for="b in brandList"
+                                :key="b.name"
+                                :name="b.name"
+                                :img="b.img"
+                                :isActive="b.isActive"
+                                class="text-end"
+                                />
+                        </select>
+                        </div>
+                        
+                    <div class="col-6"><input class="float-end text-end" :value='model = model.charAt(0).toUpperCase() + model.substring(1)'></div>
+                </div>
+                </div>
                 <div class="col-15 valign ps-5"></div>
                 </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
                 <div class="col-6 m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/ruler.svg"></div>
-                    <div class="col-9 text-end pe-5">{{ size }}</div>
+                    <div class="col-9 text-end pe-5"><input class="text-end" placeholder="MAAT" v-model="_size"></div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/color.svg"></div>
                     <div class="col-9 text-end pe-5">
                         <KleurPreview 
-                            v-for="c in colors"
+                            v-for="c in colorArray"
                             :color="c"
                         /> 
                     </div>
@@ -150,57 +202,70 @@ import KleurPreview from './KleurPreview.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="laces">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 text-success" @click="_laces = !_laces" v-if="_laces">✔</div>
+                    <div class="col-9 text-end pe-5 text-danger" @click="_laces = !_laces"v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="soles">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 text-success" @click="_soles = !_soles" v-if="_soles">✔</div>
+                    <div class="col-9 text-end pe-5 text-danger" @click="_soles = !_soles" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="paint">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 text-success" @click="_paint = !_paint" v-if="_paint">✔</div>
+                    <div class="col-9 text-end pe-5 text-danger" @click="_paint = !_paint" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="glue">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger smaller" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 text-success" @click="_glue = !_glue" v-if="_glue">✔</div>
+                    <div class="col-9 text-end pe-5 text-danger" @click="_glue = !_glue" v-else>❌</div>
                 </div>
                 </div>
                 <div class="col-6 border-light m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/baknr.svg"></div>
-                    <div class="col-9 text-end pe-5">{{bakNr}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <input class="text-end" placeholder="BAKNUMMER" :value="_bakNR">{{bakNr}}
+                    </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/warning.svg"></div>
-                    <div class="col-9 text-end pe-5">{{status}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <!-- INJECT STATUS HIER -->
+                        {{status}}
+                    </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/extra.svg"></div>
-                    <div class="col-9 text-end pe-5">{{extra}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <input class="text-end" placeholder="EXTRA" :value="_extra">
+                    </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/delivery.svg"></div>
-                    <div class="col-9 text-end pe-5">{{supplier}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <input class="text-end" placeholder="LEVERANCIER" :value="_supplier">
+                    </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
-                    <div class="col-9 text-end pe-5">{{creator}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <input class="text-end" placeholder="GEBRUIKER" :value="_creator">
+                    </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/clock.svg"></div>
-                    <div class="col-9 text-end pe-5">{{date}}</div>
+                    <div class="col-9 text-end pe-5">
+                        <input class="text-end" placeholder="xx" :value="_date">
+                    </div>
                 </div>
                 
                 </div>

@@ -248,7 +248,7 @@ export default {
 }
 
 .title{
-  font-size: 4em;
+  font-size: 3.5em !important;
   font-weight: bold;
   z-index: 10 !important;
 }
@@ -857,7 +857,7 @@ a{
     width: 50px !important;
     height: 50px !important;
   }
-  
+ 
 
   .full .row .col-6 p{
     height: 30vh;
