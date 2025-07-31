@@ -9,6 +9,7 @@
                         maxlength="4"
                         placeholder="labelnr" 
                         v-model="id"
+                        @change="exist"
                         @click="showSelected"
 
                     >
@@ -26,7 +27,7 @@
                     >
                 </div>
                 <div class="w-100 text-center d-flex justify-content-center">
-                    <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                    <div @click="next" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
                         <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                     <div class="col-6 m-0 p-0 mb-4 text-center"
                             @click="addLaces"
                     >
-                        <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.laces }">
+                        <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.laces }">
                             <img class="imgSquare w-100 mx-auto" src="../img/laces.svg">
                             <label class="col-12" for="check1">(1) Geen veters  </label>
                         </div>
@@ -128,7 +129,7 @@
                     <div class="col-6 m-0 p-0 mb-4 text-center"
                             @click="addSoles"
                     >
-                        <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.soles }">
+                        <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.soles }">
                             <img class="imgSquare w-100 mx-auto" src="../img/soles.svg">
                             <label class="col-12" for="check2"> (1) Geen binnenzool</label>
                         </div>
@@ -138,7 +139,7 @@
                     <div class="col-6 m-0 p-0 mb-4 text-center"
                             @click="addPaint"
                     >
-                        <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.paint }">
+                        <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.paint }">
                             <img class="imgSquare w-100 mx-auto" src="../img/paint.svg">
                             <label class="col-12" for="check4"> (2) Verven </label>
                         </div>
@@ -146,7 +147,7 @@
                     <div class="col-6 m-0 p-0 mb-4 text-center"
                             @click="addGlue"
                     >
-                        <div class="w-50 mx-auto invis-border" :class="{ highlight: !sneaker.glue }">
+                        <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.glue }">
                             <img class="imgSquare w-100 mx-auto" src="../img/repair.svg">
                             <label class="col-12" for="check3"> (3) Lijmen </label>
                         </div>
@@ -167,7 +168,7 @@
                         ❌
                     </div>
                 </div>
-                <div @click="showConfirmUpdate = !showConfirmUpdate" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                <div @click="showConfirmUpdate = !showConfirmUpdate" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
                     <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
                 </div>
             </div>
@@ -176,7 +177,8 @@
         <div class="full m-0 p-0" id="confirmAnnuleren" v-show="showConfirmAnnuleren == true">
             <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
               <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-                  <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je terug wil zonder opslaan?</p>
+                  <p class="d-flex align-items-center justify-content-center my-5"><span>Ben je zeker dat je terug wil <span class="text-warning">zonder opslaan</span>?</span>
+</p>
                   <div class="row m-0 p-0">
                     <div class="col-6 m-0 p-0">
                       <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="annuleren">JA</button> 
@@ -204,6 +206,20 @@
               </div>
             </div>
         </div>
+
+        <div class="full m-0 p-0" id="confirm" v-show="showConfirm == true">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Deze id bestaat niet.</p>
+              <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="showConfirm = false;id = '';">JA</button> 
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
     </div>
 </template>
   
@@ -244,6 +260,7 @@ import LeverancierService from '@/services/LeverancierService';
 
             showConfirmUpdate: false,
             showConfirmAnnuleren: false,
+            showConfirm: false,
 
             repairList: [],
             leveranciersList: [],
@@ -293,6 +310,20 @@ import LeverancierService from '@/services/LeverancierService';
                     alert(error);
                })
         },
+        async exist(){
+            try{
+                await SneakerService.get(this.id)
+                    .then(result => {
+                      const bakNr = result.data.bakNr;
+                      // You can store it somewhere if needed
+                      this.baknr = bakNr;
+                    })
+
+                return;
+            }catch(err){
+                this.showConfirm = true;              
+            }
+        },
         update(){
             console.log("SNEAKY");
             console.log(this.sneaker);
@@ -305,7 +336,10 @@ import LeverancierService from '@/services/LeverancierService';
 
                 console.log("SALAMI HEPS BABY");
 
-                if(this.sneaker.laces == true && this.sneaker.soles == true && this.sneaker.paint === true && this.sneaker.glue === true) this.sneaker.status = 1
+                if(this.sneaker.laces == true && this.sneaker.soles == true && this.sneaker.paint === true && this.sneaker.glue === true){
+                    this.sneaker.status = 1
+                    this.sneaker.bakNr = "Atel-J"
+                } 
                 else this.sneaker.status = 2
 
                 console.log("STATUS" + this.sneaker.status);
@@ -346,7 +380,7 @@ import LeverancierService from '@/services/LeverancierService';
                     console.log("Gucci baby let the app go");
                 }
             }
-
+            /*
             //CURRENT
             targets[counter].classList.remove("d-inline");
             targets[counter].classList.add("d-none");
@@ -370,7 +404,7 @@ import LeverancierService from '@/services/LeverancierService';
                 document.getElementsByClassName("addButton")[0].classList.remove("d-none");
                 document.getElementsByClassName("addButton")[0].classList.add("d-flex");
             }
-
+            */
             //console.log("COUNTER NEXT: ")
             //console.log(counter);
         },

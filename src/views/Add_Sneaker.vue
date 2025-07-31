@@ -49,7 +49,7 @@
                         <Label v-for="labelcolor in labels"
                         :name="labelcolor.name"
                         :isActive="labelcolor.isActive"
-                        class="mx-auto text-center text-dark"
+                        class="mx-auto text-center text-dark growz"
                         v-model="labelColor"
                         @change="go()"
                         ></Label>
@@ -158,7 +158,7 @@
                 <div class="mx-auto  row m-0 p-0 h-500  rounded">
                 <div class="col-2 p-2">
                     <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none h-100">
-                        <img class="w-50 mx-auto rota180 selectDisable" src="../img/next.svg">
+                        <img class="w-50 mx-auto rota180 selectDisable pointer" src="../img/next.svg">
                     </div>
                 </div>
                 <div class="col-8 valign">
@@ -202,48 +202,48 @@
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
                                 <div class="row m-0 p-0">
-                                <div class="col m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz red" value="rood" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz green" value="groen" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz blue" value="blauw" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz yellow" value="geel" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer red" value="rood" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer green" value="groen" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer blue" value="blauw" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer yellow" value="geel" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz pink" id="xx" value="roos" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz purple" value="paars" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz brown" value="bruin" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz orange" value="oranje" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer pink" id="xx" value="roos" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer purple" value="paars" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer brown" value="bruin" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer orange" value="oranje" v-model="colors"></div></div>
                                 </div>
                                 <div class="row m-0 p-0">
-                                <div class="col m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz grey" value="grijs" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz black" value="zwart" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz white" value="wit" v-model="colors"></div></div>
-                                <div class="col m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz beige" value="beige" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer grey" value="grijs" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer black" value="zwart" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer white" value="wit" v-model="colors"></div></div>
+                                <div class="col m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer beige" value="beige" v-model="colors"></div></div>
                                 
                                 </div>
                                 <div class="row m-0 p-0">
-                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare goud"><div class="mx-auto"><input type="checkbox" class="colorz goud" value="goud" v-model="colors"></div></div>
-                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare zilver"><div class="mx-auto"><input type="checkbox" class="colorz zilver" value="zilver" v-model="colors"></div></div>
-                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare bronze"><div class="mx-auto"><input type="checkbox" class="colorz bronze" value="bronze" v-model="colors"></div></div>
-                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz multi" value="multi" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare goud"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer goud" value="goud" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare zilver"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer zilver" value="zilver" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare bronze"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer bronze" value="bronze" v-model="colors"></div></div>
+                                    <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer multi" value="multi" v-model="colors"></div></div>
                                 </div>
                             </div>
                         </div>
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets rounded row text-start d-none">
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
-                            <div class="col-6 m-0 p-0 mb-4 text-center row" :class="{ highlight: !laces }">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer" :class="{ highlight: !laces }">
                                 <img class="col-6 imgSquare mx-auto" src="../img/laces.svg" @click="laces = !laces;statusCheckbox()">
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
-                            <div class="col-6 m-0 p-0 mb-4 text-center row" :class="{ highlight: !soles }">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer" :class="{ highlight: !soles }">
                                 <img class="col-6 imgSquare mx-auto" src="../img/soles.svg" @click="soles = !soles;statusCheckbox()">
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
-                            <div class="col-6 mx-auto m-0 p-0 text-center row" :class="{ highlight: !paint }">
+                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer" :class="{ highlight: !paint }">
                                 <img class="col-6 imgSquare mx-auto" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
-                            <div class="col-6 m-0 p-0 text-center row" :class="{ highlight: !glue }">
+                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer" :class="{ highlight: !glue }">
                                 <img class="col-6 imgSquare mx-auto" src="../img/repair.svg" @click="glue = !glue;statusCheckbox()">
                                 <label class="col-12" for="check3"> Lijmen </label>
                             </div>
@@ -254,10 +254,10 @@
                 </div>
                 <div class="col-2 p-2">
                     <div @click="next" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
-                        <img class="w-50 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                        <img class="w-50 mx-auto selectDisable pointer" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                     <div @click="showConfirmBox" id="addButton" class="addButton grow boxShadow-blue square valign text-center d-none h-100">
-                        <img class="w-50 mx-auto selectDisable" src="../img/add.svg">
+                        <img class="w-50 mx-auto selectDisable pointer" src="../img/add.svg">
                     </div>
                 </div>
                 </div>

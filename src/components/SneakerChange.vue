@@ -142,7 +142,8 @@ import Brand from './BrandList.vue';
                     </div>
                     <div class="col-0 col-md-4"></div>
                 </div>
-                <div class="col-12 mb-2 text-center text-dark justify-content-center">
+                <div class="col-3"></div>
+                <div class="col-6 mb-2 text-center text-dark justify-content-center">
                     <span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>
                 </div>
                 <div class="d-none col-4 row m-0 p-0 justify-content-end"> 
@@ -158,41 +159,47 @@ import Brand from './BrandList.vue';
                         <span class="d-block">Verkocht</span>
                     </div>
                 </div>
+                <div class="col-3">
+                    <div @click="next" id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
+                        <img class="h-100 mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                    </div>
+                </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
                 
                 <div class="row w-100 m-0 p-0 pt-2">
-                <div class="col-15 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
-                <div class="col-75 text-center">
-                    <div class="row">
-                        <div class="col-6">
-                        <select class="float-end" v-model="_brand">
-                            <option disabled value="">Merk</option>
-                            <Brand id="brand"
-                                v-for="b in brandList"
-                                :key="b.name"
-                                :name="b.name"
-                                :img="b.img"
-                                :isActive="b.isActive"
-                                class="text-end"
-                                />
-                        </select>
-                        </div>
-                        
-                    <div class="col-6"><input class="float-end text-end" :value='model = model.charAt(0).toUpperCase() + model.substring(1)'></div>
+                <div class="col-6 row m-0 p-0">
+                    <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
+                    <div class="col-9 text-end pe-5">
+                            <select class="float-end w-50" v-model="_brand">
+                                <option class="text-end" disabled value="">Merk</option>
+                                <Brand id="brand"
+                                    v-for="b in brandList"
+                                    :key="b.name"
+                                    :name="b.name"
+                                    :img="b.img"
+                                    :isActive="b.isActive"
+                                    class="text-end"
+                                    />
+                            </select>
+                    </div>
                 </div>
+                <div class="col-6 row m-0 p-0">
+                    <div class="col-3"></div>
+                    <div class="col-9 text-end pe-5"><input class="w-50 float-end text-end" :value='model = model.charAt(0).toUpperCase() + model.substring(1)'></div>
                 </div>
+                
                 <div class="col-15 valign ps-5"></div>
                 </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
                 <div class="col-6 m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/ruler.svg"></div>
-                    <div class="col-9 text-end pe-5"><input class="text-end" placeholder="MAAT" v-model="_size"></div>
+                    <div class="col-9 text-end pe-5 align-content-center"><input class="w-50 text-end" placeholder="MAAT" v-model="_size"></div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/color.svg"></div>
-                    <div class="col-9 text-end pe-5">
+                    <div class="col-9 text-end pe-5 align-content-center">
                         <KleurPreview 
                             v-for="c in colorArray"
                             :color="c"
@@ -202,39 +209,39 @@ import Brand from './BrandList.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" @click="_laces = !_laces" v-if="_laces">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" @click="_laces = !_laces"v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_laces = !_laces" v-if="_laces">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_laces = !_laces"v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" @click="_soles = !_soles" v-if="_soles">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" @click="_soles = !_soles" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_soles = !_soles" v-if="_soles">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_soles = !_soles" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" @click="_paint = !_paint" v-if="_paint">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" @click="_paint = !_paint" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_paint = !_paint" v-if="_paint">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_paint = !_paint" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" @click="_glue = !_glue" v-if="_glue">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" @click="_glue = !_glue" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_glue = !_glue" v-if="_glue">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_glue = !_glue" v-else>❌</div>
                 </div>
                 </div>
                 <div class="col-6 border-light m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/baknr.svg"></div>
-                    <div class="col-9 text-end pe-5">
-                        <input class="text-end" placeholder="BAKNUMMER" :value="_bakNR">{{bakNr}}
+                    <div class="col-9 text-end pe-5 align-content-center">
+                        <input class="w-50 text-end" placeholder="BAKNUMMER" :value="_bakNr">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/warning.svg"></div>
-                    <div class="col-9 text-end pe-5">
+                    <div class="col-9 text-end pe-5 align-content-center">
                         <!-- INJECT STATUS HIER -->
                         {{status}}
                     </div>
@@ -242,29 +249,29 @@ import Brand from './BrandList.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/extra.svg"></div>
-                    <div class="col-9 text-end pe-5">
-                        <input class="text-end" placeholder="EXTRA" :value="_extra">
+                    <div class="col-9 text-end pe-5 align-content-center">
+                        <input class="w-50 text-end" placeholder="EXTRA" :value="_extra">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/delivery.svg"></div>
-                    <div class="col-9 text-end pe-5">
-                        <input class="text-end" placeholder="LEVERANCIER" :value="_supplier">
+                    <div class="col-9 text-end pe-5 align-content-center">
+                        <input class="w-50 text-end" placeholder="LEVERANCIER" :value="_supplier">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
-                    <div class="col-9 text-end pe-5">
-                        <input class="text-end" placeholder="GEBRUIKER" :value="_creator">
+                    <div class="col-9 text-end pe-5 align-content-center">
+                        <input class="w-50 text-end" placeholder="GEBRUIKER" :value="_creator">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/clock.svg"></div>
-                    <div class="col-9 text-end pe-5">
-                        <input class="text-end" placeholder="xx" :value="_date">
+                    <div class="col-9 text-end pe-5 align-content-center">
+                        <input class="w-50 text-end" placeholder="xx" :value="_date">
                     </div>
                 </div>
                 
@@ -280,6 +287,16 @@ import Brand from './BrandList.vue';
 <style scoped>
     *{
         font-size: 18px;
+    }
+
+    .success:hover{
+        /*filter: hue-rotate(90deg);*/
+        filter: brightness(0) saturate(100%) invert(49%) sepia(81%) saturate(324%) hue-rotate(79deg) brightness(98%) contrast(92%);
+
+    }
+
+    input,select{
+        border-radius: 0.5rem !important;
     }
 
     .cardSize{

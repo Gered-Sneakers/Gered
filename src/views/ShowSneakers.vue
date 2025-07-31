@@ -2,27 +2,29 @@
   <!--<div class="vh-80 scroll">-->
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-        <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col-1 borders mb-1"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="status" class="col-1 borders mb-1"><img src="../img/warning.svg"></div>
-        <div id="user" class="col-2 borders mb-1"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-1 borders mb-1" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="col-1 borders mb-1"><img src="../img/delivery.svg"></div>
-        <div class="col-1 borders mb-1"><img src="../img/csv.svg"></div>
-        <div class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
+        <div id="id" class="col-1 borders mb-1" title="id" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
+        <div id="merk" class="col-2 borders mb-1" :title="'merk' + '\n' + 'model'"><img src="../img/tag.svg"></div>
+        <div id="kleur" class="col-15 borders mb-1" title="xx"><img src="../img/color.svg"></div>
+        <div id="maat" class="col-1 borders mb-1" title="xx" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+        <div id="status" class="col-05 borders mb-1" title="xx"><img src="../img/warning.svg"></div>
+        <div id="bakNr" class="col-1 borders mb-1" title="xx"><img src="../img/stock.svg"></div>
+        <div id="user" class="col-15 borders mb-1" title="xx"><img src="../img/login.svg"></div>
+        <div id="datum" class="col-15 borders mb-1" title="xx" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
+        <div id="leverancier" class="col-1 borders mb-1" title="xx"><img src="../img/delivery.svg"></div>
+        <div class="col-05 borders mb-1"><img src="../img/csv.svg"></div>
+        <div class="col-05 borders mb-1"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
         <div id="id" class="col-1 borders mb-1 fw-bold" @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
-        <div id="kleur" class="col-1 borders mb-1">kleur</div>
+        <div id="kleur" class="col-15 borders mb-1">kleur</div>
         <div id="maat" class="col-1 borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
-        <div id="status" class="col-1 borders mb-1">status</div>
-        <div id="user" class="col-2 borders mb-1">user</div>
-        <div id="datum" class="col-1 borders mb-1 fw-bold" @click="toggleSort('date')">datum</div>
+        <div id="status" class="col-05 borders mb-1">status</div>
+        <div id="bakNr" class="col-1 borders mb-1">loca</div>
+        <div id="user" class="col-15 borders mb-1">user</div>
+        <div id="datum" class="col-15 borders mb-1 fw-bold" @click="toggleSort('date')">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
-        <div class="col-1 borders mb-1">csv</div>
-        <div class="col-1 borders mb-1">verkoop</div>
+        <div class="col-05 borders mb-1">csv</div>
+        <div class="col-05 borders mb-1" title="verkoop">€</div>
     </div>
     <div class="w-100 text-dark m-0 p-0 mx-auto" 
      v-if="sneakerList.length > 0"
@@ -40,6 +42,7 @@
         :colors="s.colors"
         :supplier="getLeverancierName(s.supplier)"
         :status="s.status"
+        :bakNr="s.bakNr"
         :creator="s.creator"
         :verkoop="s.verkoop"
         :csv="s.csv"

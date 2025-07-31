@@ -9,7 +9,8 @@
             showCsv: true,
             showVerkoop: true,
             verkoopCheck: false,
-            csvCheck: false
+            csvCheck: false,
+            truncateLimit: 13
             //leverancierList: 
           }
         },
@@ -30,6 +31,9 @@
             model:{
                 type: String
             },
+            extra:{
+              type: String
+            },
             size:{
                 type: Number   
             },
@@ -42,8 +46,8 @@
             status:{
                 type: Number
             },
-            teRepareren:{
-                type: String
+            bakNr:{
+              type: String
             },
             creator:{
                 type: String
@@ -67,8 +71,9 @@
             show(){
               console.log(this.status);
             },
-            truncate(text,limit = 18){
-              return text && text.length > limit ? text.substring(0,limit) + ".." : text;
+            truncate(text) {
+              const limit = this.truncateLimit;
+              return text && text.length > limit ? text.substring(0, limit) + ".." : text;
             },
             handleSell(){
               this.verkoopCheck = true
@@ -77,7 +82,17 @@
             handleCsv(){
               this.csvCheck = true
               this.$emit('csv',id);
-            }
+            },
+            updateTruncateLimit() {
+              const width = window.innerWidth;
+              if (width >= 1440) {
+                this.truncateLimit = 20;
+              } else if (width >= 1000) {
+                this.truncateLimit = 13;
+              } else if (width >= 800){
+                this.truncateLimit = 10;
+              }
+            },
         },
         inject: ["leveranciers"],
         computed: {
@@ -112,7 +127,11 @@
           }
         },
         mounted () {
-
+          this.updateTruncateLimit(); // stel juiste limit in bij start
+          window.addEventListener("resize", this.updateTruncateLimit);
+        },
+        beforeUnmount(){
+          window.removeEventListener("resize", this.updateTruncateLimit);
         },
         components: {
             KleurPreview
@@ -124,40 +143,42 @@
     <div class="row w-100 mx-auto text-center">
         <div id="id" class="col-1 borders valign" :class="colorlabel">{{ stringId }}</div>
         
-        <div id="model" class="col-2 borders" :title="brand + ' - ' + model">{{ brand }} <br> {{ truncate(model) }}</div> 
+        <div id="model" class="col-2 borders p-0" :title="brand + ' - ' + model + '\n' + extra">{{ brand }} <br> {{ truncate(model) }}</div> 
         
-        <div id="kleur" class="col-1 borders valign">
+        <div id="kleur" class="col-15 borders valign">
             <KleurPreview 
                 v-for="c in colorArray"
                 :color="c"
             /> 
         </div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="status" class="col-1 valign borders"><img class="h-50" :src="getStatus"></div>
-        <div id="user" class="col-2 valign borders">{{ creator }}</div>
-        <div id="datum" class="col-1 valign borders">{{ date }}</div>
+        <div id="status" class="col-05 valign borders"><img class="h-50" :src="getStatus"></div>
+        <div id="bakNr" class="col-1 valign borders">{{ bakNr }}</div>
+        <div id="user" class="col-15 valign borders">{{ creator }}</div>
+        <div id="datum" class="col-15 valign borders">{{ date }}</div>
         <div id="leverancier" class="col-1 valign borders">{{ supplierName }}</div>
         <!--<div id="leverancier" class="col-1 valign borders">{{ leveranciersList[supplier] }}</div>-->
-        <div class="col-1 m-0 p-0 valign borders"> 
+        <div class="col-05 m-0 p-0 valign borders"> 
           <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="csv==null" @click="handleCsv">
-            <img class="csvImg me-2 h-100 grow" :class="{'whiteIcons':csvCheck}" src="../img/csv.svg"  >
+            <img class="csvImg mx-auto h-100 grow" :class="{'whiteIcons':csvCheck}" src="../img/csv.svg"  >
           </div>
           <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else @click="$emit('csv',id)">
-            <img class="csvImg me-2 h-100 grow whiteIcons" src="../img/csv.svg"  >
+            <img class="csvImg mx-auto h-100 grow whiteIcons" src="../img/csv.svg"  >
           </div>
         </div>
-        <div class="col-1 m-0 p-0 valign borders"> 
+        <div class="col-05 m-0 p-0 valign borders"> 
           <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':verkoopCheck}" v-if="status !== 4" @click="handleSell">
-            <img class="me-2 h-75 grow" :class="{'whiteIcons':verkoopCheck}" src="../img/sell.svg">
+            <img class="csvImg mx-auto h-75 grow" :class="{'whiteIcons':verkoopCheck}" src="../img/sell.svg">
           </div>
           <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else>
-            <img class="me-2 h-75 grow whiteIcons" src="../img/sell.svg">
+            <img class="csvImg mx-auto h-75 grow whiteIcons" src="../img/sell.svg">
           </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+    
     img{
       filter: brightness(0.5);
       
@@ -191,8 +212,8 @@
      }
 
      .csvImg{
-      width: 45px !important;
-      height: 45px !important;
+      width: 30px !important;
+      height: 30px !important;
      }
 /*
   .rood, .red, .red::before{

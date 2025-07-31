@@ -31,12 +31,12 @@
                     >
                 </div>
                 <div class="col-12 m-0 p-0 mx-auto">
-                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 text-white">
+                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz text-white">
                         <span class="">Login</span>
                     </button> 
                 </div>
                 <div class="col-12 m-0 p-0 mx-auto d-none">
-                    <button @click="register" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 text-white">
+                    <button @click="register" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz text-white">
                     <span class="">Registreren</span>
                     </button> 
                 </div>
@@ -48,17 +48,17 @@
                 <div>
                 <img class="mx-auto vh-15 w-15 mb-5 rotate" src="../img/den G.png">
                 <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
-                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
-                        <span class="">ADD SNEAKER</span>
+                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
+                        <span class="">+SNEAKER</span>
                     </button> 
                 </router-link>
                 <router-link :to="{ name: 'repair' }" class="col h-100 valign rounded mt-4">
-                    <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
+                    <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
                         <span class="">REPAIR</span>
                     </button> 
                 </router-link>
                 <router-link :to="{ name: 'stock' }" class="col h-100 valign rounded mt-4">
-                    <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz mb-3 py-5 text-white">
+                    <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
                         <span class="">STOCK</span>
                     </button> 
                 </router-link>

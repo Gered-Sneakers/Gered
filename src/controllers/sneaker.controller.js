@@ -13,6 +13,7 @@ exports.create = (req, res) => {
       brand: req.body.brand,
       model: req.body.model,
       extra: req.body.extra,
+      //baknr: req.body.bakNr,
       size: req.body.size,
       colors: req.body.colors,
       supplier: req.body.supplier,

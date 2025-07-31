@@ -1,12 +1,10 @@
 <template>
   <div class="nav-main row m-0 p-0">
-    <div class="col-1 col-xl-2"></div>
-    <div class="col-10 col-xl-8 row p-0 m-0 text-start">
+    <div class="col-12 row p-0 m-0 text-start">
         <div class="m-0 p-0">
           <Nav></Nav>
         </div>
-    </div>  
-    <div class="col-1 col-xl-2"></div>  
+    </div> 
   </div>
 
   <div class="main row m-0 p-0 bg-Gered">
@@ -312,6 +310,16 @@ export default {
 
 .w-80{
   width: 80%;
+}
+
+.col-05{
+  width: 4.166666665% !important;
+  flex: 0 0 auto;
+}
+
+.col-15{
+  width: 12.499999995% !important;
+  flex: 0 0 auto;
 }
 
 .max-1800{

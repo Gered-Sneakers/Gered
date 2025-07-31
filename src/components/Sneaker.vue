@@ -109,7 +109,7 @@ import KleurPreview from './KleurPreview.vue';
                     <div class="col-0 col-md-4"></div>
                 </div>
                 <div class="col-12 mb-2 text-center text-dark justify-content-center">
-                    <span class="px-4 py-3 h3 fw-bold rounded cardFont" :class="colorlabel">{{ stringId }}</span>
+                    <span class="px-3 py-2 h3 fw-bold rounded cardFont" :class="colorlabel">{{ stringId }}</span>
                 </div>
                 <div class="d-none col-4 row m-0 p-0 justify-content-end"> 
                     <div class="col-0 col-md-4"></div>                    

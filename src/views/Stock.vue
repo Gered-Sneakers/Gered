@@ -9,6 +9,7 @@
                     maxlength="4"
                     placeholder="labelnr" 
                     v-model="id"
+                    @change="exist"
                     @keyup.enter="showConfirmUpdate = true"
                     @click="showConfirmUpdate"
                 >
@@ -25,7 +26,7 @@
                 >
             </div>
             <div class="w-100 text-center d-flex justify-content-center">
-                <div @click="showConfirmUpdate = true" id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                <div @click="showConfirmUpdate = true" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
                     <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                 </div>
             </div>
@@ -41,7 +42,19 @@
                   <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="update">JA</button> 
                 </div>
                 <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="">NEE</button>
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="showConfirmUpdate = false">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="full m-0 p-0" id="confirm" v-show="showConfirm == true">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Deze id bestaat niet.</p>
+              <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="showConfirm = false;id = '';">JA</button> 
                 </div>
               </div>
           </div>
@@ -62,7 +75,8 @@ import KleurPreview from '@/components/KleurPreview.vue';
             baknr: null,
             
             showConfirmUpdate: false,
-            showConfirmAnnuleren: false
+            showConfirmAnnuleren: false,
+            showConfirm: false
         }
     },
     props: {
@@ -116,7 +130,21 @@ import KleurPreview from '@/components/KleurPreview.vue';
             firstLetter = firstLetter.toUpperCase();
             console.log(firstLetter+rest);
             return (firstLetter+rest);
-        }
+        },
+        async exist(){
+            try{
+                await SneakerService.get(this.id)
+                    .then(result => {
+                      const bakNr = result.data.bakNr;
+                      // You can store it somewhere if needed
+                      this.baknr = bakNr;
+                    })
+
+                return;
+            }catch(err){
+                this.showConfirm = true;              
+            }
+        },
     },
     components: {
         KleurPreview
