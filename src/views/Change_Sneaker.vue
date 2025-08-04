@@ -81,6 +81,9 @@ import Sneaker from '../components/SneakerChange.vue';
                 case 5: 
                     name = "Verkocht"
                     break;
+                case 6:
+                    name = "CSV"
+                    break;
                 default:
                     name = "Cleaning"
                     break;

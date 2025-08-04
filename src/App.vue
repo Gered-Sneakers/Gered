@@ -853,7 +853,7 @@ a{
     } 
 
   .sneakerPreview div{
-    font-size: 30px;
+    font-size: 26px;
   }
 
   .smallz{

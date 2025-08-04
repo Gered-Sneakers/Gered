@@ -26,7 +26,8 @@ import KleurPreview from './KleurPreview.vue';
             labelColor: "",
             //colors: "",
             active: "",
-            date: ""
+            date: "",
+            bakNr: ""
             
           }
         },
@@ -56,6 +57,9 @@ import KleurPreview from './KleurPreview.vue';
             createdAt:{
                 type: String
             },
+            bakNr:{
+              type: String
+            }
         },
         methods:{
             capitalize(string){
@@ -164,11 +168,14 @@ import KleurPreview from './KleurPreview.vue';
         <div id="id" class="col-1 borders valign text-light" :class="colorlabel">{{ stringId }}</div>
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="price" class="col-2 m-0 p-0 valign borders">
+        <div id="price" class="col-1 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" v-model="retailprice" placeholder="original">
         </div>
         <div id="price" class="col-2 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" v-model="price" placeholder="price">
+        </div>
+        <div id="locatie" class="col-1 m-0 p-0 valign borders">
+            <input class="w-100 h-100 text-center" :value="bakNr" placeholder="locatie">
         </div>
         <div id="img" class="col-1 m-0 p-0 valign borders">
             <input type="url" class="w-100 h-100 text-center" v-model="imgSrc" placeholder="url">

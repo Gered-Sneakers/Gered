@@ -1,27 +1,27 @@
 <template>
   <div class="nav vh-10 row m-0 p-0 text-blue fw-bold">
-    <router-link :to="{ name: 'login' }" class="hoverzz col h-100 valign rounded">
-        <img class="vh-7 p-4 mx-auto" src="../img/home.svg" title="Home">
+    <router-link :to="{ name: 'login' }" class="col h-100 valign rounded">
+        <img class="vh-7 p-4 mx-auto hoverzz" src="../img/home.svg" title="Home">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
-    <router-link :to="{ name: 'addsneaker' }" class="hoverzz col h-100 valign rounded">
-        <img class="vh-7 p-4 mx-auto" src="../img/add.svg" title="Sneaker toevoegen">
+    <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
+        <img class="vh-7 p-4 mx-auto hoverzz" src="../img/add.svg" title="Sneaker toevoegen">
       <!--<p class="w-100 pt-3 align-middle text-center">Add</p>-->
     </router-link>
     <!--
-    <router-link :to="{ name: 'qr' }" class="hoverzz col h-100 valign rounded">
+    <router-link :to="{ name: 'qr' }" class="col h-100 valign rounded">
         <img class="vh-10 p-4 mx-auto" src="../img/qr.svg" title="Scannen"> 
     </router-link>
     -->
-    <router-link :to="{ name: 'search' }" class="hoverzz col h-100 valign rounded">
-        <img class="vh-7 p-4 mx-auto" src="../img/search.svg" title="Zoek">
+    <router-link :to="{ name: 'search' }" class="col h-100 valign rounded">
+        <img class="vh-7 p-4 mx-auto hoverzz" src="../img/search.svg" title="Zoek">
       <!--<p class="w-100 pt-3 align-middle text-center">ZOEK</p>-->
     </router-link>
-    <router-link :to="{ name: 'settings' }" class="hoverzz col h-100 valign rounded" v-if="authState.isAdmin">
-        <img class="vh-7 p-4 mx-auto" src="../img/admin.svg" title="Administratie"> 
+    <router-link :to="{ name: 'settings' }" class="col h-100 valign rounded" v-if="authState.isAdmin">
+        <img class="vh-7 p-4 mx-auto hoverzz" src="../img/admin.svg" title="Administratie"> 
     </router-link>
-    <router-link to="#" class="hoverzz col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
-        <img class="vh-7 p-4 mx-auto" src="../img/logout.svg" title="Uitloggen">
+    <router-link to="#" class="col h-100 valign rounded" v-if="authState.isLoggedIn" @click="showConfirmBox">
+        <img class="vh-7 p-4 mx-auto hoverzz" src="../img/logout.svg" title="Uitloggen">
     </router-link>
   </div>
   <div class="full m-0 p-0" id="confirm" v-if="showConfirm">
@@ -111,7 +111,7 @@ export default {
   transform:scale(0.95);
 }
 */
-.hoverzz:hover img{
+.hoverzz:hover{
   filter:brightness(0.75) !important;
 }
 
@@ -134,10 +134,12 @@ export default {
   z-index: 9999999999999999999999999999;
 }
 
+
 a{
   text-decoration: none;
   color: #009ffd;
   border: 5px solid transparent;
+  cursor: default;
   
 }
 
@@ -145,6 +147,7 @@ img{
   /*width: auto;*/
   min-height: 90px;
   min-width: 90px;
+  cursor: pointer !important;
   /*max-height: 75px !important;*/
 }
 

@@ -4,8 +4,9 @@
           <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
           <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
           <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+          <div id="price" class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
           <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
-          <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
+          <div id="price" class="col-1 borders mb-1"><img src="../img/bakNr.svg"></div>
           <div id="img" class="col-1 borders mb-1"><img src="../img/img.svg"></div>
           <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
           <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
@@ -13,8 +14,9 @@
            <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')">id</div>
            <div id="brand" class="col-2 borders mb-1">brand</div>
            <div id="size" class="col-1 borders mb-1" @click="toggleSort('size')">size</div>
-           <div id="retailPrice" class="col-2 borders mb-1">retailPrice</div>
+           <div id="retailPrice" class="col-1 borders mb-1">retailPrice</div>
            <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
+           <div id="locatie" class="col-1 borders mb-1">locatie</div>
            <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
            <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
            <div id="publish" class="col-1 borders mb-1">publish</div>
@@ -22,17 +24,16 @@
       <div class="m-0 p-0 mx-auto ">
         <div v-for="(s,index) in filteredSneakers" :key="s.id">
           <SneakerCsv
-            v-if="s.csv == 1"
             :id="s.id"
             :colorlabel="s.colorlabel"
             :brand="s.brand"
             :model="s.model"
             :size="s.size"
             :colors="s.colors"
-            :csv="s.csv"
             :publish="s.publish"
             :createdAt="s.createdAt"
             :price="s.price"
+            :bakNr="s.bakNr"
             @update="updateCsvList(index,$event)"
           >
           </SneakerCsv>
@@ -184,7 +185,7 @@ import SneakerService from '@/services/SneakerService';
         let filtered = this.sneakerList; //this.sneakers();
 
         // Only allow sneakers with csv === 1
-        filtered = filtered.filter(s => s.csv == 1);
+        filtered = filtered.filter(s => s.status == 6);
 
         if (this.selectedBrand) {
           filtered = filtered.filter(s => s.brand === this.selectedBrand);
@@ -202,6 +203,7 @@ import SneakerService from '@/services/SneakerService';
     },
     mounted () {
       this.getSneakers();
+      
     },
     components:{
       SneakerCsv

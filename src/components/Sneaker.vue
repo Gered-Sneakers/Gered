@@ -135,12 +135,12 @@ import KleurPreview from './KleurPreview.vue';
                 <div class="col-6 m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/ruler.svg"></div>
-                    <div class="col-9 text-end pe-5">{{ size }}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{ size }}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/color.svg"></div>
-                    <div class="col-9 text-end pe-5">
+                    <div class="col-9 text-end pe-5 align-content-center">
                         <KleurPreview 
                             v-for="c in colors"
                             :color="c"
@@ -150,57 +150,57 @@ import KleurPreview from './KleurPreview.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="laces">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="laces">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="soles">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="soles">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="paint">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="paint">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
-                    <div class="col-9 text-end pe-5 text-success" v-if="glue">✔</div>
-                    <div class="col-9 text-end pe-5 text-danger smaller" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="glue">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger smaller" v-else>❌</div>
                 </div>
                 </div>
                 <div class="col-6 border-light m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/baknr.svg"></div>
-                    <div class="col-9 text-end pe-5">{{bakNr}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{bakNr}}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/warning.svg"></div>
-                    <div class="col-9 text-end pe-5">{{status}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{status}}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/extra.svg"></div>
-                    <div class="col-9 text-end pe-5">{{extra}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{extra}}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/delivery.svg"></div>
-                    <div class="col-9 text-end pe-5">{{supplier}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{supplier}}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
-                    <div class="col-9 text-end pe-5">{{creator}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{creator}}</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/clock.svg"></div>
-                    <div class="col-9 text-end pe-5">{{date}}</div>
+                    <div class="col-9 text-end pe-5 align-content-center">{{date}}</div>
                 </div>
                 
                 </div>
@@ -217,13 +217,13 @@ import KleurPreview from './KleurPreview.vue';
         font-size: 18px;
     }
 
-    .cardSize{
-        font-size: 3rem;
+    .cardFont{
+        font-size: 2rem;
     }
     
     .medz{
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
     }
 
    .smallz{

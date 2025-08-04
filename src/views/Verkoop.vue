@@ -8,7 +8,8 @@
         <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
         <div id="maat" class="col-1 borders" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
         <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-2 borders"><img src="../img/clock.svg"></div>
+        <div id="datum" class="col-1 borders"><img src="../img/money.svg"></div>
+        <div id="locatie" class="col-1 borders"><img src="../img/bakNr.svg"></div>
         <div id="leverancier" class="col-2 borders"><img src="../img/delivery.svg"></div>
         <div id="" class="col-1 borders rounded-top"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
@@ -17,7 +18,8 @@
         <div id="kleur" class="col-1 borders mb-1">kleur</div>
         <div id="maat" class="col-1 borders mb-1 fw-bold" @click="toggleSort('size')">maat</div>
         <div id="user" class="col-2 borders mb-1">user</div>
-        <div id="datum" class="col-2 borders mb-1">prijs</div>
+        <div id="datum" class="col-1 borders mb-1">prijs</div>
+        <div id="locatie" class="col-1 borders mb-1">locatie</div>
         <div id="leverancier" class="col-2 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">verkoop</div>
     </div>
@@ -38,6 +40,7 @@
           :creator="s.creator"
           :verkoop="s.verkoop"
           :price="s.price"
+          :bakNr="s.bakNr"
           @verkoop="verkoop"
         >
         </SneakerVerkoop>

@@ -3,14 +3,14 @@
     <!-- LEVERANCIER -->
     <div class="row h-100 mainTargets bg-blue">
         <div id="navToevoegen" class="row vh-7 valign">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
-                    ❌
+                <div class="text-danger h-100 valign justify-content-end mt-2 fs-1">
+                    <span @click="showAnnuleren()" class="text-end hover growz">❌</span>
                 </div>
         </div>
         <div id="xxxxxxx" class="row mx-3 mx-auto">
             <div class="row mw-800 mx-auto valign">
                 <div class="row text-light" v-for="l in leveranciers">
-                    <div class="col-4 leverancier border text-center rounded growz mx-auto justify-content-center align-content-center" 
+                    <div class="col-4 leverancier border text-center rounded growz pointer mx-auto justify-content-center align-content-center" 
                         v-if="l.isActive"
                         @click="go();prevLeverancier = l.id;leverancier = l.id"
                         >
@@ -36,8 +36,8 @@
     <!-- LABELKLEUR -->
     <div class="row h-100 mainTargets d-none bg-blue">
         <div id="navToevoegen" class="row vh-7 valign">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
-                    ❌
+                <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
+                    <span class="text-end growz">❌</span>
                 </div>
         </div>
         <!-- LABELKLEUR -->
@@ -68,14 +68,14 @@
                             <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 border-2 border-bottom border-light">
-                        <div class="col-12 m-0 p-0 pb-1 fw-bold text-center">
+                    <div class="row m-0 p-0 border-2 border-bottom border-light mb-2">
+                        <div class="col-12 m-0 p-0 fw-bold text-center">
                             <span class="align-middle text-center">Overzicht</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 pt-2">
+                    <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" title="merk + model" src="@/img/tag.svg"></div>
-                        <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model = model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
+                        <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -136,20 +136,20 @@
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.svg"></div>
                         <div class="col-9 text-end" v-if="creator">{{ creator = creator.charAt(0).toUpperCase() + creator.slice(1) }}</div>
                     </div>
-                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <hr class="w-90 mx-auto mt-2 mb-1 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
                     
-                    <div class="row m-0 p-0 mb-4"></div>
+                    <div class="row m-0 p-0"></div>
                 </div>
             </div>
         </div>
         <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
             <div id="navToevoegen" class="row vh-7 valign me-3">
-                <div @click="showAnnuleren()" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
-                    ❌
+                <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
+                    <span class="text-end growz">❌</span>
                 </div>
             </div>
             <div class="row h-100 valign rounded-top-left">
@@ -315,7 +315,7 @@
   
 <script setup>
     import { inject } from 'vue'
-
+    
     import Brand from '@/components/Brand.vue';
 
     import Leverancier from '@/components/Leverancier.vue';
@@ -393,6 +393,17 @@
 
     const stringId = computed(() => {
         return (id?.value ? String(id.value).padStart(4, '0') : '0000')
+    })
+
+    watch(model, (newVal, oldVal) => {
+        model.value = newVal
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+    })
+
+    watch(extra, (newVal, oldVal) => {
+        extra.value = newVal.toUpperCase()
     })
     
     
@@ -937,6 +948,10 @@
 
   .fw-1000{
     font-weight: 1000;
+  }
+
+  .sneakerPreview .row:not(:nth-child(1)):not(:nth-child(2)) {
+    height: 26.39px !important;
   }
 
   @media (min-width: 1600px) {

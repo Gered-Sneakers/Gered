@@ -19,14 +19,14 @@
                     id="bakNr"
                     class="w-100 text-center border-blue rounded mx-auto mb-1" 
                     maxlength="5"
-                    placeholder="baknummer" 
+                    placeholder="locatie" 
                     v-model="baknr"
                     @keyup.enter="showConfirmUpdate = true"
                     @click="showConfirmUpdate"
                 >
             </div>
             <div class="w-100 text-center d-flex justify-content-center">
-                <div @click="showConfirmUpdate = true" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
+                <div @click="showConfirmUpdate = true" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
                     <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                 </div>
             </div>

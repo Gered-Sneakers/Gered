@@ -27,7 +27,7 @@
                     >
                 </div>
                 <div class="w-100 text-center d-flex justify-content-center">
-                    <div @click="next" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
+                    <div @click="next" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
                         <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
@@ -165,7 +165,7 @@
             <div class="col-2 col-xxl-2 m-0 p-0">
                 <div class="w-100 m-0 p-0 vh-7">
                     <div @click="showConfirmAnnuleren = ! showConfirmAnnuleren" class="text-danger text-end h-100 valign justify-content-end hover mt-2 fs-1">
-                        ❌
+                         <span class="text-end growz">❌</span>
                     </div>
                 </div>
                 <div @click="showConfirmUpdate = !showConfirmUpdate" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
@@ -380,7 +380,7 @@ import LeverancierService from '@/services/LeverancierService';
                     console.log("Gucci baby let the app go");
                 }
             }
-            /*
+            
             //CURRENT
             targets[counter].classList.remove("d-inline");
             targets[counter].classList.add("d-none");
@@ -404,7 +404,7 @@ import LeverancierService from '@/services/LeverancierService';
                 document.getElementsByClassName("addButton")[0].classList.remove("d-none");
                 document.getElementsByClassName("addButton")[0].classList.add("d-flex");
             }
-            */
+            
             //console.log("COUNTER NEXT: ")
             //console.log(counter);
         },

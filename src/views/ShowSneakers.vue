@@ -11,8 +11,8 @@
         <div id="user" class="col-15 borders mb-1" title="xx"><img src="../img/login.svg"></div>
         <div id="datum" class="col-15 borders mb-1" title="xx" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 borders mb-1" title="xx"><img src="../img/delivery.svg"></div>
-        <div class="col-05 borders mb-1"><img src="../img/csv.svg"></div>
-        <div class="col-05 borders mb-1"><img src="../img/sell.svg"></div>
+        <div class="col-05 borders mb-1" title="csv"><img src="../img/csv.svg"></div>
+        <div class="col-05 borders mb-1" title="verkoop"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
         <div id="id" class="col-1 borders mb-1 fw-bold" @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
@@ -23,8 +23,7 @@
         <div id="user" class="col-15 borders mb-1">user</div>
         <div id="datum" class="col-15 borders mb-1 fw-bold" @click="toggleSort('date')">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
-        <div class="col-05 borders mb-1">csv</div>
-        <div class="col-05 borders mb-1" title="verkoop">€</div>
+        <div class="col-1 borders mb-1">verkoop</div>
     </div>
     <div class="w-100 text-dark m-0 p-0 mx-auto" 
      v-if="sneakerList.length > 0"
@@ -181,7 +180,7 @@ import LeverancierService from '@/services/LeverancierService';
       csvAdd(id){
         console.log("CSVeejen Bejbi");
 
-          SneakerService.update(id,{ csv:1 })
+          SneakerService.update(id,{ status:6 })
           .then(res=>{
             console.log(res);
           })

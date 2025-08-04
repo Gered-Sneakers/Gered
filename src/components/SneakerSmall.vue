@@ -159,7 +159,7 @@
         <div id="leverancier" class="col-1 valign borders">{{ supplierName }}</div>
         <!--<div id="leverancier" class="col-1 valign borders">{{ leveranciersList[supplier] }}</div>-->
         <div class="col-05 m-0 p-0 valign borders"> 
-          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="csv==null" @click="handleCsv">
+          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="status!=6" @click="handleCsv">
             <img class="csvImg mx-auto h-100 grow" :class="{'whiteIcons':csvCheck}" src="../img/csv.svg"  >
           </div>
           <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else @click="$emit('csv',id)">

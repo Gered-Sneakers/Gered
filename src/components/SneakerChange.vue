@@ -94,6 +94,9 @@ import Brand from './BrandList.vue';
                 firstLetter = firstLetter.toUpperCase();
 
                 console.log(firstLetter+rest);
+            },
+            saveSneaker(){
+                
             }
             
         },
@@ -117,6 +120,9 @@ import Brand from './BrandList.vue';
             brandList() {
                 return typeof this.brands === 'function' ? this.brands() : this.brands;
             }
+        },
+        mounted(){
+            console.log(this.brandList)
         },
         components: {
             KleurPreview,
@@ -160,7 +166,7 @@ import Brand from './BrandList.vue';
                     </div>
                 </div>
                 <div class="col-3">
-                    <div @click="next" id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
+                    <div @click="saveSneaker" id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
                         <img class="h-100 mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
@@ -172,6 +178,7 @@ import Brand from './BrandList.vue';
                     <div class="col-9 text-end pe-5">
                             <select class="float-end w-50" v-model="_brand">
                                 <option class="text-end" disabled value="">Merk</option>
+                               
                                 <Brand id="brand"
                                     v-for="b in brandList"
                                     :key="b.name"
@@ -180,6 +187,16 @@ import Brand from './BrandList.vue';
                                     :isActive="b.isActive"
                                     class="text-end"
                                     />
+                                <!--
+                                    <option 
+                                    v-for="b in brandList"
+                                    v-if="b && brandList.lenght && b.isActive == true "
+                                    :value="b.id"
+                                    class="text-end"
+                                    >
+                                        {{ b.name }}
+                                    </option>
+                                -->
                             </select>
                     </div>
                 </div>
@@ -297,6 +314,7 @@ import Brand from './BrandList.vue';
 
     input,select{
         border-radius: 0.5rem !important;
+        height: 30px;
     }
 
     .cardSize{
@@ -304,8 +322,8 @@ import Brand from './BrandList.vue';
     }
     
     .medz{
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
     }
 
    .smallz{

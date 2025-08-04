@@ -413,9 +413,22 @@
 
         </div>
         <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
-            <div class="col-4 col-xl-3 mx-auto">
+            <div class="col-3 col-xl-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
-                <div class="mx-auto subTitle text-purple h-100 valign"> DATA </div>
+                <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: IN </div>
+              </div>
+              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
+                  <div class="col-6 text-start mb-1"> Registratie </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
+                  <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ repairCount }} </div>
+                  <div class="col-6 text-start mb-1"> Donatie </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
+              </div>
+            </div>
+
+            <div class="col-3 col-xl-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: OUT </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
                   <div class="col-6 text-start mb-1"> Cleaning </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
@@ -426,16 +439,17 @@
               </div>
             </div>
 
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple">REPAIRS</div>
               </div>
               <div
                 class="row m-0 p-0 pb-3 pt-3 text-center rounded-bottom bg-blue">
-                    <div class="col-3 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">id</div>
+                    <div class="col-1 fw-bold text-center m-0 p-0 pb-1 mb-1"></div>
+                    <div class="col-2 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">id</div>
                     <div class="col-6 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">naam</div>
                     <div class="col-2 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1">€</div>
-                    <div class="col-1 fw-bold text-center m-0 p-0 border-bottom border-light pb-1 mb-1"></div>
+                    <div class="col-1 fw-bold text-center m-0 p-0  pb-1 mb-1"></div>
                     <div class="col-12 m-0 p-0"  v-for="l in RepairsList">
                     <Repairs 
                       :id="l.id"
@@ -468,7 +482,7 @@
               </div>
             </div>
 
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple">ADMINS</div>
               </div>
