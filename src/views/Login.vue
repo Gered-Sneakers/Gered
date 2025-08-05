@@ -45,7 +45,7 @@
         
         <div class="row w-100 vh-80 valignz m-0 p-0 text-center" v-else>
             <div class="col-12 h-100 m-0 p-0 mx-auto valign justify-content-center">
-                <div>
+                <div class="">
                 <img class="mx-auto vh-15 w-15 mb-5 rotate" src="../img/den G.png">
                 <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
                     <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">

@@ -186,7 +186,7 @@
                 <div @click="showWerknemer = !showWerknemer" class="w-100 mx-auto subTitle">WERKNEMERS</div>
               </div>
               <div v-if="showWerknemer"
-                class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue">
+                class="row m-0 p-0 pb-3 text-center rounded-bottom bg-blue" style="cursor:'default'">
                   <Werknemer v-for="l in WerknemersList"
                     :id="l.id"
                     :name="l.name"
@@ -219,15 +219,19 @@
                     <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded" id="updateWerknemer">
                           <p class="my-5">Wil je <span class="text-yellow">{{ updateId }}</span> wijzigen? </p>
                           <!--<span>{{ updateId }}</span>-->
-                          <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
-                          <div><input type="password" class="text-center" v-model="updatePass"></div>
-                          <div class="mt-2 defaultInput" v-show=" idd === 1">
-                            <span>is Admin: </span>
-                            <img
-                              @click="updateAdmin = !updateAdmin"
-                              :class="['rounded-circle', updateAdmin ? 'bg-success' : 'bg-danger']"
-                              src="../img/admin.svg"
-                            >
+                          <div class="h-100">
+                            <div class="h-100 align-items-center justify-content-center">
+                            <div><input class="d-block mx-auto text-center" v-model="updateName"></div>
+                            <div><input type="password" class="text-center" v-model="updatePass"></div>
+                            <div class="mt-2 defaultInput mx-auto" v-show=" idd === 1">
+                              <span>is Admin: </span>
+                              <img
+                                @click="updateAdmin = !updateAdmin"
+                                :class="['rounded-circle', updateAdmin ? 'bg-success' : 'bg-danger']"
+                                src="../img/admin.svg"
+                              >
+                            </div>
+                          </div>
                           </div>
                           <div class="row m-0 p-0 mt-5">
                           <div class="col-6 m-0 p-0">

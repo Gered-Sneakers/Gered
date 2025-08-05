@@ -49,7 +49,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER // ID
       },
       shoelace: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       creator: { 
         type: Sequelize.INTEGER // ID

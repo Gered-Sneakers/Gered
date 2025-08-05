@@ -38,7 +38,6 @@ import SneakerService from './services/SneakerService';
 import WerknemerService from './services/WerknemerService';
 import Sneaker from './components/Sneaker.vue';
 
-
 export default {
   name: 'App',
   components: {
@@ -84,6 +83,18 @@ export default {
       console.error('Fout bij ophalen van data:', err)
     }
   },
+  methods:{/*
+    moveCircle(event) {
+      const area = event.currentTarget.getBoundingClientRect();
+      const circle = this.$refs.circle;
+      circle.style.left = `${event.clientX - area.left}px`;
+      circle.style.top = `${event.clientY - area.top}px`;
+      circle.style.display = 'block';
+    },
+    hideCircle() {
+      this.$refs.circle.style.display = 'none';
+    }*/
+  },
   provide() {
     return {
       brands: () => this.brands,
@@ -119,6 +130,49 @@ export default {
   color: var(--gText);
   cursor: 50px 50px !important;
   font-size: 1.1rem;
+}
+
+.invisBorders{
+  border: 5px solid transparent;
+}
+
+.pulse {/*
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  
+  pointer-events: none;*/
+  border-radius: 50%;
+  /*transform: rotate(90deg);*/
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  /*transform: translate(-50%, -100%);*/
+  /*display: none;*/
+}
+
+.pulse:hover{
+   animation: pulse 0.42s ease-out infinite, rainbow 2s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    /*transform: rotate(90deg) scale(1);*/
+    opacity: 0.8;
+  }
+  100% {
+    /*transform: rotate(90deg) scale(2.5);*/
+    opacity: 0;
+  }
+}
+
+@keyframes rainbow {
+  0% { background-color: red; }
+  16% { background-color: orange; }
+  33% { background-color: yellow; }
+  50% { background-color: green; }
+  66% { background-color: blue; }
+  83% { background-color: indigo; }
+  100% { background-color: violet; }
 }
 
 :root{
@@ -868,7 +922,7 @@ a{
  
 
   .full .row .col-6 p{
-    height: 30vh;
+    /*height: 30vh;*/
     font-size: 25px;
     font-weight: bold;
   }

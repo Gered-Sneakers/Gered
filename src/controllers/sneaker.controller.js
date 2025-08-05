@@ -13,7 +13,7 @@ exports.create = (req, res) => {
       brand: req.body.brand,
       model: req.body.model,
       extra: req.body.extra,
-      //baknr: req.body.bakNr,
+      bakNr: req.body.bakNr,
       size: req.body.size,
       colors: req.body.colors,
       supplier: req.body.supplier,
@@ -23,7 +23,8 @@ exports.create = (req, res) => {
       glue: req.body.glue,
       status: req.body.status,
       creator: req.body.creator,
-      price: req.body.price
+      price: req.body.price,
+      shoeLace: req.body.shoeLace
       
       //published: req.body.published ?? false
     };

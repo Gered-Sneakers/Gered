@@ -51,11 +51,11 @@ export default {
      
       <div class="col-3 row m-0 p-0" v-if="hover">
         
-        <div v-if="id !== 1" class="col-6 text-danger text-center" style="cursor:pointer;" @click="$emit('update', id,name,pass,isAdmin)">
-        🔨
+        <div v-if="id !== 1" class="col-6 text-danger text-center" @click="$emit('update', id,name,pass,isAdmin)">
+        <span class="pointer">🔨</span>
         </div>
         <div v-if="id !== 1" class="col-6 text-success text-center fw-bold" style="cursor:pointer;" @click="$emit('activate', id,name,activate)">
-        {{ icon }}
+        <span class="pointer">{{ icon }}</span>
         </div>
       </div>
   </div>
@@ -65,9 +65,5 @@ export default {
 <style scoped>
   div:hover , div > *:hover{
     color: var(--gYellow) !important;
-  }
-
-  .col-6:hover{
-    cursor: pointer !important;
   }
 </style>

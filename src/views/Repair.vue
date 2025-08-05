@@ -15,10 +15,10 @@
                     >
                 </div>
                 <div class="w-100 text-center d-flex justify-content-center">
-                    <input type="text" size="4"
+                    <input type="text" size="9"
                         id="bakNr"
                         class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                        maxlength="5"
+                        maxlength="9"
                         placeholder="baknummer"
                         v-model="baknr"
                         @focus="moveCursorToEnd"
@@ -27,7 +27,7 @@
                     >
                 </div>
                 <div class="w-100 text-center d-flex justify-content-center">
-                    <div @click="next" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
+                    <div @click="search" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
                         <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
-                        <div class="col-9 text-end text-success fw-1000" v-if="sneaker.laces">✔</div>
+                        <div class="col-9 text-end fw-1000" v-if="sneaker.laces"><span v-if="shoeLace && shoeLace.length > 0">{{ shoeLace + "cm " }}</span><span class="text-success">✔</span></div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -118,36 +118,29 @@
             <div id="REPAIR" class="targets rounded row d-flex flex-column h-100 text-start justify-content-center align-items-center">
             <div class="">
                 <div class="row m-0 p-0 mx-auto text-light">
-                    <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="addLaces"
-                    >
+                    <div class="col-6 m-0 p-0 mb-4 text-center">
                         <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.laces }">
-                            <img class="imgSquare w-100 mx-auto" src="../img/laces.svg">
+                            <img class="imgSquare w-100 mx-auto" @click="addLaces();showLaces = true" src="../img/laces.svg">
                             <label class="col-12" for="check1">(1) Geen veters  </label>
                         </div>
+                        <input v-if="showLaces" v-model="shoeLace" class="text-center" placeholder="Veterlengte">
                     </div>
-                    <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="addSoles"
-                    >
+                    <div class="col-6 m-0 p-0 mb-4 text-center">
                         <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.soles }">
-                            <img class="imgSquare w-100 mx-auto" src="../img/soles.svg">
+                            <img class="imgSquare w-100 mx-auto" @click="addSoles" src="../img/soles.svg">
                             <label class="col-12" for="check2"> (1) Geen binnenzool</label>
                         </div>
                     </div>
                 </div>
                 <div class="row m-0 p-0 mx-auto text-light">
-                    <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="addPaint"
-                    >
+                    <div class="col-6 m-0 p-0 mb-4 text-center">
                         <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.paint }">
-                            <img class="imgSquare w-100 mx-auto" src="../img/paint.svg">
+                            <img class="imgSquare w-100 mx-auto" @click="addPaint" src="../img/paint.svg">
                             <label class="col-12" for="check4"> (2) Verven </label>
                         </div>
                     </div>
-                    <div class="col-6 m-0 p-0 mb-4 text-center"
-                            @click="addGlue"
-                    >
-                        <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.glue }">
+                    <div class="col-6 m-0 p-0 mb-4 text-center">
+                        <div class="w-50 mx-auto invis-border pointer growz" @click="addGlue" :class="{ highlight: !sneaker.glue }">
                             <img class="imgSquare w-100 mx-auto" src="../img/repair.svg">
                             <label class="col-12" for="check3"> (3) Lijmen </label>
                         </div>
@@ -250,17 +243,19 @@ import LeverancierService from '@/services/LeverancierService';
             paint: 1,
             glue: 1,
             status: 1,
-            shoeLace: 0,
+            shoeLace: "",
             lacesCheck: false,
             solesCheck: false,
             paintCheck: false,
             glueCheck: false,
-            baknr: "R.",
+            baknr: "IN-2-",
             price: 0,
 
             showConfirmUpdate: false,
             showConfirmAnnuleren: false,
             showConfirm: false,
+
+            showLaces: false,
 
             repairList: [],
             leveranciersList: [],
@@ -314,9 +309,9 @@ import LeverancierService from '@/services/LeverancierService';
             try{
                 await SneakerService.get(this.id)
                     .then(result => {
-                      const bakNr = result.data.bakNr;
+                      //const bakNr = result.data.bakNr;
                       // You can store it somewhere if needed
-                      this.baknr = bakNr;
+                      //this.baknr = bakNr;
                     })
 
                 return;
@@ -343,24 +338,25 @@ import LeverancierService from '@/services/LeverancierService';
                 else this.sneaker.status = 2
 
                 console.log("STATUS" + this.sneaker.status);
+                console.log("VETERLENGTE:" + this.shoeLace);
 
                 if(this.baknr){
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr}
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.shoeLace}
 
                 }else{
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price }
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price, shoeLace: this.shoeLace }
                 }
-                //if()
-                SneakerService.update(this.id,updateData)
+
+                SneakerService.update(this.id,{ laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.shoeLace })
                 .then( () => {
                     console.log("yolo baby update , check db bro");
                     this.showConfirmUpdate = ! this.showConfirmUpdate;
                     this.annuleren();
                 })
                 .catch(error => {
-                        error = "Sneaker upodate nope bra";
-                        console.error(error);
-                        alert(error);
+                    error = "Sneaker upodate nope bra";
+                    console.error(error);
+                    alert(error);
                 })
             }
         },
@@ -408,7 +404,7 @@ import LeverancierService from '@/services/LeverancierService';
             //console.log("COUNTER NEXT: ")
             //console.log(counter);
         },
-        
+        /*
         handleBaknrInput(event) {
            const input = event.target.value;
 
@@ -421,7 +417,7 @@ import LeverancierService from '@/services/LeverancierService';
            }
        
            this.baknr = raw;
-         },
+         },*/
          moveCursorToEnd(event) {
           const el = event.target;
           const value = el.value;
@@ -501,11 +497,44 @@ import LeverancierService from '@/services/LeverancierService';
         }
     },
     watch: {
-      baknr(newVal) {
-        if (newVal) {
-          this.baknr = this.baknr.toUpperCase();
+        baknr(newVal) {
+            if (!newVal) return;
+
+            // Force uppercase and remove anything not A-Z or 0-9
+            let val = newVal.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+            // Remove IN2 if user typed it
+            if (val.startsWith('IN2')) {
+              val = val.slice(3);
+            } else if (val.startsWith('IN-2')) {
+              val = val.slice(4);
+            }
+
+            const prefix = 'IN-2-';
+
+            // Extract valid segments
+            let letter = '';
+            let digit = '';
+
+            if (val.length >= 1 && /[A-Z]/.test(val[0])) {
+              letter = val[0];
+            }
+
+            if (val.length >= 2 && /[0-9]/.test(val[1])) {
+              digit = val[1];
+            }
+
+            // Build formatted string
+            let formatted = prefix;
+            if (letter) formatted += letter;
+            if (letter && !digit) formatted += '-';
+            if (digit) formatted += `-${digit}`;
+
+            // Prevent infinite loop
+            if (this.baknr !== formatted) {
+              this.baknr = formatted;
+            }
         }
-      }
     },
     computed:{
         stringId(){

@@ -59,8 +59,8 @@
         </div>
         <div class="vh-5"></div>
     </div>
-    <div class="row h-100 mainTargets mx-auto text-Gered d-none">
-        <div class=" mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative">
+    <div class="row h-100 mainTargets mx-auto text-Gered d-none">        
+        <div class="mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative" v-if="showPreviewz">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-4 mb-3">
@@ -124,7 +124,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/stock.svg"></div>
-                        <div class="col-9 text-end">{{datum}}</div>
+                        <div class="col-9 text-end">{{bakNr}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -148,7 +148,8 @@
         </div>
         <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
             <div id="navToevoegen" class="row vh-7 valign me-3">
-                <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
+                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover pulse" style="width:50px;height:50px;" src="@/img/downarrow.svg"> </div>
+                <div @click="showAnnuleren()" class="w-50 text-danger h-100 valign justify-content-end hover mt-2 fs-1">
                     <span class="text-end growz">❌</span>
                 </div>
             </div>
@@ -231,25 +232,27 @@
                         <!-- LACES + SOLES -->
                         <div id="REPAIR" class="targets rounded row text-start d-none">
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
-                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer" :class="{ highlight: !laces }">
-                                <img class="col-6 imgSquare mx-auto" src="../img/laces.svg" @click="laces = !laces;statusCheckbox()">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !laces }">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/laces.svg" @click="laces = !laces;statusCheckbox()">
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
-                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer" :class="{ highlight: !soles }">
-                                <img class="col-6 imgSquare mx-auto" src="../img/soles.svg" @click="soles = !soles;statusCheckbox()">
+                            <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !soles }">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/soles.svg" @click="soles = !soles;statusCheckbox()">
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
-                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer" :class="{ highlight: !paint }">
-                                <img class="col-6 imgSquare mx-auto" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
+                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !paint }">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
-                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer" :class="{ highlight: !glue }">
-                                <img class="col-6 imgSquare mx-auto" src="../img/repair.svg" @click="glue = !glue;statusCheckbox()">
+                            <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !glue }">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/repair.svg" @click="glue = !glue;statusCheckbox()">
                                 <label class="col-12" for="check3"> Lijmen </label>
                             </div>
 
                         </div>
                         </div>
+                        <!-- LOCATIE -->
+                        <input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
                     </div>
                 </div>
                 <div class="col-2 p-2">
@@ -355,8 +358,11 @@
     var creator = ref();
     var extra = ref();
     var price = 25;
+    var bakNr = ref("IN-");
 
     var statusz = "Cleaning";
+
+    var showPreviewz = ref(true);
     
     var prevLeverancier = ref(0);
     var repairs = [];
@@ -405,6 +411,37 @@
     watch(extra, (newVal, oldVal) => {
         extra.value = newVal.toUpperCase()
     })
+
+    watch(bakNr, (newVal) => {
+      let val = newVal.toUpperCase();
+
+      // Remove all non-alphanumeric characters except what we allow
+      val = val.replace(/[^A-Z0-9]/g, '');
+
+      // Strip "IN" if typed by user
+      if (val.startsWith("IN")) {
+        val = val.slice(2);
+      }
+
+      let part1 = val[0]?.match(/[0-9]/) ? val[0] : '';
+      let part2 = val[1] && part1 ? (val[1].match(/[A-Z]/) ? val[1] : '') : '';
+      let part3 = val[2] && part2 ? (val[2].match(/[0-9]/) ? val[2] : '') : '';
+
+      // Build the result
+      let formatted = 'IN';
+      if (part1) formatted += `-${part1}`;
+      if (part2) formatted += `-${part2}`;
+      if (part3) formatted += `-${part3}`;
+
+      // Add trailing dashes for live feedback
+      if (part1 && !part2) formatted += '-';
+      if (part2 && !part3) formatted += '-';
+
+      // Max 9 characters: I N - 1 - A - 3
+      formatted = formatted.slice(0, 9);
+
+      bakNr.value = formatted;
+    });
     
     
     //----------------------
@@ -634,7 +671,7 @@
             //shoeLace: shoelace,
             //updatedBy: creator,
             price: price,
-            //bakNr: bakNr,
+            bakNr: bakNr.value,
             //createdAt: '',
             //updatedAt: ''
         };
@@ -711,6 +748,24 @@
         .catch(err => console.log(err));
     }
 
+    function showPreview(){        
+        const form = document.getElementsByClassName("FORM")[0];
+        const arrow = document.getElementsByClassName("hideArrow")[0];
+
+        if(showPreviewz.value === true){
+            form.classList.remove("col-8", "col-xxl-9");
+            form.classList.add("col-12");
+
+            arrow.style.transform = 'rotate(270deg)';
+        }else{
+            form.classList.remove("col-12");
+            form.classList.add("col-8", "col-xxl-9");
+
+            arrow.style.transform = 'rotate(90deg)';
+        }
+        showPreviewz.value = !showPreviewz.value;
+    }
+
     function showAnnuleren(){
         document.getElementById("confirmAnnuleren").classList.remove("d-none");
     }
@@ -737,6 +792,11 @@
         width: 100%;
         height: 100%;
         background-color: rgba(247,247,247,0.5);
+    }
+
+    .hideArrow{
+        transition: transform 0.3s ease;
+        transform:rotate(90deg)
     }
 
     .imgSquare{
