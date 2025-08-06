@@ -148,7 +148,7 @@
         </div>
         <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
             <div id="navToevoegen" class="row vh-7 valign me-3">
-                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover pulse" style="width:50px;height:50px;" src="@/img/downarrow.svg"> </div>
+                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover" style="width:50px;height:50px;" src="@/img/downarrow.svg"> </div>
                 <div @click="showAnnuleren()" class="w-50 text-danger h-100 valign justify-content-end hover mt-2 fs-1">
                     <span class="text-end growz">❌</span>
                 </div>
@@ -167,7 +167,7 @@
                         <!-- ID -->
                         <div id="IDLABEL" class="row w-100 targets" @keyup.enter="next">
                             <div class="row m-0 p-0">
-                                <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
+                                <input id="ID" @keyup.enter="createDate();checkboxLimit();" v-model="id" :autocomplete="'off'" type="text" placeholder="Label NR" class="rounded border-blue id text-center mx-auto d-inline " minlength="4" maxlength="4">
                             </div>
                             <!--
                             <div class="row mt-3 mx-auto mw-800">
@@ -194,11 +194,11 @@
                         </div>
                         </div>
                         <!-- MODEL -->
-                        <input @keyup.enter="next" id="MODEL" v-model="model" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
+                        <input @keyup.enter="next" id="MODEL" v-model="model" :autocomplete="'off'" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
                         <!-- EXTRA -->
-                        <input @keyup.enter="next" id="EXTRA" v-model="extra" type="text" placeholder="EXTRA" class="targets rounded border-blue model text-center d-none" maxlength="25">
+                        <input @keyup.enter="next" id="EXTRA" v-model="extra" :autocomplete="'off'" type="text" placeholder="EXTRA" class="targets rounded border-blue model text-center d-none" maxlength="25">
                         <!-- SIZE -->
-                        <input @keyup.enter="next" id="SIZE" v-model="size" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
+                        <input @keyup.enter="next" id="SIZE" v-model="size" :autocomplete="'off'" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
                             <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
@@ -252,7 +252,7 @@
                         </div>
                         </div>
                         <!-- LOCATIE -->
-                        <input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
+                        <input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
                     </div>
                 </div>
                 <div class="col-2 p-2">
@@ -412,36 +412,44 @@
         extra.value = newVal.toUpperCase()
     })
 
-    watch(bakNr, (newVal) => {
-      let val = newVal.toUpperCase();
+    watch(bakNr,(newVal) => {
+        if (!newVal) return;
 
-      // Remove all non-alphanumeric characters except what we allow
-      val = val.replace(/[^A-Z0-9]/g, '');
+        // Force uppercase and remove anything not A-Z or 0-9
+        let val = newVal.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-      // Strip "IN" if typed by user
-      if (val.startsWith("IN")) {
-        val = val.slice(2);
-      }
+        // Remove IN2 if user typed it
+        if (val.startsWith('IN2')) {
+            val = val.slice(3);
+        } else if (val.startsWith('IN-2')) {
+            val = val.slice(4);
+        }
 
-      let part1 = val[0]?.match(/[0-9]/) ? val[0] : '';
-      let part2 = val[1] && part1 ? (val[1].match(/[A-Z]/) ? val[1] : '') : '';
-      let part3 = val[2] && part2 ? (val[2].match(/[0-9]/) ? val[2] : '') : '';
+        const prefix = 'IN-2-';
 
-      // Build the result
-      let formatted = 'IN';
-      if (part1) formatted += `-${part1}`;
-      if (part2) formatted += `-${part2}`;
-      if (part3) formatted += `-${part3}`;
+        // Extract valid segments
+        let letter = '';
+        let digit = '';
 
-      // Add trailing dashes for live feedback
-      if (part1 && !part2) formatted += '-';
-      if (part2 && !part3) formatted += '-';
+        if (val.length >= 1 && /[A-Z]/.test(val[0])) {
+            letter = val[0];
+        }
 
-      // Max 9 characters: I N - 1 - A - 3
-      formatted = formatted.slice(0, 9);
+        if (val.length >= 2 && /[0-9]/.test(val[1])) {
+            digit = val[1];
+        }
 
-      bakNr.value = formatted;
-    });
+        // Build formatted string
+        let formatted = prefix;
+        if (letter) formatted += letter;
+        if (letter && !digit) formatted += '-';
+        if (digit) formatted += `-${digit}`;
+
+        // Prevent infinite loop
+        if (this.baknr !== formatted) {
+          bakNr = formatted;
+        }
+    })
     
     
     //----------------------
@@ -699,6 +707,7 @@
         size.value = "";
         colors.value = [];
         extra.value = "";
+        bakNr.value = "";
         laces.value = true;
         soles.value = true;
         status.value = true;

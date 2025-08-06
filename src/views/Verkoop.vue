@@ -52,13 +52,13 @@
       -->
     </div>
   </div>
-  <div class="row mx-auto vh-5 bg-blue text-white valign">
+  <div class="row m-0 p-0 vh-5 bg-blue text-white valign">
       <div class="col-1" v-if="filteredSneakers.lenght == 0"></div>
       <div class="col-1 h-100 valign justify-content-center fw-bold" v-else title="Totaal"> {{ filteredSneakers.length }} </div>
-      <div class="col-3"></div>
-      <div class="col-4 h-100 py-1 mx-auto">
+      <div class="col-8"></div>
+      <div class="col-3">
+        <button @click="toggleContent(5)" id="verkochtButton" class="w-100 h-100 mx-auto rounded bg-green hover fw-bold">Sold</button>
       </div>
-      <div class="col-4"></div>
   </div>
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
@@ -163,7 +163,61 @@ var verkoopList = [];
             this.sortKey = key;
             this.sortAscending = true;
           }
-        }
+        },
+        toggleContent(nr) {
+          const sneakers = document.getElementById("sneaks");
+          const csv = document.getElementById("csv");
+          const verkoop = document.getElementById("verkoop");
+          const verkocht = document.getElementById("verkocht");
+          const main = document.getElementById("main");
+
+          // Reset all to hidden
+          main.classList.replace("d-block", "d-none");
+          sneakers.classList.replace("d-block", "d-none");
+          csv.classList.replace("d-block", "d-none");
+          verkoop.classList.replace("d-block", "d-none");
+          verkocht.classList.replace("d-block", "d-none");
+
+          // reload components
+          this.componentKey += 1;
+
+          switch (nr) {
+            case 1:
+              sneakers.classList.replace("d-none", "d-block");
+              
+              this.$nextTick(() => {
+                this.$refs.sneakerComponent?.getSneakers?.();
+              });
+              break;
+            
+            case 2:
+              csv.classList.replace("d-none", "d-block");
+
+              console.log("CSV RELOAD PLS");
+              this.$nextTick(() => {
+                this.$refs.csvComponent?.getSneakers?.();
+              });
+              break;
+            
+            case 3:
+              main.classList.replace("d-none", "d-block");
+              break;
+            
+            case 4:
+              verkoop.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.verkoopComponent?.getSneakers?.();
+              });
+              break;
+            
+            case 5:
+              verkocht.classList.replace("d-none", "d-block");
+              this.$nextTick(() => {
+                this.$refs.verkochtComponent?.getSneakers?.();
+              });
+              break;
+          }
+        },
         
           
     },

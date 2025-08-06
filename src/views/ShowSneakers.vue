@@ -4,13 +4,13 @@
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
         <div id="id" class="col-1 borders mb-1" title="id" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 borders mb-1" :title="'merk' + '\n' + 'model'"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col-15 borders mb-1" title="xx"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders mb-1" title="xx" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="status" class="col-05 borders mb-1" title="xx"><img src="../img/warning.svg"></div>
-        <div id="bakNr" class="col-1 borders mb-1" title="xx"><img src="../img/stock.svg"></div>
-        <div id="user" class="col-15 borders mb-1" title="xx"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-15 borders mb-1" title="xx" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="col-1 borders mb-1" title="xx"><img src="../img/delivery.svg"></div>
+        <div id="kleur" class="col-15 borders mb-1" title="kleur"><img src="../img/color.svg"></div>
+        <div id="maat" class="col-1 borders mb-1" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+        <div id="status" class="col-05 borders mb-1" title="status"><img src="../img/warning.svg"></div>
+        <div id="bakNr" class="col-1 borders mb-1" title="locatie"><img src="../img/stock.svg"></div>
+        <div id="user" class="col-15 borders mb-1" title="gebruiker"><img src="../img/login.svg"></div>
+        <div id="datum" class="col-15 borders mb-1" title="datum" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
+        <div id="leverancier" class="col-1 borders mb-1" title="leverancier"><img src="../img/delivery.svg"></div>
         <div class="col-05 borders mb-1" title="csv"><img src="../img/csv.svg"></div>
         <div class="col-05 borders mb-1" title="verkoop"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
@@ -247,7 +247,24 @@ import LeverancierService from '@/services/LeverancierService';
         let filtered = this.sneakerList;
             
         if (this.selectedBrand) filtered = filtered.filter(s => s.brand === this.selectedBrand);
-        if (this.selectedSize) filtered = filtered.filter(s => s.size == this.selectedSize);
+        //if (this.selectedSize) filtered = filtered.filter(s => s.size == this.selectedSize);
+
+        if (this.selectedSize) {
+          const selected = parseFloat(this.selectedSize);
+          const isHalf = selected % 1 !== 0;
+                
+          filtered = filtered.filter(s => {
+            const size = parseFloat(s.size);
+          
+            if (isHalf) {
+              // If user searched e.g. 36.5, show only 36.5
+              return size === selected;
+            } else {
+              // If user searched e.g. 36, include 36 and 36.5
+              return size === selected || size === selected + 0.5;
+            }
+          });
+        }
 
         this.total = filtered.length;
       /*

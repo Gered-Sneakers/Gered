@@ -9,6 +9,7 @@
                         maxlength="4"
                         placeholder="labelnr" 
                         v-model="id"
+                        :autocomplete="'off'"
                         @change="exist"
                         @click="showSelected"
 
@@ -21,14 +22,15 @@
                         maxlength="9"
                         placeholder="baknummer"
                         v-model="baknr"
+                        :autocomplete="'off'"
                         @focus="moveCursorToEnd"
                         @keyup.enter="search"
                         @click="showConfirmUpdate"
                     >
                 </div>
                 <div class="w-100 text-center d-flex justify-content-center">
-                    <div @click="search" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
-                        <img class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                    <div id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100 mt-3">
+                        <img @click="search" class="vh-15 pointer mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
         </div>
@@ -68,7 +70,7 @@
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
-                        <div class="col-9 text-end fw-1000" v-if="sneaker.laces"><span v-if="shoeLace && shoeLace.length > 0">{{ shoeLace + "cm " }}</span><span class="text-success">✔</span></div>
+                        <div class="col-9 text-end fw-1000" v-if="sneaker.laces"><span class="text-light" v-if="sneaker.shoeLace">{{ sneaker.shoeLace }}<span class="fw-normal ps-1">cm {{ " " }}</span></span><span class="text-success">✔</span></div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
@@ -123,7 +125,7 @@
                             <img class="imgSquare w-100 mx-auto" @click="addLaces();showLaces = true" src="../img/laces.svg">
                             <label class="col-12" for="check1">(1) Geen veters  </label>
                         </div>
-                        <input v-if="showLaces" v-model="shoeLace" class="text-center" placeholder="Veterlengte">
+                        <input v-if="showLaces" v-model="sneaker.shoeLace" class="text-center" placeholder="Veterlengte">
                     </div>
                     <div class="col-6 m-0 p-0 mb-4 text-center">
                         <div class="w-50 mx-auto invis-border pointer growz" :class="{ highlight: !sneaker.soles }">
@@ -161,8 +163,8 @@
                          <span class="text-end growz">❌</span>
                     </div>
                 </div>
-                <div @click="showConfirmUpdate = !showConfirmUpdate" id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100">
-                    <img class="w-50 mx-auto selectDisable" src="../img/next.svg">
+                <div id="nextButton" class="nextButton grow boxShadow-blue square valign text-center h-100">
+                    <img @click="showConfirmUpdate = !showConfirmUpdate" class="w-50 mx-auto selectDisable pointer" src="../img/next.svg">
                 </div>
             </div>
         </div>
@@ -326,6 +328,14 @@ import LeverancierService from '@/services/LeverancierService';
             console.log("ID");
             console.log(this.sneaker.id);
 
+            console.log("PRICE UNCAPPED");
+            console.log(this.sneaker.price);
+            
+            this.priceCheck(this.sneaker.price);
+
+            console.log("PRICE CHECKED");
+            console.log(this.sneaker.price);
+            
             if(this.sneaker.id){
                 var updateData = {};
 
@@ -333,7 +343,7 @@ import LeverancierService from '@/services/LeverancierService';
 
                 if(this.sneaker.laces == true && this.sneaker.soles == true && this.sneaker.paint === true && this.sneaker.glue === true){
                     this.sneaker.status = 1
-                    this.sneaker.bakNr = "Atel-J"
+                    //this.sneaker.bakNr = "Atel-J"
                 } 
                 else this.sneaker.status = 2
 
@@ -341,13 +351,13 @@ import LeverancierService from '@/services/LeverancierService';
                 console.log("VETERLENGTE:" + this.shoeLace);
 
                 if(this.baknr){
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.shoeLace}
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.sneaker.shoeLace}
 
                 }else{
-                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price, shoeLace: this.shoeLace }
+                    updateData = { laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price, shoeLace: this.sneaker.shoeLace }
                 }
 
-                SneakerService.update(this.id,{ laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.shoeLace })
+                SneakerService.update(this.id,{ laces: this.sneaker.laces , soles: this.sneaker.soles , paint: this.sneaker.paint , glue: this.sneaker.glue , status: this.sneaker.status, price: this.sneaker.price , bakNr: this.baknr, shoeLace: this.sneaker.shoeLace })
                 .then( () => {
                     console.log("yolo baby update , check db bro");
                     this.showConfirmUpdate = ! this.showConfirmUpdate;
@@ -400,24 +410,7 @@ import LeverancierService from '@/services/LeverancierService';
                 document.getElementsByClassName("addButton")[0].classList.remove("d-none");
                 document.getElementsByClassName("addButton")[0].classList.add("d-flex");
             }
-            
-            //console.log("COUNTER NEXT: ")
-            //console.log(counter);
         },
-        /*
-        handleBaknrInput(event) {
-           const input = event.target.value;
-
-           // Remove "R." if user tries to backspace
-           let raw = input.startsWith('R.') ? input.slice(2) : input;
-
-           // Capitalize first character only
-           if (raw.length > 0) {
-             raw = raw.charAt(0).toUpperCase() + raw.slice(1);
-           }
-       
-           this.baknr = raw;
-         },*/
          moveCursorToEnd(event) {
           const el = event.target;
           const value = el.value;
@@ -494,6 +487,18 @@ import LeverancierService from '@/services/LeverancierService';
             .catch(err =>{
                 console.log(err);
             })
+        },
+        priceCheck(price){
+            if(this.sneaker.size >= 36){
+                if(price >= 40){
+                    this.sneaker.price = 40;
+                }
+            }else{
+                if(price >= 35){
+                    this.sneaker.price = 35;
+                }
+            }
+            
         }
     },
     watch: {
@@ -534,7 +539,8 @@ import LeverancierService from '@/services/LeverancierService';
             if (this.baknr !== formatted) {
               this.baknr = formatted;
             }
-        }
+        },
+        
     },
     computed:{
         stringId(){

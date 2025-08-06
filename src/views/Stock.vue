@@ -9,6 +9,7 @@
                     maxlength="4"
                     placeholder="labelnr" 
                     v-model="id"
+                    :autocomplete="'off'"
                     @change="exist"
                     @keyup.enter="showConfirmUpdate = true"
                     @click="showConfirmUpdate"
@@ -21,6 +22,7 @@
                     maxlength="5"
                     placeholder="locatie" 
                     v-model="baknr"
+                    :autocomplete="'off'"
                     @keyup.enter="showConfirmUpdate = true"
                     @click="showConfirmUpdate"
                 >

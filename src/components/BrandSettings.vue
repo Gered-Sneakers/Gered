@@ -52,7 +52,7 @@
 
 <style scoped>
   .bg-light:hover{
-    border: 5px solid blue;
+    border: 5px solid rgb(0,159,253) !important;
     cursor: pointer !important;
   }
 </style>

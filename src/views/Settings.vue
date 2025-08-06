@@ -7,20 +7,17 @@
             <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">CSV</button>
+            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Shopify</button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Verkoop</button>
-          </div>
-          <div class="col mx-auto">
-            <button @click="toggleContent(5)" id="verkochtButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Verkocht</button>
+            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sales</button>
           </div>
           <div class="col mx-auto">
             <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Settings</button>
           </div>
         </div>
       </div>
-      <div id="main" class="d-block max-1800 mx-auto">
+      <div id="main" class="d-block max-1800 mx-auto mb-5">
           <div id="inputFields" class="row text-white">
             <!-- INPUT LEVERANCIER -->
             <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
@@ -417,16 +414,19 @@
 
         </div>
         <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
+            <!--<div class="col-15"></div>-->
             <div class="col-3 col-xl-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: IN </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Registratie </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
+                  <div class="col-6 text-start mb-1"> Wash </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
                   <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ repairCount }} </div>
                   <div class="col-6 text-start mb-1"> Donatie </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <!--
                   <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
                   <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
+                  -->
               </div>
             </div>
 
@@ -435,10 +435,8 @@
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: OUT </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Cleaning </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
-                  <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ repairCount }} </div>
-                  <div class="col-6 text-start mb-1"> Stock </div><div class="col-6 text-end"> {{ stockCount }} </div>
-                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
+                  <div class="col-6 text-start mb-1"> Sales </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <div class="col-6 text-start mb-1"> Kids </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
                   <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
               </div>
             </div>
@@ -486,6 +484,8 @@
               </div>
             </div>
 
+            <!--<div class="col-15"></div>-->
+
             <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple">ADMINS</div>
@@ -506,21 +506,33 @@
               </div>
             </div>
 
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto d-none">
-            <div class="w-100 valign rounded-top goud text-white vh-10">
-              <div class="mx-auto subTitle text-purple">+ ADMIN</div>
-            </div>
-            <div class="w-100 text-center valign rounded-bottom bg-blue">
-              <div class="w-100 m-0 p-0 pt-3 mx-auto">
-                <input type="text" class="text-center mb-1 w-90 bg-danger" placeholder="Admin"><br>
-                <input type="text" class="visibility">
-                <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
+            <div class="col-3 col-xl-3 mx-auto greyOut">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple h-100 valign"> SNEAK PRIJS </div>
+              </div>
+              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
+                  <div class="col-6 text-start mb-1"> Sneaker 36+ </div><div class="col-6 text-end"> 25 </div>
+                  <div class="col-6 text-start mb-1"> Sneaker Kids </div><div class="col-6 text-end"> 20 </div>
               </div>
             </div>
-            </div>
 
-            <!-- BOTTOM row -->
-        </div>
+            <!--
+            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto d-none">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple">+ ADMIN</div>
+              </div>
+              <div class="w-100 text-center valign rounded-bottom bg-blue">
+                <div class="w-100 m-0 p-0 pt-3 mx-auto">
+                  <input type="text" class="text-center mb-1 w-90 bg-danger" placeholder="Admin"><br>
+                  <input type="text" class="visibility">
+                  <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addLeverancier">OK</button>
+                </div>
+              </div>
+            </div>
+          -->
+          <!-- BOTTOM row -->
+          </div>
+        
       </div>
       <div id="sneaks" class="d-none m-0 p-0">
         <div class="row m-0 p-0 text-light">

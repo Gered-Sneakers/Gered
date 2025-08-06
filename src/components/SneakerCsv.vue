@@ -13,7 +13,7 @@ import KleurPreview from './KleurPreview.vue';
             modelz: "",                        
             sizez: "",
             uitgave: "",
-            price: "",
+            pricez : "",
             amount: 1,
             retailprice: "",
             barcode: "",
@@ -59,6 +59,9 @@ import KleurPreview from './KleurPreview.vue';
             },
             bakNr:{
               type: String
+            },
+            price:{
+              type: Number
             }
         },
         methods:{
@@ -169,10 +172,10 @@ import KleurPreview from './KleurPreview.vue';
         <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
         <div id="price" class="col-1 m-0 p-0 valign borders">
-            <input type="number" class="w-100 h-100 text-center" v-model="retailprice" placeholder="original">
+            <input type="number" class="w-100 h-100 text-center" :value="retailprice" placeholder="original">
         </div>
         <div id="price" class="col-2 m-0 p-0 valign borders">
-            <input type="number" class="w-100 h-100 text-center" v-model="price" placeholder="price">
+            <input type="number" class="w-100 h-100 text-center" :value="price" placeholder="price">
         </div>
         <div id="locatie" class="col-1 m-0 p-0 valign borders">
             <input class="w-100 h-100 text-center" :value="bakNr" placeholder="locatie">

@@ -186,6 +186,11 @@
                             <img class="w-100 grow" src="../img/qr.svg">
                             <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
+                        <div class="w-100 text-center d-flex justify-content-center">
+                            <div id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
+                                <img @click="search()" class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

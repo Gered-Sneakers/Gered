@@ -113,7 +113,7 @@ export default {
   }
 
   .col-12:hover{
-    border: 2px solid blue;
+    border: 2px solid rgb(0,159,253) !important;
     cursor: pointer !important;
   }
 /*
