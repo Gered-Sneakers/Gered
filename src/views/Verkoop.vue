@@ -85,6 +85,7 @@ import LeverancierService from '@/services/LeverancierService';
 
 var csvList = [];
 var verkoopList = [];
+//var sneakerList = [];
 
   export default {
     name: 'Verkoop_View',
@@ -165,63 +166,25 @@ var verkoopList = [];
           }
         },
         toggleContent(nr) {
-          const sneakers = document.getElementById("sneaks");
-          const csv = document.getElementById("csv");
-          const verkoop = document.getElementById("verkoop");
-          const verkocht = document.getElementById("verkocht");
-          const main = document.getElementById("main");
-
-          // Reset all to hidden
-          main.classList.replace("d-block", "d-none");
-          sneakers.classList.replace("d-block", "d-none");
-          csv.classList.replace("d-block", "d-none");
-          verkoop.classList.replace("d-block", "d-none");
-          verkocht.classList.replace("d-block", "d-none");
-
-          // reload components
-          this.componentKey += 1;
-
           switch (nr) {
-            case 1:
-              sneakers.classList.replace("d-none", "d-block");
-              
-              this.$nextTick(() => {
-                this.$refs.sneakerComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 2:
-              csv.classList.replace("d-none", "d-block");
-
-              console.log("CSV RELOAD PLS");
-              this.$nextTick(() => {
-                this.$refs.csvComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 3:
-              main.classList.replace("d-none", "d-block");
-              break;
-            
-            case 4:
-              verkoop.classList.replace("d-none", "d-block");
-              this.$nextTick(() => {
-                this.$refs.verkoopComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 5:
-              verkocht.classList.replace("d-none", "d-block");
-              this.$nextTick(() => {
-                this.$refs.verkochtComponent?.getSneakers?.();
-              });
-              break;
+            case 1: this.active = 'sneaks'; break;
+            case 2: this.active = 'csv';    break;
+            case 3: this.active = 'main';   break;
+            case 4: this.active = 'verkoop';break;
+            case 5: this.active = 'verkocht';break;
           }
+
+          this.$nextTick(() => {
+            if (this.active === 'sneaks')   this.$refs.sneakerComponent?.getSneakers?.();
+            if (this.active === 'csv')      this.$refs.csvComponent?.getSneakers?.();
+            if (this.active === 'verkoop')  this.$refs.verkoopComponent?.getSneakers?.();
+            if (this.active === 'verkocht') this.$refs.verkochtComponent?.getSneakers?.();
+          });
         },
         
           
     },
-    inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
+    inject: ["brands","labelColors","leveranciers","werknemers"],
     computed: {
       createDate(){
           var now = new Date();

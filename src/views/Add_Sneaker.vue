@@ -252,7 +252,7 @@
                         </div>
                         </div>
                         <!-- LOCATIE -->
-                        <input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
+                        <input @keyup.enter="saveSneaker" id="LOCATIE" :value="bakNr" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
                     </div>
                 </div>
                 <div class="col-2 p-2">

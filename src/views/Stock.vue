@@ -74,7 +74,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
         return{
             sneaker: null,
             id: null,
-            baknr: null,
+            baknr: "OUT-?-",
             
             showConfirmUpdate: false,
             showConfirmAnnuleren: false,
@@ -154,7 +154,43 @@ import KleurPreview from '@/components/KleurPreview.vue';
     watch: {
       baknr(newVal) {
         if (newVal) {
-          this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
+          //this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
+            if (!newVal) return;
+
+            // Force uppercase and remove anything not A-Z or 0-9
+            let val = newVal.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            
+            // Remove IN2 if user typed it
+            if (val.startsWith('IN2')) {
+                val = val.slice(3);
+            } else if (val.startsWith('IN-2')) {
+                val = val.slice(4);
+            }
+        
+                const prefix = 'IN-2-';
+        
+            // Extract valid segments
+            let letter = '';
+            let digit = '';
+        
+                if (val.length >= 1 && /[A-Z]/.test(val[0])) {
+                letter = val[0];
+            }
+        
+                if (val.length >= 2 && /[0-9]/.test(val[1])) {
+                digit = val[1];
+            }
+        
+            // Build formatted string
+            let formatted = prefix;
+            if (letter) formatted += letter;
+            if (letter && !digit) formatted += '-';
+            if (digit) formatted += `-${digit}`;
+        
+            // Prevent infinite loop
+            if (this.baknr !== formatted) {
+              bakNr = formatted;
+            }
         }
       }
     },

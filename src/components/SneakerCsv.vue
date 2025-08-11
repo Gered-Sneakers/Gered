@@ -26,8 +26,7 @@ import KleurPreview from './KleurPreview.vue';
             labelColor: "",
             //colors: "",
             active: "",
-            date: "",
-            bakNr: ""
+            date: ""
             
           }
         },

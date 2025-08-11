@@ -8,8 +8,8 @@
       </div>
       <div class="col-3">
         <div id="navToevoegen" class="vh-7 valign mt-3">
-          <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
-            <span class="text-end growz">❌</span>
+          <div class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
+            <span @click="showConfirmReturnz" class="text-end growz">❌</span>
           </div>
         </div>
       </div>
@@ -41,6 +41,21 @@
         </div>
       </div>
     </div>
+    <div class="full m-0 p-0 d-none" id="confirmz">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je terug wil zonder opslaan?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refusez">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
 </template>
   
 <script>
@@ -60,6 +75,9 @@ import Sneaker from '../components/SneakerChange.vue';
         console.log("SNEAKY BWOI");
         
         return this.sneakers().find(s => s.id == this.$route.params.id);
+      },
+      statusName(){
+        return this.getStatusName();
       }
     },
     methods: {
@@ -70,8 +88,9 @@ import Sneaker from '../components/SneakerChange.vue';
       },
       getStatusName(id){
             id = parseInt(this.$route.params.id);
+            var status = this.sneakers()[id-1].status;
             var name = "Cleaning";
-            switch(id){
+            switch(status){
                 case 1:
                     name = "Cleaning"
                     break;
@@ -101,6 +120,15 @@ import Sneaker from '../components/SneakerChange.vue';
       },
       update(data) {
         console.log("Update event:", data);
+      },
+      saveSneaker(){
+        this.$router.go(-1)
+      },
+      showConfirmReturnz(){
+          document.getElementById("confirmz").classList.remove("d-none");
+      },
+      refusez(){
+          document.getElementById("confirmz").classList.add("d-none");
       }
     },
     mounted() {
@@ -112,5 +140,12 @@ import Sneaker from '../components/SneakerChange.vue';
 </script>
   
 <style scoped>
-
+  .full{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(247,247,247,0.5);
+    }
 </style>

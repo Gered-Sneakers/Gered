@@ -14,7 +14,11 @@
             img:{
          		type: String,
          		required: true
-         	}
+         	},
+            isActive:{
+                type: Boolean,
+
+            }
         },
         methods:{
         
@@ -23,7 +27,7 @@
 </script>
 
 <template>
-    <option :value="name">{{name}}</option>
+    <option v-if="isActive" :value="name">{{name}}</option>
 </template>
 
 <style scoped>

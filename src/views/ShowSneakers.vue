@@ -1,19 +1,20 @@
 <template>
   <!--<div class="vh-80 scroll">-->
   <div class="vh-80 m-0 p-0 scroll">
-    <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-        <div id="id" class="col-1 borders mb-1" title="id" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col-2 borders mb-1" :title="'merk' + '\n' + 'model'"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col-15 borders mb-1" title="kleur"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders mb-1" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="status" class="col-05 borders mb-1" title="status"><img src="../img/warning.svg"></div>
-        <div id="bakNr" class="col-1 borders mb-1" title="locatie"><img src="../img/stock.svg"></div>
-        <div id="user" class="col-15 borders mb-1" title="gebruiker"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-15 borders mb-1" title="datum" @click="toggleSort('date')"><img src="../img/clock.svg"></div>
-        <div id="leverancier" class="col-1 borders mb-1" title="leverancier"><img src="../img/delivery.svg"></div>
-        <div class="col-05 borders mb-1" title="csv"><img src="../img/csv.svg"></div>
-        <div class="col-05 borders mb-1" title="verkoop"><img src="../img/sell.svg"></div>
+    <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top sticky">
+        <div id="id" class="col-1 mb-1 navImgWrap py-2" title="id" @click="toggleSort('id')"><img class="navImg" src="../img/barcode.svg"></div>
+        <div id="merk" class="col-2 mb-1 navImgWrap py-2" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
+        <div id="kleur" class="col-15 mb-1 py-2" title="kleur"><img class="navImg" src="../img/color.svg"></div>
+        <div id="maat" class="col-1 mb-1 navImgWrap py-2" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
+        <div id="status" class="col-05 mb-1 py-2" title="status"><img class="navImg" src="../img/warning.svg"></div>
+        <div id="bakNr" class="col-1 mb-1 py-2" title="locatie"><img class="navImg" src="../img/stock.svg"></div>
+        <div id="user" class="col-15 mb-1 py-2" title="gebruiker"><img class="navImg" src="../img/login.svg"></div>
+        <div id="datum" class="col-15 mb-1 navImgWrap py-2" title="datum" @click="toggleSort('date')"><img class="navImg" src="../img/clock.svg"></div>
+        <div id="leverancier" class="col-1 mb-1 py-2" title="leverancier"><img class="navImg" src="../img/delivery.svg"></div>
+        <div id="csv" class="col-05 mb-1 py-2" title="csv"><img class="navImg" src="../img/csv.svg"></div>
+        <div id="verkoop" class="col-05 mb-1 py-2" title="verkoop"><img class="navImg" src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
+        <div class="d-none">
         <div id="id" class="col-1 borders mb-1 fw-bold" @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
         <div id="kleur" class="col-15 borders mb-1">kleur</div>
@@ -24,6 +25,7 @@
         <div id="datum" class="col-15 borders mb-1 fw-bold" @click="toggleSort('date')">datum</div>
         <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div class="col-1 borders mb-1">verkoop</div>
+        </div>
     </div>
     <div class="w-100 text-dark m-0 p-0 mx-auto" 
      v-if="sneakerList.length > 0"
@@ -61,7 +63,7 @@
       <div class="col-1 valign border-2 border-end border-light fw-bold text-center p-0"><input class="sizeFilter w-75 h-75 mx-auto text-center" v-model="selectedSize"/></div>
       <div class="col-9 row m-0 p-0">
         <div class="col valign brandPick fw-bold text-center" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
-        <div class="brandPick col valign mx-auto justify-content-center" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
+        <div class="brandPick navImgWrap py-2 col valign mx-auto justify-content-center" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
           <!--<img :src="x.img">-->
           <img class="medz whiteIcons" :title="x.name" :src="`/src/img/brands/${x.img}`">
         </div>
@@ -135,7 +137,7 @@ import LeverancierService from '@/services/LeverancierService';
     props: {
   
     },
-    methods: {
+    methods: {/*
       async getSneakers(){
           await SneakerService.getAll()
             .then(response => {
@@ -146,7 +148,7 @@ import LeverancierService from '@/services/LeverancierService';
             .catch(error =>{
               console.error(error);
             })
-      },
+      },*/
       verkoopRemove(id){
         SneakerService.update(id,{ status:3 })
           .then(res =>{
@@ -236,10 +238,10 @@ import LeverancierService from '@/services/LeverancierService';
 
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
-    computed: {
+    computed: {/*
       sneakerList(){
         return this.sneakers();
-      },
+      },*/
       activeBrands() {
         return this.brands().filter(x => x.isActive);
       },
@@ -330,6 +332,8 @@ import LeverancierService from '@/services/LeverancierService';
   
 <style scoped>
 
+  
+
   .overlay {
     position: fixed;
     top: 0;
@@ -373,21 +377,37 @@ import LeverancierService from '@/services/LeverancierService';
     max-width: 1215px;
   }
 
+  .navImg{
+    
+  }
+
+  .navImgWrap{
+    border-radius: 0.375rem !important;
+    border: 2px solid transparent !important;
+    cursor: pointer;
+  }
+
+  .navImgWrap:hover{
+    background-color: rgba(0,159,253,0.5) !important;
+    border: 2px solid rgb(0,159,253) !important;
+  }
+
   .brandPick{
     border-radius: 0.375rem !important;
     border: 2px solid transparent;
   }
-
+/*
   .brandPick:hover {
     background-color: rgba(0,159,253,0.5);
     border: 2px solid rgb(0,159,253);
     cursor: pointer;    
   }
 
-  #maat:hover{
+  #maat:hover img{
     background-color: rgba(0,159,253,0.5);
+    border: 2px solid rgb(0,159,253);
     border-radius: 25rem;
-  }
+  }*/
 
   .full{
      position: fixed;

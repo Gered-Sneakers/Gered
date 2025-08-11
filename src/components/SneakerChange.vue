@@ -96,9 +96,59 @@ import Brand from './BrandList.vue';
                 console.log(firstLetter+rest);
             },
             saveSneaker(){
+                console.log(creator.value);
+                console.log("LEVERANCIER: " + leverancier.value)
+                if(size.value >= 36) price = 25;
+                else price = 20;
+                var data = {
+                    id: id.value,
+                    colorlabel: labelColor.value,
+                    date: datum,
+                    brand: brand.value,
+                    model: model.value,
+                    size: size.value,
+                    colors: colorsToString(),
+                    supplier: leverancier.value,
+                    laces: laces.value ? 1 : 0,
+                    soles: soles.value ? 1 : 0,
+                    paint: paint.value ? 1 : 0,
+                    glue: glue.value ? 1 : 0,
+                    status: this.getStatusName,
+                    //verkoop: verkoop,
+                    //csv: csv,
+                    creator: creator.value,
+                    extra: extra.value,
+                    //shoeLace: shoelace,
+                    //updatedBy: creator,
+                    price: price,
+                    bakNr: bakNr.value,
+                    //createdAt: '',
+                    //updatedAt: ''
+                };
+
+                console.log(data);
+
                 
-            }
-            
+                SneakerService.create(data)
+                .then(response => {
+                    //id = response.data.id;
+                    resetSneaker();
+                    resetTargets();
+                    refuse();
+                })
+                .catch( error => {
+                    console.log(error);
+                });
+
+                    },
+                    showConfirmSave(){
+                        document.getElementById("confirm").classList.remove("d-none");
+                    },
+                    refuse(){
+                        document.getElementById("confirmz").classList.add("d-none");
+                    },
+                    
+                    
         },
         inject: ["sneakers","leveranciers","brands"],
         computed:{
@@ -119,7 +169,7 @@ import Brand from './BrandList.vue';
             },
             brandList() {
                 return typeof this.brands === 'function' ? this.brands() : this.brands;
-            }
+            },
         },
         mounted(){
             console.log(this.brandList)
@@ -166,48 +216,45 @@ import Brand from './BrandList.vue';
                     </div>
                 </div>
                 <div class="col-3">
-                    <div @click="saveSneaker" id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
-                        <img class="h-100 mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                    <div id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
+                        <img @click="showConfirmSave" class="h-100 pointer mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
                 
                 <div class="row w-100 m-0 p-0 pt-2">
-                <div class="col-6 row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                    <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
                     <div class="col-9 text-end pe-5">
-                            <select class="float-end w-50" v-model="_brand">
-                                <option class="text-end" disabled value="">Merk</option>
-                               
-                                <Brand id="brand"
-                                    v-for="b in brandList"
-                                    :key="b.name"
-                                    :name="b.name"
-                                    :img="b.img"
-                                    :isActive="b.isActive"
-                                    class="text-end"
-                                    />
-                                <!--
-                                    <option 
-                                    v-for="b in brandList"
-                                    v-if="b && brandList.lenght && b.isActive == true "
-                                    :value="b.id"
-                                    class="text-end"
-                                    >
-                                        {{ b.name }}
-                                    </option>
-                                -->
-                            </select>
+                        <select class="float-end w-50" v-model="_brand">
+                            <option class="text-end" disabled value="">Merk</option>
+                           
+                            <Brand id="brand"
+                                v-for="b in brandList"
+                                :key="b.name"
+                                :name="b.name"
+                                :img="b.img"
+                                :isActive="b.isActive"
+                                class="text-end"
+                                />
+                        </select>
                     </div>
+                    
+                    </div>
+                    <hr class="w-95 mx-auto my-2 opacity-25">
                 </div>
-                <div class="col-6 row m-0 p-0">
-                    <div class="col-3"></div>
+                <div class="col-6 m-0 p-0">
+                    <div class="sizeRow row m-0 p-0">
+                    <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
                     <div class="col-9 text-end pe-5"><input class="w-50 float-end text-end" :value='model = model.charAt(0).toUpperCase() + model.substring(1)'></div>
+                    </div>
+                    <hr class="w-95 mx-auto my-2 opacity-25">
                 </div>
                 
                 <div class="col-15 valign ps-5"></div>
                 </div>
-                <hr class="w-100 mx-auto my-2 opacity-25">
+                
                 <div class="col-6 m-0 p-0">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/ruler.svg"></div>
@@ -226,26 +273,26 @@ import Brand from './BrandList.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_laces = !_laces" v-if="_laces">✔</div>
-                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_laces = !_laces"v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_laces = !_laces" v-if="_laces"><span class="pointer">✔</span></div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_laces = !_laces"v-else><span class="pointer">❌</span></div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_soles = !_soles" v-if="_soles">✔</div>
-                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_soles = !_soles" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_soles = !_soles" v-if="_soles"><span class="pointer">✔</span></div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_soles = !_soles" v-else><span class="pointer">❌</span></div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_paint = !_paint" v-if="_paint">✔</div>
-                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_paint = !_paint" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_paint = !_paint" v-if="_paint"><span class="pointer">✔</span></div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_paint = !_paint" v-else><span class="pointer">❌</span></div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_glue = !_glue" v-if="_glue">✔</div>
-                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_glue = !_glue" v-else>❌</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" @click="_glue = !_glue" v-if="_glue"><span class="pointer">✔</span></div>
+                    <div class="col-9 text-end pe-5 align-content-center text-danger" @click="_glue = !_glue" v-else><span class="pointer">❌</span></div>
                 </div>
                 </div>
                 <div class="col-6 border-light m-0 p-0">
@@ -299,6 +346,24 @@ import Brand from './BrandList.vue';
             
         </div>
     </div>
+
+    <div class="full m-0 p-0 d-none" id="confirm">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{ id }}</span> wil wijzigen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuse">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    
 </template>
 
 <style scoped>
@@ -310,6 +375,15 @@ import Brand from './BrandList.vue';
         /*filter: hue-rotate(90deg);*/
         filter: brightness(0) saturate(100%) invert(49%) sepia(81%) saturate(324%) hue-rotate(79deg) brightness(98%) contrast(92%);
 
+    }
+
+    .full{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(247,247,247,0.5);
     }
 
     input,select{

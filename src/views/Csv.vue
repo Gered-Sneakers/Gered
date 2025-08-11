@@ -11,6 +11,7 @@
           <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
           <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
           <!-- IMAG ROW -->
+           <!--
            <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')">id</div>
            <div id="brand" class="col-2 borders mb-1">brand</div>
            <div id="size" class="col-1 borders mb-1" @click="toggleSort('size')">size</div>
@@ -20,6 +21,7 @@
            <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
            <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
            <div id="publish" class="col-1 borders mb-1">publish</div>
+           -->
       </div>
       <div class="m-0 p-0 mx-auto ">
         <div v-for="(s,index) in filteredSneakers" :key="s.id">
@@ -185,7 +187,10 @@ import SneakerService from '@/services/SneakerService';
         let filtered = this.sneakerList; //this.sneakers();
 
         // Only allow sneakers with csv === 1
-        filtered = filtered.filter(s => s.status == 6);
+        filtered = filtered.filter(s => s.status == "6");
+
+        console.log("FILTERED: ");
+        console.log(filtered);
 
         if (this.selectedBrand) {
           filtered = filtered.filter(s => s.brand === this.selectedBrand);
