@@ -2,16 +2,16 @@
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
-        <div id="id" class="col borders rounded-top"  @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col borders"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="col borders" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="datum" class="col borders"><img src="../img/clock.svg"></div>
-        <div id="prijs" class="col borders"><img src="../img/money.svg"></div>
-        <div id="leverancier" class="col borders"><img src="../img/delivery.svg"></div>
-        <div id="retour" class="col borders"><img src="../img/delivery.svg"></div>
+        <div id="id" class="col borders rounded-top" title="id"  @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
+        <div id="merk" class="col borders" title="merk"><img src="../img/tag.svg"></div>
+        <div id="kleur" class="col borders" title="kleur"><img src="../img/color.svg"></div>
+        <div id="maat" class="col borders" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+        <div id="datum" class="col borders" title="datum"><img src="../img/clock.svg"></div>
+        <div id="prijs" class="col borders" title="prijs"><img src="../img/money.svg"></div>
+        <div id="leverancier" class="col borders" title="leverancier"><img src="../img/delivery.svg"></div>
+        <div id="retour" class="col borders" title="retour"><img src="../img/delivery.svg"></div>
       </div>
-      <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
+      <div class="row m-0 p-0 mx-auto bg-blue text-white text-center d-none">
         <!-- IMAG ROW -->
         <div id="id" class="col borders mb-1 fw-bold"  @click="toggleSort('id')">id</div>
         <div id="merk" class="col borders mb-1">merk</div>

@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div id="main" class="d-block max-1800 mx-auto mb-5">
+      <div id="main" v-show="activeTab == 3" class="max-1800 mx-auto mb-5">
           <div id="inputFields" class="row text-white">
             <!-- INPUT LEVERANCIER -->
             <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
@@ -534,22 +534,22 @@
           </div>
         
       </div>
-      <div id="sneaks" class="d-none m-0 p-0">
+      <div id="sneaks" v-show="activeTab == 1" class="m-0 p-0">
         <div class="row m-0 p-0 text-light">
           <ShowSneakers ref="sneakerComponent"></ShowSneakers>
         </div>
       </div>
-      <div id="csv" class="d-none m-0 p-0">
+      <div id="csv" v-show="activeTab == 2" class="m-0 p-0">
         <div class="row m-0 p-0 text-light">
           <CsvSneakers ref="csvComponent" :key="csvKey"></CsvSneakers>
         </div>
       </div>
-      <div id="verkoop" class="d-none m-0 p-0">
+      <div id="verkoop" v-show="activeTab == 4" class="m-0 p-0">
         <div class="m-0 p-0 text-light">
-          <Verkoop ref="verkoopComponent"></Verkoop>
+          <Verkoop ref="verkoopComponent" @switch-tab="toggleContent"></Verkoop>
         </div>
       </div>
-      <div id="verkocht" class="d-none m-0 p-0">
+      <div id="verkocht" v-show="activeTab == 5" class="m-0 p-0">
         <div class="m-0 p-0 text-light">
           <Verkocht ref="verkochtComponent"></Verkocht>
         </div>
@@ -638,7 +638,9 @@
           showLabelkleur: true,
           showRepairs: true,
 
-          csvKey: 0
+          csvKey: 0,
+
+          activeTab: 3
       
         }
       },
@@ -647,58 +649,25 @@
           console.log(this.inactieveWerknemers);
         },
         toggleContent(nr) {
-          const sneakers = document.getElementById("sneaks");
-          const csv = document.getElementById("csv");
-          const verkoop = document.getElementById("verkoop");
-          const verkocht = document.getElementById("verkocht");
-          const main = document.getElementById("main");
+          this.activeTab = nr;
 
-          // Reset all to hidden
-          main.classList.replace("d-block", "d-none");
-          sneakers.classList.replace("d-block", "d-none");
-          csv.classList.replace("d-block", "d-none");
-          verkoop.classList.replace("d-block", "d-none");
-          verkocht.classList.replace("d-block", "d-none");
-
-          // reload components
-          this.componentKey += 1;
-
-          switch (nr) {
-            case 1:
-              sneakers.classList.replace("d-none", "d-block");
-              
-              this.$nextTick(() => {
+          this.$nextTick(() => {
+            switch (nr) {
+              case 1:
                 this.$refs.sneakerComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 2:
-              csv.classList.replace("d-none", "d-block");
-
-              console.log("CSV RELOAD PLS");
-              this.$nextTick(() => {
+                break;
+              case 2:
                 this.$refs.csvComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 3:
-              main.classList.replace("d-none", "d-block");
-              break;
-            
-            case 4:
-              verkoop.classList.replace("d-none", "d-block");
-              this.$nextTick(() => {
+                break;
+              case 4:
                 this.$refs.verkoopComponent?.getSneakers?.();
-              });
-              break;
-            
-            case 5:
-              verkocht.classList.replace("d-none", "d-block");
-              this.$nextTick(() => {
+                break;
+              case 5:
                 this.$refs.verkochtComponent?.getSneakers?.();
-              });
-              break;
-          }
+                break;
+              // no action for 3 (main)
+            }
+          });
         },
         handleImageUpload(event) {
           this.selectedFile = event.target.files[0];
@@ -1171,6 +1140,9 @@
         verkochtCount() {
           return this.sneakers().filter(s => s.status === 5).length;
         },
+        csvCount(){
+          return this.sneakers().filter(s => s.status === 6).length;
+        }
         
       },
       components: {

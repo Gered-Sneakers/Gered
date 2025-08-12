@@ -12,7 +12,7 @@
                 <div class="row text-light" v-for="l in leveranciers">
                     <div class="col-4 leverancier border text-center rounded growz pointer mx-auto justify-content-center align-content-center" 
                         v-if="l.isActive"
-                        @click="go();prevLeverancier = l.id;leverancier = l.id"
+                        @click="go();prevLeverancier = l.id;leverancier = l.id;chosenLeverancier = l.id"
                         >
                         {{ l.name }}
                     </div>
@@ -233,26 +233,35 @@
                         <div id="REPAIR" class="targets rounded row text-start d-none">
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
                             <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !laces }">
-                                <img class="col-6 imgSquare mx-auto growz" src="../img/laces.svg" @click="laces = !laces;statusCheckbox()">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/laces.svg" @click="laces = !laces;statusCheckbox();fillBakNr()">
                                 <label class="col-12" for="check1"> Geen veters  </label>
                             </div>
                             <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !soles }">
-                                <img class="col-6 imgSquare mx-auto growz" src="../img/soles.svg" @click="soles = !soles;statusCheckbox()">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/soles.svg" @click="soles = !soles;statusCheckbox();fillBakNr()">
                                 <label class="col-12" for="check2"> Geen binnenzool</label>
                             </div>
                             <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !paint }">
-                                <img class="col-6 imgSquare mx-auto growz" src="../img/paint.svg" @click="paint = !paint;statusCheckbox()">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/paint.svg" @click="paint = !paint;statusCheckbox();fillBakNr()">
                                 <label class="col-12" for="check4"> Verven </label>
                             </div>
                             <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !glue }">
-                                <img class="col-6 imgSquare mx-auto growz" src="../img/repair.svg" @click="glue = !glue;statusCheckbox()">
+                                <img class="col-6 imgSquare mx-auto growz" src="../img/repair.svg" @click="glue = !glue;statusCheckbox();fillBakNr()">
                                 <label class="col-12" for="check3"> Lijmen </label>
                             </div>
 
                         </div>
                         </div>
                         <!-- LOCATIE -->
-                        <input @keyup.enter="saveSneaker" id="LOCATIE" :value="bakNr" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">
+                        <!--<input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" @focus="if (!bakNr) bakNr = (status === 2 ? 'IN-2-' : 'IN-1-')" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">-->
+                        <input
+                          v-model="bakNr"
+                          id="LOCATIE"
+                          autocomplete="off"
+                          type="text"
+                          placeholder="LOCATIE"
+                          class="targets rounded border-blue model text-center d-none"
+                          maxlength="30"
+                        />
                     </div>
                 </div>
                 <div class="col-2 p-2">
@@ -358,7 +367,8 @@
     var creator = ref();
     var extra = ref();
     var price = 25;
-    var bakNr = ref("IN-");
+    var bakNr = ref("IN-1-");
+    var chosenLeverancier = "";
 
     var statusz = "Cleaning";
 
@@ -412,45 +422,38 @@
         extra.value = newVal.toUpperCase()
     })
 
-    watch(bakNr,(newVal) => {
-        if (!newVal) return;
+    //const prefix = computed(() => `IN-${status.value}-`)
 
-        // Force uppercase and remove anything not A-Z or 0-9
-        let val = newVal.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    watch(bakNr, (newVal) => {
+      if (newVal == null) return
 
-        // Remove IN2 if user typed it
-        if (val.startsWith('IN2')) {
-            val = val.slice(3);
-        } else if (val.startsWith('IN-2')) {
-            val = val.slice(4);
-        }
+      const prefixStr = status.value === 2 ? 'IN-2-' : 'IN-1-'
 
-        const prefix = 'IN-2-';
+      // Uppercase + strip junk
+      let val = String(newVal).toUpperCase().replace(/[^A-Z0-9-]/g, '')
 
-        // Extract valid segments
-        let letter = '';
-        let digit = '';
+      // Strip any manual IN1/IN-1/IN2/IN-2 typed at the start
+      const bare = val.replace(/-/g, '')
+      val = (bare.startsWith('IN1') || bare.startsWith('IN2')) ? bare.slice(3) : bare
 
-        if (val.length >= 1 && /[A-Z]/.test(val[0])) {
-            letter = val[0];
-        }
+      // Take letter + digit
+      const letter = /[A-Z]/.test(val[0] || '') ? val[0] : ''
+      const digit  = /[0-9]/.test(val[1] || '') ? val[1] : ''
 
-        if (val.length >= 2 && /[0-9]/.test(val[1])) {
-            digit = val[1];
-        }
+      // Build
+      let formatted = prefixStr
+      if (letter) formatted += `${letter}-`
+      if (digit)  formatted += digit
 
-        // Build formatted string
-        let formatted = prefix;
-        if (letter) formatted += letter;
-        if (letter && !digit) formatted += '-';
-        if (digit) formatted += `-${digit}`;
-
-        // Prevent infinite loop
-        if (this.baknr !== formatted) {
-          bakNr = formatted;
-        }
+      if (formatted !== bakNr.value) bakNr.value = formatted
     })
+
     
+    const fillBakNr = () => {
+      if (!bakNr.value) {
+        bakNr.value = (status.value === 2 ? 'IN-2-' : 'IN-1-')
+      }
+    }
     
     //----------------------
     //      FRONTEND
@@ -643,11 +646,14 @@
 
         if(laces.value == true && soles.value == true && paint.value == true && glue.value == true ){
             status.value = 1;
+            bakNr.value = "IN-1-";
             statusz = "Cleaning";
+            
             leverancier.value = prevLeverancier.value;
         }
         else {
             status.value = 2;
+            bakNr.value = "IN-2-"
             statusz = "Repair";
             leverancier.value = 1;
         }
@@ -710,10 +716,12 @@
         bakNr.value = "";
         laces.value = true;
         soles.value = true;
-        status.value = true;
+        status.value = 1;
         paint.value = true;
         glue.value = true;
         broken.value = true;
+        leverancier.value = chosenLeverancier;
+        //statusz = "Cleaning";
     }
 
     function colorsToString(){

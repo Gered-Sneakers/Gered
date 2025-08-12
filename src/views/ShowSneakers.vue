@@ -3,7 +3,7 @@
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top sticky">
         <div id="id" class="col-1 mb-1 navImgWrap py-2" title="id" @click="toggleSort('id')"><img class="navImg" src="../img/barcode.svg"></div>
-        <div id="merk" class="col-2 mb-1 navImgWrap py-2" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
+        <div id="merk" class="col-2 mb-1 py-2" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
         <div id="kleur" class="col-15 mb-1 py-2" title="kleur"><img class="navImg" src="../img/color.svg"></div>
         <div id="maat" class="col-1 mb-1 navImgWrap py-2" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
         <div id="status" class="col-05 mb-1 py-2" title="status"><img class="navImg" src="../img/warning.svg"></div>
@@ -60,10 +60,10 @@
   <div class="row w-100 vh-5 m-0 p-0 mx-auto bg-blue text-white ">
       <div class="col-1 valign border-2 border-end border-light fw-bold text-center"><span class="w-100 text-center" title="Totaal">{{ total }}</span></div>
       <div class="col-1 valign fw-bold text-center"><img class="mx-auto" src="../img/ruler.svg"> </div>
-      <div class="col-1 valign border-2 border-end border-light fw-bold text-center p-0"><input class="sizeFilter w-75 h-75 mx-auto text-center" v-model="selectedSize"/></div>
-      <div class="col-9 row m-0 p-0">
-        <div class="col valign brandPick fw-bold text-center" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
-        <div class="brandPick navImgWrap py-2 col valign mx-auto justify-content-center" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
+      <div class="col-1 valign border-2 border-end border-light fw-bold text-center p-0 h-100"><input class="sizeFilter w-75 h-75 mx-auto text-center" v-model="selectedSize"/></div>
+      <div class="col-9 row m-0 p-0 h-100">
+        <div class="col valign brandPick fw-bold text-center h-100" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
+        <div class="brandPick navImgWrap py-2 col valign mx-auto justify-content-center h-100" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
           <!--<img :src="x.img">-->
           <img class="medz whiteIcons" :title="x.name" :src="`/src/img/brands/${x.img}`">
         </div>
@@ -116,7 +116,6 @@ import LeverancierService from '@/services/LeverancierService';
     name: 'ShowSneakers_View',
     data(){
         return{
-          sneakerList: [],
           leverancierList: [],
           verkoopList: [],
           csvList: [],
@@ -137,7 +136,7 @@ import LeverancierService from '@/services/LeverancierService';
     props: {
   
     },
-    methods: {/*
+    methods: {
       async getSneakers(){
           await SneakerService.getAll()
             .then(response => {
@@ -148,7 +147,7 @@ import LeverancierService from '@/services/LeverancierService';
             .catch(error =>{
               console.error(error);
             })
-      },*/
+      },
       verkoopRemove(id){
         SneakerService.update(id,{ status:3 })
           .then(res =>{
@@ -206,20 +205,6 @@ import LeverancierService from '@/services/LeverancierService';
       selectBrand(brandName){
         this.selectedBrand = brandName;
       },
-      /*
-      filterSize(){
-        let filtered = this.sneakerList;
-
-        if (this.selectedBrand) {
-          filtered = filtered.filter(s => s.brand === this.selectedBrand);
-        }
-      
-        if (this.selectedSize) {
-          filtered = filtered.filter(s => s.size === this.selectedSize);
-        }
-      
-        return filtered.sort((a, b) => a.size - b.size);
-      },*/
       toggleSort(key) {
         if(this.sortKey === key) {
           this.sortAscending = !this.sortAscending; // toggle direction
@@ -238,10 +223,10 @@ import LeverancierService from '@/services/LeverancierService';
 
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
-    computed: {/*
+    computed: {
       sneakerList(){
         return this.sneakers();
-      },*/
+      },
       activeBrands() {
         return this.brands().filter(x => x.isActive);
       },
@@ -306,6 +291,7 @@ import LeverancierService from '@/services/LeverancierService';
       
     },
     mounted () {
+      /*
       console.log("SNEAKERZ SHOW ---------------")
       console.log(this.sneakers());
       console.log(this.brands());
@@ -313,6 +299,7 @@ import LeverancierService from '@/services/LeverancierService';
       console.log(this.leveranciers());
       console.log(this.werknemers());
       console.log("-----------------------------");
+      */
       setTimeout(() => {
         const overlay = document.getElementById("overlay");
         if (overlay) overlay.remove();

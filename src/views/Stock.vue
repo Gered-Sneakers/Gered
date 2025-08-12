@@ -19,12 +19,14 @@
                 <input type="text" size="4"
                     id="bakNr"
                     class="w-100 text-center border-blue rounded mx-auto mb-1" 
-                    maxlength="5"
+                    maxlength="9"
                     placeholder="locatie" 
                     v-model="baknr"
                     :autocomplete="'off'"
                     @keyup.enter="showConfirmUpdate = true"
                     @click="showConfirmUpdate"
+                    @focus="moveCursorToEnd"
+                    @input="e => baknr = e.target.value.toUpperCase()"
                 >
             </div>
             <div class="w-100 text-center d-flex justify-content-center">
@@ -74,7 +76,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
         return{
             sneaker: null,
             id: null,
-            baknr: "OUT-?-",
+            baknr: "OUT-1-",
             
             showConfirmUpdate: false,
             showConfirmAnnuleren: false,
@@ -100,7 +102,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
                })
         },
         update(){
-            const updateData = { status: 4 , bakNr: this.baknr}
+            const updateData = { status: 3 , bakNr: this.baknr}
             
             SneakerService.update(this.id,updateData)
             .then( () => {
@@ -137,9 +139,9 @@ import KleurPreview from '@/components/KleurPreview.vue';
             try{
                 await SneakerService.get(this.id)
                     .then(result => {
-                      const bakNr = result.data.bakNr;
+                      //const bakNr = result.data.bakNr;
                       // You can store it somewhere if needed
-                      this.baknr = bakNr;
+                      //this.baknr = bakNr;
                     })
 
                 return;
@@ -147,52 +149,58 @@ import KleurPreview from '@/components/KleurPreview.vue';
                 this.showConfirm = true;              
             }
         },
+        moveCursorToEnd(event) {
+          const el = event.target;
+          // Wait one tick so selection change overrides browser's auto-select
+          this.$nextTick(() => {
+            const len = el.value.length;
+            el.setSelectionRange(len, len);
+          });
+        }
     },
     components: {
         KleurPreview
     },
     watch: {
-      baknr(newVal) {
-        if (newVal) {
-          //this.baknr = newVal.charAt(0).toUpperCase() + newVal.slice(1);
-            if (!newVal) return;
-
-            // Force uppercase and remove anything not A-Z or 0-9
-            let val = newVal.toUpperCase().replace(/[^A-Z0-9]/g, '');
-            
-            // Remove IN2 if user typed it
-            if (val.startsWith('IN2')) {
-                val = val.slice(3);
-            } else if (val.startsWith('IN-2')) {
-                val = val.slice(4);
-            }
-        
-                const prefix = 'IN-2-';
-        
-            // Extract valid segments
-            let letter = '';
-            let digit = '';
-        
-                if (val.length >= 1 && /[A-Z]/.test(val[0])) {
-                letter = val[0];
-            }
-        
-                if (val.length >= 2 && /[0-9]/.test(val[1])) {
-                digit = val[1];
-            }
-        
-            // Build formatted string
-            let formatted = prefix;
-            if (letter) formatted += letter;
-            if (letter && !digit) formatted += '-';
-            if (digit) formatted += `-${digit}`;
-        
-            // Prevent infinite loop
-            if (this.baknr !== formatted) {
-              bakNr = formatted;
-            }
+        baknr(newVal) {
+          const prefix = "OUT-1-";
+                
+          if (!newVal) {
+            this.baknr = prefix;
+            return;
+          }
+      
+          // Force uppercase and strip invalid chars
+          let raw = newVal.toUpperCase().replace(/[^A-Z0-9]/g, "");
+      
+          // Remove manually typed prefix if present
+          if (raw.startsWith(prefix.replace(/-/g, ""))) {
+            raw = raw.slice(prefix.replace(/-/g, "").length);
+          }
+      
+          // Always start with fixed prefix
+          let formatted = prefix;
+      
+          // Limit raw to max 3 chars after prefix
+          raw = raw.slice(0, 3);
+      
+          // Build with trailing dash after first char if there's only a letter
+          if (raw.length === 1) {
+            formatted += `${raw[0]}-`;
+          } else if (raw.length === 2) {
+            formatted += `${raw[0]}-${raw[1]}`;
+          } else if (raw.length === 3) {
+            formatted += `${raw[0]}-${raw[1]}-${raw[2]}`;
+          }
+      
+          // Max length 9 (OUT-1-A-1)
+          formatted = formatted.slice(0, 9);
+      
+          // Prevent infinite loop
+          if (formatted !== this.baknr) {
+            this.baknr = formatted;
+          }
         }
-      }
     },
     mounted(){
         this.$nextTick(() => {

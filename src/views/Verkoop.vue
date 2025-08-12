@@ -3,16 +3,17 @@
     <div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
   <!--<div class="vh-85 scroll m-0 p-0">-->
     <!--<div class="row mx-auto bg-blue text-white text-center rounded-top py-2 sticky">-->
-        <div id="id" class="col-1 borders rounded-top" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col-2 borders"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col-1 borders"><img src="../img/color.svg"></div>
-        <div id="maat" class="col-1 borders" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="user" class="col-2 borders"><img src="../img/login.svg"></div>
-        <div id="datum" class="col-1 borders"><img src="../img/money.svg"></div>
-        <div id="locatie" class="col-1 borders"><img src="../img/bakNr.svg"></div>
-        <div id="leverancier" class="col-2 borders"><img src="../img/delivery.svg"></div>
-        <div id="" class="col-1 borders rounded-top"><img src="../img/sell.svg"></div>
+        <div id="id" class="col-1 borders rounded-top" title="id" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
+        <div id="merk" class="col-2 borders" title="merk"><img src="../img/tag.svg"></div>
+        <div id="kleur" class="col-1 borders" title="kleur"><img src="../img/color.svg"></div>
+        <div id="maat" class="col-1 borders" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+        <div id="user" class="col-2 borders" title="gebruiker"><img src="../img/login.svg"></div>
+        <div id="datum" class="col-1 borders" title="datum"><img src="../img/money.svg"></div>
+        <div id="locatie" class="col-1 borders" title="locatie"><img src="../img/bakNr.svg"></div>
+        <div id="leverancier" class="col-2 borders" title="leverancier"><img src="../img/delivery.svg"></div>
+        <div id="verkoop" class="col-1 borders rounded-top" title="xx"><img src="../img/sell.svg"></div>
         <!-- IMAG ROW -->
+        <div class="d-none">
         <div id="id" class="col-1 borders mb-1 fw-bold"  @click="toggleSort('id')">id</div>
         <div id="merk" class="col-2 borders mb-1">merk</div>
         <div id="kleur" class="col-1 borders mb-1">kleur</div>
@@ -21,7 +22,8 @@
         <div id="datum" class="col-1 borders mb-1">prijs</div>
         <div id="locatie" class="col-1 borders mb-1">locatie</div>
         <div id="leverancier" class="col-2 borders mb-1">bron</div>
-        <div class="col-1 borders mb-1">verkoop</div>
+        <div id="verkoop" class="col-1 borders mb-1">verkoop</div>
+        </div>
     </div>
     <div class="m-0 p-0 mx-auto" v-if="filteredSneakers.length > 0">
 
@@ -53,11 +55,11 @@
     </div>
   </div>
   <div class="row m-0 p-0 vh-5 bg-blue text-white valign">
-      <div class="col-1" v-if="filteredSneakers.lenght == 0"></div>
+      <div class="col-1" v-if="filteredSneakers.length == 0"></div>
       <div class="col-1 h-100 valign justify-content-center fw-bold" v-else title="Totaal"> {{ filteredSneakers.length }} </div>
       <div class="col-8"></div>
       <div class="col-3">
-        <button @click="toggleContent(5)" id="verkochtButton" class="w-100 h-100 mx-auto rounded bg-green hover fw-bold">Sold</button>
+        <button @click="toggleContent()" id="verkochtButton" class="w-100 h-100 mx-auto rounded bg-green hover fw-bold">Sold</button>
       </div>
   </div>
     <div class="full m-0 p-0" id="confirm" v-show="showConfirmUpdate == true">
@@ -165,25 +167,13 @@ var verkoopList = [];
             this.sortAscending = true;
           }
         },
-        toggleContent(nr) {
-          switch (nr) {
-            case 1: this.active = 'sneaks'; break;
-            case 2: this.active = 'csv';    break;
-            case 3: this.active = 'main';   break;
-            case 4: this.active = 'verkoop';break;
-            case 5: this.active = 'verkocht';break;
-          }
-
-          this.$nextTick(() => {
-            if (this.active === 'sneaks')   this.$refs.sneakerComponent?.getSneakers?.();
-            if (this.active === 'csv')      this.$refs.csvComponent?.getSneakers?.();
-            if (this.active === 'verkoop')  this.$refs.verkoopComponent?.getSneakers?.();
-            if (this.active === 'verkocht') this.$refs.verkochtComponent?.getSneakers?.();
-          });
+        toggleContent() {
+          this.$emit('switch-tab', 5);
         },
         
           
     },
+    emits: ['switch-tab'],
     inject: ["brands","labelColors","leveranciers","werknemers"],
     computed: {
       createDate(){
@@ -208,7 +198,7 @@ var verkoopList = [];
           let filtered = Array.isArray(this.sneakerList) ? this.sneakerList : [];
 
           // Only status 4 (sneakers ready to be sold)
-          //filtered = filtered.filter(s => s.status == 4);
+          filtered = filtered.filter(s => s.status == 4);
 
           return filtered.sort((a, b) => {
             const key = this.sortKey;
