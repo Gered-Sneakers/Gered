@@ -23,7 +23,7 @@
            <div id="publish" class="col-1 borders mb-1">publish</div>
            -->
       </div>
-      <div class="m-0 p-0 mx-auto ">
+      <div class="m-0 p-0 mx-auto">
         <div v-for="(s,index) in filteredSneakers" :key="s.id">
           <SneakerCsv
             :id="s.id"

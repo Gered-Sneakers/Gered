@@ -86,9 +86,10 @@ import Sneaker from '../components/SneakerChange.vue';
           const found = this.leveranciers().find(l => l.id === id)
           return found ? found.name : "???"
       },
-      getStatusName(id){
-            id = parseInt(this.$route.params.id);
-            var status = this.sneakers()[id-1].status;
+      getStatusName(){
+           var status = this.sneaker.status;
+            
+            console.log("STATUS: " + status);
             var name = "Cleaning";
             switch(status){
                 case 1:

@@ -422,8 +422,6 @@
         extra.value = newVal.toUpperCase()
     })
 
-    //const prefix = computed(() => `IN-${status.value}-`)
-
     watch(bakNr, (newVal) => {
       if (newVal == null) return
 

@@ -2,6 +2,8 @@
 <script>
 import KleurPreview from './KleurPreview.vue';
 import Brand from './BrandList.vue';
+import Leverancier from './LeverancierListItem.vue';
+import Werknemer from './WerknemerList.vue';
 
     export default {
         name: 'SneakerChange',
@@ -101,8 +103,8 @@ import Brand from './BrandList.vue';
                 if(size.value >= 36) price = 25;
                 else price = 20;
                 var data = {
-                    id: id.value,
-                    colorlabel: labelColor.value,
+                    id: _id.value,
+                    colorlabel: _labelColor.value,
                     date: datum,
                     brand: brand.value,
                     model: model.value,
@@ -140,17 +142,62 @@ import Brand from './BrandList.vue';
                     console.log(error);
                 });
 
-                    },
-                    showConfirmSave(){
-                        document.getElementById("confirm").classList.remove("d-none");
-                    },
-                    refuse(){
-                        document.getElementById("confirmz").classList.add("d-none");
-                    },
+            },
+            showConfirmSave(){
+                document.getElementById("confirm").classList.remove("d-none");
+            },
+            refuse(){
+                document.getElementById("confirm").classList.add("d-none");
+            },
+            formatBakNr(e) {
+              // Uppercase + strip everything except A–Z and 0–9
+              let raw = (e.target.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+              // Default: show what they typed (uppercased) until we recognize IN/OUT
+              let formatted = raw;
+
+              // Detect prefix
+              let prefix = '';
+              if (raw.startsWith('IN')) {
+                prefix = 'IN';
+                raw = raw.slice(2);
+              } else if (raw.startsWith('OUT')) {
+                prefix = 'OUT';
+                raw = raw.slice(3);
+              }
+
+              if (prefix) {
+                // Pick next tokens in order: digit, letter, digit (first of each)
+                let d1 = '', L = '', d2 = '';
+                for (const c of raw) {
+                  if (!d1 && /[0-9]/.test(c)) { d1 = c; continue; }
+                  if (!L  && /[A-Z]/.test(c)) { L  = c; continue; }
+                  if (!d2 && /[0-9]/.test(c)) { d2 = c; break; }
+                }
+
+                // Build with auto dashes at each stage
+                formatted = prefix + '-'
+                          + (d1 ? d1 + '-' : '')
+                          + (L  ? L  + '-' : '')
+                          + (d2 ? d2 : '');
+              }
+
+              this._bakNr = formatted;     // update your model
+              e.target.value = formatted;  // keep the input in sync
+            },
+            showWerknemers(){
+                console.log(this.werknemerList);
+            },
+            capWords(s) {
+              s = s || '';
+              // If you also want the rest lowercased, uncomment the next line:
+              // s = s.toLowerCase();
+              return s.replace(/(^|\s)([a-zA-ZÀ-ÖØ-öø-ÿ])/g, (_, p1, p2) => p1 + p2.toUpperCase());
+            },
                     
                     
         },
-        inject: ["sneakers","leveranciers","brands"],
+        inject: ["sneakers","leveranciers","brands","werknemers"],
         computed:{
             stringId(){
                 return String(this.id).padStart(4, '0')
@@ -170,13 +217,37 @@ import Brand from './BrandList.vue';
             brandList() {
                 return typeof this.brands === 'function' ? this.brands() : this.brands;
             },
+            extra(){
+                return this.extra
+            },
+            leverancierList(){
+                return typeof this.leveranciers === 'function' ? this.leveranciers() : this.leveranciers;
+            },
+            werknemerList(){
+                return typeof this.werknemers === 'function' ? this.werknemers() : this.werknemers;
+            }
+        },
+        watch:{
+            model: {
+              immediate: true,
+              handler(n) {
+                this._model = this.capWords(n);
+              }
+            },
+            // Enforce rule while typing
+            _model(n) {
+              const capped = this.capWords(n);
+              if (n !== capped) this._model = capped;
+            }
         },
         mounted(){
             console.log(this.brandList)
         },
         components: {
             KleurPreview,
-            Brand
+            Brand,
+            Leverancier,
+            Werknemer
         }
     }
 </script>
@@ -247,7 +318,7 @@ import Brand from './BrandList.vue';
                 <div class="col-6 m-0 p-0">
                     <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
-                    <div class="col-9 text-end pe-5"><input class="w-50 float-end text-end" :value='model = model.charAt(0).toUpperCase() + model.substring(1)'></div>
+                    <div class="col-9 text-end pe-5"><input class="w-50 float-end text-end" :value="_model" @input="_model = capWords($event.target.value)"></div>
                     </div>
                     <hr class="w-95 mx-auto my-2 opacity-25">
                 </div>
@@ -299,7 +370,7 @@ import Brand from './BrandList.vue';
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/baknr.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
-                        <input class="w-50 text-end" placeholder="BAKNUMMER" :value="_bakNr">
+                        <input class="w-50 text-end" placeholder="BAKNUMMER" :value="_bakNr" @input="formatBakNr($event)">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
@@ -307,28 +378,53 @@ import Brand from './BrandList.vue';
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/warning.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
                         <!-- INJECT STATUS HIER -->
-                        {{status}}
+                         <select class="float-end w-50 text-end" v-model="_status">
+                            <option class="fst-italic text-secondary" :value="status">{{ status }}</option>
+                            <option value="Cleaning">(1) Cleaning</option>
+                            <option value="Repair">(2) Repair</option>
+                            <option value="Stock">(3) Stock</option>
+                            <option value="Verkoop">(4) Verkoop</option>
+                            <option value="Verkocht">(5) Verkocht</option>
+                            <option value="CSV">(6) CSV</option>
+                         </select>
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/extra.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
-                        <input class="w-50 text-end" placeholder="EXTRA" :value="_extra">
+                        <input class="w-50 text-end" placeholder="EXTRA" :value="_extra" @input="_extra = ($event.target.value || '').toUpperCase()">
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/delivery.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
-                        <input class="w-50 text-end" placeholder="LEVERANCIER" :value="_supplier">
+                        <select class="float-end w-50 text-end" v-model="_supplier">
+                            <option class="fst-italic text-secondary" :value="_supplier">{{ _supplier }}</option>
+                            <Leverancier v-for="l in leverancierList"
+                                :key="l.id"
+                                :id="l.id"
+                                :name="l.name"
+                            >
+                            </Leverancier>
+                        </select>
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
-                        <input class="w-50 text-end" placeholder="GEBRUIKER" :value="_creator">
+                        <select class="float-end w-50 text-end" v-model="_creator" @click="showWerknemers">
+                            <option class="fst-italic text-secondary" :value="_creator">{{ _creator }}</option>
+                            <Werknemer v-for="w in werknemerList"
+                                :key="w.id"
+                                :id="w.id"
+                                :name="w.name"
+                                :isActive="w.isActive"
+                            >
+                            </Werknemer>
+                        </select>
                     </div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">

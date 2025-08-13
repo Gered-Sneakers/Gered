@@ -587,6 +587,10 @@
         border-color: var(--gblue);
     }
 
+    input{
+        max-width: 400px !important;
+    }
+
     .custom-number-input, .custom-input {
         display: flex;
         align-items: center;
