@@ -1,6 +1,7 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
 <script>
     import KleurPreview from './KleurPreview.vue';
+    import SneakerService from '../services/SneakerService';
 
     export default {
         name: 'SneakerSmall',
@@ -10,7 +11,9 @@
             showVerkoop: true,
             verkoopCheck: false,
             csvCheck: false,
-            truncateLimit: 13
+            truncateLimit: 13,
+            display: false,
+            baknr: "OUT-1-"
             //leverancierList: 
           }
         },
@@ -77,11 +80,17 @@
             },
             handleSell(){
               this.verkoopCheck = true
-              this.$emit('verkoop', this.id)
+              this.display = true
+              
             },
             handleCsv(){
               this.csvCheck = true
               this.$emit('csv',id);
+            },
+            verkoop(){
+              this.display = false
+              this.$emit('verkoop', this.id)
+              SneakerService.getAll();
             },
             updateTruncateLimit() {
               const width = window.innerWidth;
@@ -111,6 +120,8 @@
                 return new URL('../img/stock.svg', import.meta.url).href;
               case 4:
                 return new URL('../img/sell.svg', import.meta.url).href;
+              case 6:
+                return new URL('../img/csv.svg', import.meta.url).href;
               default:
                 return new URL('../img/cleaning.svg', import.meta.url).href;
             }
@@ -125,6 +136,47 @@
           stringId(){
             return String(this.id).padStart(4, '0')
           }
+        },
+        watch: {
+            baknr(newVal) {
+                const prefix = "OUT-1-";
+
+                if (!newVal) {
+                  this.baknr = prefix;
+                  return;
+                }
+            
+                // Force uppercase and strip invalid chars
+                let raw = newVal.toUpperCase().replace(/[^A-Z0-9]/g, "");
+            
+                // Remove manually typed prefix if present
+                if (raw.startsWith(prefix.replace(/-/g, ""))) {
+                  raw = raw.slice(prefix.replace(/-/g, "").length);
+                }
+            
+                // Always start with fixed prefix
+                let formatted = prefix;
+            
+                // Limit raw to max 3 chars after prefix
+                raw = raw.slice(0, 3);
+            
+                // Build with trailing dash after first char if there's only a letter
+                if (raw.length === 1) {
+                  formatted += `${raw[0]}-`;
+                } else if (raw.length === 2) {
+                  formatted += `${raw[0]}-${raw[1]}`;
+                } else if (raw.length === 3) {
+                  formatted += `${raw[0]}-${raw[1]}-${raw[2]}`;
+                }
+            
+                // Max length 9 (OUT-1-A-1)
+                formatted = formatted.slice(0, 9);
+            
+                // Prevent infinite loop
+                if (formatted !== this.baknr) {
+                  this.baknr = formatted;
+                }
+            }
         },
         mounted () {
           this.updateTruncateLimit(); // stel juiste limit in bij start
@@ -175,9 +227,46 @@
           </div>
         </div>
     </div>
+    <div class="full m-0 p-0" id="confirm" v-show="display">
+          <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+            <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+                <p class="d-flex align-items-center justify-content-center mt-5">Ben je zeker dat <span class="text-yellow mx-2">{{ id }}</span> naar verkoop gaat?</p>
+                <div class="row m-0 p-0">
+                  <div class="col-3 text-end mb-5 justify-content-center">
+                    <img src="../img/bakNr.svg" class="med whiteIcons">
+                  </div>
+                  <div class="col-6">
+                    <input class="text-center rounded" placeholder="locatie" v-model="baknr" @keyup.enter="returnSneaker"/>
+                  </div>
+                </div>
+                <div class="row m-0 p-0">
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="verkoop">JA</button> 
+                  </div>
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="display = !display">NEE</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
 </template>
 
 <style scoped>
+
+    .full{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(247,247,247,0.5);
+        z-index: 9999999999999999999999999999999999999999999999999999999999999;
+    }
+
+    .whiteIcons{
+      filter: brightness(0) invert(1);
+    }
     
     img{
       filter: brightness(0.5);

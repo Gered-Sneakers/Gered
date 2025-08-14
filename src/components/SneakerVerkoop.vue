@@ -1,15 +1,19 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
 <script>
     import KleurPreview from './KleurPreview.vue';
+    import SneakerService from '@/services/SneakerService';
 
     export default {
         name: 'SneakerVerkoop',
         inject: ['leveranciers'],
+        emits: ['updated'],
         data(){
           return{
             colorArray: this.colors.split(' '),
             showCsv: true,
-            showVerkoop: true
+            showVerkoop: true,
+            baknr: "OUT-1-",
+            display: false
           }
         },
         props:{
@@ -78,6 +82,14 @@
                 firstLetter = firstLetter.toUpperCase();
 
                 console.log(firstLetter+rest);
+            },
+            returnSneaker(){
+              SneakerService.update(this.id,{ bakNr: this.bakNr, status: 3})
+                .then(() => {
+                  this.display = !this.display;
+                  this.$emit('updated', { id: this.id, bakNr: this.bakNr, status: 3 });
+                })
+                .catch(() => console.log("Kan Sneaker niet teruggen"))
             }
         },
         computed: {
@@ -103,6 +115,47 @@
           }
 
         },
+        watch:{
+            baknr(newVal) {
+                const prefix = "OUT-1-";
+
+                if (!newVal) {
+                  this.baknr = prefix;
+                  return;
+                }
+            
+                // Force uppercase and strip invalid chars
+                let raw = newVal.toUpperCase().replace(/[^A-Z0-9]/g, "");
+            
+                // Remove manually typed prefix if present
+                if (raw.startsWith(prefix.replace(/-/g, ""))) {
+                  raw = raw.slice(prefix.replace(/-/g, "").length);
+                }
+            
+                // Always start with fixed prefix
+                let formatted = prefix;
+            
+                // Limit raw to max 3 chars after prefix
+                raw = raw.slice(0, 3);
+            
+                // Build with trailing dash after first char if there's only a letter
+                if (raw.length === 1) {
+                  formatted += `${raw[0]}-`;
+                } else if (raw.length === 2) {
+                  formatted += `${raw[0]}-${raw[1]}`;
+                } else if (raw.length === 3) {
+                  formatted += `${raw[0]}-${raw[1]}-${raw[2]}`;
+                }
+            
+                // Max length 9 (OUT-1-A-1)
+                formatted = formatted.slice(0, 9);
+            
+                // Prevent infinite loop
+                if (formatted !== this.baknr ) {
+                  this.baknr = formatted;
+                }
+            }
+        },
         mounted () {
             //console.log(this.leveranciers);
         },
@@ -126,12 +179,51 @@
         <div id="user" class="col-2 valign borders">{{ creator }}</div>
         <div id="datum" class="col-1 valign borders">€{{ price }}</div>
         <div id="datum" class="col-1 valign borders">{{ bakNr }}</div>
-        <div id="leverancier" class="col-2 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
-        <div id="" class="col-1 valign borders" @click="$emit('verkoop',id)"><img class="growz" src="../img/sell.svg"></div>
+        <div id="leverancier" class="col-1 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
+        <div id="" class="col-1 valign borders pointer" @click="$emit('verkoop',id)"><img class="growz" src="../img/sell.svg"></div>
+        <div id="" class="col-1 valign borders pointer" @click="display = ! display"><img class="growz" src="../img/undo.svg"></div>
     </div>
+
+    <div class="full m-0 p-0" id="confirm" v-show="display">
+          <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+            <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+                <p class="d-flex align-items-center justify-content-center mt-5">Ben je zeker dat <span class="text-yellow mx-2">{{ id }}</span> terug in stock moet?</p>
+                <div class="row m-0 p-0">
+                  <div class="col-3 text-end mb-5 justify-content-center">
+                    <img src="../img/bakNr.svg" class="med whiteIcons">
+                  </div>
+                  <div class="col-6">
+                    <input class="text-center rounded" placeholder="locatie" v-model="baknr" @keyup.enter="returnSneaker"/>
+                  </div>
+                </div>
+                <div class="row m-0 p-0">
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="returnSneaker">JA</button> 
+                  </div>
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="display = !display">NEE</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
 </template>
 
 <style scoped>
+
+    .full{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(247,247,247,0.5);
+    }
+
+    .whiteIcons{
+      filter: brightness(0) invert(1);
+    }
+
     img{
       filter: brightness(0.5);
       

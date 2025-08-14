@@ -16,7 +16,8 @@ const routes = [
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue'),
-    meta: { requiresAuth: true, adminOnly: true }
+    meta: { requiresAuth: true, adminOnly: true },
+    props: route => ({ initialTab: Number(route.query.tab || 3) })
   },
   {
     path: '/addsneaker',

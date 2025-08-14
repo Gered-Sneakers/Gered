@@ -5,11 +5,12 @@
           <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
           <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
           <div id="price" class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
-          <div id="price" class="col-2 borders mb-1"><img src="../img/sell.svg"></div>
-          <div id="price" class="col-1 borders mb-1"><img src="../img/bakNr.svg"></div>
-          <div id="img" class="col-1 borders mb-1"><img src="../img/img.svg"></div>
+          <div id="price" class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
+          <div id="img" class="col-2 borders mb-1"><img src="../img/img.svg"></div>
           <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
           <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
+          <div id="delete" class="col-1 borders mb-1"><img src="../img/undo.svg"></div>
+
           <!-- IMAG ROW -->
            <!--
            <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')">id</div>
@@ -37,6 +38,7 @@
             :price="s.price"
             :bakNr="s.bakNr"
             @update="updateCsvList(index,$event)"
+            @updated="getSneakers"
           >
           </SneakerCsv>
 
@@ -46,11 +48,10 @@
     </div>
     <div class="row mx-auto vh-5 bg-blue text-white valign">
       <div class="col-1 h-100 valign justify-content-center fw-bold" title="Totaal"> {{ csvList.length }} </div>
-      <div class="col-3"></div>
-      <div class="col-4 h-100 py-1 mx-auto">
+      <div class="col-8"></div>
+      <div class="col-3 h-100 py-1 mx-auto">
           <button @click="goDownload" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green fw-bold hover">Download CSV</button>
       </div>
-      <div class="col-4"></div>
     </div>
 </template>
   
@@ -186,7 +187,7 @@ import SneakerService from '@/services/SneakerService';
       filteredSneakers() {
         let filtered = this.sneakerList; //this.sneakers();
 
-        // Only allow sneakers with csv === 1
+        // Only allow sneakers with status == 6
         filtered = filtered.filter(s => s.status == "6");
 
         console.log("FILTERED: ");

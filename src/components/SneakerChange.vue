@@ -271,7 +271,11 @@ import Werknemer from './WerknemerList.vue';
                 </div>
                 <div class="col-3"></div>
                 <div class="col-6 mb-2 text-center text-dark justify-content-center">
-                    <span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>
+                    <!--<span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>-->
+                    <input class="px-3 py-2 h3 fw-bold rounded cardSize text-center" :class="colorlabel" height="80px" :value="stringId">
+                    <div class="d-inline-block rounded grow" :class="colorlabel">
+                        <img class="flip " src="@/img/downarrow.svg"/>
+                    </div>
                 </div>
                 <div class="d-none col-4 row m-0 p-0 justify-content-end"> 
                     <div class="col-0 col-md-4"></div>                    
@@ -473,6 +477,10 @@ import Werknemer from './WerknemerList.vue';
 
     }
 
+    .flip{
+        transform:rotate(90deg)
+    }
+
     .full{
         position: fixed;
         top: 0;
@@ -489,6 +497,13 @@ import Werknemer from './WerknemerList.vue';
 
     .cardSize{
         font-size: 3rem;
+        width: 33%;
+        height: 80px !important;
+    }
+
+    .rect{
+        width: 10% !important;
+        height: 10% !important;
     }
     
     .medz{

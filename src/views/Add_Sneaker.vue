@@ -255,12 +255,14 @@
                         <!--<input @keyup.enter="saveSneaker" id="LOCATIE" v-model="bakNr" @focus="if (!bakNr) bakNr = (status === 2 ? 'IN-2-' : 'IN-1-')" :autocomplete="'off'" type="text" placeholder="LOCATIE" class="targets rounded border-blue model text-center d-none" maxlength="30">-->
                         <input
                           v-model="bakNr"
+                          @keyup.enter="saveSneaker"
                           id="LOCATIE"
                           autocomplete="off"
                           type="text"
                           placeholder="LOCATIE"
                           class="targets rounded border-blue model text-center d-none"
-                          maxlength="30"
+                          maxlength="8"
+                          minlength="8"
                         />
                     </div>
                 </div>

@@ -10,8 +10,9 @@
         <div id="user" class="col-2 borders" title="gebruiker"><img src="../img/login.svg"></div>
         <div id="datum" class="col-1 borders" title="datum"><img src="../img/money.svg"></div>
         <div id="locatie" class="col-1 borders" title="locatie"><img src="../img/bakNr.svg"></div>
-        <div id="leverancier" class="col-2 borders" title="leverancier"><img src="../img/delivery.svg"></div>
-        <div id="verkoop" class="col-1 borders rounded-top" title="xx"><img src="../img/sell.svg"></div>
+        <div id="leverancier" class="col-1 borders" title="leverancier"><img src="../img/delivery.svg"></div>
+        <div id="verkoop" class="col-1 borders" title="xx"><img src="../img/sell.svg"></div>
+        <div id="return" class="col-1 borders rounded-top"><img src="../img/undo.svg"></div>
         <!-- IMAG ROW -->
         <div class="d-none">
         <div id="id" class="col-1 borders mb-1 fw-bold"  @click="toggleSort('id')">id</div>
@@ -21,8 +22,9 @@
         <div id="user" class="col-2 borders mb-1">user</div>
         <div id="datum" class="col-1 borders mb-1">prijs</div>
         <div id="locatie" class="col-1 borders mb-1">locatie</div>
-        <div id="leverancier" class="col-2 borders mb-1">bron</div>
+        <div id="leverancier" class="col-1 borders mb-1">bron</div>
         <div id="verkoop" class="col-1 borders mb-1">verkoop</div>
+        <div id="return" class="col-1 borders mb-1">return</div>
         </div>
     </div>
     <div class="m-0 p-0 mx-auto" v-if="filteredSneakers.length > 0">
@@ -44,7 +46,8 @@
           :price="s.price"
           :bakNr="s.bakNr"
           @verkoop="verkoop"
-        >
+          @updated="getSneakers"
+          >
         </SneakerVerkoop>
         
         </div>

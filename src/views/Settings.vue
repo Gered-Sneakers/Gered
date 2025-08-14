@@ -640,11 +640,18 @@
 
           csvKey: 0,
 
-          activeTab: 3
+          activeTab: this.initialTab 
       
         }
       },
+      props: { 
+        initialTab: { type: Number, default: 3 } 
+      },
       methods: {
+        setTabFromRoute() {
+          const t = Number(this.$route.query.tab)
+          if (!Number.isNaN(t)) this.activeTab = t
+        },
         test(){
           console.log(this.inactieveWerknemers);
         },

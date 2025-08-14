@@ -47,7 +47,7 @@
               <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je terug wil zonder opslaan?</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="goToSettings">JA</button> 
                 </div>
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refusez">NEE</button>
@@ -122,14 +122,14 @@ import Sneaker from '../components/SneakerChange.vue';
       update(data) {
         console.log("Update event:", data);
       },
-      saveSneaker(){
-        this.$router.go(-1)
-      },
       showConfirmReturnz(){
           document.getElementById("confirmz").classList.remove("d-none");
       },
       refusez(){
           document.getElementById("confirmz").classList.add("d-none");
+      },
+      goToSettings(){
+          this.$router.push({ name: 'settings', query: { tab: 1 } })
       }
     },
     mounted() {

@@ -9,7 +9,7 @@
         <div id="datum" class="col borders" title="datum"><img src="../img/clock.svg"></div>
         <div id="prijs" class="col borders" title="prijs"><img src="../img/money.svg"></div>
         <div id="leverancier" class="col borders" title="leverancier"><img src="../img/delivery.svg"></div>
-        <div id="retour" class="col borders" title="retour"><img src="../img/delivery.svg"></div>
+        <div id="retour" class="col borders" title="retour"><img src="../img/undo.svg"></div>
       </div>
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center d-none">
         <!-- IMAG ROW -->
@@ -42,6 +42,7 @@
           :price="s.price"
           :soldDate="s.soldDate"
           @verkoop="verkoop"
+          @updated="getSneakers"
         >
         </SneakerVerkocht>
         

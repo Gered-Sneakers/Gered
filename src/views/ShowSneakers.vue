@@ -2,14 +2,14 @@
   <!--<div class="vh-80 scroll">-->
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top sticky">
-        <div id="id" class="col-1 mb-1 navImgWrap py-2" title="id" @click="toggleSort('id')"><img class="navImg" src="../img/barcode.svg"></div>
+        <div id="id" class="col-1 mb-1 navImgWrap py-2 growz" title="id" @click="toggleSort('id')"><img class="navImg" src="../img/barcode.svg"></div>
         <div id="merk" class="col-2 mb-1 py-2" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
         <div id="kleur" class="col-15 mb-1 py-2" title="kleur"><img class="navImg" src="../img/color.svg"></div>
-        <div id="maat" class="col-1 mb-1 navImgWrap py-2" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
+        <div id="maat" class="col-1 mb-1 navImgWrap py-2 growz" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
         <div id="status" class="col-05 mb-1 py-2" title="status"><img class="navImg" src="../img/warning.svg"></div>
         <div id="bakNr" class="col-1 mb-1 py-2" title="locatie"><img class="navImg" src="../img/stock.svg"></div>
         <div id="user" class="col-15 mb-1 py-2" title="gebruiker"><img class="navImg" src="../img/login.svg"></div>
-        <div id="datum" class="col-15 mb-1 navImgWrap py-2" title="datum" @click="toggleSort('date')"><img class="navImg" src="../img/clock.svg"></div>
+        <div id="datum" class="col-15 mb-1 navImgWrap py-2 growz" title="datum" @click="toggleSort('date')"><img class="navImg" src="../img/clock.svg"></div>
         <div id="leverancier" class="col-1 mb-1 py-2" title="leverancier"><img class="navImg" src="../img/delivery.svg"></div>
         <div id="csv" class="col-05 mb-1 py-2" title="csv"><img class="navImg" src="../img/csv.svg"></div>
         <div id="verkoop" class="col-05 mb-1 py-2" title="verkoop"><img class="navImg" src="../img/sell.svg"></div>
