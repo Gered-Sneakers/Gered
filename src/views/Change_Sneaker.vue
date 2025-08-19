@@ -41,6 +41,26 @@
         </div>
       </div>
     </div>
+    
+
+      
+
+    <div class="full m-0 p-0 d-none" id="confirmSneakerColor">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Sneaker kleuren?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="goToSettings">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refusez">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
     <div class="full m-0 p-0 d-none" id="confirmz">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
@@ -59,12 +79,14 @@
 </template>
   
 <script>
-import Sneaker from '../components/SneakerChange.vue';
+  import Sneaker from '../components/SneakerChange.vue';
+
 
   export default {
     name: 'Change_Sneaker_View',
     data(){
         return{
+          labelColor: null,
         }
     },
     props: {
@@ -130,12 +152,25 @@ import Sneaker from '../components/SneakerChange.vue';
       },
       goToSettings(){
           this.$router.push({ name: 'settings', query: { tab: 1 } })
+      },
+      async getLabelColors() {
+        try {
+          const { data } = await LabelcolorService.getAll()   // axios call
+          // pas aan als jouw API andere structuur heeft:
+          this.labels = Array.isArray(data) ? data : (data?.rows || [])
+        } 
+        catch (e) {
+          console.error(e)
+          this.labels = []
+        }
       }
     },
     mounted() {
+      this.getLabelColors();
     },
     components: {
-      Sneaker
+      Sneaker,
+      Label
     }
   }
 </script>
@@ -149,4 +184,6 @@ import Sneaker from '../components/SneakerChange.vue';
         height: 100%;
         background-color: rgba(247,247,247,0.5);
     }
+    
+    
 </style>

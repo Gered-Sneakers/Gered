@@ -4,6 +4,8 @@ import KleurPreview from './KleurPreview.vue';
 import Brand from './BrandList.vue';
 import Leverancier from './LeverancierListItem.vue';
 import Werknemer from './WerknemerList.vue';
+import Label from '@/components/Label.vue';
+import LabelcolorService from '@/services/LabelcolorService';
 
     export default {
         name: 'SneakerChange',
@@ -27,7 +29,17 @@ import Werknemer from './WerknemerList.vue';
             _csv: this.csv,
             _creator: this.creator,
             _bakNr: this.bakNr,
-            _extra: this.extra
+            _extra: this.extra, 
+
+            
+            labels: [],
+            labelColor: "",
+
+            _colors: [],
+            maxColors: 3,
+
+            displayLabelColor: false,
+            displayColor: false,
             
           }
         },
@@ -100,16 +112,16 @@ import Werknemer from './WerknemerList.vue';
             saveSneaker(){
                 console.log(creator.value);
                 console.log("LEVERANCIER: " + leverancier.value)
-                if(size.value >= 36) price = 25;
-                else price = 20;
+                //if(size.value >= 36) price = 25;
+                //else price = 20;
                 var data = {
                     id: _id.value,
-                    colorlabel: _labelColor.value,
+                    colorlabel: this._colorlabel,
                     date: datum,
                     brand: brand.value,
                     model: model.value,
                     size: size.value,
-                    colors: colorsToString(),
+                    colors: this.serializeColors(this._colors),//colorsToString(),
                     supplier: leverancier.value,
                     laces: laces.value ? 1 : 0,
                     soles: soles.value ? 1 : 0,
@@ -194,8 +206,54 @@ import Werknemer from './WerknemerList.vue';
               // s = s.toLowerCase();
               return s.replace(/(^|\s)([a-zA-ZÀ-ÖØ-öø-ÿ])/g, (_, p1, p2) => p1 + p2.toUpperCase());
             },
-                    
-                    
+            async getLabelColors() {
+              try {
+                const { data } = await LabelcolorService.getAll()   // axios call
+                // pas aan als jouw API andere structuur heeft:
+                this.labels = Array.isArray(data) ? data : (data?.rows || [])
+              } 
+              catch (e) {
+                console.error(e)
+                this.labels = []
+              }
+            },
+            checkboxLimit() {
+	            var checkboxgroup = document.getElementById('checkboxgroup').getElementsByClassName("colorz");
+                //console.log(checkboxgroup);
+
+                //Note #2 Change max limit here as necessary
+                var limit = 3;
+
+	            for (var i = 0; i < checkboxgroup.length; i++) {
+	            	checkboxgroup[i].onclick = function() {
+	            		var checkedcount = 0;
+	            			for (var i = 0; i < checkboxgroup.length; i++) {
+	            			checkedcount += (checkboxgroup[i].checked) ? 1 : 0;
+	            		}
+	            		if (checkedcount > limit) {
+	            			//alert("Je kan maximaal " + limit + " kleuren kiezen."); 
+                            console.log("brapapapaa");
+                            //this.showConfirmboxColors = true;
+                            openConfirmColor();
+	            			this.checked = false;
+                        
+	            		}
+	            	}
+	            }
+            },
+            parseColors(val) {
+              if (!val) return [];
+              if (Array.isArray(val)) return val;
+              const str = String(val).trim();
+              // ondersteunt JSON array, komma- of spatie-gescheiden
+              if (str.startsWith('[')) {
+                try { return JSON.parse(str); } catch { /* fallthrough */ }
+              }
+              return str.split(/[\s,]+/).filter(Boolean);
+            },
+            serializeColors(arr) {
+              return Array.isArray(arr) ? arr.join(' ') : '';
+            },       
         },
         inject: ["sneakers","leveranciers","brands","werknemers"],
         computed:{
@@ -203,6 +261,8 @@ import Werknemer from './WerknemerList.vue';
                 return String(this.id).padStart(4, '0')
             },
             colorArray() {
+                return this._colors; // <-- direct de interne array gebruiken
+                /*
                 try {
                   // Als colors een JSON array string is zoals '["rood","blauw"]'
                   if (this.colors.startsWith('[')) {
@@ -212,7 +272,7 @@ import Werknemer from './WerknemerList.vue';
                   return this.colors.split(',').map(c => c.trim());
                 } catch (e) {
                   return [];
-                }
+                }*/
             },
             brandList() {
                 return typeof this.brands === 'function' ? this.brands() : this.brands;
@@ -238,16 +298,30 @@ import Werknemer from './WerknemerList.vue';
             _model(n) {
               const capped = this.capWords(n);
               if (n !== capped) this._model = capped;
+            },
+            colors: {
+              immediate: true,
+              handler(v) {
+                this._colors = this.parseColors(v);
+              }
+            },
+            // optioneel: sluit modal zodra er 3 zijn
+            _colors(newVal) {
+              if (newVal.length >= this.maxColors) {
+                // bijv. modal dichtklappen:
+                // this.displayColor = false
+              }
             }
         },
         mounted(){
-            console.log(this.brandList)
+            this.getLabelColors();
         },
         components: {
             KleurPreview,
             Brand,
             Leverancier,
-            Werknemer
+            Werknemer,
+            Label
         }
     }
 </script>
@@ -272,9 +346,9 @@ import Werknemer from './WerknemerList.vue';
                 <div class="col-3"></div>
                 <div class="col-6 mb-2 text-center text-dark justify-content-center">
                     <!--<span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>-->
-                    <input class="px-3 py-2 h3 fw-bold rounded cardSize text-center" :class="colorlabel" height="80px" :value="stringId">
-                    <div class="d-inline-block rounded grow" :class="colorlabel">
-                        <img class="flip " src="@/img/downarrow.svg"/>
+                    <input class="px-3 py-2 h3 fw-bold rounded cardSize text-center" :class="_colorlabel" height="80px" :value="stringId">
+                    <div @click="displayLabelColor = !displayLabelColor" class="d-inline-block rounded grow" :class="_colorlabel">
+                        <img  class="flip " src="@/img/downarrow.svg"/>
                     </div>
                 </div>
                 <div class="d-none col-4 row m-0 p-0 justify-content-end"> 
@@ -342,6 +416,7 @@ import Werknemer from './WerknemerList.vue';
                         <KleurPreview 
                             v-for="c in colorArray"
                             :color="c"
+                            @click="displayColor = !displayColor"
                         /> 
                     </div>
                 </div>
@@ -447,26 +522,77 @@ import Werknemer from './WerknemerList.vue';
         </div>
     </div>
 
-    <div class="full m-0 p-0 d-none" id="confirm">
+    <div class="full m-0 p-0" v-if="displayColor" id="confirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{ id }}</span> wil wijzigen?</p>
-              <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+
+            <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
+                <div class="row m-0 p-0">
+                <div class="col m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer red" value="rood" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer green" value="groen" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare blue"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer blue" value="blauw" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare yellow"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer yellow" value="geel" v-model="_colors"></div></div>
                 </div>
-                <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuse">NEE</button>
+                <div class="row m-0 p-0">
+                <div class="col m-1 valign mx-auto rounded colorSquare pink"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer pink" id="xx" value="roos" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare purple"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer purple" value="paars" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare brown"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer brown" value="bruin" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare orange"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer orange" value="oranje" v-model="_colors"></div></div>
                 </div>
+                <div class="row m-0 p-0">
+                <div class="col m-1 valign mx-auto rounded colorSquare grey"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer grey" value="grijs" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare black"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer black" value="zwart" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare white"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer white" value="wit" v-model="_colors"></div></div>
+                <div class="col m-1 valign mx-auto rounded colorSquare beige"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer beige" value="beige" v-model="_colors"></div></div>
+                
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-3 m-1 valign mx-auto rounded colorSquare goud"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer goud" value="goud" v-model="_colors"></div></div>
+                    <div class="col-3 m-1 valign mx-auto rounded colorSquare zilver"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer zilver" value="zilver" v-model="_colors"></div></div>
+                    <div class="col-3 m-1 valign mx-auto rounded colorSquare bronze"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer bronze" value="bronze" v-model="_colors"></div></div>
+                    <div class="col-3 m-1 valign mx-auto rounded colorSquare multi"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer multi" value="multi" v-model="_colors"></div></div>
+                </div>
+            </div>
+
+            <div class="row m-0 p-0">
+              <div class="col-12 m-0 p-0">
+                <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="displayColor = !displayColor">JA</button> 
               </div>
+            </div>
           </div>
         </div>
     </div>
 
-    
+    <div class="full m-0 p-0" v-if="displayLabelColor" id="confirmLabelColor">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <div class="row mw-800 mx-auto valign justify-content-center">
+                  <div id="IDLABEL" class="row w-100" @keyup.enter="go()">
+                      <div class="row mt-3 mx-auto mw-800">
+                          <h1 class="text-center text-light fw-bold mb-3">Labelkleur</h1>
+                          <Label v-for="labelcolor in labels"
+                            :name="labelcolor.name"
+                            :isActive="labelcolor.isActive"
+                            class="mx-auto text-center text-dark growz"
+                            v-model="_colorlabel"
+                            @change="go()"
+                          ></Label>
+                      </div>
+                  </div>
+              </div>
+              <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="displayLabelColor = !displayLabelColor">JA</button> 
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>  
 </template>
 
 <style scoped>
+
+
     *{
         font-size: 18px;
     }

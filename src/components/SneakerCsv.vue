@@ -33,13 +33,12 @@ import SneakerService from '@/services/SneakerService';
             display: false,
             bakNr: "OUT-1-"
 
-            
           }
         },
         props:{
             id:{
-                type: Number,
-                required: true
+              type: Number,
+              required: true
             },
             colorlabel:{
                 type: String
@@ -66,7 +65,7 @@ import SneakerService from '@/services/SneakerService';
               type: Number
             }
         },
-        emits: ['updated'],
+        emits: ['update','updated','return'],
         methods:{
             capitalize(string){
                 var firstLetter = string.charAt(0);
@@ -133,12 +132,12 @@ import SneakerService from '@/services/SneakerService';
               })
             },
             sendBack(){
-              SneakerService.update(this.id,{ bakNr: this.bakNr, status: 3})
-              .then(() => {
                 this.display = !this.display;
-                this.$emit('updated', { id: this.id, bakNr: this.bakNr, status: 3 });
-              })
-              .catch(() => console.log("Kan Sneaker niet teruggen"))
+                this.$emit('return', this.id , { bakNr: this.bakNr, status: 3 });
+            },
+            returnSneaker(){
+              this.display = !this.display;
+              document.getElementById("inputFocus").focus();   
             }
             
         },
@@ -230,7 +229,7 @@ import SneakerService from '@/services/SneakerService';
             <input type="number" class="w-100 h-100 text-center" :value="price" placeholder="price">
         </div>
         <div id="img" class="col-2 m-0 p-0 valign borders">
-            <input type="url" class="w-100 h-100 text-center" v-model="imgSrc" placeholder="url">
+            <input type="url" class="w-100 h-100 text-center" :title="bakNr" v-model="imgSrc" placeholder="url">
         </div>
         <div id="retailDate" class="col-2 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" min="1980" v-model="uitgave" placeholder="yyyy">
@@ -240,7 +239,7 @@ import SneakerService from '@/services/SneakerService';
             <img src="../img/publish.svg" class="medz grow m-0 p-0 pointer">
           </div>
         </div>
-        <div @click="display = !display" id="delete" class="col-1 m-0 p-0 valign borders">
+        <div @click="returnSneaker" id="delete" class="col-1 m-0 p-0 valign borders">
           <img src="../img/undo.svg" class="medz grow valign m-0 p-0 pointer" :class="activez">
         </div>
         
@@ -254,7 +253,7 @@ import SneakerService from '@/services/SneakerService';
                     <img src="../img/bakNr.svg" class="med whiteIcons">
                   </div>
                   <div class="col-6">
-                    <input class="text-center rounded" placeholder="locatie" v-model="bakNr" @keyup.enter="sendBack"/>
+                    <input id="inputFocus" class="text-center rounded" placeholder="locatie" v-model="bakNr" @keyup.enter="sendBack"/>
                   </div>
                 </div>
                 <div class="row m-0 p-0">

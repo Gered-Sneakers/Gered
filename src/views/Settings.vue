@@ -415,7 +415,7 @@
         </div>
         <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
             <!--<div class="col-15"></div>-->
-            <div class="col-3 col-xl-3 mx-auto">
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: IN </div>
               </div>
@@ -430,9 +430,35 @@
               </div>
             </div>
 
-            <div class="col-3 col-xl-3 mx-auto">
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: OUT </div>
+              </div>
+              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
+                  <div class="col-6 text-start mb-1"> Sales </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <div class="col-6 text-start mb-1"> Kids </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
+              </div>
+            </div>
+
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple h-100 valign"> KIDS: IN </div>
+              </div>
+              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
+                  <div class="col-6 text-start mb-1"> Wash </div><div class="col-6 text-end"> {{ kidsWash }} </div>
+                  <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ kidsRepair }} </div>
+                  <div class="col-6 text-start mb-1"> Donatie </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <!--
+                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
+                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
+                  -->
+              </div>
+            </div>
+
+            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
+              <div class="w-100 valign rounded-top goud text-white vh-10">
+                <div class="mx-auto subTitle text-purple h-100 valign"> KIDS: OUT </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
                   <div class="col-6 text-start mb-1"> Sales </div><div class="col-6 text-end"> {{ stockCount }} </div>
@@ -579,6 +605,7 @@
   import Verkocht from './Verkocht.vue';
 
   import { authState } from '@/stores/auth';
+  import { nextTick } from 'vue'
 
   import ConfirmBox from '@/components/ConfirmBox.vue';
   
@@ -1097,8 +1124,22 @@
           this.repairId = id
           this.repairName = name
           this.repairPrice = price
+        },
+        toNumber(v) {
+          if (v == null) return NaN;
+          if (typeof v === 'number') return v;
+          const n = Number(String(v).trim().replace(',', '.'));
+          return Number.isFinite(n) ? n : NaN;
         }
 
+      },
+      watch: {
+        kidsWash: {
+            immediate: true,
+            handler(val, oldVal) {
+              console.log('KIDS COUNT:', val)
+            }
+        },
       },
       mounted () {
         this.getLeveranciers();
@@ -1113,16 +1154,13 @@
         this.idd = JSON.parse(localStorage.getItem("id"));
         console.log("USER ID:", this.idd); // should show the number
 
-        /*
-        // Handle undefined, null, or invalid cases safely
-        if (storedId && storedId !== "undefined") {
-          this.idd = parseInt(storedId); // no need for JSON.parse if it's a number
-        } else {
-          this.idd = null;
-        }
-       
-        console.log("USER ID =", this.idd);
-        */
+        this.$nextTick(()=> {
+          console.log("KIDS COUNT: ")
+          console.log(this.kidsWash);
+          //console.log(this.kidsRepair);
+          
+        })
+
       },
       inject: ["sneakers"],
       computed: {
@@ -1149,8 +1187,23 @@
         },
         csvCount(){
           return this.sneakers().filter(s => s.status === 6).length;
-        }
-        
+        },
+        kidsWash(){
+            return this.sneakers()
+            .filter(s => Number(s.status) === 1)              // werkt voor 1 én "1"
+            .filter(s => {
+              const n = parseFloat(String(s.size));           // werkt voor "35.5" en 35.5
+              return n < 36;            // 0 telt ook mee (< 36)
+            }).length
+        },
+        kidsRepair(){
+            return this.sneakers()
+              .filter(s => Number(s.status) === 2)              // werkt voor 1 én "1"
+              .filter(s => {
+                const n = parseFloat(String(s.size));           // werkt voor "35.5" en 35.5
+                return n < 36;            // 0 telt ook mee (< 36)
+            }).length
+        }     
       },
       components: {
         Leverancier,

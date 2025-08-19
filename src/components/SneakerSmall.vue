@@ -5,6 +5,12 @@
 
     export default {
         name: 'SneakerSmall',
+        //emits: ['csv', 'verkoop', 'contextmenu'],
+        emits: {
+          verkoop: (id, args) => Number.isFinite(id) && args && typeof args === 'object',
+          csv:     (id, args) => Number.isFinite(id) && args && typeof args === 'object',
+          contextmenu: (id, evt) => Number.isFinite(id) && (!evt || evt.type === 'contextmenu'),
+        },
         data(){
           return{
             showCsv: true,
@@ -13,7 +19,9 @@
             csvCheck: false,
             truncateLimit: 13,
             display: false,
-            baknr: "OUT-1-"
+            displayz: false,
+            baknr: "",
+            baknrz: ""
             //leverancierList: 
           }
         },
@@ -81,16 +89,23 @@
             handleSell(){
               this.verkoopCheck = true
               this.display = true
-              
+              this.baknr = "OUT-1-"
+              document.getElementById("sellInput").focus();              
             },
             handleCsv(){
               this.csvCheck = true
-              this.$emit('csv',id);
+              this.displayz = true
+              this.baknrz = "OUT-2-"
+              document.getElementById("csvInput").focus(); 
             },
             verkoop(){
               this.display = false
-              this.$emit('verkoop', this.id)
-              SneakerService.getAll();
+              this.$emit('verkoop',this.id, {status: 4, bakNr: this.baknr})
+              //SneakerService.getAll();
+            },
+            csv(){
+              this.displayz = false 
+              this.$emit('csv',this.id, {status: 6 , bakNr: this.baknrz})
             },
             updateTruncateLimit() {
               const width = window.innerWidth;
@@ -176,6 +191,45 @@
                 if (formatted !== this.baknr) {
                   this.baknr = formatted;
                 }
+            },
+            baknrz(newVal) {
+                const prefix = "OUT-2-";
+
+                if (!newVal) {
+                  this.baknrz = prefix;
+                  return;
+                }
+            
+                // Force uppercase and strip invalid chars
+                let raw = newVal.toUpperCase().replace(/[^A-Z0-9]/g, "");
+            
+                // Remove manually typed prefix if present
+                if (raw.startsWith(prefix.replace(/-/g, ""))) {
+                  raw = raw.slice(prefix.replace(/-/g, "").length);
+                }
+            
+                // Always start with fixed prefix
+                let formatted = prefix;
+            
+                // Limit raw to max 3 chars after prefix
+                raw = raw.slice(0, 3);
+            
+                // Build with trailing dash after first char if there's only a letter
+                if (raw.length === 1) {
+                  formatted += `${raw[0]}-`;
+                } else if (raw.length === 2) {
+                  formatted += `${raw[0]}-${raw[1]}`;
+                } else if (raw.length === 3) {
+                  formatted += `${raw[0]}-${raw[1]}-${raw[2]}`;
+                }
+            
+                // Max length 9 (OUT-1-A-1)
+                formatted = formatted.slice(0, 9);
+            
+                // Prevent infinite loop
+                if (formatted !== this.baknrz) {
+                  this.baknrz = formatted;
+                }
             }
         },
         mounted () {
@@ -192,10 +246,10 @@
 </script>
 
 <template>
-    <div class="row w-100 mx-auto text-center">
+    <div class="row sneakerSmall w-100 mx-auto text-center" @contextmenu.prevent="$emit('contextmenu', id, $event)">
         <div id="id" class="col-1 borders valign" :class="colorlabel">{{ stringId }}</div>
         
-        <div id="model" class="col-2 borders p-0" :title="brand + ' - ' + model + '\n' + extra">{{ brand }} <br> {{ truncate(model) }}</div> 
+        <div id="model" class="col-2 borders p-0 valign" :title="brand + ' - ' + model + '\n' + extra">{{ brand }} <br> {{ truncate(model) }}</div> 
         
         <div id="kleur" class="col-15 borders valign">
             <KleurPreview 
@@ -236,7 +290,7 @@
                     <img src="../img/bakNr.svg" class="med whiteIcons">
                   </div>
                   <div class="col-6">
-                    <input class="text-center rounded" placeholder="locatie" v-model="baknr" @keyup.enter="returnSneaker"/>
+                    <input id="sellInput" class="text-center rounded" placeholder="locatie" @keyup.enter="verkoop" v-model="baknr"/>
                   </div>
                 </div>
                 <div class="row m-0 p-0">
@@ -244,7 +298,30 @@
                     <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="verkoop">JA</button> 
                   </div>
                   <div class="col-6 m-0 p-0">
-                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="display = !display">NEE</button>
+                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="display = !display;verkoopCheck=false">NEE</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="full m-0 p-0" id="confirm" v-show="displayz">
+          <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+            <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+                <p class="d-flex align-items-center justify-content-center mt-5">Ben je zeker dat <span class="text-yellow mx-2">{{ id }}</span> online gaat?</p>
+                <div class="row m-0 p-0">
+                  <div class="col-3 text-end mb-5 justify-content-center">
+                    <img src="../img/bakNr.svg" class="med whiteIcons">
+                  </div>
+                  <div class="col-6">
+                    <input id="csvInput" class="text-center rounded" placeholder="locatie" @keyup.enter="csv" v-model="baknrz"/>
+                  </div>
+                </div>
+                <div class="row m-0 p-0">
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="csv">JA</button> 
+                  </div>
+                  <div class="col-6 m-0 p-0">
+                    <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="displayz = !displayz;csvCheck=false">NEE</button>
                   </div>
                 </div>
             </div>
@@ -253,6 +330,10 @@
 </template>
 
 <style scoped>
+
+    .sneakerSmall > div {
+      height: 55px;
+    }
 
     .full{
         position: fixed;

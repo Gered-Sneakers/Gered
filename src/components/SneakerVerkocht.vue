@@ -91,7 +91,11 @@
                       this.$emit('updated', { id: this.id, bakNr: this.bakNr, status: 4 });
                     })
                     .catch(() => console.log("Kan Sneaker niet teruggen"))
-                }
+            },
+            returnButton(){
+              display = !display;
+              document.getElementById("inputFocus").focus();
+            }
         },
         computed: {
           supplierName() {
@@ -165,7 +169,7 @@
         <div id="user" class="col valign borders">{{ soldDate }}</div>
         <div id="datum" class="col valign borders">{{ price }}</div>
         <div id="leverancier" class="col valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
-        <div id="retour" class="col valign borders" @click="display = !display">
+        <div id="retour" class="col valign borders" @click="returnButton">
             <img class="growz pointer" src="../img/undo.svg" />
         </div>
     </div>
@@ -178,7 +182,7 @@
                     <img src="../img/bakNr.svg" class="med whiteIcons">
                   </div>
                   <div class="col-6">
-                    <input class="text-center rounded" placeholder="locatie" v-model="bakNr" @keyup.enter="returnSneaker"/>
+                    <input id="inputFocus" class="text-center rounded" placeholder="locatie" v-model="bakNr" @keyup.enter="returnSneaker"/>
                   </div>
                 </div>
                 <div class="row m-0 p-0">

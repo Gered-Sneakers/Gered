@@ -47,9 +47,9 @@
         :creator="s.creator"
         :verkoop="s.verkoop"
         :csv="s.csv"
-        @csv="csvAdd(s.id)"
+        @csv="csvAdd"
         @verkoop="verkoop"
-        @contextmenu.prevent="handleRightClick(s.id)"
+        @contextmenu="handleRightClick(s.id)"
       >
 
       </SneakerSmall>
@@ -116,6 +116,7 @@ import LeverancierService from '@/services/LeverancierService';
     name: 'ShowSneakers_View',
     data(){
         return{
+          sneakerList: [],
           leverancierList: [],
           verkoopList: [],
           csvList: [],
@@ -138,15 +139,13 @@ import LeverancierService from '@/services/LeverancierService';
     },
     methods: {
       async getSneakers(){
-          await SneakerService.getAll()
-            .then(response => {
-              this.sneakerList = response.data;
-              this.total = this.sneakerList.length;
-              console.log(this.sneakerList);
-            })
-            .catch(error =>{
-              console.error(error);
-            })
+        try {
+          const { data } = await SneakerService.getAll()
+          // maak een nieuwe array/referenties zodat Vue altijd een change ziet
+          this.sneakerList = data.map(s => ({ ...s }))
+        } catch (e) {
+          console.error(e)
+        }
       },
       verkoopRemove(id){
         SneakerService.update(id,{ status:3 })
@@ -158,16 +157,15 @@ import LeverancierService from '@/services/LeverancierService';
             console.log(err);
           })
       },
-      verkoop(id){       
-          SneakerService.update(id,{ status:4 })
-          .then(res =>{
-            console.log(res);
-            console.log("We don giv a fu bwoi");
+      async verkoop(id,args){    
+        try{
+          await SneakerService.update(id,args)
+          await this.getSneakers()
+        }
+        catch(err){
+          console.error(err);
 
-          })
-          .catch(err => {
-            console.log(err);
-          })
+        }
       },/*
       csv(id){
         console.log("CSV");
@@ -178,16 +176,14 @@ import LeverancierService from '@/services/LeverancierService';
       csvRemove(id){
         this.csvList = this.csvList.filter(c => c !== id);
       },*/
-      csvAdd(id){
-        console.log("CSVeejen Bejbi");
-
-          SneakerService.update(id,{ status:6 })
-          .then(res=>{
-            console.log(res);
-          })
-          .catch(err => {
+      async csvAdd(id,args){
+        try{
+          await SneakerService.update(id,args)
+          await this.getSneakers();
+        }
+        catch(err){
             console.log(err);
-          })
+        }
       },
       getLeveranciers(){
         LeverancierService.getAll()
@@ -214,18 +210,18 @@ import LeverancierService from '@/services/LeverancierService';
         }
       },
       handleRightClick(id) {
+        console.log(id);
         this.id = id;
         this.confirm = !this.confirm;
       },
       changeSneaker(id){
         this.$router.push({ name: 'changeSneaker', params: { id: id } });
       }
-
     },
     inject: ["brands","labelColors","leveranciers","sneakers","werknemers"],
     computed: {
-      sneakerList(){
-        return this.sneakers();
+      getSneakerList(){
+        this.sneakerList = this.sneakers();
       },
       activeBrands() {
         return this.brands().filter(x => x.isActive);
@@ -291,15 +287,6 @@ import LeverancierService from '@/services/LeverancierService';
       
     },
     mounted () {
-      /*
-      console.log("SNEAKERZ SHOW ---------------")
-      console.log(this.sneakers());
-      console.log(this.brands());
-      console.log(this.labelColors());
-      console.log(this.leveranciers());
-      console.log(this.werknemers());
-      console.log("-----------------------------");
-      */
       setTimeout(() => {
         const overlay = document.getElementById("overlay");
         if (overlay) overlay.remove();

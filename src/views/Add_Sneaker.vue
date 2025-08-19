@@ -63,19 +63,26 @@
         <div class="mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative" v-if="showPreviewz">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-4 mb-3">
+                    <div class="row m-0 p-0 mt-4 mb-2">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 border-2 border-bottom border-light mb-2">
+                    <div class="row m-0 p-0 border-2 border-bottom border-light pt-1 mb-2">
+                        <!--
                         <div class="col-12 m-0 p-0 fw-bold text-center">
                             <span class="align-middle text-center">Overzicht</span>
                         </div>
+                        -->
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-3 valign"><img class="smallz whiteIcons" title="merk + model" src="@/img/tag.svg"></div>
                         <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model }}</span></div>
+                    </div>
+                    <hr class="w-90 mx-auto my-2 opacity-25">
+                    <div class="row m-0 p-0">
+                        <div class="col-3 valign"><img class="smallz whiteIcons" title="xx" src="@/img/extra.svg"></div>
+                        <div class="col-9 text-end">{{ extra }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
                     <div class="row m-0 p-0">
@@ -234,19 +241,19 @@
                         <div class="row m-0 p-0 pb-2 mx-auto text-light">
                             <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !laces }">
                                 <img class="col-6 imgSquare mx-auto growz" src="../img/laces.svg" @click="laces = !laces;statusCheckbox();fillBakNr()">
-                                <label class="col-12" for="check1"> Geen veters  </label>
+                                <label class="col-12 fw-bold" for="check1"> Geen veters  </label>
                             </div>
                             <div class="col-6 m-0 p-0 mb-4 text-center row pointer invisBorders" :class="{ highlight: !soles }">
                                 <img class="col-6 imgSquare mx-auto growz" src="../img/soles.svg" @click="soles = !soles;statusCheckbox();fillBakNr()">
-                                <label class="col-12" for="check2"> Geen binnenzool</label>
+                                <label class="col-12 fw-bold" for="check2"> Geen binnenzool</label>
                             </div>
                             <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !paint }">
                                 <img class="col-6 imgSquare mx-auto growz" src="../img/paint.svg" @click="paint = !paint;statusCheckbox();fillBakNr()">
-                                <label class="col-12" for="check4"> Verven </label>
+                                <label class="col-12 fw-bold" for="check4"> Verven </label>
                             </div>
                             <div class="col-6 mx-auto m-0 p-0 text-center row pointer invisBorders" :class="{ highlight: !glue }">
                                 <img class="col-6 imgSquare mx-auto growz" src="../img/repair.svg" @click="glue = !glue;statusCheckbox();fillBakNr()">
-                                <label class="col-12" for="check3"> Lijmen </label>
+                                <label class="col-12 fw-bold" for="check3"> Lijmen </label>
                             </div>
 
                         </div>

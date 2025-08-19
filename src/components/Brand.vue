@@ -5,7 +5,7 @@
     <label class="mx-auto w-100 growz">
       <input 
         type="radio" 
-        :value="name" 
+        :value="id" 
         name="brand"
         :checked="modelValue === name"
         @change="$emit('update:modelValue',name)"

@@ -6,7 +6,7 @@
     export default {
         name: 'SneakerVerkoop',
         inject: ['leveranciers'],
-        emits: ['updated'],
+        emits: ['updated','verkoop','return'],
         data(){
           return{
             colorArray: this.colors.split(' '),
@@ -84,12 +84,23 @@
                 console.log(firstLetter+rest);
             },
             returnSneaker(){
-              SneakerService.update(this.id,{ bakNr: this.bakNr, status: 3})
+              this.display = !this.display;
+              this.$emit('return', this.id ,{ bakNr: this.baknr, status: 3 });
+
+              
+              /*
+              SneakerService.update(this.id,{ bakNr: this.baknr, status: 3})
                 .then(() => {
-                  this.display = !this.display;
-                  this.$emit('updated', { id: this.id, bakNr: this.bakNr, status: 3 });
+                  
+                  //this.display = !this.display;
+                  //this.$emit('updated', { id: this.id, bakNr: this.baknr, status: 3 });
                 })
                 .catch(() => console.log("Kan Sneaker niet teruggen"))
+                */
+            },
+            returnButton(){
+              this.display = !this.display;
+              document.getElementById("inputFocus").focus();
             }
         },
         computed: {
@@ -181,7 +192,7 @@
         <div id="datum" class="col-1 valign borders">{{ bakNr }}</div>
         <div id="leverancier" class="col-1 valign borders" v-if="supplier">{{ supplier.substring(0,7) }}</div>
         <div id="" class="col-1 valign borders pointer" @click="$emit('verkoop',id)"><img class="growz" src="../img/sell.svg"></div>
-        <div id="" class="col-1 valign borders pointer" @click="display = ! display"><img class="growz" src="../img/undo.svg"></div>
+        <div id="" class="col-1 valign borders pointer" @click="returnButton"><img class="growz" src="../img/undo.svg"></div>
     </div>
 
     <div class="full m-0 p-0" id="confirm" v-show="display">
@@ -193,7 +204,7 @@
                     <img src="../img/bakNr.svg" class="med whiteIcons">
                   </div>
                   <div class="col-6">
-                    <input class="text-center rounded" placeholder="locatie" v-model="baknr" @keyup.enter="returnSneaker"/>
+                    <input id="inputFocus" class="text-center rounded" placeholder="locatie" v-model="baknr" @keyup.enter="returnSneaker"/>
                   </div>
                 </div>
                 <div class="row m-0 p-0">

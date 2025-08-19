@@ -37,8 +37,9 @@
             :createdAt="s.createdAt"
             :price="s.price"
             :bakNr="s.bakNr"
-            @update="updateCsvList(index,$event)"
+            @update="updateCsvList"
             @updated="getSneakers"
+            @return="returnSneaker"
           >
           </SneakerCsv>
 
@@ -94,30 +95,17 @@ import SneakerService from '@/services/SneakerService';
             .catch(error =>{
               console.error(error);
             })
-        },
-      /*
-      async getSneakers() {
-        try {
-          const response = await SneakerService.getAll();
-          this.sneakerList = response.data;
-        
-          console.log(this.sneakerList);
-        
-          
-        
-          console.log(this.sneakerList);
-          console.log("SORTING");
-        
-          this.sneakerList = this.sortedSneakers;
-        
-        } catch (error) {
-          console.error(error);
-        }
       },
-      */
       emptyList(){},
-      updateCsvList(index,data){
-        this.csvList[index] = data;
+      updateCsvList(id,args){
+        //this.csvList[index] = data;
+        SneakerService.update(id,args)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+
+        })
       },
       goDownload(){
         console.log("Broghetti hier uw codetti");
@@ -179,6 +167,16 @@ import SneakerService from '@/services/SneakerService';
           this.sortAscending = true;
         }
       },
+      returnSneaker(id,updateData){
+        SneakerService.update(id,updateData)
+        .then (() => {
+          this.getSneakers();
+        })
+        
+        .catch(err => {
+          console.log(err)
+        })
+      }
 
     },
     inject: ['sneakers'],
