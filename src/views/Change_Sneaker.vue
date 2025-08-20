@@ -27,6 +27,8 @@
               :supplier="getLeverancierName(sneaker.supplier)"
               :laces="sneaker.laces"
               :soles="sneaker.soles"
+              :paint="sneaker.paint"
+              :glue="sneaker.glue"
               :status="getStatusName(sneaker.status)"
               :teRepareren="sneaker.teRepareren"
               :creator="sneaker.creator"
@@ -42,9 +44,6 @@
       </div>
     </div>
     
-
-      
-
     <div class="full m-0 p-0 d-none" id="confirmSneakerColor">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
@@ -76,10 +75,13 @@
           </div>
         </div>
     </div>
+
+    
 </template>
   
 <script>
   import Sneaker from '../components/SneakerChange.vue';
+  import LabelcolorService from '@/services/LabelcolorService';
 
 
   export default {
@@ -169,8 +171,7 @@
       this.getLabelColors();
     },
     components: {
-      Sneaker,
-      Label
+      Sneaker
     }
   }
 </script>

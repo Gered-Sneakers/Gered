@@ -4,16 +4,40 @@
         <div class="row m-0 p-0 vh-5"></div>
         <div class="row vh-5 pb-3 w-100 sticky">
           <div class="col mx-auto">
-            <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sneakers</button>
+            <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Sneakers-->
+              <img alt="Sneakers" class="h-100 m-0 p-0 growz justify-content-center" src="../img/stock.svg"/>
+            </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Shopify</button>
+            <button @click="toggleContent(6)" id="kidsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Skiddels-->
+              <img alt="Kids" class="h-100 m-0 p-0 growz justify-content-center" src="../img/kid.svg"/>
+            </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Sales</button>
+            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Shopify-->
+              <img alt="Shopify" class="h-100 m-0 p-0 growz justify-content-center whiteIcons" src="../img/shopify.svg"/>
+            </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">Settings</button>
+            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Sales-->
+              <img alt="Sales" class="h-100 m-0 p-0 growz justify-content-center" src="../img/sell.svg"/>
+            </button>
+          </div>
+          <div class="col mx-auto">
+            <button @click="toggleContent(7)" id="stockButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Stockinfo-->
+              <img alt="Stockinfo" class="h-100 m-0 p-0 growz justify-content-center" src="../img/info.svg"/>
+            </button>
+          </div>
+          <div class="col mx-auto">
+            <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+              <!--Settings-->
+              <img alt="Settings" class="h-100 m-0 p-0 growz justify-content-center" src="../img/settings.svg"/>
+            </button>
           </div>
         </div>
       </div>
@@ -415,6 +439,7 @@
         </div>
         <div id="extra" v-if="creator = 2" class="row text-light"> <!-- SUPER ADMIN ONLY -->
             <!--<div class="col-15"></div>-->
+            <!--
             <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: IN </div>
@@ -422,11 +447,8 @@
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
                   <div class="col-6 text-start mb-1"> Wash </div><div class="col-6 text-end"> {{ cleaningCount }} </div>
                   <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ repairCount }} </div>
-                  <div class="col-6 text-start mb-1"> Donatie </div><div class="col-6 text-end"> {{ stockCount }} </div>
-                  <!--
-                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
-                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
-                  -->
+                  <div class="col-6 text-start mb-1"> Kids Wash </div><div class="col-6 text-end"> {{ kidsWash }} </div>
+                  <div class="col-6 text-start mb-1"> Kids Repair </div><div class="col-6 text-end"> {{ kidsRepair }} </div>
               </div>
             </div>
 
@@ -435,38 +457,25 @@
                 <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: OUT </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Sales </div><div class="col-6 text-end"> {{ stockCount }} </div>
-                  <div class="col-6 text-start mb-1"> Kids </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
-                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
+                  <div class="col-6 text-start mb-1"> Stock </div><div class="col-6 text-end"> {{ stockCount }} </div>
+                  <div class="col-6 text-start mb-1"> Online </div><div class="col-6 text-end"> {{ csvCount }} </div>
+                  <div class="col-6 text-start mb-1"> Kids Stock </div><div class="col-6 text-end"> {{ kidsStock }} </div>
+                  <div class="col-6 text-start mb-1"> Kids Online </div><div class="col-6 text-end"> {{ kidsOnline }} </div>
               </div>
             </div>
 
             <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
-                <div class="mx-auto subTitle text-purple h-100 valign"> KIDS: IN </div>
+                <div class="mx-auto subTitle text-purple h-100 valign"> STOCK: TOTALS </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Wash </div><div class="col-6 text-end"> {{ kidsWash }} </div>
-                  <div class="col-6 text-start mb-1"> Repair </div><div class="col-6 text-end"> {{ kidsRepair }} </div>
-                  <div class="col-6 text-start mb-1"> Donatie </div><div class="col-6 text-end"> {{ stockCount }} </div>
-                  <!--
-                  <div class="col-6 text-start mb-1"> Verkoop </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
-                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
-                  -->
+                  <div class="col-6 text-start mb-1"> In Progress </div><div class="col-6 text-end"> {{ totalStockIn }} </div>
+                  <div class="col-6 text-start mb-1"> Stock </div><div class="col-6 text-end"> {{ totalStockOut }} </div>
+                  <div class="col-6 text-start mb-1"> Online </div><div class="col-6 text-end"> {{ totalOnline }} </div>
+                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ totalVerkocht }} </div>
               </div>
             </div>
-
-            <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
-              <div class="w-100 valign rounded-top goud text-white vh-10">
-                <div class="mx-auto subTitle text-purple h-100 valign"> KIDS: OUT </div>
-              </div>
-              <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Sales </div><div class="col-6 text-end"> {{ stockCount }} </div>
-                  <div class="col-6 text-start mb-1"> Kids </div><div class="col-6 text-end"> {{ verkoopCount }} </div>
-                  <div class="col-6 text-start mb-1"> Verkocht </div><div class="col-6 text-end"> {{ verkochtCount }} </div>
-              </div>
-            </div>
-
+            -->
             <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple">REPAIRS</div>
@@ -565,6 +574,11 @@
           <ShowSneakers ref="sneakerComponent"></ShowSneakers>
         </div>
       </div>
+      <div id="kids" v-show="activeTab == 6" class="m-0 p-0">
+        <div class="row m-0 p-0 text-light">
+          <ShowKids ref="kidsComponent"></ShowKids>
+        </div>
+      </div>
       <div id="csv" v-show="activeTab == 2" class="m-0 p-0">
         <div class="row m-0 p-0 text-light">
           <CsvSneakers ref="csvComponent" :key="csvKey"></CsvSneakers>
@@ -578,6 +592,11 @@
       <div id="verkocht" v-show="activeTab == 5" class="m-0 p-0">
         <div class="m-0 p-0 text-light">
           <Verkocht ref="verkochtComponent"></Verkocht>
+        </div>
+      </div>
+      <div id="stock" v-show="activeTab == 7" class="m-0 p-0">
+        <div class="m-0 p-0 text-light">
+          <Stock ref="stockComponent"></Stock>
         </div>
       </div>
     </div>
@@ -600,9 +619,11 @@
   import LabelcolorService from '@/services/LabelcolorService';
 
   import ShowSneakers from './ShowSneakers.vue';
+  import ShowKids from './ShowKids.vue';
   import CsvSneakers from './Csv.vue';
   import Verkoop from './Verkoop.vue';
   import Verkocht from './Verkocht.vue';
+  import Stock from './SettingsStock.vue';
 
   import { authState } from '@/stores/auth';
   import { nextTick } from 'vue'
@@ -693,12 +714,18 @@
               case 2:
                 this.$refs.csvComponent?.getSneakers?.();
                 break;
+              case 6:
+                this.$refs.kidsComponent?.getSneakers?.();
+                break;
               case 4:
                 this.$refs.verkoopComponent?.getSneakers?.();
                 break;
               case 5:
                 this.$refs.verkochtComponent?.getSneakers?.();
                 break;
+              case 7:
+                 this.$refs.stockComponent;
+                 break;
               // no action for 3 (main)
             }
           });
@@ -1171,39 +1198,50 @@
           return this.LeveranciersList.filter(l => l.isActive === false || l.isActive === 0);
         },
         cleaningCount() {
-          return this.sneakers().filter(s => s.status === 1).length;
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 1).length;
         },
         repairCount() {
-          return this.sneakers().filter(s => s.status === 2).length;
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 2).length;
         },
         stockCount() {
-          return this.sneakers().filter(s => s.status === 3).length;
-        },
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 3 || s.status === 4).length;
+        },/*
         verkoopCount() {
-          return this.sneakers().filter(s => s.status === 4).length;
-        },
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 4).length;
+        },*/
         verkochtCount() {
-          return this.sneakers().filter(s => s.status === 5).length;
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 5).length;
         },
         csvCount(){
-          return this.sneakers().filter(s => s.status === 6).length;
+          return this.sneakers().filter(s => parseFloat(s.size) > 36).filter(s => s.status === 6).length;
         },
         kidsWash(){
-            return this.sneakers()
-            .filter(s => Number(s.status) === 1)              // werkt voor 1 én "1"
-            .filter(s => {
-              const n = parseFloat(String(s.size));           // werkt voor "35.5" en 35.5
-              return n < 36;            // 0 telt ook mee (< 36)
-            }).length
+          return this.sneakers().filter(s => parseFloat(s.size) < 36).filter(s => s.status === 1).length
         },
         kidsRepair(){
-            return this.sneakers()
-              .filter(s => Number(s.status) === 2)              // werkt voor 1 én "1"
-              .filter(s => {
-                const n = parseFloat(String(s.size));           // werkt voor "35.5" en 35.5
-                return n < 36;            // 0 telt ook mee (< 36)
-            }).length
-        }     
+          return this.sneakers().filter(s => parseFloat(s.size) < 36).filter(s => s.status === 2).length
+        },
+        kidsStock(){
+          return this.sneakers().filter(s => parseFloat(s.size) < 36).filter(s => s.status === 3 || s.status === 4).length
+        },
+        kidsOnline(){
+          return this.sneakers().filter(s => parseFloat(s.size) < 36).filter(s => s.status === 6).length
+        },
+        kidsVerkocht()     {
+          return this.sneakers().filter(s => parseFloat(s.size) < 36).filter(s => s.status === 5).length
+        },
+        totalStockIn(){
+          return this.cleaningCount + this.repairCount + this.kidsWash + this.kidsRepair;
+        },
+        totalStockOut(){
+          return this.stockCount + this.kidsStock;
+        },
+        totalOnline(){
+          return this.csvCount + this.kidsOnline;
+        },
+        totalVerkocht(){
+          return this.verkochtCount + this.kidsVerkocht;
+        }
       },
       components: {
         Leverancier,
@@ -1212,7 +1250,9 @@
         Labelcolor,
         Repairs,
         ShowSneakers,
+        ShowKids,
         CsvSneakers,
+        Stock,
         Verkoop,
         Verkocht
       }
@@ -1285,6 +1325,7 @@
       position: absolute;
       top: 10vh;
       left: 0;
+      overflow-x: hidden;
     }
 
     [type=file]{

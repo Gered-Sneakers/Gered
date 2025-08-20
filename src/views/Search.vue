@@ -210,6 +210,8 @@
                 :supplier="getLeverancierName(sneaker.supplier)"
                 :laces="sneaker.laces"
                 :soles="sneaker.soles"
+                :paint="sneaker.paint"
+                :glue="sneaker.glue"
                 :status="getStatusName(sneaker.status)"
                 :teRepareren="sneaker.teRepareren"
                 :creator="sneaker.creator"

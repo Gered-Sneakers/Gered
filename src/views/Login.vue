@@ -48,7 +48,7 @@
                 <div class="">
                 <img class="mx-auto vh-15 w-15 mb-5 rotate" src="../img/den G.png">
                 <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
-                    <button @click="login" class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
+                    <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
                         <span class="">+SNEAKER</span>
                     </button> 
                 </router-link>
@@ -122,23 +122,29 @@ import { authState } from '@/stores/auth'
                     pass: this.authState.loginPass
                 })
 
+                /*
                 localStorage.setItem("token", res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data.user))
                 localStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin))
                 localStorage.setItem("id", JSON.stringify(res.data.user.id))
+                */
 
-                console.log("DATA HIER BOLIBOL");
-                console.log(res.data);
+                sessionStorage.setItem("token", res.data.token);
+                sessionStorage.setItem("user", JSON.stringify(res.data.user));
+                sessionStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin));
+                sessionStorage.setItem("id", String(res.data.user.id));
 
-                
+                // clean up any old localStorage leftovers (one-time safety)
+                ["token","user","admin","id"].forEach(k => localStorage.removeItem(k));
+
                 authState.isLoggedIn = true
                 authState.isAdmin = res.data.user.isAdmin
                 authState.loginName = this.name
                 authState.loginPass = this.pass
                 
                 const isAdmin = JSON.parse(localStorage.getItem("admin"));
-                console.log("ADMIN");
-                console.log(isAdmin);
+                //console.log("ADMIN");
+                //console.log(isAdmin);
                 
                 var user = localStorage.getItem("user");
                 console.log(user);

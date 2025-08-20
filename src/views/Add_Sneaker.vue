@@ -338,13 +338,8 @@
     import { inject } from 'vue'
     
     import Brand from '@/components/Brand.vue';
-
-    import Leverancier from '@/components/Leverancier.vue';
-
     import Label from '@/components/Label.vue';
-
     import KleurPreview from '@/components/KleurPreview.vue';
-    //import LabelPreview from '@/components/LabelPreview.vue';
 
     import ConfirmBox from '@/components/ConfirmBox.vue';
 
@@ -454,6 +449,15 @@
 
       if (formatted !== bakNr.value) bakNr.value = formatted
     })
+
+    watch(
+      () => extra.value,
+      (val) => {
+        const cleaned = String(val ?? '').replace(/^\s+/, '')
+        if (val !== cleaned) extra.value = cleaned
+      },
+      { immediate: true }
+    )
 
     
     const fillBakNr = () => {
@@ -706,6 +710,7 @@
             resetSneaker();
             resetTargets();
             refuse();
+            document.getElementById("ID").focus();
         })
         .catch( error => {
             console.log(error);

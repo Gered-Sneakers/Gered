@@ -33,7 +33,7 @@
       <div class="m-0 p-0" v-for="s in filteredSneakers">
       <SneakerSmall
         class="sneakerSmall img-50"
-        v-if="s.status !== 5 && s.size >= 36"
+        v-if="s.status !== 5 && s.size < 36"
         :id="s.id"
         :colorlabel="s.colorlabel"
         :date="s.date"
@@ -113,7 +113,7 @@ import LeverancierService from '@/services/LeverancierService';
 //var verkoopList = [];
 
   export default {
-    name: 'ShowSneakers_View',
+    name: 'ShowKids_View',
     data(){
         return{
           sneakerList: [],

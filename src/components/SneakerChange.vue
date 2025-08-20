@@ -6,13 +6,15 @@ import Leverancier from './LeverancierListItem.vue';
 import Werknemer from './WerknemerList.vue';
 import Label from '@/components/Label.vue';
 import LabelcolorService from '@/services/LabelcolorService';
+import SneakerService from '@/services/SneakerService';
+import Sneaker from './Sneaker.vue';
 
     export default {
         name: 'SneakerChange',
         data(){
           return{
             
-            _id: null,
+            _id: this.id,
             _colorlabel: this.colorlabel,
             _date: this.date,
             _brand: this.brand,
@@ -41,6 +43,7 @@ import LabelcolorService from '@/services/LabelcolorService';
             displayLabelColor: false,
             displayColor: false,
             
+            confirmSave: false
           }
         },
         props:{
@@ -110,45 +113,45 @@ import LabelcolorService from '@/services/LabelcolorService';
                 console.log(firstLetter+rest);
             },
             saveSneaker(){
-                console.log(creator.value);
-                console.log("LEVERANCIER: " + leverancier.value)
+                //console.log(creator.value);
+                //console.log("LEVERANCIER: " + leverancier.value)
                 //if(size.value >= 36) price = 25;
                 //else price = 20;
                 var data = {
-                    id: _id.value,
+                    //id: this._id,
                     colorlabel: this._colorlabel,
-                    date: datum,
-                    brand: brand.value,
-                    model: model.value,
-                    size: size.value,
+                    date: this._date,
+                    brand: this._brand,
+                    model: this._model,
+                    size: this._size,
                     colors: this.serializeColors(this._colors),//colorsToString(),
-                    supplier: leverancier.value,
-                    laces: laces.value ? 1 : 0,
-                    soles: soles.value ? 1 : 0,
-                    paint: paint.value ? 1 : 0,
-                    glue: glue.value ? 1 : 0,
-                    status: this.getStatusName,
+                    supplier: this._leverancier,
+                    laces: this._laces,//laces.value ? 1 : 0,
+                    soles: this._soles, //soles.value ? 1 : 0,
+                    paint: this._paint, //paint.value ? 1 : 0,
+                    glue: this._glue, //glue.value ? 1 : 0,
+                    status: this._status,
                     //verkoop: verkoop,
                     //csv: csv,
-                    creator: creator.value,
-                    extra: extra.value,
+                    creator: this._creator,
+                    extra: this._extra,
                     //shoeLace: shoelace,
                     //updatedBy: creator,
-                    price: price,
-                    bakNr: bakNr.value,
+                    
+                    //price: price,
+                    bakNr: this._bakNr
+                    
                     //createdAt: '',
                     //updatedAt: ''
                 };
 
                 console.log(data);
 
-                
-                SneakerService.create(data)
+                SneakerService.update(this.id,data)
                 .then(response => {
-                    //id = response.data.id;
-                    resetSneaker();
-                    resetTargets();
-                    refuse();
+                    console.log(response);
+                    this.confirmSave = !this.confirmSave;
+
                 })
                 .catch( error => {
                     console.log(error);
@@ -366,7 +369,7 @@ import LabelcolorService from '@/services/LabelcolorService';
                 </div>
                 <div class="col-3">
                     <div id="nextButton" class="nextButton success grow boxShadow-blue square valign text-center h-100">
-                        <img @click="showConfirmSave" class="h-100 pointer mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
+                        <img @click="confirmSave = !confirmSave" class="h-100 pointer mx-auto selectDisable success" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                     </div>
                 </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
@@ -458,13 +461,13 @@ import LabelcolorService from '@/services/LabelcolorService';
                     <div class="col-9 text-end pe-5 align-content-center">
                         <!-- INJECT STATUS HIER -->
                          <select class="float-end w-50 text-end" v-model="_status">
-                            <option class="fst-italic text-secondary" :value="status">{{ status }}</option>
-                            <option value="Cleaning">(1) Cleaning</option>
-                            <option value="Repair">(2) Repair</option>
-                            <option value="Stock">(3) Stock</option>
-                            <option value="Verkoop">(4) Verkoop</option>
-                            <option value="Verkocht">(5) Verkocht</option>
-                            <option value="CSV">(6) CSV</option>
+                            <option class="fst-italic text-secondary" disabled :value="status">{{ status }}</option>
+                            <option :value="1">(1) Cleaning</option>
+                            <option :value="2">(2) Repair</option>
+                            <option :value="3">(3) Stock</option>
+                            <option :value="4">(4) Verkoop</option>
+                            <option :value="5">(5) Verkocht</option>
+                            <option :value="6">(6) CSV</option>
                          </select>
                     </div>
                 </div>
@@ -587,7 +590,25 @@ import LabelcolorService from '@/services/LabelcolorService';
               </div>
           </div>
         </div>
-    </div>  
+    </div>
+
+    <div class="full m-0 p-0" v-if="confirmSave" id="confirmzz">
+        <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
+          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
+              <p class="d-flex align-items-center justify-content-center my-5">Ben je zeker dat je <span class="text-yellow mx-2">{{ id }}</span> wil wijzigen?</p>
+              <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="saveSneaker">JA</button> 
+                </div>
+                <div class="col-6 m-0 p-0">
+                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="confirmSave = !confirmSave">NEE</button>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    
+    
 </template>
 
 <style scoped>

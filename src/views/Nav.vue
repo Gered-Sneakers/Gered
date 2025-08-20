@@ -45,6 +45,7 @@
 import { ref } from 'vue'
 import { authState } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 export default {
   name: 'Nav_View',
@@ -53,14 +54,28 @@ export default {
     const showConfirm = ref(false)
 
     function logout() {
+      /*
       localStorage.removeItem("token")
       localStorage.removeItem("user")
       localStorage.removeItem("admin")
+      */
+
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("admin");
+      sessionStorage.removeItem("id");
+
+      // Clean up any legacy localStorage keys (safety)
+      ["token", "user", "admin", "id"].forEach(k => localStorage.removeItem(k));
+
+      // Remove default Authorization header for future requests
+      delete axios.defaults.headers.common.Authorization;
 
       authState.isLoggedIn = false
       authState.isAdmin = false
 
       showConfirm.value = false
+
       //this.refuse();
       authState.loginName = ''
       authState.loginPass = ''

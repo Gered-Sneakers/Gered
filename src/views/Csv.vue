@@ -1,27 +1,27 @@
 <template>
     <div class="m-0 p-0 vh-80 scroll">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-          <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-          <div id="merk" class="col-2 borders mb-1"><img src="../img/tag.svg"></div>
-          <div id="maat" class="col-1 borders mb-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-          <div id="price" class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
-          <div id="price" class="col-1 borders mb-1"><img src="../img/sell.svg"></div>
-          <div id="img" class="col-2 borders mb-1"><img src="../img/img.svg"></div>
-          <div id="retailDate" class="col-2 borders mb-1"><img src="../img/clock.svg"></div>
-          <div id="publish" class="col-1 borders mb-1"><img src="../img/publish.svg"></div>
-          <div id="delete" class="col-1 borders mb-1"><img src="../img/undo.svg"></div>
+          <div id="id" class="col-1 borders py-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
+          <div id="merk" class="col-2 borders py-1"><img src="../img/tag.svg"></div>
+          <div id="maat" class="col-1 borders py-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
+          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg"></div>
+          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg"></div>
+          <div id="img" class="col-2 borders py-1"><img src="../img/img.svg"></div>
+          <div id="retailDate" class="col-2 borders py-1"><img src="../img/clock.svg"></div>
+          <div id="publish" class="col-1 borders py-1"><img src="../img/publish.svg"></div>
+          <div id="delete" class="col-1 borders py-1"><img src="../img/undo.svg"></div>
 
           <!-- IMAG ROW -->
            <!--
-           <div id="id" class="col-1 borders mb-1" @click="toggleSort('id')">id</div>
-           <div id="brand" class="col-2 borders mb-1">brand</div>
-           <div id="size" class="col-1 borders mb-1" @click="toggleSort('size')">size</div>
-           <div id="retailPrice" class="col-1 borders mb-1">retailPrice</div>
-           <div id="shopPrice" class="col-2 borders mb-1">shopPrice</div>
-           <div id="locatie" class="col-1 borders mb-1">locatie</div>
-           <div id="imgUrl" class="col-1 borders mb-1">imgUrl</div>
-           <div id="uitgebracht" class="col-2 borders mb-1">uitgebracht</div>
-           <div id="publish" class="col-1 borders mb-1">publish</div>
+           <div id="id" class="col-1 borders py-1" @click="toggleSort('id')">id</div>
+           <div id="brand" class="col-2 borders py-1">brand</div>
+           <div id="size" class="col-1 borders py-1" @click="toggleSort('size')">size</div>
+           <div id="retailPrice" class="col-1 borders py-1">retailPrice</div>
+           <div id="shopPrice" class="col-2 borders py-1">shopPrice</div>
+           <div id="locatie" class="col-1 borders py-1">locatie</div>
+           <div id="imgUrl" class="col-1 borders py-1">imgUrl</div>
+           <div id="uitgebracht" class="col-2 borders py-1">uitgebracht</div>
+           <div id="publish" class="col-1 borders py-1">publish</div>
            -->
       </div>
       <div class="m-0 p-0 mx-auto">

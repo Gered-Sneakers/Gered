@@ -128,7 +128,8 @@ import KleurPreview from './KleurPreview.vue';
                 
                 <div class="row w-100 m-0 p-0 pt-2">
                 <div class="col-15 valign ps-5"><img class="medz whiteIcons" src="@/img/tag.svg"></div>
-                <div class="col-75 text-center">{{ brand }}{{ " " }}{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</div>
+                <div class="col-75 text-center"v-if="model">{{ brand }}{{ " " }}{{ model = model.charAt(0).toUpperCase() + model.substring(1) }}</div>
+                <div class="col-75 text-center"v-else>{{ brand }}{{ " " }}{{ model }}</div>  
                 <div class="col-15 valign ps-5"></div>
                 </div>
                 <hr class="w-100 mx-auto my-2 opacity-25">
@@ -150,25 +151,25 @@ import KleurPreview from './KleurPreview.vue';
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="laces">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="laces == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="soles">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="soles == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="paint">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="paint == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
                 <hr class="w-95 mx-auto my-2 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
-                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="glue">✔</div>
+                    <div class="col-9 text-end pe-5 align-content-center text-success" v-if="glue == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger smaller" v-else>❌</div>
                 </div>
                 </div>
