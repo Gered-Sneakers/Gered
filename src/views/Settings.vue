@@ -91,7 +91,9 @@
                   type="text" 
                   class="text-center mb-2 w-90" 
                   v-model="werknemerName" 
-                  placeholder="Werknemer">
+                  placeholder="Werknemer"
+                  @change="checkWerknemer"
+                  >
                 <br>
                 <input 
                   type="password" 
@@ -946,10 +948,23 @@
             })
         },
         addWerknemer(){
+          
           var data = {
             name: this.werknemerName,
             pass: this.werknemerPass
           }
+
+          WerknemerService.create(data)
+          .then(response => {
+            this.getWerknemers();
+            this.resetInputWerknemer();
+          })          
+          .catch (err => {
+            console.log(err);
+          })
+          //}
+
+          /*
           WerknemerService.create(data)
             .then(response => {
                 this.getWerknemers();
@@ -958,6 +973,7 @@
             .catch( error => {
                 console.log(error);
             });
+            */
         },
         confirmDeleteWerknemer(id,name){
           this.werknemerId = id
@@ -1043,6 +1059,17 @@
         },
         toggleAdmin(){
           
+        },
+        async checkWerknemer(){
+          try{
+            await WerknemerService.findByName(this.werknemerName)
+            alert('Deze naam bestaat al.');
+            this.werknemerName = '';
+            //id.value = "";
+            counter = 0;
+            //return;
+          }catch (err) {
+          }
         },
 
         /* LABELS  */

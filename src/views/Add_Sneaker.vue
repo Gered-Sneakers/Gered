@@ -75,22 +75,22 @@
                         </div>
                         -->
                     </div>
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" title="merk + model" src="@/img/tag.svg"></div>
                         <div class="col-9 text-end">{{ brand }}{{ " " }}<span v-if="model">{{ model }}</span></div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" title="xx" src="@/img/extra.svg"></div>
                         <div class="col-9 text-end">{{ extra }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" title="xx" src="@/img/ruler.svg"></div>
                         <div class="col-9 text-end">{{ size }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/color.svg"></div>
                         <div class="col-9 text-end py-0 my-0">
                             <KleurPreview 
@@ -100,51 +100,51 @@
                         </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/laces.svg"></div>
                         <div class="col-9 text-end fw-1000 text-success" v-if="laces == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/soles.svg"></div>
                         <div class="col-9 text-end fw-1000 text-success" v-if="soles == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/paint.svg"></div>
                         <div class="col-9 text-end fw-1000 text-success" v-if="paint == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/repair.svg"></div>
                         <div class="col-9 text-end fw-1000 text-success" v-if="glue == 1">✔</div>
                         <div class="col-9 text-end fw-1000" v-else> ❌ </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/warning.svg"></div>
                         <div class="col-9 text-end">{{statusz}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/stock.svg"></div>
                         <div class="col-9 text-end">{{bakNr}}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/delivery.svg"></div>
                         <div class="col-9 text-end">{{ getLeverancierName(leverancier) }}</div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/login.svg"></div>
                         <div class="col-9 text-end" v-if="creator">{{ creator = creator.charAt(0).toUpperCase() + creator.slice(1) }}</div>
                     </div>
                     <hr class="w-90 mx-auto mt-2 mb-1 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 my-xxxl-3">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
@@ -346,9 +346,8 @@
     import SneakerService from '@/services/SneakerService';
 
     import { ref, watch } from 'vue'
-    import { onMounted } from 'vue';
+    import { onMounted } from 'vue'
     import { computed } from 'vue'
-    import router from '@/router';
 
     import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
@@ -408,6 +407,8 @@
         getBrands();
         getLeveranciers();
         getLabelColors();
+        getWerknemers();
+
         const user = JSON.parse(sessionStorage.getItem("user"));
         userId = JSON.parse(sessionStorage.getItem("id"));
         console.log("USER ID:");
@@ -697,10 +698,11 @@
             soles: soles.value ? 1 : 0,
             paint: paint.value ? 1 : 0,
             glue: glue.value ? 1 : 0,
-            status: 1,
+            status: status.value,
             //verkoop: verkoop,
             //csv: csv,
-            creator: creator.value,
+            //creator: creator.value,
+            creator: userId,
             extra: extra.value,
             //shoeLace: shoelace,
             //updatedBy: creator,
@@ -786,6 +788,12 @@
         .catch(err => console.log(err));
     }
 
+    function getWerknemers(){
+        WerknemerService.getAll()
+        .then( response => { werknemers = response.data;console.log(werknemers); })
+        .catch(err => console.log(err));
+    }
+
     function showPreview(){        
         const form = document.getElementsByClassName("FORM")[0];
         const arrow = document.getElementsByClassName("hideArrow")[0];
@@ -831,6 +839,28 @@
         height: 100%;
         background-color: rgba(247,247,247,0.5);
     }
+
+    @media(min-width: 1600px){
+        .my-xxxl-3{
+            margin-top: 1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .brandIcons{
+            transform: scale(2) !important;
+        }
+
+        .leverancier{
+            transform: scale(1.5);
+        }
+
+        input[type=text],select,select option,#SIZE{
+            height: 8rem !important;
+            font-size: 5rem !important;
+            max-width: 500px !important;
+        }
+    }
+    
 
     .hideArrow{
         transition: transform 0.3s ease;
@@ -926,8 +956,8 @@
 
    input[type=text],select,select option,#SIZE{
     width: 100%;
-    max-width: 400px !important;
-    height: 66px;
+    max-width: 400px;
+    height: 5rem;
     font-size: 50px;
    }
 

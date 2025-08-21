@@ -29,14 +29,12 @@ import { ref , onMounted , provide } from 'vue'
 import Nav from './views/Nav.vue'
 
 /* DATABASE SERVICES */
-import AuthService from './services/AuthService';
 import BrandService from './services/BrandService';
 import LabelcolorService from './services/LabelcolorService';
 import LeverancierService from './services/LeverancierService';
 import RepairsService from './services/RepairsService';
 import SneakerService from './services/SneakerService';
 import WerknemerService from './services/WerknemerService';
-import Sneaker from './components/Sneaker.vue';
 
 export default {
   name: 'App',
@@ -131,7 +129,11 @@ export default {
   cursor: 50px 50px !important;
   font-size: 1.1rem;
 }
-
+/*
+@media(min-width: 1600px){
+  
+}
+*/
 .invisBorders{
   border: 5px solid transparent;
 }
@@ -262,11 +264,7 @@ export default {
 .bg-red{
   background-color: var(--gRed);
 }
-/*
-.bg-gold{
-  background-color: var(--goud);
-}
-*/
+
 .border-Gered{
   border-color: var(--gBlack);
 }
@@ -896,8 +894,8 @@ a{
 }
 
 [type=text],[type=password],.btn-big,.defaultInput{
-  max-width: 800px !important;
-  min-width: 400px !important;
+  max-width: 800px;
+  min-width: 400px;
 }
 
 

@@ -10,7 +10,7 @@
         :checked="modelValue === name"
         @change="$emit('update:modelValue',name)"
         >
-      <img width="80px" height="80px" class="whiteIcons" :src="resolvedImgPath" :title="name">
+      <img width="80px" height="80px" class="whiteIcons brandImg" :src="resolvedImgPath" :title="name">
     </label>
   </div>
 </template>
@@ -50,6 +50,13 @@ export default {
 </script>
 
 <style scoped>
+
+    @media(min-width: 1600px){
+
+        .brandImg{
+            transform: scale(1.5) !important;
+        }
+    }
 
     .blackIcons{
         filter: brightness(0) !important;
