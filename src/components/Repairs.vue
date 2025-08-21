@@ -29,7 +29,7 @@
       computed: {
       },
       mounted(){
-        this.idd = localStorage.getItem("id");
+        this.idd = sessionStorage.getItem("id");
       }
     }
 </script>

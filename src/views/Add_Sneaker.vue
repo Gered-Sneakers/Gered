@@ -348,6 +348,7 @@
     import { ref, watch } from 'vue'
     import { onMounted } from 'vue';
     import { computed } from 'vue'
+    import router from '@/router';
 
     import BrandService from '@/services/BrandService';
     import WerknemerService from '@/services/WerknemerService';
@@ -369,6 +370,7 @@
     var status = ref(0);
     var datum = createDate();
     var creator = ref();
+    var userId;
     var extra = ref();
     var price = 25;
     var bakNr = ref("IN-1-");
@@ -406,7 +408,10 @@
         getBrands();
         getLeveranciers();
         getLabelColors();
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        userId = JSON.parse(sessionStorage.getItem("id"));
+        console.log("USER ID:");
+        console.log(userId);
         if (user && user.name)  creator.value = user.name;
   
     })
@@ -487,7 +492,11 @@
     }
 
     function annuleren(){
-        window.location.reload();
+        //window.location.reload();
+        resetTargets();
+        resetSneaker();
+        refuseAnnuleren();
+        //router.push({ name: 'addsneaker' })
     }
 
     function openConfirmColor(){
@@ -733,7 +742,7 @@
         glue.value = true;
         broken.value = true;
         leverancier.value = chosenLeverancier;
-        //statusz = "Cleaning";
+        statusz = "Cleaning";
     }
 
     function colorsToString(){

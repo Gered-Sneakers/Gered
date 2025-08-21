@@ -732,7 +732,6 @@
         },
         handleImageUpload(event) {
           this.selectedFile = event.target.files[0];
-          console.log(this.selectedFile);
         },
         triggerFileInput() {
           document.getElementById("imgBrand").click();
@@ -848,37 +847,33 @@
           })
         },
         async addBrand(){
-
+          /*
           var data = {
             name: this.brandName,
             img: this.selectedFile.name,
             isActive: 1
           }
-
+          */
           if (!this.selectedFile) return alert("No image selected");
 
           const form = new FormData();
                 form.append("image", this.selectedFile);
                 form.append("brandName", this.brandName);
               //form.append("image",form.value.media);
-
-      
-          BrandService.create(data)
-          .then(response => {
-            this.getBrands();
-            this.resetInputBrand();
-          })
-          try{
+  
             //await axios.post("http:localhost:8080/api/upload-image", form , {
-            await axios.post("http://localhost:8080/api/uploadBrand", form , {
-              headers:{"Content-Type": "multipart/form-data"},
-            });
+            const { data } = await axios.post('http://localhost:8080/api/uploadBrand', form); // await axios.post("http://localhost:8080/api/uploadBrand", form /*, { headers:{"Content-Type": "multipart/form-data"}, }*/);
             console.log("✅ Upload successful");
             alert("Image uploaded!");
-          } catch (error) {
-            console.error("❌ Upload failed:", error);
-            alert("Upload failed!");
-          }
+        
+            await BrandService.create({
+              name: this.brandName,
+              img: data.filename,
+              isActive: 1
+              //this.getBrands();
+              //this.resetInputBrand();
+            })
+          
         },
         updateBrand(id){
           const updateData = { isActive: 0 };
@@ -1270,6 +1265,9 @@
       height: 100%;
       background-color: rgba(247,247,247,0.5);
       z-index: 99999;
+    }
+
+    #main{
     }
 
     #brandButton{

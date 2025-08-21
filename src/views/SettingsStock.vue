@@ -1,6 +1,6 @@
 <template>
-      <div id="stock" class="m-0 p-0 max-1800 mx-auto">
-        <div id="extra" v-if="creator = 2" class="row pt-3 text-light"> <!-- SUPER ADMIN ONLY -->
+      <div id="stock" class="h-100 m-0 p-0 max-1800 mx-auto">
+        <div id="extra" v-if="creator = 2" class="row valign pt-3 text-light"> <!-- SUPER ADMIN ONLY -->
             <!--<div class="col-15"></div>-->
             <div class="col-3 col-xl-3 px-2 mb-3 mx-auto">
               <div class="w-100 valign rounded-top goud text-white vh-10">

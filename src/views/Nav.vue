@@ -66,7 +66,7 @@ export default {
       sessionStorage.removeItem("id");
 
       // Clean up any legacy localStorage keys (safety)
-      ["token", "user", "admin", "id"].forEach(k => localStorage.removeItem(k));
+      ["token", "user", "admin", "id"].forEach(k => sessionStorage.removeItem(k));
 
       // Remove default Authorization header for future requests
       delete axios.defaults.headers.common.Authorization;
@@ -104,10 +104,10 @@ export default {
     }
   },
   mounted() {
-    const adminFlag = localStorage.getItem("admin");
+    const adminFlag = sessionStorage.getItem("admin");
     this.isAdmin = adminFlag === "1" || adminFlag === "true" || JSON.parse(adminFlag) === true;
     console.log("ADMIN: " + adminFlag);
-    this.isLoggedIn = !!localStorage.getItem("token")
+    this.isLoggedIn = !!sessionStorage.getItem("token")
     console.log("Logedin: " + this.isLoggedIn)
     console.log("AUTH");
     console.log(authState);

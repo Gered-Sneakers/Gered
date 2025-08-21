@@ -47,7 +47,7 @@
             <div class="col-12 h-100 m-0 p-0 mx-auto valign justify-content-center">
                 <div class="">
                 <img class="mx-auto vh-15 w-15 mb-5 rotate" src="../img/den G.png">
-                <router-link :to="{ name: 'addsneaker' }" class="col h-100 valign rounded">
+                <router-link :to="{ name: 'addsneaker' }" @click="login" class="col h-100 valign rounded">
                     <button class="btn-big btn-hover text-center mx-auto bg-blue rounded valignz py-5 text-white">
                         <span class="">+SNEAKER</span>
                     </button> 
@@ -134,21 +134,22 @@ import { authState } from '@/stores/auth'
                 sessionStorage.setItem("admin", JSON.stringify(res.data.user.isAdmin));
                 sessionStorage.setItem("id", String(res.data.user.id));
 
-                // clean up any old localStorage leftovers (one-time safety)
                 ["token","user","admin","id"].forEach(k => localStorage.removeItem(k));
+
+                // Set axios default Authorization header for this session
+                axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
 
                 authState.isLoggedIn = true
                 authState.isAdmin = res.data.user.isAdmin
                 authState.loginName = this.name
                 authState.loginPass = this.pass
                 
-                const isAdmin = JSON.parse(localStorage.getItem("admin"));
+                //const isAdmin = JSON.parse(localStorage.getItem("admin"));
                 //console.log("ADMIN");
                 //console.log(isAdmin);
                 
-                var user = localStorage.getItem("user");
-                console.log(user);
-                //if(isAdmin===1 || isAdmin === true)  this.$router.push("/settings")
+                //var user = sessionStorage.getItem("user");
+                //console.log(user);
                 
             }
             catch(err){
