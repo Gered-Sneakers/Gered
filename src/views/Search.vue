@@ -6,11 +6,11 @@
             </div>
         </div>
         <div class="col-12 h-25 valign m-0 p-0">
-            <div id="changeHeight" class=" mx-auto">
-                <div class="row m-0 p-0 mx-auto">
-                    <div class="row m-0 p-1 mx-auto justify-content-center">
+            <div id="changeHeight" class="w-100 mx-auto">
+                <div class="row m-0 p-0 w-100 mx-auto">
+                    <div class="row m-0 p-1 w-100 mx-auto justify-content-center">
                        
-                        <div id="filters" class="col-12 row m-0 p-0 rounded-start rounded-end d-none mb-1">
+                        <div id="filters" class="col-12 row w-100 m-0 p-0 rounded-start rounded-end d-none mb-1">
                             <div class="col-1 bg-blue"></div>
                             
                             <div class="col-2 bg-blue valign">
@@ -166,28 +166,25 @@
                             <img src="../img/filter.svg" class="w-100 whiteIcons grow">
                         </div>
 
-                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign">
-                            <img class="w-100 grow" src="../img/qr.svg">
+                        <div id="qrCode" class="col-2 bg-blue m-0 rounded valign align-content-center">
+                            <img class="vh-15 grow" src="../img/qr.svg">
                             <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
                         
                         <div class="col-8">
                             <input type="text" size="14" 
                             id="search"
-                            class="w-100 text-center border-blue rounded mx-auto mb-1" 
+                            class="text-center border-blue rounded mx-auto mb-1" 
                             maxlength="4"
                             placeholder="labelnr" 
                             v-model="searchId"
+                            
                             @keyup.enter="search();changeHeight();"
                             @click="showSelected"
                             ><br>
                         </div>
-                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign">
-                            <img class="w-100 grow" src="../img/qr.svg">
-                            <div id="reader" class="w-100 h-50 d-none"></div>
-                        </div>
-                        <div class="w-100 text-center d-flex justify-content-center">
-                            <div id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 mt-3">
+                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign justify-content-center">
+                            <div id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 p-5">
                                 <img @click="search()" class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                             </div>
                         </div>
@@ -589,10 +586,6 @@
         border-color: var(--gblue);
     }
 
-    input{
-        max-width: 400px !important;
-    }
-
     .custom-number-input, .custom-input {
         display: flex;
         align-items: center;
@@ -687,9 +680,10 @@
     }
 
    input[type=text]{
-       width: 50vw;
-       height: 75px;
-       font-size: 65px;
+       width: 35vw;
+       height: 10vh;
+       font-size: 4em;
+       min-height: 80px !important;
    }
 
    .grow:hover span{
@@ -713,6 +707,38 @@
     border: 3px solid transparent;
     color: var(--multi) !important;
   }
+  
+  @media (min-width: 1600px) { 
+     
+     .medz, .navImg{
+       width: 50px !important;
+       height: 50px !important;
+     }
+
+     input[type=text]{
+       width: 50vw;
+       height: 10vh;
+       font-size: 4em;
+       
+    }
+     
+  }
+
+   @media (max-width: 1200px) { 
+     
+     .medz, .navImg{
+       width: 50px !important;
+       height: 50px !important;
+     }
+
+     input[type=text]{
+       max-height: 80px;
+       
+    }
+     
+  }
+
+
 
   </style>
   

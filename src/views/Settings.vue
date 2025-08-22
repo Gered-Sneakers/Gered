@@ -41,10 +41,10 @@
           </div>
         </div>
       </div>
-      <div id="main" v-show="activeTab == 3" class="max-1800 mx-auto mb-5">
+      <div id="main" v-show="activeTab == 3" class="mx-auto mb-5">
           <div id="inputFields" class="row text-white">
             <!-- INPUT LEVERANCIER -->
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">+ LEVERANCIER</div>
             </div>
@@ -60,7 +60,7 @@
             </div>
 
             <!-- INPUT BRAND -->
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">+ BRAND</div>
             </div>
@@ -69,10 +69,10 @@
                 <input type="text" id="brandName" class="text-center mb-2 w-90" placeholder="Merk"
                   v-model="brandName"
                 ><br>
-                <button id="brandButton" height="32.39px" class="w-90 mx-auto mb-2 roundedz border border-dark bg-green fw-bold" value="+ Foto" 
+                <button id="brandButton" class="w-90 mx-auto mb-2 roundedz border border-dark bg-green fw-bold hover" value="+ Foto" 
                       @click="triggerFileInput"
                 >
-                <div class="w-100 h-100 m-0 p-0 invertColor">+ <img class="blackIcons " src="../img/img.svg"/></div>
+                <div class="w-100 h-100 m-0 p-0 invertColor valign text-light">+ <img class="whiteIcons " src="../img/img.svg"/></div>
                 </button>
                 <input @change="handleImageUpload" type="file" id="imgBrand" class="mx-auto d-none"><br>
                 <button class="w-100 mt-2 py-3 rounded-bottom bg-green hover" @click="addBrand">OK</button>
@@ -81,7 +81,7 @@
             </div>
 
             <!-- INPUT WERKNEMER -->
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+            <div class="col-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">+ WERKNEMER</div>
             </div>
@@ -108,7 +108,7 @@
             </div>
 
             <!-- INPUT LABELCOLOR -->
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto greyOut">
+            <div class="col-3 px-2 mb-3 mx-auto greyOut">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div class="mx-auto subTitle">+ LABELKLEUR</div>
             </div>
@@ -134,7 +134,7 @@
         <div id="isActive" class="row text-light">
 
           <!-- LEVERANCIERS -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <div class="col-3 px-2 mb-3 mx-auto">
             <div class="mb-3">
               <div @click="showLeverancier = !showLeverancier" class="w-100 valign rounded-top bg-blue text-white vh-10">
                 <div class="mx-auto subTitle">LEVERANCIERS</div>
@@ -170,7 +170,7 @@
           </div>
 
           <!-- BRANDS -->
-          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="col-3 mb-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div @click="showBrand = !showBrand" class="mx-auto subTitle">BRANDS</div>
             </div>
@@ -203,7 +203,7 @@
           </div>
 
           <!-- WERKNEMERS -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <div class="col-3 px-2 mb-3 mx-auto">
             <div class="mb-3">
               <div class="w-100 valign rounded-top bg-blue text-white vh-10">
                 <div @click="showWerknemer = !showWerknemer" class="w-100 mx-auto subTitle">WERKNEMERS</div>
@@ -272,7 +272,7 @@
           </div>
 
           <!-- LABELKLEUR -->
-          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="col-3 mb-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-blue text-white vh-10">
               <div @click="showLabelkleur = !showLabelkleur" class="mx-auto subTitle">LABELKLEUREN</div>
             </div>
@@ -307,7 +307,7 @@
         <div id="inActive" class="row text-light">
           <!-- INACTIEVE STUFF -->
           <!-- LEVERANCIERS -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <div class="col-3 px-2 mb-3 mx-auto">
             <div class="mb-3">
               <div class="w-100 valign rounded-top bg-red text-white vh-10">
                 <div class="mx-auto subTitle">DELETED <br> LEVERANCIERS</div>
@@ -340,7 +340,7 @@
           </div>
 
           <!-- BRANDS -->
-          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="col-3 mb-3 px-2 mb-3 mx-auto">
           <div class="w-100 valign rounded-top bg-red text-white vh-10">
             <div class="mx-auto subTitle">DELETED <br> BRANDS</div>
           </div>
@@ -370,7 +370,7 @@
           </div>
 
           <!-- WERKNEMERS -->
-          <div class="col-4 col-xl-3 px-2 mb-3 mx-auto">
+          <div class="col-3 px-2 mb-3 mx-auto">
             <div class="mb-3">
               <div class="w-100 valign rounded-top bg-red text-white vh-10">
                 <div @click="test" class="mx-auto subTitle">DELETED <br> WERKNEMERS</div>
@@ -407,7 +407,7 @@
           </div>
 
           <!-- LABELKLEUR -->
-          <div class="col-4 col-xl-3 mb-3 px-2 mb-3 mx-auto">
+          <div class="col-3 mb-3 px-2 mb-3 mx-auto">
             <div class="w-100 valign rounded-top bg-red text-white vh-10">
               <div class="mx-auto subTitle">DELETED <br> LABELKLEUREN</div>
             </div>
@@ -548,13 +548,13 @@
                 <div class="mx-auto subTitle text-purple h-100 valign"> SNEAK PRIJS </div>
               </div>
               <div class="row m-0 p-0 px-4 pb-3 pt-3 fw-bold rounded-bottom bg-blue">
-                  <div class="col-6 text-start mb-1"> Sneaker 36+ </div><div class="col-6 text-end"> 25 </div>
-                  <div class="col-6 text-start mb-1"> Sneaker Kids </div><div class="col-6 text-end"> 20 </div>
+                  <div class="col-8 text-start mb-1"> Sneaker 36+ </div><div class="col-4 text-end"> 25 </div>
+                  <div class="col-8 text-start mb-1"> Sneaker Kids </div><div class="col-4 text-end"> 20 </div>
               </div>
             </div>
 
             <!--
-            <div class="col-4 col-xl-3 px-2 mb-3 mx-auto d-none">
+            <div class="col-3 px-2 mb-3 mx-auto d-none">
               <div class="w-100 valign rounded-top goud text-white vh-10">
                 <div class="mx-auto subTitle text-purple">+ ADMIN</div>
               </div>
@@ -1200,7 +1200,7 @@
         console.log("REPAIR BRO");
         console.log(this.RepairsList);
         
-        this.idd = JSON.parse(localStorage.getItem("id"));
+        this.idd = JSON.parse(sessionStorage.getItem("id"));
         console.log("USER ID:", this.idd); // should show the number
 
         this.$nextTick(()=> {
@@ -1295,10 +1295,6 @@
     }
 
     #main{
-    }
-
-    #brandButton{
-      height: 32.39px !important;
     }
 
     .invertColor:hover{
@@ -1396,6 +1392,35 @@
 
     .greyOut{
       filter:grayscale(100%);
+    }
+
+    input, #brandButton{
+      height: 35px !important;
+    }
+
+    @media (min-width: 1600px) { 
+      * {
+        font-size: 25px;
+      }
+
+      input, #brandButton{
+        height: 51px !important;
+      }
+
+      .navImg{
+        width: 50px !important;
+        height: 50px !important;
+      }
+
+      .subTitle{
+       font-size: 35px !important;
+      }
+    }
+
+    @media(max-width: 1200px){
+      .subTitle{
+        font-size: 25px;
+      }
     }
 
   </style>

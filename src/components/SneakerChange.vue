@@ -33,6 +33,7 @@ import Sneaker from './Sneaker.vue';
             _bakNr: this.bakNr,
             _extra: this.extra, 
 
+            creatorName: this.creatorName,
             
             labels: [],
             labelColor: "",
@@ -288,6 +289,11 @@ import Sneaker from './Sneaker.vue';
             },
             werknemerList(){
                 return typeof this.werknemers === 'function' ? this.werknemers() : this.werknemers;
+            },
+            creatorName() {
+              const list = this.werknemerList || [];
+              const w = list.find(x => String(x.id) == this.creator);
+              return w ? w.name : '';
             }
         },
         watch:{
@@ -318,6 +324,9 @@ import Sneaker from './Sneaker.vue';
         },
         mounted(){
             this.getLabelColors();
+            console.log("KREATOR");
+            console.log(this.creator);
+            this.creatorName;
         },
         components: {
             KleurPreview,
@@ -498,7 +507,7 @@ import Sneaker from './Sneaker.vue';
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
                         <select class="float-end w-50 text-end" v-model="_creator" @click="showWerknemers">
-                            <option class="fst-italic text-secondary" :value="_creator">{{ _creator }}</option>
+                            <option class="fst-italic text-secondary" selected :value="_creator">{{ creatorName }}</option>
                             <Werknemer v-for="w in werknemerList"
                                 :key="w.id"
                                 :id="w.id"

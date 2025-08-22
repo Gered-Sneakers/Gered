@@ -1,15 +1,15 @@
 <template>
     <div class="m-0 p-0 vh-80 scroll">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
-          <div id="id" class="col-1 borders py-1" @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-          <div id="merk" class="col-2 borders py-1"><img src="../img/tag.svg"></div>
-          <div id="maat" class="col-1 borders py-1" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg"></div>
-          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg"></div>
-          <div id="img" class="col-2 borders py-1"><img src="../img/img.svg"></div>
-          <div id="retailDate" class="col-2 borders py-1"><img src="../img/clock.svg"></div>
-          <div id="publish" class="col-1 borders py-1"><img src="../img/publish.svg"></div>
-          <div id="delete" class="col-1 borders py-1"><img src="../img/undo.svg"></div>
+          <div id="id" class="col-1 borders py-1" @click="toggleSort('id')"><img src="../img/barcode.svg" class="navImg"></div>
+          <div id="merk" class="col-2 borders py-1"><img src="../img/tag.svg" class="navImg"></div>
+          <div id="maat" class="col-1 borders py-1" @click="toggleSort('size')"><img src="../img/ruler.svg" class="navImg"></div>
+          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg" class="navImg"></div>
+          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg" class="navImg"></div>
+          <div id="img" class="col-2 borders py-1"><img src="../img/img.svg" class="navImg"></div>
+          <div id="retailDate" class="col-2 borders py-1"><img src="../img/clock.svg" class="navImg"></div>
+          <div id="publish" class="col-1 borders py-1"><img src="../img/publish.svg" class="navImg"></div>
+          <div id="delete" class="col-1 borders py-1"><img src="../img/undo.svg" class="navImg"></div>
 
           <!-- IMAG ROW -->
            <!--
@@ -264,6 +264,19 @@ import SneakerService from '@/services/SneakerService';
      width: 16px;
      height: 16px;
    }
+
+   @media (min-width: 1600px) { 
+    * {
+      font-size: 30px;
+    }
+    #brandButton{
+      height: 51px !important;
+    }
+    .medz, .navImg{
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
   
   .labelBlue{
      background-color: rgb(100, 125, 250);

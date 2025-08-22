@@ -63,7 +63,7 @@
         <div class="mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative" v-if="showPreviewz">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-4 mb-2">
+                    <div class="row m-0 p-0 mt-2 mt-xl-4 mb-2">
                         <div class="col-12 text-center">
                             <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
                         </div>
@@ -144,26 +144,26 @@
                         <div class="col-9 text-end" v-if="creator">{{ creator = creator.charAt(0).toUpperCase() + creator.slice(1) }}</div>
                     </div>
                     <hr class="w-90 mx-auto mt-2 mb-1 opacity-25">
-                    <div class="row m-0 p-0 my-xxxl-3">
+                    <div class="row m-0 p-0 my-xxxl-3 mb-1">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
                     
-                    <div class="row m-0 p-0"></div>
+                    <div class="row d-none d-xl-block m-0 p-0"></div>
                 </div>
             </div>
         </div>
         <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
             <div id="navToevoegen" class="row vh-7 valign me-3">
-                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover" style="width:50px;height:50px;" src="@/img/downarrow.svg"> </div>
+                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover" src="@/img/downarrow.svg"> </div>
                 <div @click="showAnnuleren()" class="w-50 text-danger h-100 valign justify-content-end hover mt-2 fs-1">
                     <span class="text-end growz">❌</span>
                 </div>
             </div>
             <div class="row h-100 valign rounded-top-left">
                 
-                <div class="">
-                <div class="mx-auto  row m-0 p-0 h-500  rounded">
+                <div class="h-100">
+                <div class="mx-auto row m-0 p-0 h-100 rounded valign">
                 <div class="col-2 p-2">
                     <div @click="back" id="returnButton" class="returnButton grow boxShadow-blue square valign text-center d-none h-100">
                         <img class="w-50 mx-auto rota180 selectDisable pointer" src="../img/next.svg">
@@ -208,7 +208,7 @@
                         <input @keyup.enter="next" id="SIZE" v-model="size" :autocomplete="'off'" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
                         <div @keyup.enter="next" id="COLORS" class="targets rounded row w-100 mx-3 mx-auto d-none">
-                            <div class="row w-100 mw-800 h-500 mx-auto" id="checkboxgroup" @click="checkboxLimit">
+                            <div class="row w-100 mw-800 mx-auto" id="checkboxgroup" @click="checkboxLimit">
                                 <div class="row m-0 p-0">
                                 <div class="col m-1 valign mx-auto rounded colorSquare red"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer red" value="rood" v-model="colors"></div></div>
                                 <div class="col m-1 valign mx-auto rounded colorSquare green"><div class="mx-auto"><input type="checkbox" class="colorz growz pointer green" value="groen" v-model="colors"></div></div>
@@ -377,7 +377,7 @@
 
     var statusz = "Cleaning";
 
-    var showPreviewz = ref(true);
+    var showPreviewz = ref(false);
     
     var prevLeverancier = ref(0);
     var repairs = [];
@@ -840,29 +840,9 @@
         background-color: rgba(247,247,247,0.5);
     }
 
-    @media(min-width: 1600px){
-        .my-xxxl-3{
-            margin-top: 1rem !important;
-            margin-bottom: 1rem !important;
-        }
-
-        .brandIcons{
-            transform: scale(2) !important;
-        }
-
-        .leverancier{
-            transform: scale(1.5);
-        }
-
-        input[type=text],select,select option,#SIZE{
-            height: 8rem !important;
-            font-size: 5rem !important;
-            max-width: 500px !important;
-        }
-    }
-    
-
     .hideArrow{
+        width:50px;
+        height:50px;
         transition: transform 0.3s ease;
         transform:rotate(90deg)
     }
@@ -955,10 +935,10 @@
     }
 
    input[type=text],select,select option,#SIZE{
-    width: 100%;
-    max-width: 400px;
-    height: 5rem;
-    font-size: 50px;
+       width: 40vw;
+       height: 10vh;
+       font-size: 4em;
+       min-height: 80px;
    }
 
    input[type=text]:focus{
@@ -1082,6 +1062,10 @@
     height: 26.39px !important;
   }
 
+  #navToevoegen div span , .hideArrow{
+    height: 80px !important;
+  }
+
   @media (min-width: 1600px) {
     .sneakerPreview{
         margin-left: 25px !important;
@@ -1117,9 +1101,43 @@
     padding-bottom: 40px !important;
   }
 
-  .rect{
-    width: 120px !important;
-    height: 120px !important;
+  .colorSquare{
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .imgSquare{
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .mw-800{
+    max-width: 1400px;
+  }
+
+  .my-xxxl-3{
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+  }
+
+  .brandIcons{
+      transform: scale(2) !important;
+  }
+
+  .leverancier{
+      transform: scale(1.5);
+  }
+
+  .hideArrow{
+    width:80px;
+    height:80px;
+    transition: transform 0.3s ease;
+    transform:rotate(90deg)
+   }
+
+   input[type=checkbox]{
+    width: 50px !important;
+    height: 50px !important;
   }
 
 }

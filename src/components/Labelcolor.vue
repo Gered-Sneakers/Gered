@@ -87,7 +87,7 @@ export default {
 </script>
 
 <template>
-    <div  class="col-12 row m-0 p-0 mb-2 rounded" 
+    <div  class="col-12 row m-0 p-0 mb-2 rounded labelColor" 
           v-if="isActive"
           @mouseover="hover=true" 
           @mouseleave="hover=false"
@@ -108,6 +108,8 @@ export default {
 </template>
 
 <style scoped>
+  
+
   .col-12{
     border: 2px solid transparent;
   }
@@ -124,6 +126,14 @@ export default {
   .rect{
     width: 25px;
     height: 25px;
+  }
+
+  
+
+  @media(min-width: 1600px){
+    .labelColor{
+      height: 40px;
+    }
   }
 
 </style>

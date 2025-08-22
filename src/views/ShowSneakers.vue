@@ -6,7 +6,7 @@
         <div id="merk" class="col-2 py-1" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
         <div id="kleur" class="col-15 py-1" title="kleur"><img class="navImg" src="../img/color.svg"></div>
         <div id="maat" class="col-1 navImgWrap py-1 growz" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
-        <div id="status" class="col-05 py-1" title="status"><img class="navImg" src="../img/warning.svg"></div>
+        <div id="status" class="col-05 py-1 navImgWrap growz" title="status" @click="toggleSort('status')"><img class="navImg" src="../img/warning.svg"></div>
         <div id="bakNr" class="col-1 py-1" title="locatie"><img class="navImg" src="../img/stock.svg"></div>
         <div id="user" class="col-15 py-1" title="gebruiker"><img class="navImg" src="../img/login.svg"></div>
         <div id="datum" class="col-15 navImgWrap py-1 growz" title="datum" @click="toggleSort('date')"><img class="navImg" src="../img/clock.svg"></div>
@@ -62,7 +62,7 @@
       <div class="col-1 valign fw-bold text-center"><img class="mx-auto" src="../img/ruler.svg"> </div>
       <div class="col-1 valign border-2 border-end border-light fw-bold text-center p-0 h-100"><input class="sizeFilter w-75 h-75 mx-auto text-center" v-model="selectedSize"/></div>
       <div class="col-9 row m-0 p-0 h-100">
-        <div class="col valign brandPick fw-bold text-center h-100" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
+        <div class="col valign brandPick navImgWrap fw-bold text-center h-100" title="Reset brand" @click="selectBrand(null)"><span class="w-100 text-center" >❌</span></div> 
         <div class="brandPick navImgWrap py-2 col valign mx-auto justify-content-center h-100" v-for="x in activeBrands" :key="x.name" @click="selectBrand(x.name)">
           <!--<img :src="x.img">-->
           <img class="medz whiteIcons" :title="x.name" :src="`/src/img/brands/${x.img}`">
@@ -250,12 +250,6 @@ import LeverancierService from '@/services/LeverancierService';
         }
 
         this.total = filtered.length;
-      /*
-        if (this.selectedSize) {
-          filtered = filtered.filter(s => s.size === this.selectedSize);
-          
-        }
-      */
         return filtered.sort((a, b) => {
           const key = this.sortKey;
 
@@ -270,6 +264,12 @@ import LeverancierService from '@/services/LeverancierService';
             const dateB = parseDate(b.date);
 
             return this.sortAscending ? dateA - dateB : dateB - dateA;
+          }
+
+          if (key === 'status') {
+            const A = Number(a.status) ?? 0;
+            const B = Number(b.status) ?? 0;
+            return this.sortAscending ? A - B : B - A;
           }
 
           // ✅ fallback for numeric fields like id, size
@@ -306,7 +306,7 @@ import LeverancierService from '@/services/LeverancierService';
   
 <style scoped>
 
-  
+ 
 
   .overlay {
     position: fixed;
@@ -433,6 +433,20 @@ import LeverancierService from '@/services/LeverancierService';
     height: 16px;
   }
 
+  @media (min-width: 1600px) { 
+     * {
+       font-size: 30px;
+     }
+     #brandButton{
+       height: 51px !important;
+     }
+     .medz, .navImg{
+       width: 50px !important;
+       height: 50px !important;
+     }
+     
+  }
+
  .labelBlue{
     background-color: rgb(100, 125, 250);
   }
@@ -452,6 +466,8 @@ import LeverancierService from '@/services/LeverancierService';
   .labelYellow{
     background-color: rgb(249, 249, 125);
   }
+
+  
 
   
 </style>

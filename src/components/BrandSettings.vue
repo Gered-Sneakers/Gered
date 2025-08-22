@@ -44,7 +44,7 @@
 
 <template>
     <div class="col-4 rounded mx-auto" v-if="isActive"> 
-      <div class="bg-light m-2 rounded">
+      <div class="bg-light m-xxl-2 m-lg-1 rounded">
         <img @click="$emit('update', id,isActive)" class="w-100 grow blackIcons" :src="resolvedImgPath" :title="name">
       </div>
     </div> 

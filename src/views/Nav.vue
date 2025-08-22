@@ -26,16 +26,18 @@
   </div>
   <div class="full m-0 p-0" id="confirm" v-if="showConfirm">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
-          <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-              <p class="my-5 mx-3">Ben je zeker dat je <span class="text-yellow">{{ id }}</span> wil uitloggen?</p>
-              <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-green rounded-bottom-left hover" @click="logout">JA</button> 
+          <div class="col-6 col-xl-4 h-50 bg-dark m-0 p-0 text-light mx-auto rounded d-flex flex-column">
+               <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+                  <p class="text-center m-0">Ben je zeker dat je <span class="text-yellow"></span> wil uitloggen?</p>
                 </div>
-                <div class="col-6 m-0 p-0">
-                  <button class="w-100 py-3 bg-red rounded-bottom-right hover" @click="refuse">NEE</button>
+                <div class="row m-0 p-0 mt-auto">
+                  <div class="col-6 m-0 p-0 position-relative">
+                      <button class="w-100 py-3 bg-green rounded-bottom-left hover mt-auto position-absolute bottom-0 start-0" @click="logout">JA</button> 
+                  </div>
+                  <div class="col-6 m-0 p-0 d-flex flex-column">
+                    <button class="w-100 py-3 bg-red rounded-bottom-right hover mt-auto" @click="refuse">NEE</button>
+                  </div>
                 </div>
-              </div>
           </div>
         </div>
     </div>
@@ -169,5 +171,11 @@ img{
 .title{
   min-height: 100px !important;
 }
+
+  @media (min-width: 1600px) {
+    img{
+      height: 9vh;
+    }
+  }
 
 </style>

@@ -265,7 +265,7 @@
         <div id="leverancier" class="col-1 valign borders">{{ supplierName }}</div>
         <!--<div id="leverancier" class="col-1 valign borders">{{ leveranciersList[supplier] }}</div>-->
         <div class="col-05 m-0 p-0 valign borders"> 
-          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="status!=6" @click="handleCsv">
+          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':csvCheck}" v-if="status!==6" v-show="status >2" @click="handleCsv">
             <img class="csvImg mx-auto h-100 grow" :class="{'whiteIcons':csvCheck}" src="../img/csv.svg"  >
           </div>
           <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else @click="$emit('csv',id)">
@@ -273,7 +273,7 @@
           </div>
         </div>
         <div class="col-05 m-0 p-0 valign borders"> 
-          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':verkoopCheck}" v-if="status !== 4" @click="handleSell">
+          <div class="w-100 h-100 m-0 p-0 valign" :class="{'bg-success':verkoopCheck}" v-if="status !== 4" v-show="status >2" @click="handleSell">
             <img class="csvImg mx-auto h-75 grow" :class="{'whiteIcons':verkoopCheck}" src="../img/sell.svg">
           </div>
           <div class="w-100 h-100 m-0 p-0 valign bg-success" v-else>
@@ -502,5 +502,34 @@
     justify-content: center;
      /* of bijv. 120px */
   }
+
+  @media(min-width: 1600px){
+    *{
+      font-size: 22px !important;
+    }
+
+    .medz, .navImg, .csvImg {
+      width: 50px !important;
+      height: 50px !important;
+    }
+
+    #status img{
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    .sneakerSmall > div{
+      height: 60px !important;
+    }
+
+    .small{
+      width: 24px !important;height: 24px !important;
+    }
+
+    
+
+  }
+
+  
      
 </style>

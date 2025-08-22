@@ -138,7 +138,7 @@ import KleurPreview from './KleurPreview.vue';
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/ruler.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{ size }}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/color.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">
@@ -148,25 +148,25 @@ import KleurPreview from './KleurPreview.vue';
                         /> 
                     </div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/laces.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center text-success" v-if="laces == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/soles.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center text-success" v-if="soles == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/paint.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center text-success" v-if="paint == true">✔</div>
                     <div class="col-9 text-end pe-5 align-content-center text-danger" v-else>❌</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/broken.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center text-success" v-if="glue == true">✔</div>
@@ -178,27 +178,27 @@ import KleurPreview from './KleurPreview.vue';
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/baknr.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{bakNr}}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/warning.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{status}}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/extra.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{extra}}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/delivery.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{supplier}}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/login.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{creator}}</div>
                 </div>
-                <hr class="w-95 mx-auto my-2 opacity-25">
+                <hr class="w-95 mx-auto my-xxl-2 my-1 opacity-25">
                 <div class="sizeRow row m-0 p-0">
                     <div class="col-3 valign ps-5"><img class="medz whiteIcons" src="@/img/clock.svg"></div>
                     <div class="col-9 text-end pe-5 align-content-center">{{date}}</div>
@@ -252,5 +252,20 @@ import KleurPreview from './KleurPreview.vue';
    .col-75{
     width: 75%;
    }
+
+   @media (min-width: 1600px) { 
+     
+     .medz, .navImg{
+       width: 50px !important;
+       height: 50px !important;
+     }
+
+  }
+
+    @media (max-width: 1200px){
+        .medz{
+            height: 25px !important;
+        }
+    }
 
 </style>

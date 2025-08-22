@@ -6,7 +6,7 @@
         <div id="merk" class="col-2 py-1" :title="'merk' + '\n' + 'model'"><img class="navImg" src="../img/tag.svg"></div>
         <div id="kleur" class="col-15 py-1" title="kleur"><img class="navImg" src="../img/color.svg"></div>
         <div id="maat" class="col-1 navImgWrap py-1 growz" title="maat" @click="toggleSort('size')"><img class="navImg" src="../img/ruler.svg"></div>
-        <div id="status" class="col-05 py-1" title="status"><img class="navImg" src="../img/warning.svg"></div>
+        <div id="status" class="col-05 py-1 navImgWrap growz" title="status" @click="toggleSort('status')"><img class="navImg" src="../img/warning.svg"></div>
         <div id="bakNr" class="col-1 py-1" title="locatie"><img class="navImg" src="../img/stock.svg"></div>
         <div id="user" class="col-15 py-1" title="gebruiker"><img class="navImg" src="../img/login.svg"></div>
         <div id="datum" class="col-15 navImgWrap py-1 growz" title="datum" @click="toggleSort('date')"><img class="navImg" src="../img/clock.svg"></div>
@@ -250,12 +250,6 @@ import LeverancierService from '@/services/LeverancierService';
         }
 
         this.total = filtered.length;
-      /*
-        if (this.selectedSize) {
-          filtered = filtered.filter(s => s.size === this.selectedSize);
-          
-        }
-      */
         return filtered.sort((a, b) => {
           const key = this.sortKey;
 
@@ -270,6 +264,12 @@ import LeverancierService from '@/services/LeverancierService';
             const dateB = parseDate(b.date);
 
             return this.sortAscending ? dateA - dateB : dateB - dateA;
+          }
+
+          if (key === 'status') {
+            const A = Number(a.status) ?? 0;
+            const B = Number(b.status) ?? 0;
+            return this.sortAscending ? A - B : B - A;
           }
 
           // ✅ fallback for numeric fields like id, size
@@ -305,8 +305,6 @@ import LeverancierService from '@/services/LeverancierService';
 </script>
   
 <style scoped>
-
-  
 
   .overlay {
     position: fixed;
@@ -431,6 +429,22 @@ import LeverancierService from '@/services/LeverancierService';
   .small{
     width: 16px;
     height: 16px;
+  }
+
+   @media (min-width: 1600px) { 
+     * {
+       font-size: 30px;
+     }
+     #brandButton{
+       height: 51px !important;
+     }
+     .medz, .navImg{
+       width: 50px !important;
+       height: 50px !important;
+     }
+
+     
+     
   }
 
  .labelBlue{

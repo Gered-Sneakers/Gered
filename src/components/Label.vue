@@ -163,9 +163,9 @@
 
   @media (min-width: 1600px) {
     .rect{
-      width: 120px !important;
-      height: 120px !important;
-      font-size: 22px;
+      width: 150px !important;
+      height: 150px !important;
+      font-size: 25px;
     }
   }
   

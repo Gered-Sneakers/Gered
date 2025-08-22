@@ -593,10 +593,9 @@ import LeverancierService from '@/services/LeverancierService';
     }
     
     #search,#bakNr{
-        width: 100%;
-        max-width: 400px !important;
-        height: 66px;
-        font-size: 50px;
+       width: 50vw;
+       height: 10vh;
+       font-size: 4em;
     }
 
     .smallz{

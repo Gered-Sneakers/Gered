@@ -2,14 +2,14 @@
   <div class="vh-80 m-0 p-0 scroll">
     <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center">
-        <div id="id" class="col borders rounded-top" title="id"  @click="toggleSort('id')"><img src="../img/barcode.svg"></div>
-        <div id="merk" class="col borders" title="merk"><img src="../img/tag.svg"></div>
-        <div id="kleur" class="col borders" title="kleur"><img src="../img/color.svg"></div>
-        <div id="maat" class="col borders" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg"></div>
-        <div id="datum" class="col borders" title="datum"><img src="../img/clock.svg"></div>
-        <div id="prijs" class="col borders" title="prijs"><img src="../img/money.svg"></div>
-        <div id="leverancier" class="col borders" title="leverancier"><img src="../img/delivery.svg"></div>
-        <div id="retour" class="col borders" title="retour"><img src="../img/undo.svg"></div>
+        <div id="id" class="col borders rounded-top" title="id"  @click="toggleSort('id')"><img src="../img/barcode.svg" class="navImg"></div>
+        <div id="merk" class="col borders" title="merk"><img src="../img/tag.svg" class="navImg"></div>
+        <div id="kleur" class="col borders" title="kleur"><img src="../img/color.svg" class="navImg"></div>
+        <div id="maat" class="col borders" title="maat" @click="toggleSort('size')"><img src="../img/ruler.svg" class="navImg"></div>
+        <div id="datum" class="col borders" title="datum"><img src="../img/clock.svg" class="navImg"></div>
+        <div id="prijs" class="col borders" title="prijs"><img src="../img/money.svg" class="navImg"></div>
+        <div id="leverancier" class="col borders" title="leverancier"><img src="../img/delivery.svg" class="navImg"></div>
+        <div id="retour" class="col borders" title="retour"><img src="../img/undo.svg" class="navImg"></div>
       </div>
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center d-none">
         <!-- IMAG ROW -->
@@ -258,6 +258,19 @@ var verkoopList = [];
   .small{
     width: 16px;
     height: 16px;
+  }
+
+   @media (min-width: 1600px) { 
+    * {
+      font-size: 30px;
+    }
+    #brandButton{
+      height: 51px !important;
+    }
+    .medz, .navImg{
+      width: 50px !important;
+      height: 50px !important;
+    }
   }
 
  .labelBlue{
