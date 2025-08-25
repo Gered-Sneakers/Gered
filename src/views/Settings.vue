@@ -3,45 +3,45 @@
       <div class="toggleButton mt-0 pt-0">
         <div class="row m-0 p-0 vh-5"></div>
         <div class="row vh-5 pb-3 w-100 sticky">
-          <div class="col mx-auto">
-            <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+          <div class="col vh-5 mx-auto m-0">
+            <button @click="toggleContent(1)" id="toggleButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Sneakers-->
               <img alt="Sneakers" class="h-100 m-0 p-0 growz justify-content-center" src="../img/stock.svg"/>
             </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(6)" id="kidsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+            <button @click="toggleContent(6)" id="kidsButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Skiddels-->
               <img alt="Kids" class="h-100 m-0 p-0 growz justify-content-center" src="../img/kid.svg"/>
             </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+            <button @click="toggleContent(2)" id="csvButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Shopify-->
               <img alt="Shopify" class="h-100 m-0 p-0 growz justify-content-center whiteIcons" src="../img/shopify.svg"/>
             </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+            <button @click="toggleContent(4)" id="verkoopButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Sales-->
               <img alt="Sales" class="h-100 m-0 p-0 growz justify-content-center" src="../img/sell.svg"/>
             </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(7)" id="stockButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+            <button @click="toggleContent(7)" id="stockButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Stockinfo-->
               <img alt="Stockinfo" class="h-100 m-0 p-0 growz justify-content-center" src="../img/info.svg"/>
             </button>
           </div>
           <div class="col mx-auto">
-            <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto rounded bg-green hover">
+            <button @click="toggleContent(3)" id="settingsButton" class="w-100 h-100 px-2 mx-auto m-0 p-0 rounded bg-green hover valign">
               <!--Settings-->
               <img alt="Settings" class="h-100 m-0 p-0 growz justify-content-center" src="../img/settings.svg"/>
             </button>
           </div>
         </div>
       </div>
-      <div id="main" v-show="activeTab == 3" class="mx-auto mb-5">
+      <div id="main" v-show="activeTab == 3" class="mx-auto mt-2 mb-5">
           <div id="inputFields" class="row text-white">
             <!-- INPUT LEVERANCIER -->
             <div class="col-3 px-2 mb-3 mx-auto">
@@ -1420,6 +1420,23 @@
     @media(max-width: 1200px){
       .subTitle{
         font-size: 25px;
+      }
+/*
+      #toggleButton, #kidsButton , #csvButton, #verkoopButton , #stockButton, #settingsButton{
+        height: 75% !important;
+      } 
+*/      
+      #toggleButton img{
+        height: 100% !important;
+
+      }
+      
+      .vh-5{
+        height: 5vh !important;
+      }
+
+      .vh-5 button{
+        height: 28px !important;
       }
     }
 

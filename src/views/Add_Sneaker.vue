@@ -3,11 +3,11 @@
     <!-- LEVERANCIER -->
     <div class="row h-100 mainTargets bg-blue">
         <div id="navToevoegen" class="row vh-7 valign">
-                <div class="text-danger h-100 valign justify-content-end mt-2 fs-1">
+                <div class="text-danger h-100 valign justify-content-end hover mt-4 fs-1">
                     <span @click="showAnnuleren()" class="text-end hover growz">❌</span>
                 </div>
         </div>
-        <div id="xxxxxxx" class="row mx-3 mx-auto">
+        <div id="xxxxxxx" class="row mx-3">
             <div class="row mw-800 mx-auto valign">
                 <div class="row text-light" v-for="l in leveranciers">
                     <div class="col-4 leverancier border text-center rounded growz pointer mx-auto justify-content-center align-content-center" 
@@ -36,12 +36,12 @@
     <!-- LABELKLEUR -->
     <div class="row h-100 mainTargets d-none bg-blue">
         <div id="navToevoegen" class="row vh-7 valign">
-                <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-2 fs-1">
+                <div @click="showAnnuleren()" class="text-danger h-100 valign justify-content-end hover mt-4 fs-1">
                     <span class="text-end growz">❌</span>
                 </div>
         </div>
         <!-- LABELKLEUR -->
-        <div id="xxxxxxx" class="row mx-3 mx-auto">
+        <div id="xxxxxxx" class="row mx-3">
             <div class="row mw-800 mx-auto valign">
                 <div id="IDLABEL" class="row w-100" @keyup.enter="go()">
                     <div class="row mt-3 mx-auto mw-800">
@@ -63,12 +63,12 @@
         <div class="mx-auto col-4 col-xxl-3 h-100 rounded-top d-flex align-items-center position-relative" v-if="showPreviewz">
             <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
-                    <div class="row m-0 p-0 mt-2 mt-xl-4 mb-2">
+                    <div class="row m-0 p-0 mt-2 mt-xl-4 mb-1 mb-xl-2">
                         <div class="col-12 text-center">
-                            <span class="px-3 py-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
+                            <span class="px-3 py-1 py-xl-2 h3 fw-bold rounded" :class="labelColor">{{ stringId }}</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 border-2 border-bottom border-light pt-1 mb-2">
+                    <div class="row m-0 p-0 border-2 border-bottom border-light pt-1 mb-1 mb-xl-2">
                         <!--
                         <div class="col-12 m-0 p-0 fw-bold text-center">
                             <span class="align-middle text-center">Overzicht</span>
@@ -144,7 +144,7 @@
                         <div class="col-9 text-end" v-if="creator">{{ creator = creator.charAt(0).toUpperCase() + creator.slice(1) }}</div>
                     </div>
                     <hr class="w-90 mx-auto mt-2 mb-1 opacity-25">
-                    <div class="row m-0 p-0 my-xxxl-3 mb-1">
+                    <div class="row m-0 p-0 my-xxxl-3 mb-2">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/clock.svg"></div>
                         <div class="col-9 text-end">{{datum}}</div>
                     </div>
@@ -153,11 +153,13 @@
                 </div>
             </div>
         </div>
-        <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left">
+        <div class="FORM col-8 col-xxl-9 bg-blue rounded-top-left" :class="{ 'w-100': !showPreviewz }">
             <div id="navToevoegen" class="row vh-7 valign me-3">
-                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> <img class="hideArrow grow hover" src="@/img/downarrow.svg"> </div>
-                <div @click="showAnnuleren()" class="w-50 text-danger h-100 valign justify-content-end hover mt-2 fs-1">
-                    <span class="text-end growz">❌</span>
+                <div @click="showPreview()" class="w-50 h-100 valign justify-content-start hover mt-2 fs-1"> 
+                    <img class="hideArrow hover" src="@/img/downarrow.svg"> 
+                </div>
+                <div @click="showAnnuleren()" class="w-50 text-danger h-100 valign justify-content-end hover mt-4 fs-1">
+                    <span class="text-end growz mt-1">❌</span>
                 </div>
             </div>
             <div class="row h-100 valign rounded-top-left">
@@ -203,7 +205,7 @@
                         <!-- MODEL -->
                         <input @keyup.enter="next" id="MODEL" v-model="model" :autocomplete="'off'" type="text" placeholder="MODEL" class="targets rounded border-blue model text-center d-none" maxlength="30">
                         <!-- EXTRA -->
-                        <input @keyup.enter="next" id="EXTRA" v-model="extra" :autocomplete="'off'" type="text" placeholder="EXTRA" class="targets rounded border-blue model text-center d-none" maxlength="25">
+                        <input @keyup.enter="next" id="EXTRA" v-model="extra" :autocomplete="'off'" type="text" placeholder="ART NR" class="targets rounded border-blue model text-center d-none" maxlength="25">
                         <!-- SIZE -->
                         <input @keyup.enter="next" id="SIZE" v-model="size" :autocomplete="'off'" type="number" placeholder="MAAT" class="targets rounded border-blue size text-center d-none" minlength="2" maxlength="2">
                         <!-- COLORS -->
@@ -383,8 +385,9 @@
     var repairs = [];
 
     var leveranciers = ref([]);
-    var brands = [];
-    var labels = [];
+    var brands = ref([]);
+    var labels = ref([]);
+    var werknemers = ref([]);
 
     const enterEvent = new KeyboardEvent('keyup', {
       key: 'Enter',
@@ -403,11 +406,14 @@
     var mainCounter = 0;
     var counter = 0;
 
-    onMounted(()=>{
-        getBrands();
-        getLeveranciers();
-        getLabelColors();
-        getWerknemers();
+    onMounted( async ()=>{
+        await Promise.all([
+            getBrands(),
+            getLeveranciers(),
+            getLabelColors(),
+            getWerknemers(),
+        ])
+        
 
         const user = JSON.parse(sessionStorage.getItem("user"));
         userId = JSON.parse(sessionStorage.getItem("id"));
@@ -421,6 +427,18 @@
         return (id?.value ? String(id.value).padStart(4, '0') : '0000')
     })
 
+    const titleCase = s => String(s ?? '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/(^|\s|-|\/)([a-zA-ZÀ-ÖØ-öø-ÿ])/g, (_, p1, p2) => p1 + p2.toUpperCase())
+
+    const truncate12 = s => {
+      s = String(s ?? '')
+      if (s.length <= 12) return s
+      return s.slice(0, 10).replace(/\s+$/, '') + '..'   // no space before ..
+    }
+
     watch(model, (newVal, oldVal) => {
         model.value = newVal
         .split(' ')
@@ -432,6 +450,18 @@
         extra.value = newVal.toUpperCase()
     })
 
+/*
+    watch(model, (newVal) => {
+      let s = truncate12(titleCase(newVal))
+      if (s !== model.value) model.value = s
+    })
+
+    // EXTRA: Uppercase + truncate
+    watch(extra, (newVal) => {
+      let s = truncate12(String(newVal ?? '').toUpperCase())
+      if (s !== extra.value) extra.value = s
+    })
+*/
     watch(bakNr, (newVal) => {
       if (newVal == null) return
 
@@ -681,7 +711,7 @@
     }
     
     async function saveSneaker(){
-        console.log(creator.value);
+        console.log("CREATOR: " + creator.value);
         console.log("LEVERANCIER: " + leverancier.value)
         if(size.value >= 36) price = 25;
         else price = 20;
@@ -701,8 +731,8 @@
             status: status.value,
             //verkoop: verkoop,
             //csv: csv,
-            //creator: creator.value,
-            creator: userId,
+            creator: creator.value,
+            //creator: userId,
             extra: extra.value,
             //shoeLace: shoelace,
             //updatedBy: creator,
@@ -770,28 +800,58 @@
         return leveranciers.value.find(l => l.id === id)?.name ?? "???";
     }
 
-    function getBrands(){
-        BrandService.getAll()
-        .then( response => { brands = response.data; })
-        .catch( err => { console.log(err)})
+    async function getBrands(){
+        try{
+            const response = await BrandService.getAll();
+            brands.value = response.data;
+            console.log("BRANDS");
+            console.log(brands.value);
+        }
+        catch(err){
+            console.error(err);
+        }
+        //.then( response => { brands = response.data; })
+        //.catch( err => { console.log(err)})
     }
 
-    function getLeveranciers(){
-        LeverancierService.getAll()
-        .then( response =>{ leveranciers.value = response.data; } )
-        .catch( err => {console.log(err);})
+    async function getLeveranciers(){
+        try{
+            const response = await LeverancierService.getAll()
+            leveranciers.value = response.data;
+            console.log("LEVERANCIERS");
+            console.log(leveranciers.value);
+        }
+        catch(err){
+            console.error(err);
+        }
+        //.then( response =>{ leveranciers.value = response.data; } )
+        //.catch( err => {console.log(err);})
     }
 
-    function getLabelColors(){
-        LabelcolorService.getAll()
-        .then(response => { labels = response.data;console.log(labels); })
-        .catch(err => console.log(err));
+    async function getLabelColors(){
+        try{
+            const response = await LabelcolorService.getAll()
+            labels.value = response.data;
+            console.log("LABELS");
+            console.log(labels.value);
+        }
+        catch(err){ console.log(err) }
+        //.then(response => { labels = response.data;console.log(labels); })
+        
     }
 
-    function getWerknemers(){
-        WerknemerService.getAll()
-        .then( response => { werknemers = response.data;console.log(werknemers); })
-        .catch(err => console.log(err));
+    async function getWerknemers(){
+        try{
+            const response = await WerknemerService.getAll();
+            werknemers.value = response.data;
+            console.log("WERKNEMERS");
+            console.log(werknemers.value);
+        }
+        catch(err){
+            console.error(err);
+        }
+        //.then( response => { werknemers = response.data;console.log(werknemers); })
+        //.catch(err => console.log(err));
     }
 
     function showPreview(){        
@@ -841,8 +901,8 @@
     }
 
     .hideArrow{
-        width:50px;
-        height:50px;
+        width: 80px;
+        height:80px;
         transition: transform 0.3s ease;
         transform:rotate(90deg)
     }
@@ -1059,7 +1119,7 @@
   }
 
   .sneakerPreview .row:not(:nth-child(1)):not(:nth-child(2)) {
-    height: 26.39px !important;
+    height: 20px !important;
   }
 
   #navToevoegen div span , .hideArrow{
@@ -1071,75 +1131,86 @@
         margin-left: 25px !important;
     } 
 
-  .sneakerPreview div{
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size: 26px;
+    .sneakerPreview div{
+      padding-left: 30px;
+      padding-right: 30px;
+      font-size: 26px;
+    }
+
+
+    .smallz{
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    .navToevoegen div{
+      width: 50px !important;
+      height: 50px !important;
+    }
+
+    .full .row .col-6 p{
+      height: 30vh;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .full button{
+      font-size: 25px;
+      font-weight: bold;
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+
+    .colorSquare{
+      max-width: 150px;
+      max-height: 150px;
+    }
+
+    .imgSquare{
+      max-width: 300px;
+      max-height: 300px;
+    }
+
+    .mw-800{
+      max-width: 1400px;
+    }
+
+    .my-xxxl-3{
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .brandIcons{
+        transform: scale(2) !important;
+    }
+
+    .leverancier{
+        transform: scale(1.5);
+    }
+
+    .hideArrow{
+      width:80px;
+      height:80px;
+      transition: transform 0.3s ease;
+      transform:rotate(90deg)
+     }
+
+     input[type=checkbox]{
+      width: 50px !important;
+      height: 50px !important;
+    }
+
   }
 
-  .smallz{
-    width: 40px !important;
-    height: 40px !important;
+  @media (max-width: 1200px){
+    .sneakerPreview{
+        
+    }
+
+    .returnButton img, .nextButton img , .addButton img{
+        min-width: 80px;
+        min-height: 80px;
+    }
   }
-
-  .navToevoegen div{
-    width: 50px !important;
-    height: 50px !important;
-  }
-  
-
-  .full .row .col-6 p{
-    height: 30vh;
-    font-size: 25px;
-    font-weight: bold;
-  }
-
-  .full button{
-    font-size: 25px;
-    font-weight: bold;
-    padding-top: 40px !important;
-    padding-bottom: 40px !important;
-  }
-
-  .colorSquare{
-    max-width: 150px;
-    max-height: 150px;
-  }
-
-  .imgSquare{
-    max-width: 300px;
-    max-height: 300px;
-  }
-
-  .mw-800{
-    max-width: 1400px;
-  }
-
-  .my-xxxl-3{
-      margin-top: 1rem !important;
-      margin-bottom: 1rem !important;
-  }
-
-  .brandIcons{
-      transform: scale(2) !important;
-  }
-
-  .leverancier{
-      transform: scale(1.5);
-  }
-
-  .hideArrow{
-    width:80px;
-    height:80px;
-    transition: transform 0.3s ease;
-    transform:rotate(90deg)
-   }
-
-   input[type=checkbox]{
-    width: 50px !important;
-    height: 50px !important;
-  }
-
-}
 
 </style>

@@ -166,7 +166,7 @@
                             <img src="../img/filter.svg" class="w-100 whiteIcons grow">
                         </div>
 
-                        <div id="qrCode" class="col-2 bg-blue m-0 rounded valign align-content-center">
+                        <div id="qrCode" class="col-2 bg-blue m-0 mt-2 rounded valign align-content-center">
                             <img class="vh-15 grow" src="../img/qr.svg">
                             <div id="reader" class="w-100 h-50 d-none"></div>
                         </div>
@@ -183,7 +183,7 @@
                             @click="showSelected"
                             ><br>
                         </div>
-                        <div id="qrCode" class="col-2 bg-blue m-0 mb-1 rounded valign justify-content-center">
+                        <div id="qrCode" class="col-2 bg-blue m-0 mt-2 mb-1 rounded valign justify-content-center">
                             <div id="nextButton" class="nextButton grow pointer boxShadow-blue square valign text-center h-100 p-5">
                                 <img @click="search()" class="vh-15 mx-auto selectDisable" src="../img/next.svg" title="Je kan ook [ENTER] duwen.">
                             </div>
@@ -211,7 +211,7 @@
                 :glue="sneaker.glue"
                 :status="getStatusName(sneaker.status)"
                 :teRepareren="sneaker.teRepareren"
-                :creator="sneaker.creator"
+                :creator="getCreatorName(sneaker.creator)"
                 :verkoop="sneaker.verkoop"
                 :csv="sneaker.csv"
                 :extra="sneaker.extra"
@@ -524,7 +524,12 @@
                     break;
             }
             return name;
-        }
+        },
+        getCreatorName(id){
+            id = parseInt(id);
+            var werknemer = this.werknemers.find(w => w.id === id);
+            return werknemer ? werknemer.name : "??";
+        } 
 
     },
     computed: {
@@ -630,8 +635,8 @@
 
     #filterIcon, #qrCode{
         min-height: 50px;
-        width: 75px;
-        height: 75px;
+        width: 80px !important;
+        height: 80px !important;
     }
 
     #filters{

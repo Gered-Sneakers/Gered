@@ -35,8 +35,8 @@
                 </div>
         </div>
         <div class="targets row w-100 m-0 p-0" v-if="sneaker != null">
-            <div class="col-3 col-xxl-3">
-            <div class="sneakerPreview fw-bold w-100 valign m-0 p-0 d-flex borderzz bg-blue text-light border-light rounded">
+            <div class="col-4 col-xxl-3">
+            <div class="sneakerPreview fw-bold w-100 h-fit-content valign m-0 p-0 borderzz bg-blue text-light border-light rounded">
                 <div class="container position-relative">
                     <div class="row m-0 p-0 mt-4 mb-3">
                         <div class="col-12 text-center">
@@ -48,7 +48,7 @@
                             <span class="align-middle text-center">Overzicht</span>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 pt-2">
+                    <div class="row m-0 p-0 my-2">
                         <div class="col-3 valign"><img class="smallz whiteIcons" src="@/img/tag.svg"></div>
                         <div class="col-9 text-end">{{ sneaker.brand }}{{ " " }}<span v-if="sneaker.model">{{ sneaker.model = sneaker.model.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</span></div>
                     </div>
@@ -107,16 +107,15 @@
                         <div class="col-9 text-end fw-1000" v-else> - </div>
                     </div>
                     <hr class="w-90 mx-auto my-2 opacity-25">
-                    <div class="row m-0 p-0">
+                    <div class="row m-0 p-0 mb-2">
                         <div class="col-4 valign justify-content-start grow"><img class="smallz whiteIcons" src="@/img/delivery.svg" :title="leveranciersList[sneaker.supplier-1].name"></div>
                         <div class="col-4 valign justify-content-center grow"><img class="smallz whiteIcons" src="@/img/login.svg" :title="sneaker.creator"></div>
                         <div class="col-4 valign justify-content-end grow"><img class="smallz whiteIcons" src="@/img/clock.svg" :title="sneaker.date"></div>
                     </div>
-                    <div class="row m-0 p-0 mb-4"></div>
                 </div>
             </div>
             </div>
-            <div class="col-7 col-xxl-7 justify-content-center">
+            <div class="col-6 col-xxl-7 justify-content-center">
             <div id="REPAIR" class="targets rounded row d-flex flex-column h-100 text-start justify-content-center align-items-center">
             <div class="">
                 <div class="row m-0 p-0 mx-auto text-light">
@@ -499,6 +498,13 @@ import LeverancierService from '@/services/LeverancierService';
                 }
             }
             
+        },
+        toTitleCase(s = '') {
+          return s
+            .split(' ')
+            .filter(Boolean)
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(' ');
         }
     },
     watch: {
@@ -540,7 +546,20 @@ import LeverancierService from '@/services/LeverancierService';
               this.baknr = formatted;
             }
         },
-        
+        'sneaker.model'(newVal) {
+          if (typeof newVal !== 'string') return;
+                
+          const titled = this.toTitleCase(newVal).trim().replace(/\s+/g, ' ');
+          const MAX = 11;         // total chars including the dots
+          const ELL = '..';
+                
+          if (titled.length > MAX) {
+            const head = titled.slice(0, MAX - ELL.length).replace(/\s+$/,''); // strip trailing space
+            this.sneaker.model = head + ELL;
+          } else {
+            this.sneaker.model = titled;
+          }
+        }
     },
     computed:{
         stringId(){
@@ -596,6 +615,8 @@ import LeverancierService from '@/services/LeverancierService';
        width: 50vw;
        height: 10vh;
        font-size: 4em;
+       min-height: 80px;
+       max-width: 400px !important
     }
 
     .smallz{
@@ -604,8 +625,29 @@ import LeverancierService from '@/services/LeverancierService';
    }
 
    .sneakerPreview{
-    font-size: 22px;
+        font-size: 18px;
+        height: auto !important;
    }
+
+   @media (max-width: 1200px){
+    input{
+        max-width: 50%;
+        height: 12vh !important;
+    }
+
+    .returnButton img, .nextButton img , .addButton img{
+        min-width: 80px;
+        min-height: 80px;
+    }
+
+    .sneakerPreview .row:not(:nth-child(1)):not(:nth-child(2)) {
+        height: 20px !important;
+    }
+
+    .sneakerPreview img{
+        height: 22px;
+    }
+  }
 
     /* LABEL COLORS */
 

@@ -239,4 +239,11 @@ import { authState } from '@/stores/auth'
           left: 50%;
           transform: translate(-50%,-50%);*/
     }
+
+    @media(max-width: 1200px){
+        input, .btn-big{
+            font-size: 4em;
+            min-height: 80px;
+        }
+    }
 </style>
