@@ -1,6 +1,6 @@
 
 module.exports = { 
-    HOST: "185.220.172.6",
+    HOST: "136.144.179.230",
     USER: "u157428p236054_admin", 
     PASSWORD: "#Sneakers2640!!!", 
     DB: "u157428p236054_g_app", 
