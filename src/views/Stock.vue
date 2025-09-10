@@ -243,6 +243,7 @@ import KleurPreview from '@/components/KleurPreview.vue';
         width: 100%;
         max-width: 400px !important;
         height: 66px;
+        min-height: 80px;
         font-size: 50px;
     }
 

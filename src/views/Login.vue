@@ -81,9 +81,7 @@
     <div class="full m-0 p-0 d-none" id="errorbox" ref="errorbox">
         <div class="row m-0 p-0 w-100 h-100 d-flex align-items-center text-center">
           <div class="col-6 col-xl-4 bg-dark m-0 p-0 text-light mx-auto rounded">
-                <img src="../img/nofear.png">
-              <p class="my-5 mx-3">Weet u uw passwoord niet?!</p>
-              <p class="my-5 mx-3">Ik weet het wel zenne <br> pas maar op want kheb u int oog!</p>
+              <p class="my-5 mx-3">Oe?!</p>
               <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0">
                   <button class="w-100 py-3 bg-green rounded-bottom-left" @click="byeError">JA</button> 

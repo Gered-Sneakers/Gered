@@ -2,12 +2,12 @@
     <div class="m-0 p-0 vh-80 scroll">
       <div class="row m-0 p-0 mx-auto bg-blue text-white text-center rounded-top py-2 sticky">
           <div id="id" class="col-1 borders py-1" @click="toggleSort('id')"><img src="../img/barcode.svg" class="navImg"></div>
-          <div id="merk" class="col-2 borders py-1"><img src="../img/tag.svg" class="navImg"></div>
+          <div id="merk" class="col-3 borders py-1"><img src="../img/tag.svg" class="navImg"></div>
           <div id="maat" class="col-1 borders py-1" @click="toggleSort('size')"><img src="../img/ruler.svg" class="navImg"></div>
-          <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg" class="navImg"></div>
+          <!--<div id="price" class="col-1 borders py-1"><img src="../img/sell.svg" class="navImg"></div>-->
           <div id="price" class="col-1 borders py-1"><img src="../img/sell.svg" class="navImg"></div>
           <div id="img" class="col-2 borders py-1"><img src="../img/img.svg" class="navImg"></div>
-          <div id="retailDate" class="col-2 borders py-1"><img src="../img/clock.svg" class="navImg"></div>
+          <!--<div id="retailDate" class="col-2 borders py-1"><img src="../img/clock.svg" class="navImg"></div>-->
           <div id="publish" class="col-1 borders py-1"><img src="../img/publish.svg" class="navImg"></div>
           <div id="delete" class="col-1 borders py-1"><img src="../img/undo.svg" class="navImg"></div>
 
@@ -109,33 +109,39 @@ import SneakerService from '@/services/SneakerService';
       },
       goDownload(){
         console.log("Broghetti hier uw codetti");
-        console.log(this.csvList);
+        console.log(this.filteredSneakers);
         
-        if(!this.csvList.length) return;
+        if(!this.filteredSneakers.length) return;
 
-        const headers = ["handle","title","vendor","type","option1 name","option1 value","option2 name","option2 value","option3 name","option3 value","variant price","variant inventory qty","variant compare at price","variant barcode","image src","image position","image alt text","published"]
-        const shopifyData = this.csvList.map(i =>({
+        const headers = ["handle","title","vendor","type","status","published","option1 name","option1 value","option2 name","option2 value","variant sku","variant price","variant inventory tracker","variant inventory qty","variant inventory policy","variant barcode"]
+        const shopifyData = this.filteredSneakers.map(i =>{
+
+          const ean13 = this.makeEAN13FromSneaker(i);
+          const title = i.brand + " " + i.model + " " + i.size
+          const handle = i.brand + "-" + i.model + "-" + i.id
+
+          return{
+            handle,
+            title,
+            vendor: i.brand,
+            type: "Sneaker",
+            status: "active",
+            "option1 name":"Model",
+            "option1 value": i.model,
+            "option2 name":"Size",
+            "option2 value":i.size,
+            "variant sku": ean13,
+            "variant price": i.price,
+            "variant inventory tracker": "shopify",
+            "variant inventory qty": 1,
+            "variant inventory policy": "deny",
+            "variant barcode": ean13,
+            published: "TRUE"
+          }
           
-          handle: i.handle,
-          title: i.title,
-          vendor: i.vendor,
-          type: i.type,
-          "option1 name":"Model",
-          "option1 value": i.model,
-          "option2 name":"Size",
-          "option2 value":i.size,
-          "option3 name":"uitgave",
-          "option3 value":i.uitgave,
-          "variant price": (i.retail > 100 && i.retail < 125) ? i.prijs + 5 : i.prijs,
-          "variant inventory qty": i.amount,
-          "variant compare at price": i.retailprice,
-          "variant barcode": i.barcode,
           
-          "image src": i.imgSrc,
-          "image position": i.imgPos || 1,
-          "image alt text": i.imgAlt,
-          published: i.published
-        }))
+        })
+
         console.log("SHOPIFY");
         console.log(shopifyData);
         const csv = [
@@ -156,7 +162,7 @@ import SneakerService from '@/services/SneakerService';
             document.body.removeChild(link);
 
           
-
+        this.$router.push('/shopify')
         
       },
       toggleSort(key) {
@@ -176,8 +182,39 @@ import SneakerService from '@/services/SneakerService';
         .catch(err => {
           console.log(err)
         })
+      },
+      ean13CheckDigit(body12) {
+        const s = String(body12).replace(/\D/g,'');
+        if (s.length !== 12) throw new Error('EAN-13 body moet 12 cijfers hebben');
+        let sum = 0;
+        for (let i = 0; i < 12; i++) sum += (i % 2 === 0) ? +s[i] : 3 * +s[i];
+        return (10 - (sum % 10)) % 10;
+      },
+      makeBody12FromSneaker(s) {
+        const pad = (n,l) => String(n).padStart(l,'0');
+        // 1) Datum: eerst s.date (indien aanwezig), anders createdAt, anders vandaag
+        let ymd = null;
+        if (s.date) {
+          const ds = String(s.date).replace(/\D/g,'');
+          if (ds.length >= 8) ymd = ds.slice(0,8); // YYYYMMDD
+        }
+        if (!ymd && s.createdAt) {
+          const d = new Date(s.createdAt);
+          if (!isNaN(d)) ymd = `${d.getFullYear()}${pad(d.getMonth()+1,2)}${pad(d.getDate(),2)}`;
+        }
+        if (!ymd) {
+          const d = new Date();
+          ymd = `${d.getFullYear()}${pad(d.getMonth()+1,2)}${pad(d.getDate(),2)}`;
+        }
+        // 2) UniqueId: neem laatste 4 cijfers van s.id (of s.uniqueId)
+        const raw = (s.uniqueId ?? s.id ?? 0).toString().replace(/\D/g,'');
+        const uid4 = raw.slice(-4).padStart(4,'0');
+        return ymd + uid4; // 12 cijfers
+      },
+      makeEAN13FromSneaker(s) {
+        const body12 = this.makeBody12FromSneaker(s);
+        return body12 + this.ean13CheckDigit(body12);
       }
-
     },
     inject: ['sneakers'],
     computed: {
@@ -206,7 +243,7 @@ import SneakerService from '@/services/SneakerService';
       },
     },
     mounted () {
-      this.getSneakers();
+      //this.getSneakers();
       
     },
     components:{

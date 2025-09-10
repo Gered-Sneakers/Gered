@@ -110,7 +110,7 @@
             updateTruncateLimit() {
               const width = window.innerWidth;
               if (width >= 1440) {
-                this.truncateLimit = 20;
+                this.truncateLimit = 18;
               } else if (width >= 1000) {
                 this.truncateLimit = 13;
               } else if (width >= 800){

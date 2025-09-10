@@ -39,6 +39,7 @@
         :date="s.date"
         :brand="s.brand"
         :model="s.model"
+        :extra="s.extra"
         :size="s.size"
         :colors="s.colors"
         :supplier="getLeverancierName(s.supplier)"

@@ -4,6 +4,97 @@ const cors = require("cors");
 require("dotenv").config();
 
 const path = require("path");
+const uploadRoutes = require("./src/routes/upload");
+
+let shopifyRoutes = null; // 👈 safe placeholder
+try {
+  shopifyRoutes = require("./src/routes/shopifyRoutes"); // will fail safely if missing
+} catch (e) {
+  console.warn("⚠️  Shopify routes not loaded:", e.message);
+}
+
+const app = express();
+
+// ---- Config ----
+const PORT = process.env.PORT || 8080;
+const PUBLIC_DIR = path.join(__dirname, "public");
+
+// CORS (allow your dev origins)
+const ALLOWED_ORIGINS = [
+  process.env.FRONTEND_ORIGIN,
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:8081",
+  "http://127.0.0.1:8081",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        return cb(null, true); // allow
+      }
+      return cb(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.options("*", cors());
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+// Static
+app.use(express.static(PUBLIC_DIR));
+app.use("/public", express.static(PUBLIC_DIR));
+
+// ---- API routes ----
+app.use("/api", uploadRoutes);
+if (shopifyRoutes) app.use("/api/shopify", shopifyRoutes); // 👈 only mount if loaded
+
+require("./src/routes/auth.routes")(app);
+
+const db = require("./src/models");
+db.sequelize
+  .sync()
+  .then(() => console.log("✅ DB synced"))
+  .catch((e) => console.error("❌ DB sync error:", e));
+
+require("./src/routes/sneaker.routes.js")(app);
+require("./src/routes/leverancier.routes.js")(app);
+require("./src/routes/werknemer.routes.js")(app);
+require("./src/routes/brand.routes.js")(app);
+require("./src/routes/labelcolor.routes.js")(app);
+require("./src/routes/repairs.routes.js")(app);
+
+// Health
+app.get("/api/health", (_req, res) => res.json({ ok: true, port: PORT }));
+
+// Error handler
+app.use((err, req, res, _next) => {
+  console.error("❌ Error:", err.message);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal Server Error",
+    ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
+  });
+});
+
+// Start
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🖼️  Static files: ${PUBLIC_DIR}`);
+});
+
+
+/* 26-08-2025
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+const path = require("path");
 const uploadRoutes = require("./src/routes/upload"); // /api/uploadBrand, etc.
 const app = express();
 
@@ -87,8 +178,7 @@ app.listen(PORT, () => {
   console.log(`🖼️  Static files: ${PUBLIC_DIR}`);
   console.log("    Try: http://localhost:%s/Brands/<your-file>", PORT);
 });
-
-
+*/
 
 /*const express = require("express"); 
 const cors = require("cors");

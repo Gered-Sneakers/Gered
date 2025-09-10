@@ -220,20 +220,20 @@ import SneakerService from '@/services/SneakerService';
 <template>
     <div class="row m-0 p-0 mx-auto text-center flex-nowrap text-dark">
         <div id="id" class="col-1 borders valign text-light" :class="colorlabel">{{ stringId }}</div>
-        <div id="model" class="col-2 borders">{{ brand }} <br> {{ model }}</div>
+        <div id="model" class="col-3 borders">{{ brand }} <br> {{ model }}</div>
         <div id="maat" class="col-1 valign borders"><div class="text-center">{{ size }}</div></div>
-        <div id="price" class="col-1 m-0 p-0 valign borders">
+        <!--<div id="price" class="col-1 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" :value="retailprice" placeholder="original">
-        </div>
+        </div>-->
         <div id="price" class="col-1 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" :value="price" placeholder="price">
         </div>
         <div id="img" class="col-2 m-0 p-0 valign borders">
             <input type="url" class="w-100 h-100 text-center" :title="bakNr" v-model="imgSrc" placeholder="url">
         </div>
-        <div id="retailDate" class="col-2 m-0 p-0 valign borders">
+        <!--<div id="retailDate" class="col-2 m-0 p-0 valign borders">
             <input type="number" class="w-100 h-100 text-center" min="1980" v-model="uitgave" placeholder="yyyy">
-        </div>
+        </div>-->
         <div id="publish" class="col-1 m-0 p-0 valign borders">
           <div @click="toggle();" :class="active" class="w-100 h-100 m-0 p-0 valign">
             <img src="../img/publish.svg" class="medz grow m-0 p-0 pointer">

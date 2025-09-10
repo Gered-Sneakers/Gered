@@ -292,7 +292,7 @@ import Sneaker from './Sneaker.vue';
             },
             creatorName() {
               const list = this.werknemerList || [];
-              const w = list.find(x => String(x.id) == this.creator);
+              const w = list.find(x => String(x.name) == this.creator);
               return w ? w.name : '';
             }
         },
@@ -356,7 +356,7 @@ import Sneaker from './Sneaker.vue';
                     <div class="col-0 col-md-4"></div>
                 </div>
                 <div class="col-3"></div>
-                <div class="col-6 mb-2 text-center text-dark justify-content-center bg-success">
+                <div class="col-6 mb-2 text-center text-dark justify-content-center">
                     <!--<span class="px-3 py-2 h3 fw-bold rounded cardSize" :class="colorlabel">{{ stringId }}</span>-->
                     <input class="px-3 py-2 h3 fw-bold rounded cardSize text-center" :class="_colorlabel" width="160px" height="80px" :value="stringId">
                     <div @click="displayLabelColor = !displayLabelColor" class="d-inline-block rounded grow" :class="_colorlabel">
