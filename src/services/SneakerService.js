@@ -1,4 +1,5 @@
-import http from "../http-common.js";
+//import http from "../http-common.js";
+import http from "@/services/api"
 
 class SneakerService {
   getAll() {
